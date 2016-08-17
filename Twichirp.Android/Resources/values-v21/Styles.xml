@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Copyright (c) 2016 meil
+
+This file is part of Twichirp.
+
+Twichirp is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Twichirp is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorPrimary">@color/ColorPrimary</item>
+    <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+    <item name="colorAccent">@color/ColorAccent</item>
+    <item name="windowActionModeOverlay">true</item>
+    <item name="android:windowContentTransitions">true</item>
+    <item name="android:windowAllowEnterTransitionOverlap">true</item>
+    <item name="android:windowAllowReturnTransitionOverlap">true</item>
+    <item name="android:windowSharedElementEnterTransition">@android:transition/explode</item>
+    <item name="android:windowSharedElementExitTransition">@android:transition/explode</item>
+    <item name="android:statusBarColor">@color/ColorPrimaryDark</item>
+    <item name="android:navigationBarColor">@android:color/transparent</item>
+    <item name="android:windowTranslucentNavigation">true</item>
+    <item name="android:windowTranslucentStatus">true</item>
+  </style>
+  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+  <style name="AppTheme.Setting" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorPrimary">@color/ColorPrimary</item>
+    <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+    <item name="colorAccent">@color/ColorAccent</item>
+    <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+    <item name="windowActionModeOverlay">true</item>
+    <item name="android:statusBarColor">@color/ColorPrimaryDark</item>
+    <item name="android:navigationBarColor">@android:color/transparent</item>
+    <item name="android:windowTranslucentNavigation">true</item>
+    <item name="android:windowTranslucentStatus">true</item>
+  </style>
+</resources>

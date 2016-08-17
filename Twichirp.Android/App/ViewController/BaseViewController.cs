@@ -1,0 +1,58 @@
+// Copyright (c) 2016 meil
+//
+// This file is part of Twichirp.
+// 
+// Twichirp is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// Twichirp is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+// 
+// You should have received a copy of the GNU Lesser General Public License
+// along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
+using Twichirp.Android.App.View;
+using Twichirp.Core.App;
+
+namespace Twichirp.Android.App.ViewController {
+    public class BaseViewController<TView,TViewModel> where TView : IView,ILifeCycle{
+
+        public TView View { get; }
+        public TViewModel ViewModel { get; }
+        public ITwichirpApplication Application => View.TwichirpApplication;
+
+        public BaseViewController(TView view,TViewModel viewModel) {
+            View = view;
+            ViewModel = viewModel;
+            if(viewModel is IDisposable) {
+                view.OnDestoryEventHandler += x => (viewModel as IDisposable).Dispose();
+            }
+        }
+
+    }
+
+    public class BaseViewController<TView> where TView : IView, ILifeCycle {
+
+        public TView View { get; }
+        public ITwichirpApplication Application => View.TwichirpApplication;
+
+        public BaseViewController(TView view) {
+            View = view;
+        }
+
+    }
+}

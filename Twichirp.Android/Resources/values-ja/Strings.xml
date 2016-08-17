@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2016 meil
+
+This file is part of Twichirp.
+
+Twichirp is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Twichirp is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+  <string name="SplashAccountLoading">アカウント情報を読み込み中</string>
+  <string name="SplashConsumerLoading">コンシュマー情報を読み込み中</string>
+  <string name="SplashAccountDownLoading">アカウント情報を取得中</string>
+
+  <string name="LoginLoginButton">ログイン</string>
+  <string name="LoginPinCode">PINコード</string>
+  <string name="LoginAuthenticate">認証</string>
+  <string name="LoginDescription">このアプリを利用するにはTwitterのサイトで認証する必要があります。\n認証後に表示されるPINコードを画面下部に入力してください。</string>
+
+  <string name="MainAddAccount">アカウントを追加</string>
+
+  <string name="Setting">設定</string>
+  <string name="SettingGeneral">一般</string>
+  <string name="SettingApplication">アプリケーション</string>
+  <string name="SettingOther">その他</string>
+  <string name="SettingCleanUp">クリーン起動</string>
+  <string name="SettingCleanUpSummary">オフにすると起動が早くなるかもしれません</string>
+  <string name="SettingUseAccount">使用中アカウント</string>
+  <string name="SettingAccount">アカウント</string>
+  <string name="SettingTimeline">タイムライン</string>
+  <string name="SettingTimelineDownloadCount">取得数</string>
+
+  <string name="License">ライセンス</string>
+
+  <string name="OpenSource">オープンソース</string>
+  <string name="OpenSourceLicense">ライセンス</string>
+  <string name="OpenSourceCopying">Copying</string>
+  <string name="OpenSourceCopyingLesser">Copying.Lesser</string>
+</resources>

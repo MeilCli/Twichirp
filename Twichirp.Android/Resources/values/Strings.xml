@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2016 meil
+
+This file is part of Twichirp.
+
+Twichirp is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Twichirp is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+  <string name="SplashAccountLoading">Loading Account Data...</string>
+  <string name="SplashConsumerLoading">Loading Consumer Data...</string>
+  <string name="SplashAccountDownLoading">DownLoding Account Data...</string>
+
+  <string name="LoginLoginButton">Login</string>
+  <string name="LoginPinCode">PIN Code</string>
+  <string name="LoginAuthenticate">Authenticate</string>
+  <string name="LoginDescription">Must authenticate on Twitter Site to use this application.\nAfter, input PIN Code to below text field.</string>
+
+  <string name="MainAddAccount">Add Account</string>
+
+  <string name="Setting">Setting</string>
+  <string name="SettingGeneral">General</string>
+  <string name="SettingApplication">Application</string>
+  <string name="SettingOther">Other</string>
+  <string name="SettingCleanUp">Clean Launch</string>
+  <string name="SettingCleanUpSummary">if off, will be fast launch</string>
+  <string name="SettingUseAccount">Using Account</string>
+  <string name="SettingAccount">Account</string>
+  <string name="SettingTimeline">Timeline</string>
+  <string name="SettingTimelineDownloadCount">Download Count</string>
+
+  <string name="License">License</string>
+
+  <string name="OpenSource">OpenSource</string>
+  <string name="OpenSourceLicense">License</string>
+  <string name="OpenSourceCopying">Copying</string>
+  <string name="OpenSourceCopyingLesser">Copying.Lesser</string>
+</resources>

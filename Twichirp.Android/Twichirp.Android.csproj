@@ -1,0 +1,470 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E4268645-0264-4125-ABB0-25091B52632C}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Twichirp.Android</RootNamespace>
+    <AssemblyName>Twichirp.Android</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <AndroidApplication>true</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <Debugger>Xamarin</Debugger>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <AndroidSupportedAbis>armeabi,armeabi-v7a,x86,x86_64,arm64-v8a</AndroidSupportedAbis>
+    <Debugger>Xamarin</Debugger>
+    <AotAssemblies>False</AotAssemblies>
+    <EnableLLVM>False</EnableLLVM>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <EnableProguard>False</EnableProguard>
+    <DebugSymbols>False</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CoreTweet, Version=0.7.0.339, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CoreTweet.0.7.0.339\lib\monoandroid\CoreTweet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CoreTweetSupplement, Version=1.6.0.21, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CoreTweetSupplement.1.6.0.21\lib\portable-net45+dnxcore50+win8+wpa81+MonoAndroid+xamarinios+MonoTouch\CoreTweetSupplement.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Plugin.Settings, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.Settings.2.1.0\lib\MonoAndroid10\Plugin.Settings.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Plugin.Settings.Abstractions, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.Settings.2.1.0\lib\MonoAndroid10\Plugin.Settings.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ReactiveProperty, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReactiveProperty.2.9.0\lib\MonoAndroid\ReactiveProperty.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ReactiveProperty.Android, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReactiveProperty.2.9.0\lib\MonoAndroid\ReactiveProperty.Android.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ReactiveProperty.DataAnnotations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReactiveProperty.2.9.0\lib\MonoAndroid\ReactiveProperty.DataAnnotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLite.Net, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLite.Net.Core-PCL.3.1.1\lib\portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1\SQLite.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLite.Net.Async, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLite.Net.Async-PCL.3.1.1\lib\portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1\SQLite.Net.Async.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SQLite.Net.Platform.XamarinAndroid, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLite.Net-PCL.3.1.1\lib\MonoAndroid\SQLite.Net.Platform.XamarinAndroid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Square.OkHttp, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Square.OkHttp.2.4.0.0\lib\MonoAndroid\Square.OkHttp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Square.OkIO, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Square.OkIO.1.5.0.0\lib\MonoAndroid\Square.OkIO.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Square.Picasso, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Square.Picasso.2.5.2.1\lib\MonoAndroid\Square.Picasso.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Xamarin.Android.Support.Animated.Vector.Drawable, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.23.4.0.1\lib\MonoAndroid403\Xamarin.Android.Support.Animated.Vector.Drawable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.Design, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.Design.23.4.0.1\lib\MonoAndroid43\Xamarin.Android.Support.Design.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v14.Preference, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.v14.Preference.23.4.0.1\lib\MonoAndroid41\Xamarin.Android.Support.v14.Preference.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v4, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.v4.23.4.0.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.AppCompat, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.AppCompat.23.4.0.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.CardView, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.CardView.23.4.0.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.CardView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.Palette, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.Palette.23.4.0.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.Palette.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.Preference, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.Preference.23.4.0.1\lib\MonoAndroid41\Xamarin.Android.Support.v7.Preference.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.RecyclerView, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.RecyclerView.23.4.0.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.RecyclerView.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.Vector.Drawable, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.Android.Support.Vector.Drawable.23.4.0.1\lib\MonoAndroid403\Xamarin.Android.Support.Vector.Drawable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App\Extensions\ActivityExtensions.cs" />
+    <Compile Include="App\Extensions\ContextExtensions.cs" />
+    <Compile Include="App\Extensions\UtilExtensions.cs" />
+    <Compile Include="App\Extensions\ViewExtensions.cs" />
+    <Compile Include="App\Manager\DatabaseSystem.cs" />
+    <Compile Include="App\Manager\FileSystem.cs" />
+    <Compile Include="App\Setting\AccountSettingFragment.cs" />
+    <Compile Include="App\Setting\ApplicationSettingFragment.cs" />
+    <Compile Include="App\Setting\MainSettingFragment.cs" />
+    <Compile Include="App\Setting\OpenSourceSettingFragment.cs" />
+    <Compile Include="App\Setting\SettingActivity.cs" />
+    <Compile Include="App\Setting\TimelineSettingFragment.cs" />
+    <Compile Include="App\StringResource.cs" />
+    <Compile Include="App\ViewController\BaseViewController.cs" />
+    <Compile Include="App\ViewController\LoginViewController.cs" />
+    <Compile Include="App\ViewController\MainViewController.cs" />
+    <Compile Include="App\ViewController\SplashViewController.cs" />
+    <Compile Include="App\View\Activity\LicenseActivity.cs" />
+    <Compile Include="App\View\Activity\LoginActivity.cs" />
+    <Compile Include="App\View\Activity\OpenSourceActivity.cs" />
+    <Compile Include="App\View\Activity\SplashActivity.cs" />
+    <Compile Include="App\View\AppCompatAutoCompleteTextView.cs" />
+    <Compile Include="App\View\CircleImageView.cs" />
+    <Compile Include="App\View\Fragment\Dialog\ProgressDialogFragment.cs" />
+    <Compile Include="App\View\Holder\BaseHolder.cs" />
+    <Compile Include="App\View\ILoginView.cs" />
+    <Compile Include="App\View\IMainView.cs" />
+    <Compile Include="App\View\ISplashView.cs" />
+    <Compile Include="App\View\IView.cs" />
+    <Compile Include="App\TwichirpApplication.cs" />
+    <Compile Include="App\View\Activity\BaseActivity.cs" />
+    <Compile Include="App\View\Fragment\BaseFragment.cs" />
+    <Compile Include="App\View\ILifeCycle.cs" />
+    <Compile Include="Constant\AndroidLibraryConstant.cs" />
+    <Compile Include="App\View\Activity\MainActivity.cs" />
+    <Compile Include="App\View\ReactiveCollectionAdapter.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="GettingStarted.Xamarin" />
+    <None Include="packages.config" />
+    <None Include="Resources\AboutResources.txt" />
+    <AndroidResource Include="Resources\layout\Toolbar.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SplashActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\LoginActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\NavigationHeader.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SettingActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\LicenseActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\OpenSourceActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <None Include="Twichirp.Android.licenseheader" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\MainActivity.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Twichirp.Core\Twichirp.Core.csproj">
+      <Project>{7455afa4-f797-49ef-8e63-c26e5f25ae31}</Project>
+      <Name>Twichirp.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Styles.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Colors.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-v21\Styles.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-ja\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Theme.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Dimens.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\IconPersonOutlineGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\IconPersonGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\IconPersonAddGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\IconPersonGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\IconPersonAddGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\IconPersonAddGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\IconPersonGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\IconPersonGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\IconPersonAddGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\IconPersonGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\IconPersonAddGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\IconPersonOutlineGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\IconPersonOutlineGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\IconPersonOutlineGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\IconPersonOutlineGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\IconArrowDropDownGrey24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\IconArrowDropUpGrey24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\IconArrowDropUpGrey24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\IconArrowDropDownGrey24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\IconArrowDropDownGrey24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\IconArrowDropUpGrey24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\IconArrowDropDownGrey24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\IconArrowDropUpGrey24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\IconArrowDropDownGrey24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\IconArrowDropUpGrey24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\IconAndroidGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\IconAndroidGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\IconAndroidGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\IconAndroidGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\IconAndroidGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\IconPersonGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\IconPeopleGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\IconPersonGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\IconPeopleGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\IconPersonGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\IconPeopleGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\IconPeopleGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\IconPersonGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\IconPersonGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\IconPeopleGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\IconSettingsApplicationsGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\IconSettingsApplicationsGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\IconSettingsApplicationsGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\IconSettingsApplicationsGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\IconSettingsApplicationsGrey48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\IconDashboardGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\IconDashboardGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\IconDashboardGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\IconDashboardGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\IconDashboardGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\COPYING.LESSER.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\COPYING.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\LICENSE.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.4.0.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.4.0.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.4.0.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Android.Support.Vector.Drawable.23.4.0.1\build\Xamarin.Android.Support.Vector.Drawable.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+     Other similar extension points exist, see Microsoft.Common.targets.
+		<Target Name="BeforeBuild">
+		</Target>
+		<Target Name="AfterBuild">
+		</Target>
+ -->
+</Project>
