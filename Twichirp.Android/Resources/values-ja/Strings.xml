@@ -46,4 +46,5 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
   <string name="OpenSourceLicense">ライセンス</string>
   <string name="OpenSourceCopying">Copying</string>
   <string name="OpenSourceCopyingLesser">Copying.Lesser</string>
+  <string name="OpenSourceCode">ソースコード</string>
 </resources>

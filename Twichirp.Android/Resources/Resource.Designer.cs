@@ -2831,6 +2831,9 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f08002e
 			public const int OpenSource = 2131230766;
 			
+			// aapt resource value: 0x7f080032
+			public const int OpenSourceCode = 2131230770;
+			
 			// aapt resource value: 0x7f080030
 			public const int OpenSourceCopying = 2131230768;
 			
