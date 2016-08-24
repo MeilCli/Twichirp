@@ -64,7 +64,7 @@ namespace Twichirp.Android.App {
             StringResource = new StringResource();
         }
 
-        //ãCãxÇﬂ
+        //Ê∞ó‰ºë„ÇÅ
         ~TwichirpApplication() {
             DatabaseManager.Dispose();
         }
