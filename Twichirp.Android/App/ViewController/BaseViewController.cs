@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Text;
 
 using Android.App;
@@ -29,11 +30,12 @@ using Twichirp.Android.App.View;
 using Twichirp.Core.App;
 
 namespace Twichirp.Android.App.ViewController {
-    public class BaseViewController<TView,TViewModel> where TView : IView,ILifeCycle{
+    public class BaseViewController<TView,TViewModel>:IDisposable where TView : IView,ILifeCycle {
 
         public TView View { get; }
         public TViewModel ViewModel { get; }
         public ITwichirpApplication Application => View.TwichirpApplication;
+        internal CompositeDisposable Disposable { get; } = new CompositeDisposable();
 
         public BaseViewController(TView view,TViewModel viewModel) {
             View = view;
@@ -43,16 +45,23 @@ namespace Twichirp.Android.App.ViewController {
             }
         }
 
+        public void Dispose() {
+            Disposable.Dispose();
+        }
     }
 
-    public class BaseViewController<TView> where TView : IView, ILifeCycle {
+    public class BaseViewController<TView>:IDisposable where TView : IView, ILifeCycle {
 
         public TView View { get; }
         public ITwichirpApplication Application => View.TwichirpApplication;
+        internal CompositeDisposable Disposable { get; } = new CompositeDisposable();
 
         public BaseViewController(TView view) {
             View = view;
         }
 
+        public void Dispose() {
+            Disposable.Dispose();
+        }
     }
 }

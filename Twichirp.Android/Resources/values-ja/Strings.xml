@@ -47,4 +47,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
   <string name="OpenSourceCopying">Copying</string>
   <string name="OpenSourceCopyingLesser">Copying.Lesser</string>
   <string name="OpenSourceCode">ソースコード</string>
+
+  <string name="Loading">読み込み中</string>
+  <string name="LoadingLoad">読み込む</string>
 </resources>

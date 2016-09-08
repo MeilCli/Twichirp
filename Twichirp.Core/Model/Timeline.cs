@@ -24,19 +24,23 @@ using System.Threading.Tasks;
 namespace Twichirp.Core.Model {
     public class Timeline<TResult> {
 
-        private Func<int,long?,Task<TResult>> load;
+        public const int Home = 1;
 
-        public Timeline(Func<int,long?,Task<TResult>> load) {
+        private Func<int,long?,long?,Task<TResult>> load;
+        public readonly int type;
+
+        public Timeline(Func<int,long?,long?,Task<TResult>> load,int type) {
             this.load = load;
+            this.type = type;
         }
 
-        public async Task<TResult> Load(int count,long? sinceId = null) => await load(count,sinceId);
+        public async Task<TResult> Load(int count,long? sinceId = null,long? maxId = null) => await load(count,sinceId,maxId);
 
         public static Timeline<IEnumerable<Status>> HomeTimeline(Account account) {
-            Func<int,long?,Task<IEnumerable<Status>>> load = async (x,y) => {
-                return await account.Token.Statuses.HomeTimelineAsync(count: x,since_id: y,include_entities: true,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+            Func<int,long?,long?,Task<IEnumerable<Status>>> load = async (x,y,z) => {
+                return await account.Token.Statuses.HomeTimelineAsync(count: x,since_id: y,max_id: z,include_entities: true,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
             };
-            return new Timeline<IEnumerable<Status>>(load);
+            return new Timeline<IEnumerable<Status>>(load,Home);
         }
     }
 }

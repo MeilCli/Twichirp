@@ -62,8 +62,10 @@
     <Compile Include="App\Setting\BaseSetting.cs" />
     <Compile Include="App\Setting\TimelineSetting.cs" />
     <Compile Include="App\ViewModel\BaseViewModel.cs" />
+    <Compile Include="App\ViewModel\LoadingViewModel.cs" />
     <Compile Include="App\ViewModel\LoginViewModel.cs" />
     <Compile Include="App\ViewModel\SplashViewModel.cs" />
+    <Compile Include="App\ViewModel\StatusTimelineViewModel.cs" />
     <Compile Include="App\ViewModel\StatusViewModel.cs" />
     <Compile Include="Constant\ConsumerConstant.cs" />
     <Compile Include="Constant\LibraryConstant.cs" />

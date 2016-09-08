@@ -36,7 +36,7 @@ namespace Twichirp.Android.App.View {
         private IList<T> list;
         private Func<T,int,int> viewTypeSelector;
         private Func<ViewGroup,int,RecyclerView.ViewHolder> viewCreator;
-        public ReactiveCommand LastItemVisibleCommand { get; set; }
+        public ReactiveCommand LastItemVisibleCommand { get; } = new ReactiveCommand();
 
         public ReactiveCollectionAdapter(
             INotifyCollectionChanged list,
@@ -64,7 +64,7 @@ namespace Twichirp.Android.App.View {
                 (holder as IBindable<T>).OnBind(list[position],position);
             }
             if(position == list.Count - 1) {
-                LastItemVisibleCommand?.Execute();
+                LastItemVisibleCommand.Execute();
             }
         }
 
@@ -97,6 +97,7 @@ namespace Twichirp.Android.App.View {
     public interface IBindable<T> {
         void OnBind(T item,int position);
     }
+
     public static class RecyclerAdapterExtensions {
 
         public static ReactiveCollectionAdapter<T> ToAdapter<T>(

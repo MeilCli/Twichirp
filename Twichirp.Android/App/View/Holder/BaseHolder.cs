@@ -30,7 +30,7 @@ using Twichirp.Core.App;
 using Android.Support.V7.Widget;
 
 namespace Twichirp.Android.App.View.Holder {
-    abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView,ILifeCycle,IBindable<T> {
+    public abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView,ILifeCycle,IBindable<T> {
 
         public event LifeCycleEvent OnCreateEventHandler;
         public event LifeCycleEvent OnDestoryEventHandler;

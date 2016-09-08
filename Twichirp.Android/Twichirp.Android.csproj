@@ -182,6 +182,7 @@
   <ItemGroup>
     <Compile Include="App\Extensions\ActivityExtensions.cs" />
     <Compile Include="App\Extensions\ContextExtensions.cs" />
+    <Compile Include="App\Extensions\StatusExtensions.cs" />
     <Compile Include="App\Extensions\UtilExtensions.cs" />
     <Compile Include="App\Extensions\ViewExtensions.cs" />
     <Compile Include="App\Manager\DatabaseSystem.cs" />
@@ -194,9 +195,12 @@
     <Compile Include="App\Setting\TimelineSettingFragment.cs" />
     <Compile Include="App\StringResource.cs" />
     <Compile Include="App\ViewController\BaseViewController.cs" />
+    <Compile Include="App\ViewController\LoadingViewController.cs" />
     <Compile Include="App\ViewController\LoginViewController.cs" />
     <Compile Include="App\ViewController\MainViewController.cs" />
     <Compile Include="App\ViewController\SplashViewController.cs" />
+    <Compile Include="App\ViewController\StatusTimelineViewController.cs" />
+    <Compile Include="App\ViewController\StatusViewController.cs" />
     <Compile Include="App\View\Activity\LicenseActivity.cs" />
     <Compile Include="App\View\Activity\LoginActivity.cs" />
     <Compile Include="App\View\Activity\OpenSourceActivity.cs" />
@@ -204,10 +208,16 @@
     <Compile Include="App\View\AppCompatAutoCompleteTextView.cs" />
     <Compile Include="App\View\CircleImageView.cs" />
     <Compile Include="App\View\Fragment\Dialog\ProgressDialogFragment.cs" />
+    <Compile Include="App\View\Fragment\StatusTimelineFragment.cs" />
     <Compile Include="App\View\Holder\BaseHolder.cs" />
+    <Compile Include="App\View\Holder\LoadingHolder.cs" />
+    <Compile Include="App\View\Holder\StatusHolder.cs" />
+    <Compile Include="App\View\ILoadingView.cs" />
     <Compile Include="App\View\ILoginView.cs" />
     <Compile Include="App\View\IMainView.cs" />
     <Compile Include="App\View\ISplashView.cs" />
+    <Compile Include="App\View\IStatusTimelineView.cs" />
+    <Compile Include="App\View\IStatusView.cs" />
     <Compile Include="App\View\IView.cs" />
     <Compile Include="App\TwichirpApplication.cs" />
     <Compile Include="App\View\Activity\BaseActivity.cs" />
@@ -243,6 +253,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\OpenSourceActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\LoadingHolder.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\StatusHolder.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\StatusTimelineFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Twichirp.Android.licenseheader" />

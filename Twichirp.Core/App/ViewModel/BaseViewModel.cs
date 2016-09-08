@@ -31,7 +31,7 @@ namespace Twichirp.Core.App.ViewModel {
             Application = application;
         }
 
-        public void Dispose() {
+        public virtual void Dispose() {
             Disposable.Dispose();
         }
     }

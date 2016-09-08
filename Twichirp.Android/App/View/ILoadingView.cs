@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2016 meil
+// Copyright (c) 2016 meil
 //
 // This file is part of Twichirp.
 // 
@@ -16,24 +16,24 @@
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Twichirp.Core.App.Model {
-    public class BaseModel : INotifyPropertyChanged {
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
+using AView = Android.Views.View;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+namespace Twichirp.Android.App.View {
+    public interface ILoadingView :IView,ILifeCycle {
 
-        protected ITwichirpApplication Application { get; }
+        ProgressBar ProgressBar { get; }
 
-        public BaseModel(ITwichirpApplication application) {
-            Application = application;
-        }
+        TextView LoadingText { get; }
 
-        protected void RaisePropertyChanged(string name) {
-            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(name));
-        }
+        AView ClickableView { get; }
     }
 }

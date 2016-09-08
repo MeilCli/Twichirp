@@ -26,7 +26,7 @@ using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.Model;
 
 namespace Twichirp.Core.App.Model {
-    class StatusTimelineModel : BaseModel {
+    public class StatusTimelineModel : BaseModel {
 
         private SemaphoreSlim slim = new SemaphoreSlim(1,1);
         public ReactiveCollection<BaseViewModel> Timeline { get; } = new ReactiveCollection<BaseViewModel>();
@@ -59,19 +59,21 @@ namespace Twichirp.Core.App.Model {
             this.timelineResource = timelineResource;
         }
 
-        public async void Load(Timeline<IEnumerable<Status>> timelineResource = null) {
+        public async void Load(Timeline<IEnumerable<Status>> timelineResource=null) {
+            timelineResource = timelineResource ?? this.timelineResource;
             if(IsLoading) {
                 return;
             }
+            await slim.WaitAsync();
             IsLoading = true;
             ErrorMessage = null;
-            await slim.WaitAsync();
             try {
-                int count = 20;
+                int count = Application.SettingManager.Timeline.Count;
                 if(_timeline.Count >= 1) {
-                    IEnumerable<Status> response = await timelineResource.Load(count,_timeline[0].Id.Value);
+                    IEnumerable<Status> response = await timelineResource.Load(count,sinceId: _timeline[0].Id.Value);
                     if(response.Count() == count) {
-
+                        var loadingViewModel = new LoadingViewModel(Application);
+                        Timeline.InsertOnScheduler(0,loadingViewModel);
                     }
                     foreach(var s in response.Select(x=>new StatusViewModel(Application,x)).Reverse()) {
                         _timeline.Insert(0,s);
@@ -82,9 +84,92 @@ namespace Twichirp.Core.App.Model {
                         _timeline.Insert(0,s);
                         Timeline.InsertOnScheduler(0,s);
                     }
-                }
+                }              
+            } catch(Exception e) {
+                ErrorMessage = e.Message;
+            } finally {
+                slim.Release();
+            }
+            IsLoading = false;
+        }
 
-                
+        public async void Load(LoadingViewModel target,Timeline<IEnumerable<Status>> timelineResource=null) {
+            timelineResource = timelineResource ?? this.timelineResource;
+            if(IsLoading) {
+                return;
+            }
+            if(target.IsLoaing.Value) {
+                return;
+            }
+            await slim.WaitAsync();
+            IsLoading = true;
+            target.IsLoaing.Value = true;
+            ErrorMessage = null;
+            try {
+                int count = Application.SettingManager.Timeline.Count;
+                int targetIndex = Timeline.IndexOf(target);
+                StatusViewModel previousStatus =null;
+                StatusViewModel nextStatus = null;
+               
+                if(targetIndex != -1 && Timeline.Count>=3&&0 < targetIndex && targetIndex < Timeline.Count-1) {
+                    previousStatus = Timeline[targetIndex - 1] as StatusViewModel;
+                    nextStatus = Timeline[targetIndex + 1] as StatusViewModel;
+                }else if(targetIndex==0&&Timeline.Count>=2) {
+                    nextStatus = Timeline[targetIndex + 1] as StatusViewModel;
+                }else if(targetIndex == Timeline.Count - 1&&Timeline.Count>=2) {
+                    previousStatus = Timeline[targetIndex - 1] as StatusViewModel;
+                }else {
+                }
+                if(previousStatus != null && nextStatus != null) {
+                    IEnumerable<Status> response = await timelineResource.Load(count,sinceId: nextStatus.Id.Value,maxId: previousStatus.Id.Value-1);
+                    if(response.Count() < count) {
+                        Timeline.RemoveOnScheduler(target);
+                    }
+                    int _index = _timeline.IndexOf(previousStatus) + 1;
+                    int index = Timeline.IndexOf(previousStatus) + 1;
+                    foreach(var s in response.Select(x => new StatusViewModel(Application,x)).Reverse()) {
+                        _timeline.Insert(_index,s);
+                        Timeline.InsertOnScheduler(index,s);
+                    }
+                }else if(previousStatus != null) {
+                    IEnumerable<Status> response = await timelineResource.Load(count,maxId: previousStatus.Id.Value - 1);
+                    Timeline.RemoveOnScheduler(target);
+                    foreach(var s in response.Select(x => new StatusViewModel(Application,x))) {
+                        _timeline.Add(s);
+                        Timeline.AddOnScheduler(s);
+                    }
+                }else if(nextStatus != null) {
+                    IEnumerable<Status> response = await timelineResource.Load(count,sinceId: nextStatus.Id.Value);
+                    Timeline.RemoveOnScheduler(target);
+                    foreach(var s in response.Select(x => new StatusViewModel(Application,x)).Reverse()) {
+                        _timeline.Insert(0,s);
+                        Timeline.InsertOnScheduler(0,s);
+                    }
+                }
+            } catch(Exception e) {
+                ErrorMessage = e.Message;
+            } finally {
+                slim.Release();
+            }
+            IsLoading = false;
+            target.IsLoaing.Value = false;
+        }
+
+        public async void LoadMore(Timeline<IEnumerable<Status>> timelineResource=null) {
+            timelineResource = timelineResource ?? this.timelineResource;
+            if(IsLoading) {
+                return;
+            }
+            await slim.WaitAsync();
+            IsLoading = true;
+            ErrorMessage = null;
+            try {
+                int count = Application.SettingManager.Timeline.Count;
+                IEnumerable<Status> response = await timelineResource.Load(count,maxId:_timeline[_timeline.Count-1].Id.Value-1);
+                foreach(var s in response.Select(x => new StatusViewModel(Application,x))) {
+                    _timeline.Add(s);
+                    Timeline.AddOnScheduler(s);
+                }
             } catch(Exception e) {
                 ErrorMessage = e.Message;
             } finally {

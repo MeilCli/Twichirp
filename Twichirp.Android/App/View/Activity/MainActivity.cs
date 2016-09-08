@@ -26,6 +26,7 @@ using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Twichirp.Android.App.ViewController;
 using Twichirp.Android.App.Extensions;
+using Twichirp.Android.App.View.Fragment;
 
 namespace Twichirp.Android.App.View.Activity{
 
@@ -68,6 +69,8 @@ namespace Twichirp.Android.App.View.Activity{
             ScreenName = headerView.FindViewById<TextView>(Resource.Id.ScreenName);
             Drop = headerView.FindViewById<ImageView>(Resource.Id.Drop);
             Background = headerView.FindViewById<ImageView>(Resource.Id.Background);
+
+            SupportFragmentManager.BeginTransaction().Replace(Resource.Id.Content,new StatusTimelineFragment()).Commit();
         }
     }
 }

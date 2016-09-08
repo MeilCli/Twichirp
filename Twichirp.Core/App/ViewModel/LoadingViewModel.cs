@@ -14,33 +14,25 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using CoreTweet;
 using Reactive.Bindings;
-using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Twichirp.Core.App.Model;
 
 namespace Twichirp.Core.App.ViewModel {
-    public class StatusViewModel : BaseViewModel {
+    public class LoadingViewModel : BaseViewModel {
 
-        public const int NormalTweet = 1;
+        public ReactiveProperty<bool> IsLoaing { get; } = new ReactiveProperty<bool>();
+        public ReactiveCommand LoadCommand { get; } = new ReactiveCommand();
 
-        private StatusModel statusModel;
-        public ReadOnlyReactiveProperty<long> Id { get; private set; }
-        public ReadOnlyReactiveProperty<IEnumerable<TextPart>> Text { get; private set; }
-
-        public StatusViewModel(ITwichirpApplication application,Status status) : base(application) {
-            statusModel = new StatusModel(Application,status);
-            Id = statusModel.ObserveProperty(x => x.Id).ToReadOnlyReactiveProperty().AddTo(Disposable);
-            Text = statusModel.ObserveProperty(x => x.Text).ToReadOnlyReactiveProperty().AddTo(Disposable);
+        public LoadingViewModel(ITwichirpApplication application) : base(application) {
         }
 
-        public int ToStatusType() {
-            return NormalTweet;
+        public override void Dispose() {
+            base.Dispose();
+            LoadCommand.Dispose();
         }
     }
 }
