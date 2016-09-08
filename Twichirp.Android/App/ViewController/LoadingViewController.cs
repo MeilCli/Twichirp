@@ -38,7 +38,7 @@ namespace Twichirp.Android.App.ViewController {
             view.OnCreateEventHandler += onCreate;
         }
 
-        private void onCreate(LifeCycleEventArgs e) {
+        private void onCreate(object sender,LifeCycleEventArgs e) {
             var loadingText = ViewModel.IsLoaing
                 .Select(x => x == true ? Resource.String.Loading : Resource.String.LoadingLoad)
                 .Select(x => View.ApplicationContext.GetString(x))

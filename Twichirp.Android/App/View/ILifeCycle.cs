@@ -28,9 +28,7 @@ using Android.Widget;
 
 namespace Twichirp.Android.App.View {
 
-    public delegate void LifeCycleEvent(LifeCycleEventArgs args);
-
-    public class LifeCycleEventArgs {
+    public class LifeCycleEventArgs :EventArgs{
 
         public string EventName { get; }
 
@@ -46,18 +44,18 @@ namespace Twichirp.Android.App.View {
 
     public interface ILifeCycle {
 
-        event LifeCycleEvent OnCreateEventHandler;
+        event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
 
-        event LifeCycleEvent OnDestoryEventHandler;
+        event EventHandler<LifeCycleEventArgs> OnDestoryEventHandler;
 
-        event LifeCycleEvent OnResumeEventHandler;
+        event EventHandler<LifeCycleEventArgs> OnResumeEventHandler;
 
-        event LifeCycleEvent OnPauseEventHandler;
+        event EventHandler<LifeCycleEventArgs> OnPauseEventHandler;
 
-        event LifeCycleEvent OnSaveInstanceStateEventHandler;
+        event EventHandler<LifeCycleEventArgs> OnSaveInstanceStateEventHandler;
 
-        event LifeCycleEvent OnRestoreInstanceStateEventHandler;
+        event EventHandler<LifeCycleEventArgs> OnRestoreInstanceStateEventHandler;
 
-        event LifeCycleEvent OnNewIntentEventHandler;
+        event EventHandler<LifeCycleEventArgs> OnNewIntentEventHandler;
     }
 }

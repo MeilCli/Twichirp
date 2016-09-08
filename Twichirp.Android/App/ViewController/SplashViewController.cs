@@ -46,7 +46,7 @@ namespace Twichirp.Android.App.ViewController {
             });
         }
 
-        private void onCreate(LifeCycleEventArgs e) {
+        private void onCreate(object sender,LifeCycleEventArgs e) {
             View.Message.SetBinding(x => x.Text,ViewModel.Message);
             ViewModel.ApplicationInitCommand.Execute();
         }

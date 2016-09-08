@@ -54,7 +54,7 @@ namespace Twichirp.Android.App.ViewController {
             settingText = view.ApplicationContext.GetString(Resource.String.Setting);
         }
 
-        private void onCreate(LifeCycleEventArgs args) {
+        private void onCreate(object sender,LifeCycleEventArgs args) {
             View.Navigation.NavigationItemSelected += selectItem;
             View.Subtitle.Click += (s,e)=> {
                 isShowAccounts = isShowAccounts == false;
@@ -62,7 +62,7 @@ namespace Twichirp.Android.App.ViewController {
             };
         }
 
-        private void onResume(LifeCycleEventArgs args) {
+        private void onResume(object sender,LifeCycleEventArgs args) {
             resetMenu();
         }
 

@@ -48,7 +48,7 @@ namespace Twichirp.Android.App.ViewController {
             view.OnDestoryEventHandler += onDestroy;
         }
 
-        private void onCreate(LifeCycleEventArgs e) {
+        private void onCreate(object sender,LifeCycleEventArgs e) {
             adapter = ViewModel.Timeline.ToAdapter(adapterViewSelect,adapterViewCreate);
             adapter.LastItemVisibleCommand.Subscribe(x => ViewModel.LoadMoreComannd.Execute()).AddTo(Disposable);
             View.RecyclerView.SetLayoutManager(new LinearLayoutManager(View.RecyclerView.Context));
@@ -57,7 +57,7 @@ namespace Twichirp.Android.App.ViewController {
             View.SwipeRefrech.Refresh += onRefresh;
         }
 
-        private void onDestroy(LifeCycleEventArgs e) {
+        private void onDestroy(object sender,LifeCycleEventArgs e) {
             adapter.Dispose();
         }
 

@@ -33,13 +33,13 @@ using SFragment = Android.Support.V4.App.Fragment;
 namespace Twichirp.Android.App.View.Fragment {
     public abstract class BaseFragment : SFragment ,ILifeCycle,IView{
         
-        public event LifeCycleEvent OnCreateEventHandler;
-        public event LifeCycleEvent OnDestoryEventHandler;
-        public event LifeCycleEvent OnPauseEventHandler;
-        public event LifeCycleEvent OnRestoreInstanceStateEventHandler;
-        public event LifeCycleEvent OnResumeEventHandler;
-        public event LifeCycleEvent OnSaveInstanceStateEventHandler;
-        public event LifeCycleEvent OnNewIntentEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnDestoryEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnPauseEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnRestoreInstanceStateEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnResumeEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnSaveInstanceStateEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnNewIntentEventHandler;
 
         public Context ApplicationContext => Context.ApplicationContext;
 
@@ -60,34 +60,34 @@ namespace Twichirp.Android.App.View.Fragment {
 
         public override void OnActivityCreated(Bundle savedInstanceState) {
             base.OnActivityCreated(savedInstanceState);
-            OnCreateEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnActivityCreated),savedInstanceState));
+            OnCreateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnActivityCreated),savedInstanceState));
             if(savedInstanceState != null) {
-                OnRestoreInstanceStateEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnActivityCreated),savedInstanceState));
+                OnRestoreInstanceStateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnActivityCreated),savedInstanceState));
             }
         }
 
         public override void OnDestroy() {
             base.OnDestroy();
-            OnDestoryEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnDestroy)));
+            OnDestoryEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnDestroy)));
         }
 
         public override void OnResume() {
             base.OnResume();
-            OnResumeEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnResume)));
+            OnResumeEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnResume)));
         }
 
         public override void OnPause() {
             base.OnPause();
-            OnPauseEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnPause)));
+            OnPauseEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnPause)));
         }
 
         public override void OnSaveInstanceState(Bundle outState) {
             base.OnSaveInstanceState(outState);
-            OnSaveInstanceStateEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnSaveInstanceState),outState));
+            OnSaveInstanceStateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnSaveInstanceState),outState));
         }
 
         public void OnNewIntent(Intent intent) {
-            OnNewIntentEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnNewIntent),intent: intent));
+            OnNewIntentEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnNewIntent),intent: intent));
         }
 
     }

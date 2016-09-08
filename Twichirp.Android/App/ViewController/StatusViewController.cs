@@ -39,7 +39,7 @@ namespace Twichirp.Android.App.ViewController {
             view.OnCreateEventHandler += onCreate;
         }
 
-        private void onCreate(LifeCycleEventArgs e) {
+        private void onCreate(object sender,LifeCycleEventArgs e) {
             var text = ViewModel.Text
                 .Select(x => x.ToText())
                 .ToReadOnlyReactiveProperty()

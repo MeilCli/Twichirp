@@ -34,13 +34,13 @@ namespace Twichirp.Android.App.View.Activity {
 
     public abstract class BaseActivity : AppCompatActivity ,ILifeCycle,IView{ 
 
-        public event LifeCycleEvent OnCreateEventHandler;
-        public event LifeCycleEvent OnDestoryEventHandler;
-        public event LifeCycleEvent OnPauseEventHandler;
-        public event LifeCycleEvent OnRestoreInstanceStateEventHandler;
-        public event LifeCycleEvent OnResumeEventHandler;
-        public event LifeCycleEvent OnSaveInstanceStateEventHandler;
-        public event LifeCycleEvent OnNewIntentEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnDestoryEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnPauseEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnRestoreInstanceStateEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnResumeEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnSaveInstanceStateEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnNewIntentEventHandler;
 
         public ITwichirpApplication TwichirpApplication => this.Application as ITwichirpApplication;
 
@@ -49,9 +49,9 @@ namespace Twichirp.Android.App.View.Activity {
         protected override void OnCreate(Bundle savedInstanceState) {
             base.OnCreate(savedInstanceState);
             OnViewCreate(savedInstanceState);
-            OnCreateEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnCreate),savedInstanceState));
+            OnCreateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnCreate),savedInstanceState));
             if(savedInstanceState != null) {
-                OnRestoreInstanceStateEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnCreate),savedInstanceState));
+                OnRestoreInstanceStateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnCreate),savedInstanceState));
             }
         }
 
@@ -59,27 +59,27 @@ namespace Twichirp.Android.App.View.Activity {
 
         protected override void OnDestroy() {
             base.OnDestroy();
-            OnDestoryEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnDestroy)));
+            OnDestoryEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnDestroy)));
         }
 
         protected override void OnResume() {
             base.OnResume();
-            OnResumeEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnResume)));
+            OnResumeEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnResume)));
         }
 
         protected override void OnPause() {
             base.OnPause();
-            OnPauseEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnPause)));
+            OnPauseEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnPause)));
         }
 
         protected override void OnSaveInstanceState(Bundle outState) {
             base.OnSaveInstanceState(outState);
-            OnSaveInstanceStateEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnSaveInstanceState),outState));
+            OnSaveInstanceStateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnSaveInstanceState),outState));
         }
 
         protected override void OnNewIntent(Intent intent) {
             base.OnNewIntent(intent);
-            OnNewIntentEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnNewIntent),intent: intent));
+            OnNewIntentEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnNewIntent),intent: intent));
             if(SupportFragmentManager.Fragments == null) {
                 return;
             }

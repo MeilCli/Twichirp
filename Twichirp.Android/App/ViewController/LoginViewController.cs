@@ -64,7 +64,7 @@ namespace Twichirp.Android.App.ViewController {
             });
         }
 
-        private void onCreate(LifeCycleEventArgs e) {
+        private void onCreate(object sender,LifeCycleEventArgs e) {
             View.GoToWeb.ClickAsObservable().SetCommand(ViewModel.AuthorizeCommand);
             View.Login.ClickAsObservable().SetCommand(ViewModel.LoginCommand);
             View.Pin.SetBinding(x => x.Text,ViewModel.Pin,x=>x.TextChangedAsObservable().ToUnit());

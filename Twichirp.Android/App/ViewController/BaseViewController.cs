@@ -41,7 +41,7 @@ namespace Twichirp.Android.App.ViewController {
             View = view;
             ViewModel = viewModel;
             if(viewModel is IDisposable) {
-                view.OnDestoryEventHandler += x => (viewModel as IDisposable).Dispose();
+                view.OnDestoryEventHandler += (x,y) => (viewModel as IDisposable).Dispose();
             }
         }
 

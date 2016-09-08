@@ -32,13 +32,13 @@ using Android.Support.V7.Widget;
 namespace Twichirp.Android.App.View.Holder {
     public abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView,ILifeCycle,IBindable<T> {
 
-        public event LifeCycleEvent OnCreateEventHandler;
-        public event LifeCycleEvent OnDestoryEventHandler;
-        public event LifeCycleEvent OnResumeEventHandler;
-        public event LifeCycleEvent OnPauseEventHandler;
-        public event LifeCycleEvent OnSaveInstanceStateEventHandler;
-        public event LifeCycleEvent OnRestoreInstanceStateEventHandler;
-        public event LifeCycleEvent OnNewIntentEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnDestoryEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnResumeEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnPauseEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnSaveInstanceStateEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnRestoreInstanceStateEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnNewIntentEventHandler;
 
         private IView view;
 
@@ -59,7 +59,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         public void OnBind(T item,int position) {
             OnPreBind(item,position);
-            OnCreateEventHandler?.Invoke(new LifeCycleEventArgs(nameof(OnBind)));
+            OnCreateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnBind)));
         }
 
         public abstract void OnPreBind(T item,int position);
