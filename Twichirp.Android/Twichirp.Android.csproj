@@ -207,6 +207,7 @@
     <Compile Include="App\View\Activity\SplashActivity.cs" />
     <Compile Include="App\View\AppCompatAutoCompleteTextView.cs" />
     <Compile Include="App\View\CircleImageView.cs" />
+    <Compile Include="App\View\DividerItemDecoration.cs" />
     <Compile Include="App\View\Fragment\Dialog\ProgressDialogFragment.cs" />
     <Compile Include="App\View\Fragment\StatusTimelineFragment.cs" />
     <Compile Include="App\View\Holder\BaseHolder.cs" />

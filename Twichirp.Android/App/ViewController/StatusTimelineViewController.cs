@@ -53,6 +53,7 @@ namespace Twichirp.Android.App.ViewController {
             adapter.LastItemVisibleCommand.Subscribe(x => ViewModel.LoadMoreComannd.Execute()).AddTo(Disposable);
             View.RecyclerView.SetLayoutManager(new LinearLayoutManager(View.RecyclerView.Context));
             View.RecyclerView.SetAdapter(adapter);
+            View.RecyclerView.AddItemDecoration(new DividerItemDecoration());
             View.SwipeRefrech.SetBinding(x => x.Refreshing,ViewModel.IsLoading);
             View.SwipeRefrech.Refresh += onRefresh;
         }
