@@ -7,7 +7,8 @@
         style="@style/AppTheme.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/LayoutMargin" />
+        android:layout_margin="@dimen/LayoutMargin"
+        android:id="@+id/ProgressBar" />
     <TextView
         android:text="@string/LoadingLoad"
         android:layout_width="match_parent"
