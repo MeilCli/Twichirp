@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground">
+    <TextView
+        android:text="@string/LoadingLoad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/LoadingText"
+        android:layout_margin="@dimen/LayoutMargin"
+        android:textAppearance="@style/AppTheme.Text.Title"
+        android:layout_centerInParent="true"
+        android:gravity="center" />
     <ProgressBar
         style="@style/AppTheme.ProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ProgressBar"
-        android:layout_margin="@dimen/LayoutMargin" />
-    <TextView
-        android:text="@string/LoadingLoad"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/LoadingText"
         android:layout_margin="@dimen/LayoutMargin"
-        android:textAppearance="@style/AppTheme.Text.Title" />
-</LinearLayout>
+        android:layout_toStartOf="@id/LoadingText" />
+</RelativeLayout>

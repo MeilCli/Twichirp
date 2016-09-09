@@ -2114,8 +2114,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06007f
 			public const int Icon = 2131099775;
 			
-			// aapt resource value: 0x7f060075
-			public const int LoadingText = 2131099765;
+			// aapt resource value: 0x7f060074
+			public const int LoadingText = 2131099764;
 			
 			// aapt resource value: 0x7f060078
 			public const int Login = 2131099768;
@@ -2132,8 +2132,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06007a
 			public const int Pin = 2131099770;
 			
-			// aapt resource value: 0x7f060074
-			public const int ProgressBar = 2131099764;
+			// aapt resource value: 0x7f060075
+			public const int ProgressBar = 2131099765;
 			
 			// aapt resource value: 0x7f060098
 			public const int RecyclerView = 2131099800;
