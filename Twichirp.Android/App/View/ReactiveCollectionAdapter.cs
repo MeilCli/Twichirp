@@ -81,13 +81,26 @@ namespace Twichirp.Android.App.View {
 
         private void collectionChanged(object sender,NotifyCollectionChangedEventArgs e) {
             if(e.Action == NotifyCollectionChangedAction.Add) {
-                this.NotifyItemRangeInserted(e.NewStartingIndex,e.NewItems.Count);
+                if(e.NewItems.Count == 1) {
+                    this.NotifyItemInserted(e.NewStartingIndex);
+                } else {
+                    this.NotifyItemRangeInserted(e.NewStartingIndex,e.NewItems.Count);
+                }  
             }else if(e.Action == NotifyCollectionChangedAction.Move) {
                 this.NotifyItemMoved(e.OldStartingIndex,e.NewStartingIndex);
             }else if(e.Action == NotifyCollectionChangedAction.Remove) {
-                this.NotifyItemRangeRemoved(e.OldStartingIndex,e.OldItems.Count);
-            }else if(e.Action == NotifyCollectionChangedAction.Replace) {
-                this.NotifyItemRangeChanged(e.NewStartingIndex,e.NewItems.Count);
+                if(e.OldItems.Count == 1) {
+                    this.NotifyItemRemoved(e.OldStartingIndex);
+                } else {
+                    this.NotifyItemRangeRemoved(e.OldStartingIndex,e.OldItems.Count);
+                }
+                this.NotifyDataSetChanged();
+            } else if(e.Action == NotifyCollectionChangedAction.Replace) {
+                if(e.NewItems.Count == 1) {
+                    this.NotifyItemChanged(e.NewStartingIndex);
+                } else {
+                    this.NotifyItemRangeChanged(e.NewStartingIndex,e.NewItems.Count);
+                }
             }else if(e.Action == NotifyCollectionChangedAction.Reset) {
                 this.NotifyDataSetChanged();
             }
