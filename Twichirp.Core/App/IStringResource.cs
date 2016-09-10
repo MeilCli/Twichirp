@@ -25,5 +25,8 @@ namespace Twichirp.Core.App {
         int SplashAccountLoading { get; }
         int SplashConsumerLoading { get; }
         int SplashAccountDownLoading { get; }
+
+        int StatusRetweetingUser { get; }
+        int StatusReplyToUser { get; }
     }
 }

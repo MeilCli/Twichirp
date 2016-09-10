@@ -50,4 +50,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 
   <string name="Loading">Loading</string>
   <string name="LoadingLoad">Load More</string>
+
+  <string name="StatusRetweetingUser">Retweet of {0}</string>
+  <string name="StatusReplyToUser">Reply to {0}</string>
 </resources>

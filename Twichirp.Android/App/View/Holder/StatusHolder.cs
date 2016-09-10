@@ -38,12 +38,30 @@ namespace Twichirp.Android.App.View.Holder {
 
         public TextView Text { get; private set; }
 
+        public TextView RetweetingUser { get; private set; }
+
+        public TextView ReplyToUser { get; private set; }
+
+        public TextView Name { get; private set; }
+
+        public TextView ScreenName { get; private set; }
+
+        public ImageView Icon { get; private set; }
+
+        public TextView DateTime { get; private set; }
+
         public StatusHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup) : base(view,lifeCycle,viewGroup,Resource.Layout.StatusHolder) {
         }
 
         public override void OnCreatedView() {
-            Text = ItemView.FindViewById<TextView>(Resource.Id.Text);
             ClickableView = ItemView;
+            Text = ItemView.FindViewById<TextView>(Resource.Id.Text);
+            RetweetingUser = ItemView.FindViewById<TextView>(Resource.Id.RetweeingUser);
+            ReplyToUser = ItemView.FindViewById<TextView>(Resource.Id.ReplyToUser);
+            Name = ItemView.FindViewById<TextView>(Resource.Id.Name);
+            ScreenName = ItemView.FindViewById<TextView>(Resource.Id.ScreenName);
+            Icon = ItemView.FindViewById<ImageView>(Resource.Id.Icon);
+            DateTime = ItemView.FindViewById<TextView>(Resource.Id.DateTime);
         }
 
         public override void OnPreBind(BaseViewModel item,int position) {

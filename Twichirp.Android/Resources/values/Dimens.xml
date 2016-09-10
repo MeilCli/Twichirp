@@ -18,6 +18,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
+  <dimen name="StartMargin">72dp</dimen>
   <dimen name="LayoutMargin">16dp</dimen>
   <dimen name="ItemMargin">8dp</dimen>
+  <dimen name="ItemPadding">4dp</dimen>
 </resources>

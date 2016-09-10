@@ -45,6 +45,23 @@ namespace Twichirp.Android.App.ViewController {
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
             View.Text.SetBinding(x => x.Text,text);
+
+            var visibleRetweetingUser = ViewModel.ToStatusType() == StatusViewModel.RetweetedNormalTweet ? ViewStates.Visible : ViewStates.Gone;
+            View.RetweetingUser.Visibility = visibleRetweetingUser;
+            View.RetweetingUser.SetBinding(x => x.Text,ViewModel.RetweetingUser);
+
+            var visibleReplyToUser = ViewModel.InReplyToScreenName
+                .Select(x => x == null ? ViewStates.Gone : ViewStates.Visible)
+                .ToReadOnlyReactiveProperty()
+                .AddTo(Disposable);
+            View.ReplyToUser.SetBinding(x => x.Visibility,visibleReplyToUser);
+            View.ReplyToUser.SetBinding(x => x.Text,ViewModel.ReplyToUser);
+
+            View.Name.SetBinding(x => x.Text,ViewModel.Name);
+            View.ScreenName.SetBinding(x => x.Text,ViewModel.ScreenName);
+            View.DateTime.SetBinding(x => x.Text,ViewModel.DateTime);
+            View.ApplicationContext.LoadIntoBitmap(ViewModel.IconUrl.Value,View.Icon);
+
         }
     }
 }

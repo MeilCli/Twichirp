@@ -30,7 +30,19 @@ using AView = Android.Views.View;
 namespace Twichirp.Android.App.View {
     public interface IStatusView :IView,ILifeCycle{
 
+        TextView RetweetingUser { get; }
+
+        TextView ReplyToUser { get; }
+
         TextView Text { get; }
+
+        TextView Name { get; }
+
+        TextView ScreenName { get; }
+
+        ImageView Icon { get; }
+
+        TextView DateTime { get; }
 
         AView ClickableView { get; } 
     }

@@ -36,7 +36,7 @@ using Twichirp.Core.App.ViewModel;
 using static Android.Support.V7.Widget.RecyclerView;
 
 namespace Twichirp.Android.App.ViewController {
-    public class StatusTimelineViewController : BaseViewController<IStatusTimelineView,StatusTimelineViewModel>{
+    public class StatusTimelineViewController : BaseViewController<IStatusTimelineView,StatusTimelineViewModel> {
 
         private const int loadingType = 1;
         private const int preStatusTypeParam = 10;
@@ -64,8 +64,12 @@ namespace Twichirp.Android.App.ViewController {
 
         private ViewHolder adapterViewCreate(ViewGroup parent,int itemType) {
             switch(itemType) {
-                case loadingType: return new LoadingHolder(View,View,parent);
-                case preStatusTypeParam + StatusViewModel.NormalTweet: return new StatusHolder(View,View,parent);
+                case loadingType:
+                    return new LoadingHolder(View,View,parent);
+                case preStatusTypeParam + StatusViewModel.NormalTweet:
+                    return new StatusHolder(View,View,parent);
+                case preStatusTypeParam + StatusViewModel.RetweetedNormalTweet:
+                    return new StatusHolder(View,View,parent);
             }
             return null;
         }

@@ -50,4 +50,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 
   <string name="Loading">読み込み中</string>
   <string name="LoadingLoad">読み込む</string>
+
+  <string name="StatusRetweetingUser">{0} がリツイート</string>
+  <string name="StatusReplyToUser">{0} への返信</string>
 </resources>

@@ -3,11 +3,85 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minWidth="25px"
-    android:minHeight="25px">
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true">
+  <TextView
+      android:text="RetweetingUser"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/RetweeingUser"
+      android:textAppearance="@style/AppTheme.Text.Caption"
+      android:background="?android:attr/selectableItemBackground"
+      android:clickable="true"
+      android:paddingBottom="@dimen/ItemPadding"
+      android:paddingTop="@dimen/ItemPadding"
+      android:paddingStart="@dimen/StartMargin"
+      android:paddingEnd="@dimen/LayoutMargin" />
+  <TextView
+      android:text="ReplyToUser"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/ReplyToUser"
+      android:textAppearance="@style/AppTheme.Text.Caption"
+      android:background="?android:attr/selectableItemBackground"
+      android:clickable="true"
+      android:paddingBottom="@dimen/ItemPadding"
+      android:paddingTop="@dimen/ItemPadding"
+      android:paddingStart="@dimen/StartMargin"
+      android:paddingEnd="@dimen/LayoutMargin" />
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <Space 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="DateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/DateTime"
+        android:textAppearance="@style/AppTheme.Text.Caption"
+        android:layout_marginStart="@dimen/ItemMargin"
+        android:layout_marginEnd="@dimen/LayoutMargin"
+        android:paddingTop="@dimen/ItemPadding"
+        android:layout_alignParentEnd="true"
+        android:gravity="end" />
+    <TextView
+        android:text="Name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Name"
+        android:textAppearance="@style/AppTheme.Text.Subhead"
+        android:layout_marginStart="@dimen/StartMargin"
+        android:paddingTop="@dimen/ItemPadding"
+        android:layout_toStartOf="@id/DateTime"
+        android:singleLine="true" />
+    <TextView
+        android:text="ScreenName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ScreenName"
+        android:textAppearance="@style/AppTheme.Text.Caption"
+        android:layout_marginStart="@dimen/StartMargin"
+        android:layout_marginEnd="@dimen/LayoutMargin"
+        android:layout_below="@id/Name" />
     <TextView
         android:text="Text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Text" />
+        android:id="@+id/Text"
+        android:textAppearance="@style/AppTheme.Text.Body1"
+        android:layout_marginStart="@dimen/StartMargin"
+        android:layout_marginEnd="@dimen/LayoutMargin"
+        android:paddingTop="@dimen/ItemPadding"
+        android:paddingBottom="@dimen/ItemPadding"
+        android:layout_below="@id/ScreenName" />
+    <ImageView
+        android:src="@drawable/Icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/Icon"
+        android:layout_margin="@dimen/LayoutMargin"
+        android:layout_alignParentStart="true" />
+  </RelativeLayout>
 </LinearLayout>

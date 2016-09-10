@@ -1458,11 +1458,17 @@ namespace Twichirp.Android
 		public partial class Dimension
 		{
 			
+			// aapt resource value: 0x7f050070
+			public const int ItemMargin = 2131034224;
+			
+			// aapt resource value: 0x7f050071
+			public const int ItemPadding = 2131034225;
+			
 			// aapt resource value: 0x7f05006f
-			public const int ItemMargin = 2131034223;
+			public const int LayoutMargin = 2131034223;
 			
 			// aapt resource value: 0x7f05006e
-			public const int LayoutMargin = 2131034222;
+			public const int StartMargin = 2131034222;
 			
 			// aapt resource value: 0x7f050013
 			public const int abc_action_bar_content_inset_material = 2131034131;
@@ -2099,6 +2105,9 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06007c
 			public const int Content = 2131099772;
 			
+			// aapt resource value: 0x7f060098
+			public const int DateTime = 2131099800;
+			
 			// aapt resource value: 0x7f060077
 			public const int Description = 2131099767;
 			
@@ -2135,8 +2144,14 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060074
 			public const int ProgressBar = 2131099764;
 			
-			// aapt resource value: 0x7f060098
-			public const int RecyclerView = 2131099800;
+			// aapt resource value: 0x7f06009b
+			public const int RecyclerView = 2131099803;
+			
+			// aapt resource value: 0x7f060097
+			public const int ReplyToUser = 2131099799;
+			
+			// aapt resource value: 0x7f060096
+			public const int RetweeingUser = 2131099798;
 			
 			// aapt resource value: 0x7f060082
 			public const int ScreenName = 2131099778;
@@ -2144,14 +2159,14 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060080
 			public const int Subtitle = 2131099776;
 			
-			// aapt resource value: 0x7f060097
-			public const int SwipeRefresh = 2131099799;
-			
-			// aapt resource value: 0x7f060096
-			public const int Text = 2131099798;
+			// aapt resource value: 0x7f06009a
+			public const int SwipeRefresh = 2131099802;
 			
 			// aapt resource value: 0x7f060099
-			public const int Toolbar = 2131099801;
+			public const int Text = 2131099801;
+			
+			// aapt resource value: 0x7f06009c
+			public const int Toolbar = 2131099804;
 			
 			// aapt resource value: 0x7f060073
 			public const int Web = 2131099763;
@@ -2911,6 +2926,12 @@ namespace Twichirp.Android
 			
 			// aapt resource value: 0x7f08001c
 			public const int SplashConsumerLoading = 2131230748;
+			
+			// aapt resource value: 0x7f080036
+			public const int StatusReplyToUser = 2131230774;
+			
+			// aapt resource value: 0x7f080035
+			public const int StatusRetweetingUser = 2131230773;
 			
 			// aapt resource value: 0x7f080002
 			public const int abc_action_bar_home_description = 2131230722;

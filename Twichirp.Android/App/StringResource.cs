@@ -33,5 +33,8 @@ namespace Twichirp.Android.App {
         public int SplashAccountLoading => Resource.String.SplashAccountLoading;
         public int SplashConsumerLoading => Resource.String.SplashConsumerLoading;
         public int SplashAccountDownLoading => Resource.String.SplashAccountDownLoading;
+
+        public int StatusRetweetingUser => Resource.String.StatusRetweetingUser;
+        public int StatusReplyToUser => Resource.String.StatusReplyToUser;
     }
 }
