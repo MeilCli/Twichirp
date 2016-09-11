@@ -36,5 +36,14 @@ namespace Twichirp.Android.App {
 
         public int StatusRetweetingUser => Resource.String.StatusRetweetingUser;
         public int StatusReplyToUser => Resource.String.StatusReplyToUser;
+
+        public int TimeSecoundAgo => Resource.String.TimeSecondAgo;
+        public int TimeSecoundsAgo => Resource.String.TimeSecondsAgo;
+        public int TimeMinuteAgo => Resource.String.TimeMinuteAgo;
+        public int TimeMinutesAgo => Resource.String.TimeMinutesAgo;
+        public int TimeHourAgo => Resource.String.TimeHourAgo;
+        public int TimeHoursAgo => Resource.String.TimeHoursAgo;
+        public int TimeDayAgo => Resource.String.TimeDayAgo;
+        public int TimeDaysAgo => Resource.String.TimeDaysAgo;
     }
 }

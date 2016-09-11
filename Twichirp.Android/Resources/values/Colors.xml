@@ -22,6 +22,9 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
   <color name="ColorPrimaryDark">#1976D2</color>
   <color name="ColorAccent">#00E676</color>
   <color name="Snow">#F2F2F2</color>
+  <color name="Grey600">#757575</color>
   <color name="TransparentGrey">#B2E0E0E0</color>
   <color name="Transparent">@android:color/transparent</color>
+
+  <color name="Retweet">#00C853</color>
 </resources>

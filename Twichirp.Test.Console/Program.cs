@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using CoreTweet;
 using Twichirp.Core.Constant;
 using Twichirp.Core.TweetCount;
 using static System.Console;
@@ -31,22 +32,10 @@ namespace Twichirp.Test.Console {
         static readonly string t2 = $"sffs"+t1;
 
         static void Main(string[] args) {
-            {
-                int count = "dshghigshkia".TweetCount();
-                WriteLine($"count:{count} ?:12");
-            }
-            {
-                int count = "afhyio google.com afhu http://google.com st".TweetCount();
-                WriteLine($"count:{count} ?:62");
-            }
-            {
-                int count = "afhyio google.com afhu https://google.com st".TweetCount();
-                WriteLine($"count:{count} ?:62");
-            }
-            foreach(Match m in Core.TweetCount.Regex.ValidUrl.Matches("t.co google.com afhyio (google.com afhu http://google.com st")) {
-                WriteLine(m.Groups[3].Value);
-            }
-            WriteLine(t2);
+            var session = OAuth.Authorize(ConsumerConstant.Twichirp.ConsumerKey,ConsumerConstant.Twichirp.ConsumerSecret);
+            WriteLine(session.AuthorizeUri);
+            var tokens = OAuth.GetTokens(session,ReadLine());
+            
         }
     }
 }

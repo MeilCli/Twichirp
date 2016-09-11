@@ -472,6 +472,36 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\LICENSE.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\IconVerifiedUserGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\IconVerifiedUserGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\IconVerifiedUserGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\IconVerifiedUserGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\IconVerifiedUserGrey36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\IconEnhancedEncryptionBlack36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\IconEnhancedEncryptionBlack36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\IconEnhancedEncryptionBlack36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\IconEnhancedEncryptionBlack36dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\IconEnhancedEncryptionBlack36dp.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.4.0.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.4.0.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

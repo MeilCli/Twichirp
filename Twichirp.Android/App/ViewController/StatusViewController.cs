@@ -24,6 +24,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Reactive.Bindings;
@@ -40,11 +41,38 @@ namespace Twichirp.Android.App.ViewController {
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
+            ViewModel.ShowStatusCommand.Execute();
+
+            var visiblePrefixText = ViewModel.HiddenPrefix
+                .Select(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone)
+                .ToReadOnlyReactiveProperty()
+                .AddTo(Disposable);
+            var prefixText = ViewModel.HiddenPrefix
+                .Select(x => $"To: {string.Join(" ",x.Select(y => $"@{y.ScreenName}"))}")
+                .ToReadOnlyReactiveProperty()
+                .AddTo(Disposable);
+            var visibleText = ViewModel.Text
+                .Select(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone)
+                .ToReadOnlyReactiveProperty()
+                .AddTo(Disposable);
             var text = ViewModel.Text
                 .Select(x => x.ToText())
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
+            var visibleSuffixText = ViewModel.HiddenSuffix
+                .Select(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone)
+                .ToReadOnlyReactiveProperty()
+                .AddTo(Disposable);
+            var suffixText = ViewModel.HiddenSuffix
+                .Select(x => $"Attach: {string.Join(" ",x.Select(y => y.DisplayUrl))}")
+                .ToReadOnlyReactiveProperty()
+                .AddTo(Disposable);
+            View.PrefixText.SetBinding(x => x.Visibility,visiblePrefixText);
+            View.PrefixText.SetBinding(x => x.Text,prefixText);
+            View.Text.SetBinding(x => x.Visibility,visibleText);
             View.Text.SetBinding(x => x.Text,text);
+            View.SuffixText.SetBinding(x => x.Visibility,visibleSuffixText);
+            View.SuffixText.SetBinding(x => x.Text,suffixText);
 
             var visibleRetweetingUser = ViewModel.ToStatusType() == StatusViewModel.RetweetedNormalTweet ? ViewStates.Visible : ViewStates.Gone;
             View.RetweetingUser.Visibility = visibleRetweetingUser;
@@ -61,7 +89,6 @@ namespace Twichirp.Android.App.ViewController {
             View.ScreenName.SetBinding(x => x.Text,ViewModel.ScreenName);
             View.DateTime.SetBinding(x => x.Text,ViewModel.DateTime);
             View.ApplicationContext.LoadIntoBitmap(ViewModel.IconUrl.Value,View.Icon);
-
         }
     }
 }

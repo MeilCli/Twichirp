@@ -36,7 +36,11 @@ namespace Twichirp.Android.App.View.Holder {
 
         public AView ClickableView { get; private set; }
 
+        public TextView PrefixText { get; private set; }
+
         public TextView Text { get; private set; }
+
+        public TextView SuffixText { get; private set; }
 
         public TextView RetweetingUser { get; private set; }
 
@@ -55,7 +59,9 @@ namespace Twichirp.Android.App.View.Holder {
 
         public override void OnCreatedView() {
             ClickableView = ItemView;
+            PrefixText = ItemView.FindViewById<TextView>(Resource.Id.PrefixText);
             Text = ItemView.FindViewById<TextView>(Resource.Id.Text);
+            SuffixText = ItemView.FindViewById<TextView>(Resource.Id.SuffixText);
             RetweetingUser = ItemView.FindViewById<TextView>(Resource.Id.RetweeingUser);
             ReplyToUser = ItemView.FindViewById<TextView>(Resource.Id.ReplyToUser);
             Name = ItemView.FindViewById<TextView>(Resource.Id.Name);

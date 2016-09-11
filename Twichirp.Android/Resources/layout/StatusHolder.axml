@@ -16,7 +16,8 @@
       android:paddingBottom="@dimen/ItemPadding"
       android:paddingTop="@dimen/ItemPadding"
       android:paddingStart="@dimen/StartMargin"
-      android:paddingEnd="@dimen/LayoutMargin" />
+      android:paddingEnd="@dimen/LayoutMargin"
+      android:textColor="@color/Retweet" />
   <TextView
       android:text="ReplyToUser"
       android:layout_width="match_parent"
@@ -32,9 +33,9 @@
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
-    <Space 
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
     <TextView
         android:text="DateTime"
         android:layout_width="wrap_content"
@@ -65,17 +66,34 @@
         android:layout_marginStart="@dimen/StartMargin"
         android:layout_marginEnd="@dimen/LayoutMargin"
         android:layout_below="@id/Name" />
-    <TextView
-        android:text="Text"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Text"
-        android:textAppearance="@style/AppTheme.Text.Body1"
         android:layout_marginStart="@dimen/StartMargin"
         android:layout_marginEnd="@dimen/LayoutMargin"
         android:paddingTop="@dimen/ItemPadding"
         android:paddingBottom="@dimen/ItemPadding"
-        android:layout_below="@id/ScreenName" />
+        android:layout_below="@id/ScreenName">
+      <TextView
+          android:text="PrefixText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/PrefixText"
+          android:textAppearance="@style/AppTheme.Text.Caption" />
+      <TextView
+          android:text="Text"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/Text"
+          android:textAppearance="@style/AppTheme.Text.Body1" />
+      <TextView
+          android:text="SuffixText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/SuffixText"
+          android:textAppearance="@style/AppTheme.Text.Caption" />
+    </LinearLayout>
     <ImageView
         android:src="@drawable/Icon"
         android:layout_width="40dp"

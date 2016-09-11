@@ -28,5 +28,14 @@ namespace Twichirp.Core.App {
 
         int StatusRetweetingUser { get; }
         int StatusReplyToUser { get; }
+
+        int TimeSecoundAgo { get; }
+        int TimeSecoundsAgo { get; }
+        int TimeMinuteAgo { get; }
+        int TimeMinutesAgo { get; }
+        int TimeHourAgo { get; }
+        int TimeHoursAgo { get; }
+        int TimeDayAgo { get; }
+        int TimeDaysAgo { get; }
     }
 }

@@ -53,4 +53,13 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 
   <string name="StatusRetweetingUser">Retweet of {0}</string>
   <string name="StatusReplyToUser">Reply to {0}</string>
+
+  <string name="TimeSecondAgo">{0} second ago</string>
+  <string name="TimeSecondsAgo">{0} seconds ago</string>
+  <string name="TimeMinuteAgo">{0} minute ago</string>
+  <string name="TimeMinutesAgo">{0} minutes ago</string>
+  <string name="TimeHourAgo">{0} hour ago</string>
+  <string name="TimeHoursAgo">{0} hours ago</string>
+  <string name="TimeDayAgo">{0} day ago</string>
+  <string name="TimeDaysAgo">{0} days ago</string>
 </resources>

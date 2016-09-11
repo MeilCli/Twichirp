@@ -51,6 +51,8 @@ namespace Twichirp.Core.App.ViewModel {
 
         public ReadOnlyReactiveProperty<string> RetweetingUser { get; private set; }
 
+        public ReactiveCommand ShowStatusCommand { get; } = new ReactiveCommand();
+
         public StatusViewModel(ITwichirpApplication application,Status status) : base(application) {
             IStringResource stringResource = application.StringResource;
 
@@ -60,17 +62,15 @@ namespace Twichirp.Core.App.ViewModel {
             HiddenPrefix = statusModel.ObserveProperty(x => x.HiddenPrefix).ToReadOnlyReactiveProperty().AddTo(Disposable);
             HiddenSuffix = statusModel.ObserveProperty(x => x.HiddenSuffix).ToReadOnlyReactiveProperty().AddTo(Disposable);
             Source = statusModel.ObserveProperty(x => x.Source).ToReadOnlyReactiveProperty().AddTo(Disposable);
-            DateTime = statusModel
-                .ObserveProperty(x => x.CreatedAt)
-                .Select(x=>x.ToLocalTime().ToString("f"))
+            DateTime = statusModel.ObserveProperty(x => x.CreatedAt)
+                .CombineLatest(ShowStatusCommand,(x,y)=> relativeDateTime(x))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
             RetweetCount = statusModel.ObserveProperty(x => x.RetweetCount).ToReadOnlyReactiveProperty().AddTo(Disposable);
             FavoriteCount = statusModel.ObserveProperty(x => x.FavoriteCount).ToReadOnlyReactiveProperty().AddTo(Disposable);
             IsRetweeted = statusModel.ObserveProperty(x => x.IsRetweeted).ToReadOnlyReactiveProperty().AddTo(Disposable);
             IsFavorited = statusModel.ObserveProperty(x => x.IsFavorited).ToReadOnlyReactiveProperty().AddTo(Disposable);
-            InReplyToScreenName = statusModel
-                .ObserveProperty(x => x.InReplyToScreenName)
+            InReplyToScreenName = statusModel.ObserveProperty(x => x.InReplyToScreenName)
                 .Select(x => x==null?null:$"@{x}")
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
@@ -81,8 +81,7 @@ namespace Twichirp.Core.App.ViewModel {
 
             IconUrl = statusModel.User.ObserveProperty(x => x.ProfileImageUrl).ToReadOnlyReactiveProperty().AddTo(Disposable);
             Name = statusModel.User.ObserveProperty(x => x.Name).ToReadOnlyReactiveProperty().AddTo(Disposable);
-            ScreenName = statusModel.User
-                .ObserveProperty(x => x.ScreenName)
+            ScreenName = statusModel.User.ObserveProperty(x => x.ScreenName)
                 .Select(x => $"@{x}")
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
@@ -91,6 +90,36 @@ namespace Twichirp.Core.App.ViewModel {
                 .Select(x => string.Format(Application.GetLocalizedString(stringResource.StatusRetweetingUser),x))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
+        }
+
+        private string relativeDateTime(DateTimeOffset dateTimeOffset) {
+            IStringResource stringResource = Application.StringResource;
+            TimeSpan span = DateTimeOffset.Now - dateTimeOffset;
+            if(span.TotalMinutes < 1) {
+                if(span.Seconds == 1) {
+                    return string.Format(Application.GetLocalizedString(stringResource.TimeSecoundAgo),span.Seconds);
+                }
+                return string.Format(Application.GetLocalizedString(stringResource.TimeSecoundsAgo),span.Seconds);
+            }
+            if(span.TotalHours < 1) {
+                if(span.Minutes == 1) {
+                    return string.Format(Application.GetLocalizedString(stringResource.TimeMinuteAgo),span.Minutes);
+                }
+                return string.Format(Application.GetLocalizedString(stringResource.TimeMinutesAgo),span.Minutes);
+            }
+            if(span.TotalDays < 1) {
+                if(span.Hours == 1) {
+                    return string.Format(Application.GetLocalizedString(stringResource.TimeHourAgo),span.Hours);
+                }
+                return string.Format(Application.GetLocalizedString(stringResource.TimeHoursAgo),span.Hours);
+            }
+            if(span.TotalDays < 31) {
+                if(span.Days == 1) {
+                    return string.Format(Application.GetLocalizedString(stringResource.TimeDayAgo),span.Days);
+                }
+                return string.Format(Application.GetLocalizedString(stringResource.TimeDaysAgo),span.Days);
+            }
+            return dateTimeOffset.ToLocalTime().ToString("G");
         }
 
         public int ToStatusType() {

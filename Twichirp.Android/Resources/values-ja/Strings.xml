@@ -53,4 +53,13 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 
   <string name="StatusRetweetingUser">{0} がリツイート</string>
   <string name="StatusReplyToUser">{0} への返信</string>
+
+  <string name="TimeSecondAgo">{0}秒前</string>
+  <string name="TimeSecondsAgo">{0}秒前</string>
+  <string name="TimeMinuteAgo">{0}分前</string>
+  <string name="TimeMinutesAgo">{0}分前</string>
+  <string name="TimeHourAgo">{0}時間前</string>
+  <string name="TimeHoursAgo">{0}時間前</string>
+  <string name="TimeDayAgo">{0}日前</string>
+  <string name="TimeDaysAgo">{0}日前</string>
 </resources>

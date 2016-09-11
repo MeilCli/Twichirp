@@ -34,7 +34,11 @@ namespace Twichirp.Android.App.View {
 
         TextView ReplyToUser { get; }
 
+        TextView PrefixText { get; }
+
         TextView Text { get; }
+
+        TextView SuffixText { get; }
 
         TextView Name { get; }
 
