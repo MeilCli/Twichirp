@@ -2084,16 +2084,28 @@ namespace Twichirp.Android
 			public const int IconPersonOutlineGrey48dp = 2130837591;
 			
 			// aapt resource value: 0x7f020058
-			public const int IconSettingsApplicationsGrey48dp = 2130837592;
+			public const int IconPlayCircleOutlineGrey36dp = 2130837592;
 			
 			// aapt resource value: 0x7f020059
-			public const int IconVerifiedUserGrey36dp = 2130837593;
-			
-			// aapt resource value: 0x7f02005b
-			public const int notification_template_icon_bg = 2130837595;
+			public const int IconRepeatGrey36dp = 2130837593;
 			
 			// aapt resource value: 0x7f02005a
-			public const int preference_list_divider_material = 2130837594;
+			public const int IconReplyGrey36dp = 2130837594;
+			
+			// aapt resource value: 0x7f02005b
+			public const int IconSettingsApplicationsGrey48dp = 2130837595;
+			
+			// aapt resource value: 0x7f02005c
+			public const int IconStarGrey36dp = 2130837596;
+			
+			// aapt resource value: 0x7f02005d
+			public const int IconVerifiedUserGrey36dp = 2130837597;
+			
+			// aapt resource value: 0x7f02005f
+			public const int notification_template_icon_bg = 2130837599;
+			
+			// aapt resource value: 0x7f02005e
+			public const int preference_list_divider_material = 2130837598;
 			
 			static Drawable()
 			{
@@ -2144,6 +2156,63 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060078
 			public const int Login = 2131099768;
 			
+			// aapt resource value: 0x7f0600a2
+			public const int Media1 = 2131099810;
+			
+			// aapt resource value: 0x7f0600ab
+			public const int Media2 = 2131099819;
+			
+			// aapt resource value: 0x7f0600a6
+			public const int Media3 = 2131099814;
+			
+			// aapt resource value: 0x7f0600af
+			public const int Media4 = 2131099823;
+			
+			// aapt resource value: 0x7f0600a4
+			public const int MediaClickable1 = 2131099812;
+			
+			// aapt resource value: 0x7f0600ad
+			public const int MediaClickable2 = 2131099821;
+			
+			// aapt resource value: 0x7f0600a8
+			public const int MediaClickable3 = 2131099816;
+			
+			// aapt resource value: 0x7f0600b1
+			public const int MediaClickable4 = 2131099825;
+			
+			// aapt resource value: 0x7f0600a1
+			public const int MediaFrame1 = 2131099809;
+			
+			// aapt resource value: 0x7f0600aa
+			public const int MediaFrame2 = 2131099818;
+			
+			// aapt resource value: 0x7f0600a5
+			public const int MediaFrame3 = 2131099813;
+			
+			// aapt resource value: 0x7f0600ae
+			public const int MediaFrame4 = 2131099822;
+			
+			// aapt resource value: 0x7f06009f
+			public const int MediaGrid = 2131099807;
+			
+			// aapt resource value: 0x7f0600a0
+			public const int MediaParent1 = 2131099808;
+			
+			// aapt resource value: 0x7f0600a9
+			public const int MediaParent2 = 2131099817;
+			
+			// aapt resource value: 0x7f0600a3
+			public const int MediaPlay1 = 2131099811;
+			
+			// aapt resource value: 0x7f0600ac
+			public const int MediaPlay2 = 2131099820;
+			
+			// aapt resource value: 0x7f0600a7
+			public const int MediaPlay3 = 2131099815;
+			
+			// aapt resource value: 0x7f0600b0
+			public const int MediaPlay4 = 2131099824;
+			
 			// aapt resource value: 0x7f060095
 			public const int Message = 2131099797;
 			
@@ -2162,8 +2231,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060074
 			public const int ProgressBar = 2131099764;
 			
-			// aapt resource value: 0x7f0600a0
-			public const int RecyclerView = 2131099808;
+			// aapt resource value: 0x7f0600b3
+			public const int RecyclerView = 2131099827;
 			
 			// aapt resource value: 0x7f060097
 			public const int ReplyToUser = 2131099799;
@@ -2183,14 +2252,14 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06009e
 			public const int SuffixText = 2131099806;
 			
-			// aapt resource value: 0x7f06009f
-			public const int SwipeRefresh = 2131099807;
+			// aapt resource value: 0x7f0600b2
+			public const int SwipeRefresh = 2131099826;
 			
 			// aapt resource value: 0x7f06009d
 			public const int Text = 2131099805;
 			
-			// aapt resource value: 0x7f0600a1
-			public const int Toolbar = 2131099809;
+			// aapt resource value: 0x7f0600b4
+			public const int Toolbar = 2131099828;
 			
 			// aapt resource value: 0x7f06009b
 			public const int VerifyIcon = 2131099803;

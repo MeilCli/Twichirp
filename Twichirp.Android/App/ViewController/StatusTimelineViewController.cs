@@ -56,6 +56,7 @@ namespace Twichirp.Android.App.ViewController {
             View.RecyclerView.SetLayoutManager(new LinearLayoutManager(View.RecyclerView.Context));
             View.RecyclerView.SetAdapter(adapter);
             //View.RecyclerView.AddItemDecoration(new DividerItemDecoration());
+            View.RecyclerView.SetItemViewCacheSize(0);
             View.SwipeRefrech.SetBinding(x => x.Refreshing,ViewModel.IsLoading);
             View.SwipeRefrech.Refresh += onRefresh;
         }

@@ -51,6 +51,7 @@ namespace Twichirp.Android.App.Extensions {
                 return;
             }
             if(imageView == null) {
+                bm?.Recycle();
                 return;
             }
             imageView.SetImageBitmap(bm);

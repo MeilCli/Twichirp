@@ -29,6 +29,7 @@ using Android.Support.V7.Widget;
 using Reactive.Bindings;
 using System.Collections.Specialized;
 using Android.Util;
+using Java.Lang;
 
 namespace Twichirp.Android.App.View {
     public class ReactiveCollectionAdapter<T> : RecyclerView.Adapter, IDisposable where T:class {
@@ -117,10 +118,22 @@ namespace Twichirp.Android.App.View {
                 this.NotifyDataSetChanged();
             }
         }
+
+        public override void OnViewRecycled(Java.Lang.Object holder) {
+            base.OnViewRecycled(holder);
+
+            if(holder is IRecyclable) {
+                (holder as IRecyclable).OnRecycled();
+            }
+        }
     }
 
     public interface IBindable<T> {
         void OnBind(T item,int position);
+    }
+
+    public interface IRecyclable {
+        void OnRecycled();
     }
 
     public static class RecyclerAdapterExtensions {

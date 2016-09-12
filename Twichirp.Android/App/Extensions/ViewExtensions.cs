@@ -21,8 +21,10 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AView = Android.Views.View;
@@ -33,6 +35,14 @@ namespace Twichirp.Android.App.Extensions {
         public static void SetTransitionNameCompat(this AView view,string name) {
             if(Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop) {
                 view.TransitionName = name;
+            }
+        }
+
+        public static void ReleaseImage(this ImageView imageView) {
+            var drawable = imageView.Drawable;
+            imageView.SetImageDrawable(null);
+            if(drawable is BitmapDrawable) {
+                //(drawable as BitmapDrawable)?.Bitmap?.Recycle();
             }
         }
     }

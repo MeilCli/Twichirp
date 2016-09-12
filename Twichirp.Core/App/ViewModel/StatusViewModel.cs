@@ -47,6 +47,7 @@ namespace Twichirp.Core.App.ViewModel {
         public ReadOnlyReactiveProperty<bool> IsFavorited { get; private set; }
         public string InReplyToScreenName { get; private set; }
         public string ReplyToUser { get; private set; }
+        public IEnumerable<MediaEntity> Media { get; private set; }
 
         public string IconUrl { get; private set; }
         public string Name { get; private set; }
@@ -78,6 +79,7 @@ namespace Twichirp.Core.App.ViewModel {
             IsFavorited = statusModel.ToContentStatus().ObserveProperty(x => x.IsFavorited).ToReadOnlyReactiveProperty().AddTo(Disposable);
             InReplyToScreenName = statusModel.ToContentStatus().InReplyToScreenName.Map(x => x==null?null:$"@{x}");
             ReplyToUser = InReplyToScreenName?.Map(x => string.Format(Application.GetLocalizedString(stringResource.StatusReplyToUser),x));
+            Media = statusModel.ToContentStatus().Media;
 
             IconUrl = statusModel.ToContentStatus().User.ProfileImageUrl;
             Name = statusModel.ToContentStatus().User.Name;

@@ -50,6 +50,14 @@ namespace Twichirp.Android.App.DataHolder {
         public ViewStates VisibleLockIcon { get; private set; }
         public ViewStates VisibleVerifyIcon { get; private set; }
 
+        public ViewStates VisibleMediaGrid { get; private set; }
+        public ViewStates VisivleMediaParent2 { get; private set; }
+        public ViewStates VisivleMedia2 { get; private set; }
+        public ViewStates VisivleMedia3 { get; private set; }
+        public ViewStates VisivleMedia4 { get; private set; }
+        public bool[] MeadiaIsVideoOrGif { get; private set; }
+        public ViewStates[] VisibleMediaPlays { get; private set; }
+
         public StatusDataHolder(StatusViewModel viewModel) {
             VisiblePrefixText = viewModel.HiddenPrefix.Map(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone);
             PrefixText = viewModel.HiddenPrefix.Map(x => $"To: {string.Join(" ",x.Select(y => $"@{y.ScreenName}"))}");
@@ -64,6 +72,14 @@ namespace Twichirp.Android.App.DataHolder {
 
             VisibleLockIcon = viewModel.IsProtected.Map(x => x == true ? ViewStates.Visible : ViewStates.Gone);
             VisibleVerifyIcon = viewModel.IsVerified.Map(x => x == true ? ViewStates.Visible : ViewStates.Gone);
+
+            VisibleMediaGrid = viewModel.Media.Map(x => x.Count() >= 1 ? ViewStates.Visible : ViewStates.Gone);
+            VisivleMediaParent2 = viewModel.Media.Map(x => x.Count() >= 3 ? ViewStates.Visible : ViewStates.Gone);
+            VisivleMedia2 = viewModel.Media.Map(x => x.Count() >= 2 ? ViewStates.Visible : ViewStates.Gone);
+            VisivleMedia3 = viewModel.Media.Map(x => x.Count() >= 3 ? ViewStates.Visible : ViewStates.Gone);
+            VisivleMedia4 = viewModel.Media.Map(x => x.Count() >= 4 ? ViewStates.Visible : ViewStates.Gone);
+            MeadiaIsVideoOrGif = viewModel.Media.Select(x => (x?.VideoInfo?.Variants.Length ?? 0) > 0 ? true : false).ToArray();
+            VisibleMediaPlays = MeadiaIsVideoOrGif.Select(x => x == true ? ViewStates.Visible : ViewStates.Gone).ToArray();
         }
     }
 }

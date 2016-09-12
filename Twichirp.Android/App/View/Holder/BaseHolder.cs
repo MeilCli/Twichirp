@@ -28,9 +28,10 @@ using Android.Views;
 using Android.Widget;
 using Twichirp.Core.App;
 using Android.Support.V7.Widget;
+using Android.Util;
 
 namespace Twichirp.Android.App.View.Holder {
-    public abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView,ILifeCycle,IBindable<T> {
+    public abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView,ILifeCycle,IBindable<T>,IRecyclable {
 
         public event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnDestoryEventHandler;
@@ -52,6 +53,7 @@ namespace Twichirp.Android.App.View.Holder {
             : base(global::Android.Views.View.Inflate(viewGroup.Context,layoutResource,null)) {
             this.IsRecyclable = false;
             this.view = view;
+            ItemView.ViewDetachedFromWindow += onDetatchViewFromWindow;
             OnCreatedView();
         }
 
@@ -63,5 +65,13 @@ namespace Twichirp.Android.App.View.Holder {
         }
 
         public abstract void OnPreBind(T item,int position);
+
+        public void OnRecycled() {
+            //OnDestoryEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnRecycled)));
+        }
+
+        private void onDetatchViewFromWindow(object sender,EventArgs e) {
+            OnDestoryEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnRecycled)));
+        }
     }
 }
