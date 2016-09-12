@@ -31,6 +31,7 @@ namespace Twichirp.Core.App.ViewModel {
     public class StatusTimelineViewModel : BaseViewModel {
 
         protected StatusTimelineModel StatusTimelineModel;
+
         public ReactiveCollection<BaseViewModel> Timeline { get; }
         public ReadOnlyReactiveProperty<bool> IsLoading { get; }
         public ReadOnlyReactiveProperty<string> ErrorMessage { get; }

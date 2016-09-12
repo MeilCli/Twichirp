@@ -32,7 +32,7 @@ using AView = Android.Views.View;
 namespace Twichirp.Android.App.View {
     public class DividerItemDecoration :RecyclerView.ItemDecoration {
 
-        private int dividerHeght = 2;
+        private int dividerHeght = 1;
         private int dividerColor = Color.Gray;
 
         public override void OnDraw(Canvas cValue,RecyclerView parent,RecyclerView.State state) {

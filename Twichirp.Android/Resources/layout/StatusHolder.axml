@@ -3,6 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/ItemPadding"
+    android:paddingTop="@dimen/ItemPadding"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true">
   <TextView
@@ -57,15 +59,33 @@
         android:paddingTop="@dimen/ItemPadding"
         android:layout_toStartOf="@id/DateTime"
         android:singleLine="true" />
-    <TextView
-        android:text="ScreenName"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ScreenName"
-        android:textAppearance="@style/AppTheme.Text.Caption"
+        android:id="@+id/ScreenNameLinear"
         android:layout_marginStart="@dimen/StartMargin"
         android:layout_marginEnd="@dimen/LayoutMargin"
-        android:layout_below="@id/Name" />
+        android:layout_below="@id/Name">
+      <TextView
+          android:text="ScreenName"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/ScreenName"
+          android:textAppearance="@style/AppTheme.Text.Caption" />
+      <ImageView
+            android:src="@drawable/IconEnhancedEncryptionBlack36dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:id="@+id/LockIcon"
+            android:tint="@color/Grey600" />
+      <ImageView
+          android:src="@drawable/IconVerifiedUserGrey36dp"
+          android:layout_width="16dp"
+          android:layout_height="16dp"
+          android:id="@+id/VerifyIcon"
+          android:tint="@color/Grey600" />
+    </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -74,7 +94,7 @@
         android:layout_marginEnd="@dimen/LayoutMargin"
         android:paddingTop="@dimen/ItemPadding"
         android:paddingBottom="@dimen/ItemPadding"
-        android:layout_below="@id/ScreenName">
+        android:layout_below="@id/ScreenNameLinear">
       <TextView
           android:text="PrefixText"
           android:layout_width="match_parent"

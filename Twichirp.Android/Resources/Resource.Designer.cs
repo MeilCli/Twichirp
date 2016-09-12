@@ -2138,6 +2138,9 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060075
 			public const int LoadingText = 2131099765;
 			
+			// aapt resource value: 0x7f06009a
+			public const int LockIcon = 2131099802;
+			
 			// aapt resource value: 0x7f060078
 			public const int Login = 2131099768;
 			
@@ -2153,14 +2156,14 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06007a
 			public const int Pin = 2131099770;
 			
-			// aapt resource value: 0x7f060099
-			public const int PrefixText = 2131099801;
+			// aapt resource value: 0x7f06009c
+			public const int PrefixText = 2131099804;
 			
 			// aapt resource value: 0x7f060074
 			public const int ProgressBar = 2131099764;
 			
-			// aapt resource value: 0x7f06009d
-			public const int RecyclerView = 2131099805;
+			// aapt resource value: 0x7f0600a0
+			public const int RecyclerView = 2131099808;
 			
 			// aapt resource value: 0x7f060097
 			public const int ReplyToUser = 2131099799;
@@ -2171,20 +2174,26 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060082
 			public const int ScreenName = 2131099778;
 			
+			// aapt resource value: 0x7f060099
+			public const int ScreenNameLinear = 2131099801;
+			
 			// aapt resource value: 0x7f060080
 			public const int Subtitle = 2131099776;
 			
-			// aapt resource value: 0x7f06009b
-			public const int SuffixText = 2131099803;
-			
-			// aapt resource value: 0x7f06009c
-			public const int SwipeRefresh = 2131099804;
-			
-			// aapt resource value: 0x7f06009a
-			public const int Text = 2131099802;
-			
 			// aapt resource value: 0x7f06009e
-			public const int Toolbar = 2131099806;
+			public const int SuffixText = 2131099806;
+			
+			// aapt resource value: 0x7f06009f
+			public const int SwipeRefresh = 2131099807;
+			
+			// aapt resource value: 0x7f06009d
+			public const int Text = 2131099805;
+			
+			// aapt resource value: 0x7f0600a1
+			public const int Toolbar = 2131099809;
+			
+			// aapt resource value: 0x7f06009b
+			public const int VerifyIcon = 2131099803;
 			
 			// aapt resource value: 0x7f060073
 			public const int Web = 2131099763;

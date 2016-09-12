@@ -46,6 +46,10 @@ namespace Twichirp.Android.App.View {
 
         ImageView Icon { get; }
 
+        ImageView LockIcon { get; }
+
+        ImageView VerifyIcon { get; }
+
         TextView DateTime { get; }
 
         AView ClickableView { get; } 

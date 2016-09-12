@@ -14,31 +14,20 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using CoreTweet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Twichirp.Core.Extensions {
-    public static class StatusExtensions {
+namespace Twichirp.Core.App.DataHolder {
+    public class BaseDataHolder : IDisposable {
 
-        public static bool IsValid(this Status status) {
-            if(status.User == null) {
-                return false;
-            }
-            if(status.User.IsValid() == false) {
-                return false;
-            }
-            if(status.RetweetedStatus != null && status.RetweetedStatus.IsValid() == false) {
-                return false;
-            }
-            if(status.QuotedStatus != null && status.QuotedStatus.IsValid() == false) {
-                return false;
-            }
-            return true;
+        public CompositeDisposable Disposable { get; } = new CompositeDisposable();
+
+        public virtual void Dispose() {
+            Disposable.Dispose();
         }
-
     }
 }

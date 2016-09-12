@@ -32,7 +32,7 @@ using Twichirp.Android.App.Manager;
 using Twichirp.Core.Constant;
 
 namespace Twichirp.Android.App {
-    [Application(Icon = "@drawable/icon",Label ="Twichirp",Theme = "@style/AppTheme")]
+    [Application(Icon = "@drawable/icon",Label ="Twichirp",Theme = "@style/AppTheme",LargeHeap = true)]
     public class TwichirpApplication :Application,ITwichirpApplication{
 
         public SettingManager SettingManager { get; private set; }

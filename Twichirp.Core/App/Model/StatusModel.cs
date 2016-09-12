@@ -146,6 +146,8 @@ namespace Twichirp.Core.App.Model {
             RetweetedStatus = status.RetweetedStatus == null ? null : new StatusModel(Application,status.RetweetedStatus);
             RaisePropertyChanged(nameof(RetweetedStatus));
         }
+
+        public StatusModel ToContentStatus() => RetweetedStatus == null ? this : RetweetedStatus;
         
         public string ExportJson() => JsonConvert.SerializeObject(status);
     }

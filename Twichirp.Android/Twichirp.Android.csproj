@@ -180,6 +180,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\DataHolder\StatusDataHolder.cs" />
     <Compile Include="App\Extensions\ActivityExtensions.cs" />
     <Compile Include="App\Extensions\ContextExtensions.cs" />
     <Compile Include="App\Extensions\StatusExtensions.cs" />

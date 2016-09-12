@@ -52,6 +52,10 @@ namespace Twichirp.Android.App.View.Holder {
 
         public ImageView Icon { get; private set; }
 
+        public ImageView LockIcon { get; private set; }
+
+        public ImageView VerifyIcon { get; private set; }
+
         public TextView DateTime { get; private set; }
 
         public StatusHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup) : base(view,lifeCycle,viewGroup,Resource.Layout.StatusHolder) {
@@ -67,6 +71,8 @@ namespace Twichirp.Android.App.View.Holder {
             Name = ItemView.FindViewById<TextView>(Resource.Id.Name);
             ScreenName = ItemView.FindViewById<TextView>(Resource.Id.ScreenName);
             Icon = ItemView.FindViewById<ImageView>(Resource.Id.Icon);
+            LockIcon = ItemView.FindViewById<ImageView>(Resource.Id.LockIcon);
+            VerifyIcon = ItemView.FindViewById<ImageView>(Resource.Id.VerifyIcon);
             DateTime = ItemView.FindViewById<TextView>(Resource.Id.DateTime);
         }
 

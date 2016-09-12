@@ -29,6 +29,7 @@ using Android.Views;
 using Android.Widget;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
+using Twichirp.Android.App.DataHolder;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View;
 using Twichirp.Core.App.ViewModel;
@@ -41,54 +42,34 @@ namespace Twichirp.Android.App.ViewController {
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
+            if(ViewModel.DataHolder == null||ViewModel.DataHolder is StatusDataHolder==false) {
+                ViewModel.DataHolder = new StatusDataHolder(ViewModel);
+            }
+            var statusDataHolder = ViewModel.DataHolder as StatusDataHolder;
+
             ViewModel.ShowStatusCommand.Execute();
 
-            var visiblePrefixText = ViewModel.HiddenPrefix
-                .Select(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone)
-                .ToReadOnlyReactiveProperty()
-                .AddTo(Disposable);
-            var prefixText = ViewModel.HiddenPrefix
-                .Select(x => $"To: {string.Join(" ",x.Select(y => $"@{y.ScreenName}"))}")
-                .ToReadOnlyReactiveProperty()
-                .AddTo(Disposable);
-            var visibleText = ViewModel.Text
-                .Select(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone)
-                .ToReadOnlyReactiveProperty()
-                .AddTo(Disposable);
-            var text = ViewModel.Text
-                .Select(x => x.ToText())
-                .ToReadOnlyReactiveProperty()
-                .AddTo(Disposable);
-            var visibleSuffixText = ViewModel.HiddenSuffix
-                .Select(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone)
-                .ToReadOnlyReactiveProperty()
-                .AddTo(Disposable);
-            var suffixText = ViewModel.HiddenSuffix
-                .Select(x => $"Attach: {string.Join(" ",x.Select(y => y.DisplayUrl))}")
-                .ToReadOnlyReactiveProperty()
-                .AddTo(Disposable);
-            View.PrefixText.SetBinding(x => x.Visibility,visiblePrefixText);
-            View.PrefixText.SetBinding(x => x.Text,prefixText);
-            View.Text.SetBinding(x => x.Visibility,visibleText);
-            View.Text.SetBinding(x => x.Text,text);
-            View.SuffixText.SetBinding(x => x.Visibility,visibleSuffixText);
-            View.SuffixText.SetBinding(x => x.Text,suffixText);
+            View.PrefixText.Visibility = statusDataHolder.VisiblePrefixText;
+            View.PrefixText.Text = statusDataHolder.PrefixText;
+            View.Text.Visibility = statusDataHolder.VisibleText;
+            View.Text.Text = statusDataHolder.Text;
+            View.SuffixText.Visibility = statusDataHolder.VisibleSuffixText;
+            View.SuffixText.Text = statusDataHolder.SuffixText;
 
-            var visibleRetweetingUser = ViewModel.ToStatusType() == StatusViewModel.RetweetedNormalTweet ? ViewStates.Visible : ViewStates.Gone;
-            View.RetweetingUser.Visibility = visibleRetweetingUser;
-            View.RetweetingUser.SetBinding(x => x.Text,ViewModel.RetweetingUser);
+            View.RetweetingUser.Visibility = statusDataHolder.VisibleRetweetingUser;
+            View.RetweetingUser.Text = ViewModel.RetweetingUser;
 
-            var visibleReplyToUser = ViewModel.InReplyToScreenName
-                .Select(x => x == null ? ViewStates.Gone : ViewStates.Visible)
-                .ToReadOnlyReactiveProperty()
-                .AddTo(Disposable);
-            View.ReplyToUser.SetBinding(x => x.Visibility,visibleReplyToUser);
-            View.ReplyToUser.SetBinding(x => x.Text,ViewModel.ReplyToUser);
+            View.ReplyToUser.Visibility = statusDataHolder.VisibleReplyToUser;
+            View.ReplyToUser.Text = ViewModel.ReplyToUser;
 
-            View.Name.SetBinding(x => x.Text,ViewModel.Name);
-            View.ScreenName.SetBinding(x => x.Text,ViewModel.ScreenName);
-            View.DateTime.SetBinding(x => x.Text,ViewModel.DateTime);
-            View.ApplicationContext.LoadIntoBitmap(ViewModel.IconUrl.Value,View.Icon);
+            View.Name.Text = ViewModel.Name;
+            View.ScreenName.Text = ViewModel.ScreenName;
+            View.DateTime.Text = ViewModel.DateTime.Value;
+            View.ApplicationContext.LoadIntoBitmap(ViewModel.IconUrl,View.Icon);
+
+            View.LockIcon.Visibility = statusDataHolder.VisibleLockIcon;
+            View.VerifyIcon.Visibility = statusDataHolder.VisibleVerifyIcon;
+
         }
     }
 }

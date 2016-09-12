@@ -24,6 +24,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.Model;
+using Twichirp.Core.Extensions;
 
 namespace Twichirp.Core.App.Model {
     public class StatusTimelineModel : BaseModel {
@@ -70,17 +71,17 @@ namespace Twichirp.Core.App.Model {
             try {
                 int count = Application.SettingManager.Timeline.Count;
                 if(_timeline.Count >= 1) {
-                    IEnumerable<Status> response = await timelineResource.Load(count,sinceId: _timeline[0].Id.Value);
+                    IEnumerable<Status> response = await timelineResource.Load(count,sinceId: _timeline[0].Id);
                     if(response.Count() == count) {
                         var loadingViewModel = new LoadingViewModel(Application);
                         Timeline.InsertOnScheduler(0,loadingViewModel);
                     }
-                    foreach(var s in response.Select(x=>new StatusViewModel(Application,x)).Reverse()) {
+                    foreach(var s in response.Where(x=>x.IsValid()).Select(x=>new StatusViewModel(Application,x)).Reverse()) {
                         _timeline.Insert(0,s);
                         Timeline.InsertOnScheduler(0,s);
                     }
                 }else {
-                    foreach(var s in (await timelineResource.Load(count)).Select(x => new StatusViewModel(Application,x)).Reverse()) {
+                    foreach(var s in (await timelineResource.Load(count)).Where(x => x.IsValid()).Select(x => new StatusViewModel(Application,x)).Reverse()) {
                         _timeline.Insert(0,s);
                         Timeline.InsertOnScheduler(0,s);
                     }
@@ -121,27 +122,27 @@ namespace Twichirp.Core.App.Model {
                 }else {
                 }
                 if(previousStatus != null && nextStatus != null) {
-                    IEnumerable<Status> response = await timelineResource.Load(count,sinceId: nextStatus.Id.Value,maxId: previousStatus.Id.Value-1);
+                    IEnumerable<Status> response = await timelineResource.Load(count,sinceId: nextStatus.Id,maxId: previousStatus.Id-1);
                     if(response.Count() < count) {
                         Timeline.RemoveOnScheduler(target);
                     }
                     int _index = _timeline.IndexOf(previousStatus) + 1;
                     int index = Timeline.IndexOf(previousStatus) + 1;
-                    foreach(var s in response.Select(x => new StatusViewModel(Application,x)).Reverse()) {
+                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusViewModel(Application,x)).Reverse()) {
                         _timeline.Insert(_index,s);
                         Timeline.InsertOnScheduler(index,s);
                     }
                 }else if(previousStatus != null) {
-                    IEnumerable<Status> response = await timelineResource.Load(count,maxId: previousStatus.Id.Value - 1);
+                    IEnumerable<Status> response = await timelineResource.Load(count,maxId: previousStatus.Id - 1);
                     Timeline.RemoveOnScheduler(target);
-                    foreach(var s in response.Select(x => new StatusViewModel(Application,x))) {
+                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusViewModel(Application,x))) {
                         _timeline.Add(s);
                         Timeline.AddOnScheduler(s);
                     }
                 }else if(nextStatus != null) {
-                    IEnumerable<Status> response = await timelineResource.Load(count,sinceId: nextStatus.Id.Value);
+                    IEnumerable<Status> response = await timelineResource.Load(count,sinceId: nextStatus.Id);
                     Timeline.RemoveOnScheduler(target);
-                    foreach(var s in response.Select(x => new StatusViewModel(Application,x)).Reverse()) {
+                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusViewModel(Application,x)).Reverse()) {
                         _timeline.Insert(0,s);
                         Timeline.InsertOnScheduler(0,s);
                     }
@@ -165,8 +166,8 @@ namespace Twichirp.Core.App.Model {
             ErrorMessage = null;
             try {
                 int count = Application.SettingManager.Timeline.Count;
-                IEnumerable<Status> response = await timelineResource.Load(count,maxId:_timeline[_timeline.Count-1].Id.Value-1);
-                foreach(var s in response.Select(x => new StatusViewModel(Application,x))) {
+                IEnumerable<Status> response = await timelineResource.Load(count,maxId:_timeline[_timeline.Count-1].Id-1);
+                foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusViewModel(Application,x))) {
                     _timeline.Add(s);
                     Timeline.AddOnScheduler(s);
                 }
