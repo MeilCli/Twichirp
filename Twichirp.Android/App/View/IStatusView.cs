@@ -86,6 +86,22 @@ namespace Twichirp.Android.App.View {
 
         AView MediaClickable4 { get; }
 
+        FrameLayout ReplyIconClickable { get; }
+
+        ImageView ReplyIcon { get; }
+
+        FrameLayout RetweetIconClickable { get; }
+
+        ImageView RetweetIcon { get; }
+
+        TextView RetweetCount { get; }
+
+        FrameLayout FavoriteIconClickable { get; }
+
+        ImageView FavoriteIcon { get; }
+
+        TextView FavoriteCount { get; }
+
         AView ClickableView { get; } 
     }
 }

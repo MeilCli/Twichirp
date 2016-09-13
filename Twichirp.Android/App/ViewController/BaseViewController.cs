@@ -35,13 +35,14 @@ namespace Twichirp.Android.App.ViewController {
         public TView View { get; }
         public TViewModel ViewModel { get; }
         public ITwichirpApplication Application => View.TwichirpApplication;
+        protected bool AutoDisposeViewModel { get; set; } = true;
         internal CompositeDisposable Disposable { get; } = new CompositeDisposable();
 
         public BaseViewController(TView view,TViewModel viewModel) {
             View = view;
             ViewModel = viewModel;
             if(viewModel is IDisposable) {
-                view.OnDestoryEventHandler += (x,y) => (viewModel as IDisposable).Dispose();
+                view.OnDestoryEventHandler += (x,y) => { if(AutoDisposeViewModel) (viewModel as IDisposable).Dispose(); };
             }
         }
 

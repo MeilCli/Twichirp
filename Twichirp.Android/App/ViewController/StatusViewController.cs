@@ -22,8 +22,11 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.Graphics.Drawable;
+using Android.Support.V7.Widget;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
@@ -38,13 +41,14 @@ namespace Twichirp.Android.App.ViewController {
     public class StatusViewController : BaseViewController<IStatusView,StatusViewModel> {
 
         public StatusViewController(IStatusView view,StatusViewModel viewModel) : base(view,viewModel) {
+            AutoDisposeViewModel = false;
             view.OnCreateEventHandler += onCreate;
             view.OnDestoryEventHandler += onDestory;
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
             if(ViewModel.DataHolder == null||ViewModel.DataHolder is StatusDataHolder==false) {
-                ViewModel.DataHolder = new StatusDataHolder(ViewModel);
+                ViewModel.DataHolder = new StatusDataHolder(ViewModel,View.ApplicationContext);
             }
             var statusDataHolder = ViewModel.DataHolder as StatusDataHolder;
 
@@ -82,6 +86,16 @@ namespace Twichirp.Android.App.ViewController {
                 View.ApplicationContext.LoadIntoBitmap(ViewModel.Media.ElementAt(i).MediaUrl,medias[i]);
                 mediPlays[i].Visibility = statusDataHolder.VisibleMediaPlays[i];
             }
+
+            View.RetweetIcon.SetImageDrawable(DrawableCompat.Wrap(View.ApplicationContext.GetDrawable(Resource.Drawable.IconRepeatGrey36dp)));
+            statusDataHolder.RetweetDrawableTint.Subscribe(x => DrawableCompat.SetTint(View.RetweetIcon.Drawable,x)).AddTo(Disposable);
+            View.RetweetCount.SetBinding(x => x.Visibility,statusDataHolder.VisibleRetweetCount).AddTo(Disposable);
+            View.RetweetCount.SetBinding(x => x.Text,ViewModel.RetweetCountText).AddTo(Disposable);
+            View.RetweetIconClickable.Enabled = statusDataHolder.IsRetweetIconDisabled == false;
+            View.FavoriteIcon.SetImageDrawable(DrawableCompat.Wrap(View.ApplicationContext.GetDrawable(Resource.Drawable.IconStarGrey36dp)));
+            statusDataHolder.FavoriteDrawableTint.Subscribe(x => DrawableCompat.SetTint(View.FavoriteIcon.Drawable,x)).AddTo(Disposable);
+            View.FavoriteCount.SetBinding(x => x.Visibility,statusDataHolder.VisibleFavoriteCount).AddTo(Disposable);
+            View.FavoriteCount.SetBinding(x => x.Text,ViewModel.FavoriteCountText).AddTo(Disposable);
         }
 
         private void onDestory(object sender,LifeCycleEventArgs e) {
@@ -96,6 +110,9 @@ namespace Twichirp.Android.App.ViewController {
             View.MediaPlay2.ReleaseImage();
             View.MediaPlay3.ReleaseImage();
             View.MediaPlay4.ReleaseImage();
+            View.ReplyIcon.ReleaseImage();
+            View.RetweetIcon.ReleaseImage();
+            View.FavoriteIcon.ReleaseImage();
         }
     }
 }

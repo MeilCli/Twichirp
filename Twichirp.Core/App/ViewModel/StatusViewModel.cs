@@ -42,7 +42,9 @@ namespace Twichirp.Core.App.ViewModel {
         public string Source { get; private set; } 
         public ReadOnlyReactiveProperty<string> DateTime { get; private set; }
         public ReadOnlyReactiveProperty<int> RetweetCount { get; private set; }
+        public ReadOnlyReactiveProperty<string> RetweetCountText { get; private set; }
         public ReadOnlyReactiveProperty<int> FavoriteCount { get; private set; }
+        public ReadOnlyReactiveProperty<string> FavoriteCountText { get; private set; }
         public ReadOnlyReactiveProperty<bool> IsRetweeted { get; private set; }
         public ReadOnlyReactiveProperty<bool> IsFavorited { get; private set; }
         public string InReplyToScreenName { get; private set; }
@@ -74,7 +76,15 @@ namespace Twichirp.Core.App.ViewModel {
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
             RetweetCount = statusModel.ToContentStatus().ObserveProperty(x => x.RetweetCount).ToReadOnlyReactiveProperty().AddTo(Disposable);
+            RetweetCountText = RetweetCount
+                .Select(x => x.ToString())
+                .ToReadOnlyReactiveProperty()
+                .AddTo(Disposable);
             FavoriteCount = statusModel.ToContentStatus().ObserveProperty(x => x.FavoriteCount).ToReadOnlyReactiveProperty().AddTo(Disposable);
+            FavoriteCountText = FavoriteCount
+                .Select(x => x.ToString())
+                .ToReadOnlyReactiveProperty()
+                .AddTo(Disposable);
             IsRetweeted = statusModel.ToContentStatus().ObserveProperty(x => x.IsRetweeted).ToReadOnlyReactiveProperty().AddTo(Disposable);
             IsFavorited = statusModel.ToContentStatus().ObserveProperty(x => x.IsFavorited).ToReadOnlyReactiveProperty().AddTo(Disposable);
             InReplyToScreenName = statusModel.ToContentStatus().InReplyToScreenName.Map(x => x==null?null:$"@{x}");

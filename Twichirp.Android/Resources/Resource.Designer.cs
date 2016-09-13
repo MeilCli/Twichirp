@@ -1181,47 +1181,53 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f09004a
 			public const int ColorPrimaryDark = 2131296330;
 			
-			// aapt resource value: 0x7f09004d
-			public const int Grey600 = 2131296333;
+			// aapt resource value: 0x7f090052
+			public const int Favorite = 2131296338;
 			
-			// aapt resource value: 0x7f090050
-			public const int Retweet = 2131296336;
+			// aapt resource value: 0x7f09004d
+			public const int Grey300 = 2131296333;
+			
+			// aapt resource value: 0x7f09004e
+			public const int Grey600 = 2131296334;
+			
+			// aapt resource value: 0x7f090051
+			public const int Retweet = 2131296337;
 			
 			// aapt resource value: 0x7f09004c
 			public const int Snow = 2131296332;
 			
+			// aapt resource value: 0x7f090050
+			public const int Transparent = 2131296336;
+			
 			// aapt resource value: 0x7f09004f
-			public const int Transparent = 2131296335;
-			
-			// aapt resource value: 0x7f09004e
-			public const int TransparentGrey = 2131296334;
-			
-			// aapt resource value: 0x7f090051
-			public const int abc_background_cache_hint_selector_material_dark = 2131296337;
-			
-			// aapt resource value: 0x7f090052
-			public const int abc_background_cache_hint_selector_material_light = 2131296338;
+			public const int TransparentGrey = 2131296335;
 			
 			// aapt resource value: 0x7f090053
-			public const int abc_color_highlight_material = 2131296339;
+			public const int abc_background_cache_hint_selector_material_dark = 2131296339;
+			
+			// aapt resource value: 0x7f090054
+			public const int abc_background_cache_hint_selector_material_light = 2131296340;
+			
+			// aapt resource value: 0x7f090055
+			public const int abc_color_highlight_material = 2131296341;
 			
 			// aapt resource value: 0x7f090004
 			public const int abc_input_method_navigation_guard = 2131296260;
 			
-			// aapt resource value: 0x7f090054
-			public const int abc_primary_text_disable_only_material_dark = 2131296340;
-			
-			// aapt resource value: 0x7f090055
-			public const int abc_primary_text_disable_only_material_light = 2131296341;
-			
 			// aapt resource value: 0x7f090056
-			public const int abc_primary_text_material_dark = 2131296342;
+			public const int abc_primary_text_disable_only_material_dark = 2131296342;
 			
 			// aapt resource value: 0x7f090057
-			public const int abc_primary_text_material_light = 2131296343;
+			public const int abc_primary_text_disable_only_material_light = 2131296343;
 			
 			// aapt resource value: 0x7f090058
-			public const int abc_search_url_text = 2131296344;
+			public const int abc_primary_text_material_dark = 2131296344;
+			
+			// aapt resource value: 0x7f090059
+			public const int abc_primary_text_material_light = 2131296345;
+			
+			// aapt resource value: 0x7f09005a
+			public const int abc_search_url_text = 2131296346;
 			
 			// aapt resource value: 0x7f090005
 			public const int abc_search_url_text_normal = 2131296261;
@@ -1232,11 +1238,11 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f090007
 			public const int abc_search_url_text_selected = 2131296263;
 			
-			// aapt resource value: 0x7f090059
-			public const int abc_secondary_text_material_dark = 2131296345;
+			// aapt resource value: 0x7f09005b
+			public const int abc_secondary_text_material_dark = 2131296347;
 			
-			// aapt resource value: 0x7f09005a
-			public const int abc_secondary_text_material_light = 2131296346;
+			// aapt resource value: 0x7f09005c
+			public const int abc_secondary_text_material_light = 2131296348;
 			
 			// aapt resource value: 0x7f090008
 			public const int accent_material_dark = 2131296264;
@@ -1439,11 +1445,11 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f09003b
 			public const int switch_thumb_disabled_material_light = 2131296315;
 			
-			// aapt resource value: 0x7f09005b
-			public const int switch_thumb_material_dark = 2131296347;
+			// aapt resource value: 0x7f09005d
+			public const int switch_thumb_material_dark = 2131296349;
 			
-			// aapt resource value: 0x7f09005c
-			public const int switch_thumb_material_light = 2131296348;
+			// aapt resource value: 0x7f09005e
+			public const int switch_thumb_material_light = 2131296350;
 			
 			// aapt resource value: 0x7f09003c
 			public const int switch_thumb_normal_material_dark = 2131296316;
@@ -2141,6 +2147,15 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060083
 			public const int Drop = 2131099779;
 			
+			// aapt resource value: 0x7f0600b9
+			public const int FavoriteCount = 2131099833;
+			
+			// aapt resource value: 0x7f0600b8
+			public const int FavoriteIcon = 2131099832;
+			
+			// aapt resource value: 0x7f0600b7
+			public const int FavoriteIconClickable = 2131099831;
+			
 			// aapt resource value: 0x7f060076
 			public const int GoToWeb = 2131099766;
 			
@@ -2231,14 +2246,29 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060074
 			public const int ProgressBar = 2131099764;
 			
+			// aapt resource value: 0x7f0600bb
+			public const int RecyclerView = 2131099835;
+			
 			// aapt resource value: 0x7f0600b3
-			public const int RecyclerView = 2131099827;
+			public const int ReplyIcon = 2131099827;
+			
+			// aapt resource value: 0x7f0600b2
+			public const int ReplyIconClickable = 2131099826;
 			
 			// aapt resource value: 0x7f060097
 			public const int ReplyToUser = 2131099799;
 			
 			// aapt resource value: 0x7f060096
 			public const int RetweeingUser = 2131099798;
+			
+			// aapt resource value: 0x7f0600b6
+			public const int RetweetCount = 2131099830;
+			
+			// aapt resource value: 0x7f0600b5
+			public const int RetweetIcon = 2131099829;
+			
+			// aapt resource value: 0x7f0600b4
+			public const int RetweetIconClickable = 2131099828;
 			
 			// aapt resource value: 0x7f060082
 			public const int ScreenName = 2131099778;
@@ -2252,14 +2282,14 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06009e
 			public const int SuffixText = 2131099806;
 			
-			// aapt resource value: 0x7f0600b2
-			public const int SwipeRefresh = 2131099826;
+			// aapt resource value: 0x7f0600ba
+			public const int SwipeRefresh = 2131099834;
 			
 			// aapt resource value: 0x7f06009d
 			public const int Text = 2131099805;
 			
-			// aapt resource value: 0x7f0600b4
-			public const int Toolbar = 2131099828;
+			// aapt resource value: 0x7f0600bc
+			public const int Toolbar = 2131099836;
 			
 			// aapt resource value: 0x7f06009b
 			public const int VerifyIcon = 2131099803;

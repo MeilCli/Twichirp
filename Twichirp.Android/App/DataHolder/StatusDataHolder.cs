@@ -22,8 +22,13 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.Content.Res;
+using Android.Support.V4.Graphics.Drawable;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Reactive.Bindings;
@@ -58,7 +63,13 @@ namespace Twichirp.Android.App.DataHolder {
         public bool[] MeadiaIsVideoOrGif { get; private set; }
         public ViewStates[] VisibleMediaPlays { get; private set; }
 
-        public StatusDataHolder(StatusViewModel viewModel) {
+        public bool IsRetweetIconDisabled { get; private set; }
+        public ReadOnlyReactiveProperty<int> RetweetDrawableTint { get; private set; }
+        public ReadOnlyReactiveProperty<ViewStates> VisibleRetweetCount { get; private set; }
+        public ReadOnlyReactiveProperty<int> FavoriteDrawableTint { get; private set; }
+        public ReadOnlyReactiveProperty<ViewStates> VisibleFavoriteCount { get; private set; }
+
+        public StatusDataHolder(StatusViewModel viewModel,Context context) {
             VisiblePrefixText = viewModel.HiddenPrefix.Map(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone);
             PrefixText = viewModel.HiddenPrefix.Map(x => $"To: {string.Join(" ",x.Select(y => $"@{y.ScreenName}"))}");
             VisibleText = viewModel.Text.Map(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone);
@@ -80,6 +91,41 @@ namespace Twichirp.Android.App.DataHolder {
             VisivleMedia4 = viewModel.Media.Map(x => x.Count() >= 4 ? ViewStates.Visible : ViewStates.Gone);
             MeadiaIsVideoOrGif = viewModel.Media.Select(x => (x?.VideoInfo?.Variants.Length ?? 0) > 0 ? true : false).ToArray();
             VisibleMediaPlays = MeadiaIsVideoOrGif.Select(x => x == true ? ViewStates.Visible : ViewStates.Gone).ToArray();
+
+            IsRetweetIconDisabled = viewModel.IsProtected;
+            RetweetDrawableTint = viewModel.IsRetweeted
+                .Select(x => toRetweetDrawableTint(context,x))
+                .ToReadOnlyReactiveProperty()
+                .AddTo(Disposable);
+            VisibleRetweetCount = viewModel.RetweetCount
+                .Select(x => x > 0 ? ViewStates.Visible : ViewStates.Invisible)
+                .ToReadOnlyReactiveProperty()
+                .AddTo(Disposable);
+            FavoriteDrawableTint = viewModel.IsFavorited
+                .Select(x => toFavoriteDrawableTint(context,x))
+                .ToReadOnlyReactiveProperty()
+                .AddTo(Disposable);
+            VisibleFavoriteCount = viewModel.FavoriteCount
+                .Select(x => x > 0 ? ViewStates.Visible : ViewStates.Invisible)
+                .ToReadOnlyReactiveProperty()
+                .AddTo(Disposable);
+
+        }
+
+        private int toRetweetDrawableTint(Context context,bool isRetweeted) {
+            if(IsRetweetIconDisabled) {
+                return ResourcesCompat.GetColor(context.Resources,Resource.Color.Grey300,null);
+            } else if(isRetweeted) {
+                return ResourcesCompat.GetColor(context.Resources,Resource.Color.Retweet,null);
+            }
+            return ResourcesCompat.GetColor(context.Resources,Resource.Color.Grey600,null);
+        }
+
+        private int toFavoriteDrawableTint(Context context,bool isFavorited) {
+            if(isFavorited) {
+                return ResourcesCompat.GetColor(context.Resources,Resource.Color.Favorite,null);
+            }
+            return ResourcesCompat.GetColor(context.Resources,Resource.Color.Grey600,null);
         }
     }
 }

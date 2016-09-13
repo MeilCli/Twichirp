@@ -30,7 +30,7 @@ using Twichirp.Core.App.ViewModel;
 using AView = Android.Views.View;
 
 namespace Twichirp.Android.App.View.Holder {
-    public class StatusHolder : BaseHolder<BaseViewModel>,IStatusView {
+    public class StatusHolder : BaseHolder<BaseViewModel>, IStatusView {
 
         private StatusViewController statusViewController;
 
@@ -92,6 +92,21 @@ namespace Twichirp.Android.App.View.Holder {
 
         public AView MediaClickable4 { get; private set; }
 
+        public FrameLayout ReplyIconClickable { get; private set; }
+
+        public ImageView ReplyIcon { get; private set; }
+
+        public FrameLayout RetweetIconClickable { get; private set; }
+
+        public ImageView RetweetIcon { get; private set; }
+
+        public TextView RetweetCount { get; private set; }
+
+        public FrameLayout FavoriteIconClickable { get; private set; }
+
+        public ImageView FavoriteIcon { get; private set; }
+
+        public TextView FavoriteCount { get; private set; }
 
         public StatusHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup) : base(view,lifeCycle,viewGroup,Resource.Layout.StatusHolder) {
         }
@@ -126,6 +141,14 @@ namespace Twichirp.Android.App.View.Holder {
             MediaClickable2 = ItemView.FindViewById<AView>(Resource.Id.MediaClickable2);
             MediaClickable3 = ItemView.FindViewById<AView>(Resource.Id.MediaClickable3);
             MediaClickable4 = ItemView.FindViewById<AView>(Resource.Id.MediaClickable4);
+            ReplyIconClickable = ItemView.FindViewById<FrameLayout>(Resource.Id.ReplyIconClickable);
+            ReplyIcon = ItemView.FindViewById<ImageView>(Resource.Id.ReplyIcon);
+            RetweetIconClickable = ItemView.FindViewById<FrameLayout>(Resource.Id.RetweetIconClickable);
+            RetweetIcon = ItemView.FindViewById<ImageView>(Resource.Id.RetweetIcon);
+            RetweetCount = ItemView.FindViewById<TextView>(Resource.Id.RetweetCount);
+            FavoriteIconClickable = ItemView.FindViewById<FrameLayout>(Resource.Id.FavoriteIconClickable);
+            FavoriteIcon = ItemView.FindViewById<ImageView>(Resource.Id.FavoriteIcon);
+            FavoriteCount = ItemView.FindViewById<TextView>(Resource.Id.FavoriteCount);
         }
 
         public override void OnPreBind(BaseViewModel item,int position) {

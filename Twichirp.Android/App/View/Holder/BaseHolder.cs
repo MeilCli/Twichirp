@@ -29,6 +29,7 @@ using Android.Widget;
 using Twichirp.Core.App;
 using Android.Support.V7.Widget;
 using Android.Util;
+using Android.Support.V4.View;
 
 namespace Twichirp.Android.App.View.Holder {
     public abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView,ILifeCycle,IBindable<T>,IRecyclable {
@@ -50,7 +51,7 @@ namespace Twichirp.Android.App.View.Holder {
         public ITwichirpApplication TwichirpApplication => view.TwichirpApplication;
 
         public BaseHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup,int layoutResource) 
-            : base(global::Android.Views.View.Inflate(viewGroup.Context,layoutResource,null)) {
+            : base(LayoutInflater.From(view.Activity).Inflate(layoutResource,null)) {
             this.IsRecyclable = false;
             this.view = view;
             ItemView.ViewDetachedFromWindow += onDetatchViewFromWindow;

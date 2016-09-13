@@ -90,7 +90,7 @@ namespace Twichirp.Android.App.ViewController {
         private void setDataHolder(BaseViewModel viewModel) {
             if(viewModel is StatusViewModel) {
                 var statusViewModel = viewModel as StatusViewModel;
-                statusViewModel.DataHolder = new StatusDataHolder(statusViewModel);
+                statusViewModel.DataHolder = new StatusDataHolder(statusViewModel,View.ApplicationContext);
             }
         }
 
