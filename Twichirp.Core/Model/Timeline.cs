@@ -26,18 +26,19 @@ namespace Twichirp.Core.Model {
 
         public const int Home = 1;
 
-        private Func<int,long?,long?,Task<TResult>> load;
-        public readonly int type;
+        private Func<Account,int,long?,long?,Task<TResult>> load;
+        public int Type { get; }
+        public Account Account { get; }
 
-        public Timeline(Func<int,long?,long?,Task<TResult>> load,int type) {
+        public Timeline(Func<Account,int,long?,long?,Task<TResult>> load,int type) {
             this.load = load;
-            this.type = type;
+            this.Type = type;
         }
 
-        public async Task<TResult> Load(int count,long? sinceId = null,long? maxId = null) => await load(count,sinceId,maxId);
+        public async Task<TResult> Load(Account account,int count,long? sinceId = null,long? maxId = null) => await load(account,count,sinceId,maxId);
 
-        public static Timeline<IEnumerable<Status>> HomeTimeline(Account account) {
-            Func<int,long?,long?,Task<IEnumerable<Status>>> load = async (x,y,z) => {
+        public static Timeline<IEnumerable<Status>> HomeTimeline() {
+            Func<Account,int,long?,long?,Task<IEnumerable<Status>>> load = async (account,x,y,z) => {
                 return await account.Token.Statuses.HomeTimelineAsync(count: x,since_id: y,max_id: z,include_entities: true,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
             };
             return new Timeline<IEnumerable<Status>>(load,Home);

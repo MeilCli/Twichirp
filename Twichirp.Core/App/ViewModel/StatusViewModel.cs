@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using Twichirp.Core.App.Model;
 using System.Reactive.Linq;
 using Twichirp.Core.Extensions;
+using Twichirp.Core.Model;
 
 namespace Twichirp.Core.App.ViewModel {
     public class StatusViewModel : BaseViewModel {
@@ -33,6 +34,7 @@ namespace Twichirp.Core.App.ViewModel {
         public const int RetweetedNormalTweet = 2;
 
         public IDisposable DataHolder { get; set; }
+        public Account Account { get; }
 
         private StatusModel statusModel;
         public long Id { get; private set; }
@@ -62,7 +64,9 @@ namespace Twichirp.Core.App.ViewModel {
 
         public ReactiveCommand ShowStatusCommand { get; } = new ReactiveCommand();
 
-        public StatusViewModel(ITwichirpApplication application,Status status) : base(application) {
+        public StatusViewModel(ITwichirpApplication application,Status status,Account account) : base(application) {
+            Account = account;
+
             IStringResource stringResource = application.StringResource;
 
             statusModel = new StatusModel(Application,status);

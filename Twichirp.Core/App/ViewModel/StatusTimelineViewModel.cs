@@ -39,8 +39,8 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveCommand LoadCommand { get; } = new ReactiveCommand();
         public ReactiveCommand LoadMoreComannd { get; } = new ReactiveCommand();
 
-        public StatusTimelineViewModel(ITwichirpApplication application,Timeline<IEnumerable<Status>> timelineResource) : base(application) {
-            StatusTimelineModel = new StatusTimelineModel(application,timelineResource);
+        public StatusTimelineViewModel(ITwichirpApplication application,Timeline<IEnumerable<Status>> timelineResource,Account account) : base(application) {
+            StatusTimelineModel = new StatusTimelineModel(application,timelineResource,account);
             Timeline = StatusTimelineModel.Timeline;
             IsLoading = StatusTimelineModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);
             ErrorMessage = StatusTimelineModel.ObserveProperty(x => x.ErrorMessage).ToReadOnlyReactiveProperty().AddTo(Disposable);

@@ -48,8 +48,8 @@ namespace Twichirp.Android.App.View.Fragment {
             RecyclerView = view.FindViewById<RecyclerView>(Resource.Id.RecyclerView);
             SwipeRefrech = view.FindViewById<SwipeRefreshLayout>(Resource.Id.SwipeRefresh);
             var account = TwichirpApplication.AccountManager[TwichirpApplication.SettingManager.Accounts.DefaultAccountId];
-            var timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.HomeTimeline(account);
-            statusTimelineViewModel = new StatusTimelineViewModel(TwichirpApplication,timelineResource);
+            var timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.HomeTimeline();
+            statusTimelineViewModel = new StatusTimelineViewModel(TwichirpApplication,timelineResource,account);
             statusTimelineViewController = new StatusTimelineViewController(this,statusTimelineViewModel);
             return view;
         }
