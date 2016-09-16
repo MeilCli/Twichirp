@@ -62,6 +62,7 @@
     <Compile Include="App\Setting\ApplicationSetting.cs" />
     <Compile Include="App\Setting\BaseSetting.cs" />
     <Compile Include="App\Setting\TimelineSetting.cs" />
+    <Compile Include="App\TwitterEvent.cs" />
     <Compile Include="App\ViewModel\BaseViewModel.cs" />
     <Compile Include="App\ViewModel\LoadingViewModel.cs" />
     <Compile Include="App\ViewModel\LoginViewModel.cs" />

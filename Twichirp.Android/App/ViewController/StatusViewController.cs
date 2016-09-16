@@ -23,6 +23,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.Graphics.Drawable;
@@ -47,7 +48,7 @@ namespace Twichirp.Android.App.ViewController {
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
-            if(ViewModel.DataHolder == null||ViewModel.DataHolder is StatusDataHolder==false) {
+            if(ViewModel.DataHolder == null || ViewModel.DataHolder is StatusDataHolder == false) {
                 ViewModel.DataHolder = new StatusDataHolder(ViewModel,View.ApplicationContext);
             }
             var statusDataHolder = ViewModel.DataHolder as StatusDataHolder;
@@ -87,15 +88,32 @@ namespace Twichirp.Android.App.ViewController {
                 mediPlays[i].Visibility = statusDataHolder.VisibleMediaPlays[i];
             }
 
-            View.RetweetIcon.SetImageDrawable(DrawableCompat.Wrap(View.ApplicationContext.GetDrawable(Resource.Drawable.IconRepeatGrey36dp)));
-            statusDataHolder.RetweetDrawableTint.Subscribe(x => DrawableCompat.SetTint(View.RetweetIcon.Drawable,x)).AddTo(Disposable);
+            setRetweetIcon();
+            statusDataHolder.RetweetDrawableTint
+                .Subscribe(x => DrawableCompat.SetTint(View.RetweetIcon.Drawable ?? setRetweetIcon(),x))
+                .AddTo(Disposable);
             View.RetweetCount.SetBinding(x => x.Visibility,statusDataHolder.VisibleRetweetCount).AddTo(Disposable);
             View.RetweetCount.SetBinding(x => x.Text,ViewModel.RetweetCountText).AddTo(Disposable);
             View.RetweetIconClickable.Enabled = statusDataHolder.IsRetweetIconDisabled == false;
-            View.FavoriteIcon.SetImageDrawable(DrawableCompat.Wrap(View.ApplicationContext.GetDrawable(Resource.Drawable.IconStarGrey36dp)));
-            statusDataHolder.FavoriteDrawableTint.Subscribe(x => DrawableCompat.SetTint(View.FavoriteIcon.Drawable,x)).AddTo(Disposable);
+            View.RetweetIconClickable.ClickAsObservable().SetCommand(ViewModel.RetweetCommand);
+
+            setFavoriteIcon();
+            statusDataHolder.FavoriteDrawableTint
+                .Subscribe(x => DrawableCompat.SetTint(View.FavoriteIcon.Drawable?? setFavoriteIcon(),x))
+                .AddTo(Disposable);
             View.FavoriteCount.SetBinding(x => x.Visibility,statusDataHolder.VisibleFavoriteCount).AddTo(Disposable);
             View.FavoriteCount.SetBinding(x => x.Text,ViewModel.FavoriteCountText).AddTo(Disposable);
+            View.FavoriteIconClickable.ClickAsObservable().SetCommand(ViewModel.FavoriteCommand);
+        }
+
+        private Drawable setRetweetIcon() {
+            View.RetweetIcon.SetImageDrawable(DrawableCompat.Wrap(View.ApplicationContext.GetDrawable(Resource.Drawable.IconRepeatGrey36dp)));
+            return View.RetweetIcon.Drawable;
+        }
+
+        private Drawable setFavoriteIcon() {
+            View.FavoriteIcon.SetImageDrawable(DrawableCompat.Wrap(View.ApplicationContext.GetDrawable(Resource.Drawable.IconStarGrey36dp)));
+            return View.FavoriteIcon.Drawable;
         }
 
         private void onDestory(object sender,LifeCycleEventArgs e) {

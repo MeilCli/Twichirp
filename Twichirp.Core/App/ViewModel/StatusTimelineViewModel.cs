@@ -49,6 +49,11 @@ namespace Twichirp.Core.App.ViewModel {
             ErrorMessage.Where(x => x != null).SubscribeOnUIDispatcher().Subscribe(x => ShowMessageCommand.Execute(x)).AddTo(Disposable);
             LoadCommand.Subscribe(x => StatusTimelineModel.Load());
             LoadMoreComannd.Subscribe(x => StatusTimelineModel.LoadMore());
+
+            Application.TwitterEvent.UpdateStatusEvent
+                .SubscribeOnUIDispatcher()
+                .Subscribe(x => StatusTimelineModel.NotifyStatusUpdate(x.Item1,x.Item2))
+                .AddTo(Disposable);
         }
 
         private void collectionChanged(object sender,NotifyCollectionChangedEventArgs e) {

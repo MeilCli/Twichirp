@@ -16,32 +16,35 @@
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Twichirp.Core.App.Manager;
-using Twichirp.Core.App.Setting;
+using CoreTweet;
+using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
+using Twichirp.Core.Model;
 
 namespace Twichirp.Core.App {
-    public interface ITwichirpApplication {
+    public class TwitterEvent : INotifyPropertyChanged {
 
-        SettingManager SettingManager { get; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        FileManager FileManager { get; }
+        public ReadOnlyReactiveProperty<Tuple<Account,Status>> UpdateStatusEvent { get; }
+        private Tuple<Account,Status> _updateStatus;
+        public Tuple<Account,Status> UpdateStatus {
+            get {
+                return _updateStatus;
+            }
+            set {
+                _updateStatus = value;
+                PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(UpdateStatus)));
+            }
+        }
 
-        DatabaseManager DatabaseManager { get; }
-
-        AccountManager AccountManager { get; }
-
-        ConsumerManager ConsumerManager { get; }
-
-        UserContainerManager UserContainerManager { get; }
-
-        IStringResource StringResource { get; }
-
-        string GetLocalizedString(int resource);
-
-        TwitterEvent TwitterEvent { get; }
+        public TwitterEvent() {
+            UpdateStatusEvent = this.ObserveProperty(x => x.UpdateStatus).ToReadOnlyReactiveProperty(mode: ReactivePropertyMode.None);
+        }
 
     }
 }

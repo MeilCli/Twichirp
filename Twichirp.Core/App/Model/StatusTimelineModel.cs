@@ -180,5 +180,26 @@ namespace Twichirp.Core.App.Model {
             }
             IsLoading = false;
         }
+
+        public async void NotifyStatusUpdate(Account account,Status status) {
+            await slim.WaitAsync();
+            try {
+                IEnumerable<StatusModel> changeStatus = await Task.Run(() => {
+                    return _timeline
+                    .Where(x => x.Account.Id == account.Id)
+                    .Select(x => x.StatusModel)
+                    .SelectMany(x => x.DeploymentStatus())
+                    .Where(x => x.Id == status.Id)
+                    .ToList();
+                });
+                foreach(var s in changeStatus) {
+                    s.SetStatus(status);
+                }
+            } finally {
+                slim.Release();
+            }
+        }
+
+        
     }
 }

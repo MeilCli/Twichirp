@@ -49,6 +49,8 @@ namespace Twichirp.Android.App {
 
         public UserContainerManager UserContainerManager { get; private set; }
 
+        public TwitterEvent TwitterEvent { get; private set; }
+
         public TwichirpApplication(IntPtr javaReference,JniHandleOwnership transfer) : base(javaReference,transfer) {
         }
 
@@ -62,6 +64,7 @@ namespace Twichirp.Android.App {
             ConsumerManager = new ConsumerManager(this,ConsumerConstant.TwichirpForAndroid);
             UserContainerManager = new UserContainerManager(this);
             StringResource = new StringResource();
+            TwitterEvent = new TwitterEvent();
         }
 
         //気休め

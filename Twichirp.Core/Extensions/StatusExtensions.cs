@@ -40,5 +40,18 @@ namespace Twichirp.Core.Extensions {
             return true;
         }
 
+        public static IEnumerable<Status> DeploymentStatus(this Status status) {
+            yield return status;
+            if(status.RetweetedStatus != null) {
+                yield return status.RetweetedStatus;
+            }
+            if(status.RetweetedStatus?.QuotedStatus != null) {
+                yield return status.RetweetedStatus.QuotedStatus;
+            }
+            if(status.QuotedStatus != null) {
+                yield return status.QuotedStatus;
+            }
+        }
+
     }
 }

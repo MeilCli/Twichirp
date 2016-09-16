@@ -36,7 +36,7 @@ namespace Twichirp.Core.App.ViewModel {
         public IDisposable DataHolder { get; set; }
         public Account Account { get; }
 
-        private StatusModel statusModel;
+        internal StatusModel StatusModel;
         public long Id { get; private set; }
         public IEnumerable<TextPart> Text { get; private set; }
         public IEnumerable<UserMentionEntity> HiddenPrefix { get; private set; }
@@ -63,46 +63,67 @@ namespace Twichirp.Core.App.ViewModel {
         public string RetweetingUser { get; private set; }
 
         public ReactiveCommand ShowStatusCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand RetweetCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand FavoriteCommand { get; } = new ReactiveCommand();
 
         public StatusViewModel(ITwichirpApplication application,Status status,Account account) : base(application) {
             Account = account;
 
             IStringResource stringResource = application.StringResource;
 
-            statusModel = new StatusModel(Application,status);
-            Id = statusModel.Id;
-            Text = statusModel.ToContentStatus().Text;
-            HiddenPrefix = statusModel.ToContentStatus().HiddenPrefix;
-            HiddenSuffix = statusModel.ToContentStatus().HiddenSuffix;
-            Source = statusModel.ToContentStatus().Source;
-            DateTime = statusModel.ToContentStatus().ObserveProperty(x => x.CreatedAt)
+            StatusModel = new StatusModel(Application,status);
+            Id = StatusModel.Id;
+            Text = StatusModel.ToContentStatus().Text;
+            HiddenPrefix = StatusModel.ToContentStatus().HiddenPrefix;
+            HiddenSuffix = StatusModel.ToContentStatus().HiddenSuffix;
+            Source = StatusModel.ToContentStatus().Source;
+            DateTime = StatusModel.ToContentStatus().ObserveProperty(x => x.CreatedAt)
                 .CombineLatest(ShowStatusCommand,(x,y)=> relativeDateTime(x))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
-            RetweetCount = statusModel.ToContentStatus().ObserveProperty(x => x.RetweetCount).ToReadOnlyReactiveProperty().AddTo(Disposable);
+            RetweetCount = StatusModel.ToContentStatus().ObserveProperty(x => x.RetweetCount).ToReadOnlyReactiveProperty().AddTo(Disposable);
             RetweetCountText = RetweetCount
                 .Select(x => x.ToString())
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
-            FavoriteCount = statusModel.ToContentStatus().ObserveProperty(x => x.FavoriteCount).ToReadOnlyReactiveProperty().AddTo(Disposable);
+            FavoriteCount = StatusModel.ToContentStatus().ObserveProperty(x => x.FavoriteCount).ToReadOnlyReactiveProperty().AddTo(Disposable);
             FavoriteCountText = FavoriteCount
                 .Select(x => x.ToString())
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
-            IsRetweeted = statusModel.ToContentStatus().ObserveProperty(x => x.IsRetweeted).ToReadOnlyReactiveProperty().AddTo(Disposable);
-            IsFavorited = statusModel.ToContentStatus().ObserveProperty(x => x.IsFavorited).ToReadOnlyReactiveProperty().AddTo(Disposable);
-            InReplyToScreenName = statusModel.ToContentStatus().InReplyToScreenName.Map(x => x==null?null:$"@{x}");
+            IsRetweeted = StatusModel.ToContentStatus().ObserveProperty(x => x.IsRetweeted).ToReadOnlyReactiveProperty().AddTo(Disposable);
+            IsFavorited = StatusModel.ToContentStatus().ObserveProperty(x => x.IsFavorited).ToReadOnlyReactiveProperty().AddTo(Disposable);
+            InReplyToScreenName = StatusModel.ToContentStatus().InReplyToScreenName.Map(x => x==null?null:$"@{x}");
             ReplyToUser = InReplyToScreenName?.Map(x => string.Format(Application.GetLocalizedString(stringResource.StatusReplyToUser),x));
-            Media = statusModel.ToContentStatus().Media;
+            Media = StatusModel.ToContentStatus().Media;
 
-            IconUrl = statusModel.ToContentStatus().User.ProfileImageUrl;
-            Name = statusModel.ToContentStatus().User.Name;
-            ScreenName = statusModel.ToContentStatus().User.ScreenName.Map(x => $"@{x}");
-            IsProtected = statusModel.ToContentStatus().User.IsProtected;
-            IsVerified = statusModel.ToContentStatus().User.IsVerified;
+            IconUrl = StatusModel.ToContentStatus().User.ProfileImageUrl;
+            Name = StatusModel.ToContentStatus().User.Name;
+            ScreenName = StatusModel.ToContentStatus().User.ScreenName.Map(x => $"@{x}");
+            IsProtected = StatusModel.ToContentStatus().User.IsProtected;
+            IsVerified = StatusModel.ToContentStatus().User.IsVerified;
 
-            IsRetweeting = statusModel.RetweetedStatus.Map(x => x != null);
-            RetweetingUser = statusModel.User.ScreenName.Map(x => string.Format(Application.GetLocalizedString(stringResource.StatusRetweetingUser),x));
+            IsRetweeting = StatusModel.RetweetedStatus.Map(x => x != null);
+            RetweetingUser = StatusModel.User.ScreenName.Map(x => string.Format(Application.GetLocalizedString(stringResource.StatusRetweetingUser),x));
+
+            RetweetCommand
+                .Subscribe(x=> {
+                    if(IsRetweeted.Value) {
+                        StatusModel.ToContentStatus().UnRetweet(account);
+                    }else {
+                        StatusModel.ToContentStatus().Retweet(account);
+                    }
+                })
+                .AddTo(Disposable);
+            FavoriteCommand
+                .Subscribe(x => {
+                    if(IsFavorited.Value) {
+                        StatusModel.ToContentStatus().UnFavorite(account);
+                    } else {
+                        StatusModel.ToContentStatus().Favorite(account);
+                    }
+                })
+                .AddTo(Disposable);
         }
 
         private string relativeDateTime(DateTimeOffset dateTimeOffset) {
@@ -136,7 +157,7 @@ namespace Twichirp.Core.App.ViewModel {
         }
 
         public int ToStatusType() {
-            if(statusModel.RetweetedStatus != null) {
+            if(StatusModel.RetweetedStatus != null) {
                 return RetweetedNormalTweet;
             }
             return NormalTweet;
