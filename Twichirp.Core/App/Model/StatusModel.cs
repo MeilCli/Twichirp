@@ -200,9 +200,11 @@ namespace Twichirp.Core.App.Model {
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Statuses.UnretweetAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
-                //返り値に反映されてない
-                status.IsRetweeted = false;
-                status.RetweetCount -= 1;
+                if(status.IsRetweeted ?? false) {
+                    //返り値に反映されてない
+                    status.IsRetweeted = false;
+                    status.RetweetCount -= 1;
+                }
                 foreach(var s in status.DeploymentStatus()) {
                     Application.TwitterEvent.UpdateStatus = Tuple.Create(account,s);
                 }
