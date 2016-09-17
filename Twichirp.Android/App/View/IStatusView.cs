@@ -30,6 +30,8 @@ using AView = Android.Views.View;
 namespace Twichirp.Android.App.View {
     public interface IStatusView :IView,ILifeCycle{
 
+        int StatusType { get; }
+
         TextView RetweetingUser { get; }
 
         TextView ReplyToUser { get; }
@@ -51,8 +53,6 @@ namespace Twichirp.Android.App.View {
         ImageView VerifyIcon { get; }
 
         TextView DateTime { get; }
-
-        RelativeLayout MediaGrid { get; }
 
         LinearLayout MediaParent2 { get; }
 

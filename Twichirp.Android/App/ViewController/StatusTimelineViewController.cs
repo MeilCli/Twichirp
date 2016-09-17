@@ -71,8 +71,16 @@ namespace Twichirp.Android.App.ViewController {
                     return new LoadingHolder(View,View,parent);
                 case preStatusTypeParam + StatusViewModel.NormalTweet:
                     return new StatusHolder(View,View,parent);
-                case preStatusTypeParam + StatusViewModel.RetweetedNormalTweet:
+                case preStatusTypeParam + StatusViewModel.MediaTweet:
+                    return new StatusMediaHolder(View,View,parent);
+                case preStatusTypeParam + StatusViewModel.QuotedTweet:
                     return new StatusHolder(View,View,parent);
+                case preStatusTypeParam + StatusViewModel.QuotedInnerMediaTweet:
+                    return new StatusHolder(View,View,parent);
+                case preStatusTypeParam + StatusViewModel.QuotedOuterMediaTweet:
+                    return new StatusQuotingOuterMediaHolder(View,View,parent);
+                case preStatusTypeParam + StatusViewModel.QuotedInnerAndOuterMediaTweet:
+                    return new StatusQuotingInnerAndOuterMediaHolder(View,View,parent);
             }
             return null;
         }

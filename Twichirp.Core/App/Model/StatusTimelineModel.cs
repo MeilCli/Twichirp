@@ -184,6 +184,7 @@ namespace Twichirp.Core.App.Model {
         public async void NotifyStatusUpdate(Account account,Status status) {
             await slim.WaitAsync();
             try {
+                /*
                 IEnumerable<StatusModel> changeStatus = await Task.Run(() => {
                     return _timeline
                     .Where(x => x.Account.Id == account.Id)
@@ -192,8 +193,26 @@ namespace Twichirp.Core.App.Model {
                     .Where(x => x.Id == status.Id)
                     .ToList();
                 });
+                
                 foreach(var s in changeStatus) {
                     s.SetStatus(status);
+                }
+                */
+                IEnumerable<StatusViewModel> changeStatus = await Task.Run(() => {
+                    return _timeline
+                    .Where(x => x.Account.Id == account.Id)
+                    .Where(x => x.StatusModel.DeploymentStatus().Any(y => y.Id == status.Id))
+                    .ToList();
+                });
+                foreach(var s in changeStatus) {
+                    foreach(var m in s.StatusModel.DeploymentStatus().Where(x => x.Id == status.Id)) {
+                        m.SetStatus(status);
+                    }
+                    int index = Timeline.IndexOf(s);
+                    if(index == -1) {
+                        continue;
+                    }
+                    Timeline.SetOnScheduler(index,s);
                 }
             } finally {
                 slim.Release();

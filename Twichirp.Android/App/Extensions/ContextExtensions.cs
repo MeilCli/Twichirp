@@ -29,6 +29,7 @@ using Android.Graphics;
 using System.Threading.Tasks;
 using Square.Picasso;
 using Twichirp.Core.App;
+using Android.Util;
 
 namespace Twichirp.Android.App.Extensions {
     public static class ContextExtensions {
@@ -47,15 +48,19 @@ namespace Twichirp.Android.App.Extensions {
                     return null;
                 }
             });
-            if(bm == null) {
-                return;
+            // https://developer.xamarin.com/guides/android/advanced_topics/garbage_collection/#Helping_the_GC
+            // ‚±‚ñ‚È‚±‚Æ‚µ‚Ä‚¢‚¢‚ç‚µ‚¢
+            using(bm) {
+                if(bm == null) {
+                    return;
+                }
+                if(imageView == null) {
+                    bm?.Recycle();
+                    return;
+                }
+                imageView.SetImageBitmap(bm);
+                callback?.Invoke(bm);
             }
-            if(imageView == null) {
-                bm?.Recycle();
-                return;
-            }
-            imageView.SetImageBitmap(bm);
-            callback?.Invoke(bm);
         }
 
     }

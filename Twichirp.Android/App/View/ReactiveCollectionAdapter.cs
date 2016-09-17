@@ -34,6 +34,7 @@ using Java.Lang;
 namespace Twichirp.Android.App.View {
     public class ReactiveCollectionAdapter<T> : RecyclerView.Adapter, IDisposable where T:class {
 
+        private List<RecyclerView> recyclerViews = new List<RecyclerView>();
         private INotifyCollectionChanged notify;
         private IList<T> list;
         private Func<T,int,int> viewTypeSelector;
@@ -82,7 +83,31 @@ namespace Twichirp.Android.App.View {
             }
         }
 
+        public override void OnAttachedToRecyclerView(RecyclerView recyclerView) {
+            base.OnAttachedToRecyclerView(recyclerView);
+            recyclerViews.Add(recyclerView);
+        }
+
+        public override void OnDetachedFromRecyclerView(RecyclerView recyclerView) {
+            base.OnDetachedFromRecyclerView(recyclerView);
+            recyclerViews.Remove(recyclerView);
+        }
+
+        private bool isHolderRecyclable(int startIndex,int count) {
+            bool isRecyclable = false;
+            foreach(var recyclerView in recyclerViews) {
+                for(int i = startIndex;i < startIndex + count;i++) {
+                    isRecyclable |= recyclerView.FindViewHolderForAdapterPosition(i)?.IsRecyclable ?? false;
+                    if(isRecyclable) {
+                        return isRecyclable;
+                    }
+                }
+            }
+            return isRecyclable;
+        }
+
         private void collectionChanged(object sender,NotifyCollectionChangedEventArgs e) {
+            // ‚¤[[‚ñ‚±‚Ì https://code.google.com/p/android/issues/detail?id=193069
             if(e.Action == NotifyCollectionChangedAction.Add) {
                 foreach(var i in e.NewItems) {
                     if(i is T) {
@@ -109,12 +134,17 @@ namespace Twichirp.Android.App.View {
                         SetDataHolderCommand.Execute(i as T);
                     }
                 }
-                if(e.NewItems.Count == 1) {
-                    this.NotifyItemChanged(e.NewStartingIndex);
-                } else {
-                    this.NotifyItemRangeChanged(e.NewStartingIndex,e.NewItems.Count);
+                bool isRecylable = isHolderRecyclable(e.NewStartingIndex,e.NewItems.Count);
+                if(isRecylable) {
+                    if(e.NewItems.Count == 1) {
+                        this.NotifyItemChanged(e.NewStartingIndex);
+                    } else {
+                        this.NotifyItemRangeChanged(e.NewStartingIndex,e.NewItems.Count);
+                    }
+                }else {
+                    this.NotifyDataSetChanged();
                 }
-            }else if(e.Action == NotifyCollectionChangedAction.Reset) {
+            } else if(e.Action == NotifyCollectionChangedAction.Reset) {
                 this.NotifyDataSetChanged();
             }
         }

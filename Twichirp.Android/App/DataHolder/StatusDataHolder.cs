@@ -55,7 +55,6 @@ namespace Twichirp.Android.App.DataHolder {
         public ViewStates VisibleLockIcon { get; private set; }
         public ViewStates VisibleVerifyIcon { get; private set; }
 
-        public ViewStates VisibleMediaGrid { get; private set; }
         public ViewStates VisivleMediaParent2 { get; private set; }
         public ViewStates VisivleMedia2 { get; private set; }
         public ViewStates VisivleMedia3 { get; private set; }
@@ -64,10 +63,10 @@ namespace Twichirp.Android.App.DataHolder {
         public ViewStates[] VisibleMediaPlays { get; private set; }
 
         public bool IsRetweetIconDisabled { get; private set; }
-        public ReadOnlyReactiveProperty<int> RetweetDrawableTint { get; private set; }
-        public ReadOnlyReactiveProperty<ViewStates> VisibleRetweetCount { get; private set; }
-        public ReadOnlyReactiveProperty<int> FavoriteDrawableTint { get; private set; }
-        public ReadOnlyReactiveProperty<ViewStates> VisibleFavoriteCount { get; private set; }
+        public int RetweetDrawableTint { get; private set; }
+        public ViewStates VisibleRetweetCount { get; private set; }
+        public int FavoriteDrawableTint { get; private set; }
+        public ViewStates VisibleFavoriteCount { get; private set; }
 
         public StatusDataHolder(StatusViewModel viewModel,Context context) {
             VisiblePrefixText = viewModel.HiddenPrefix.Map(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone);
@@ -84,8 +83,7 @@ namespace Twichirp.Android.App.DataHolder {
             VisibleLockIcon = viewModel.IsProtected.Map(x => x == true ? ViewStates.Visible : ViewStates.Gone);
             VisibleVerifyIcon = viewModel.IsVerified.Map(x => x == true ? ViewStates.Visible : ViewStates.Gone);
 
-            VisibleMediaGrid = viewModel.Media.Map(x => x.Count() >= 1 ? ViewStates.Visible : ViewStates.Gone);
-            VisivleMediaParent2 = viewModel.Media.Map(x => x.Count() >= 3 ? ViewStates.Visible : ViewStates.Gone);
+            VisivleMediaParent2 = viewModel.Media.Map(x => x.Count() >= 2 ? ViewStates.Visible : ViewStates.Gone);
             VisivleMedia2 = viewModel.Media.Map(x => x.Count() >= 2 ? ViewStates.Visible : ViewStates.Gone);
             VisivleMedia3 = viewModel.Media.Map(x => x.Count() >= 3 ? ViewStates.Visible : ViewStates.Gone);
             VisivleMedia4 = viewModel.Media.Map(x => x.Count() >= 4 ? ViewStates.Visible : ViewStates.Gone);
@@ -93,22 +91,10 @@ namespace Twichirp.Android.App.DataHolder {
             VisibleMediaPlays = MeadiaIsVideoOrGif.Select(x => x == true ? ViewStates.Visible : ViewStates.Gone).ToArray();
 
             IsRetweetIconDisabled = viewModel.IsProtected;
-            RetweetDrawableTint = viewModel.IsRetweeted
-                .Select(x => toRetweetDrawableTint(context,x))
-                .ToReadOnlyReactiveProperty()
-                .AddTo(Disposable);
-            VisibleRetweetCount = viewModel.RetweetCount
-                .Select(x => x > 0 ? ViewStates.Visible : ViewStates.Invisible)
-                .ToReadOnlyReactiveProperty()
-                .AddTo(Disposable);
-            FavoriteDrawableTint = viewModel.IsFavorited
-                .Select(x => toFavoriteDrawableTint(context,x))
-                .ToReadOnlyReactiveProperty()
-                .AddTo(Disposable);
-            VisibleFavoriteCount = viewModel.FavoriteCount
-                .Select(x => x > 0 ? ViewStates.Visible : ViewStates.Invisible)
-                .ToReadOnlyReactiveProperty()
-                .AddTo(Disposable);
+            RetweetDrawableTint = viewModel.IsRetweeted.Map(x => toRetweetDrawableTint(context,x));
+            VisibleRetweetCount = viewModel.RetweetCount.Map(x => x > 0 ? ViewStates.Visible : ViewStates.Invisible);
+            FavoriteDrawableTint = viewModel.IsFavorited.Map(x => toFavoriteDrawableTint(context,x));
+            VisibleFavoriteCount = viewModel.FavoriteCount.Map(x => x > 0 ? ViewStates.Visible : ViewStates.Invisible);
 
         }
 

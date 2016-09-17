@@ -1,0 +1,2 @@
+﻿MONO_GC_PARAMS=nursery-size=20m
+MONO_GC_PARAMS=bridge-implementation=tarjan

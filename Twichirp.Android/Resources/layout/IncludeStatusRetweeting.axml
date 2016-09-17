@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:text="RetweetingUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/RetweeingUser"
+        android:textAppearance="@style/AppTheme.Text.Caption"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:paddingBottom="@dimen/ItemPadding"
+        android:paddingTop="@dimen/ItemPadding"
+        android:paddingStart="@dimen/StartMargin"
+        android:paddingEnd="@dimen/LayoutMargin"
+        android:textColor="@color/Retweet" />
+</merge>

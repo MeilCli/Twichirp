@@ -41,6 +41,18 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
+        // Statusを反映した時刻
+        private DateTime _pushTime;
+        public DateTime PushTime {
+            get {
+                return _pushTime;
+            }
+            private set {
+                _pushTime = value;
+                RaisePropertyChanged(nameof(PushTime));
+            }
+        }
+
         private Status status;
 
         public UserModel User { get; private set; }
@@ -161,6 +173,8 @@ namespace Twichirp.Core.App.Model {
 
             RetweetedStatus = status.RetweetedStatus == null ? null : new StatusModel(Application,status.RetweetedStatus);
             RaisePropertyChanged(nameof(RetweetedStatus));
+
+            PushTime = DateTime.Now;
         }
 
         public StatusModel ToContentStatus() => RetweetedStatus == null ? this : RetweetedStatus;

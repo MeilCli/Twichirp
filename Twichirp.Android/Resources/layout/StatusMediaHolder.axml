@@ -7,15 +7,17 @@
     android:paddingTop="@dimen/ItemPadding"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true">
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="8dp" />
-    <include
-        layout="@layout/IncludeStatusRetweeting" />
-    <include
-        layout="@layout/IncludeStatusReplyToUser" />
-    <include
-        layout="@layout/IncludeStatusMain" />
-    <include
-        layout="@layout/IncludeStatusAction" />
+  <Space
+      android:layout_width="match_parent"
+      android:layout_height="8dp" />
+  <include
+      layout="@layout/IncludeStatusRetweeting" />
+  <include
+      layout="@layout/IncludeStatusReplyToUser" />
+  <include
+      layout="@layout/IncludeStatusMain" />
+  <include
+      layout="@layout/IncludeStatusMedia" />
+  <include
+      layout="@layout/IncludeStatusAction" />
 </LinearLayout>

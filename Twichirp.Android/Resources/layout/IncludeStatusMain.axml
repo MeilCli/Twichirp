@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="DateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/DateTime"
+            android:textAppearance="@style/AppTheme.Text.Caption"
+            android:layout_marginStart="@dimen/ItemMargin"
+            android:layout_marginEnd="@dimen/LayoutMargin"
+            android:layout_alignParentEnd="true"
+            android:gravity="end" />
+        <TextView
+            android:text="Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/Name"
+            android:textAppearance="@style/AppTheme.Text.Subhead"
+            android:layout_marginStart="@dimen/StartMargin"
+            android:layout_toStartOf="@id/DateTime"
+            android:singleLine="true" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ScreenNameLinear"
+            android:layout_marginStart="@dimen/StartMargin"
+            android:layout_marginEnd="@dimen/LayoutMargin"
+            android:layout_below="@id/Name">
+            <TextView
+                android:text="ScreenName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ScreenName"
+                android:textAppearance="@style/AppTheme.Text.Caption" />
+            <ImageView
+                android:src="@drawable/IconEnhancedEncryptionBlack36dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:id="@+id/LockIcon"
+                android:tint="@color/Grey600" />
+            <ImageView
+                android:src="@drawable/IconVerifiedUserGrey36dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:id="@+id/VerifyIcon"
+                android:tint="@color/Grey600" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/StartMargin"
+            android:layout_marginEnd="@dimen/LayoutMargin"
+            android:paddingTop="@dimen/ItemPadding"
+            android:paddingBottom="@dimen/ItemPadding"
+            android:layout_below="@id/ScreenNameLinear">
+            <TextView
+                android:text="PrefixText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/PrefixText"
+                android:textAppearance="@style/AppTheme.Text.Caption" />
+            <TextView
+                android:text="Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Text"
+                android:textAppearance="@style/AppTheme.Text.Body1" />
+            <TextView
+                android:text="SuffixText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/SuffixText"
+                android:textAppearance="@style/AppTheme.Text.Caption" />
+        </LinearLayout>
+        <ImageView
+            android:src="@drawable/Icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/Icon"
+            android:layout_margin="@dimen/LayoutMargin"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+</merge>

@@ -52,6 +52,7 @@ namespace Twichirp.Android.App.ViewController {
                 ViewModel.DataHolder = new StatusDataHolder(ViewModel,View.ApplicationContext);
             }
             var statusDataHolder = ViewModel.DataHolder as StatusDataHolder;
+            int statusType = ViewModel.ToStatusType();
 
             ViewModel.ShowStatusCommand.Execute();
 
@@ -76,33 +77,30 @@ namespace Twichirp.Android.App.ViewController {
             View.LockIcon.Visibility = statusDataHolder.VisibleLockIcon;
             View.VerifyIcon.Visibility = statusDataHolder.VisibleVerifyIcon;
 
-            View.MediaGrid.Visibility = statusDataHolder.VisibleMediaGrid;
-            View.MediaParent2.Visibility = statusDataHolder.VisivleMediaParent2;
-            View.MediaFrame2.Visibility = statusDataHolder.VisivleMedia2;
-            View.MediaFrame3.Visibility = statusDataHolder.VisivleMedia3;
-            View.MediaFrame4.Visibility = statusDataHolder.VisivleMedia4;
-            var medias = new[] { View.Media1,View.Media2,View.Media3,View.Media4 };
-            var mediPlays = new[] { View.MediaPlay1,View.MediaPlay2,View.MediaPlay3,View.MediaPlay4 };
-            for(int i = 0;i < ViewModel.Media.Count() && i < medias.Length;i++) {
-                View.ApplicationContext.LoadIntoBitmap(ViewModel.Media.ElementAt(i).MediaUrl,medias[i]);
-                mediPlays[i].Visibility = statusDataHolder.VisibleMediaPlays[i];
+            if(View.StatusType == StatusViewModel.MediaTweet ||
+                View.StatusType == StatusViewModel.QuotedOuterMediaTweet ||
+                View.StatusType == StatusViewModel.QuotedInnerAndOuterMediaTweet) {
+                View.MediaParent2.Visibility = statusDataHolder.VisivleMediaParent2;
+                View.MediaFrame2.Visibility = statusDataHolder.VisivleMedia2;
+                View.MediaFrame3.Visibility = statusDataHolder.VisivleMedia3;
+                View.MediaFrame4.Visibility = statusDataHolder.VisivleMedia4;
+                var medias = new[] { View.Media1,View.Media2,View.Media3,View.Media4 };
+                var mediPlays = new[] { View.MediaPlay1,View.MediaPlay2,View.MediaPlay3,View.MediaPlay4 };
+                for(int i = 0;i < ViewModel.Media.Count() && i < medias.Length;i++) {
+                    View.ApplicationContext.LoadIntoBitmap(ViewModel.Media.ElementAt(i).MediaUrl+":small",medias[i]);
+                    mediPlays[i].Visibility = statusDataHolder.VisibleMediaPlays[i];
+                }
             }
 
-            setRetweetIcon();
-            statusDataHolder.RetweetDrawableTint
-                .Subscribe(x => DrawableCompat.SetTint(View.RetweetIcon.Drawable ?? setRetweetIcon(),x))
-                .AddTo(Disposable);
-            View.RetweetCount.SetBinding(x => x.Visibility,statusDataHolder.VisibleRetweetCount).AddTo(Disposable);
-            View.RetweetCount.SetBinding(x => x.Text,ViewModel.RetweetCountText).AddTo(Disposable);
+            DrawableCompat.SetTint(setRetweetIcon(),statusDataHolder.RetweetDrawableTint);
+            View.RetweetCount.Visibility = statusDataHolder.VisibleRetweetCount;
+            View.RetweetCount.Text=ViewModel.RetweetCountText;
             View.RetweetIconClickable.Enabled = statusDataHolder.IsRetweetIconDisabled == false;
             View.RetweetIconClickable.ClickAsObservable().SetCommand(ViewModel.RetweetCommand);
 
-            setFavoriteIcon();
-            statusDataHolder.FavoriteDrawableTint
-                .Subscribe(x => DrawableCompat.SetTint(View.FavoriteIcon.Drawable?? setFavoriteIcon(),x))
-                .AddTo(Disposable);
-            View.FavoriteCount.SetBinding(x => x.Visibility,statusDataHolder.VisibleFavoriteCount).AddTo(Disposable);
-            View.FavoriteCount.SetBinding(x => x.Text,ViewModel.FavoriteCountText).AddTo(Disposable);
+            DrawableCompat.SetTint(setFavoriteIcon(),statusDataHolder.FavoriteDrawableTint);
+            View.FavoriteCount.Visibility = statusDataHolder.VisibleFavoriteCount;
+            View.FavoriteCount.Text=ViewModel.FavoriteCountText;
             View.FavoriteIconClickable.ClickAsObservable().SetCommand(ViewModel.FavoriteCommand);
         }
 
@@ -120,14 +118,14 @@ namespace Twichirp.Android.App.ViewController {
             View.Icon.ReleaseImage();
             View.LockIcon.ReleaseImage();
             View.VerifyIcon.ReleaseImage();
-            View.Media1.ReleaseImage();
-            View.Media2.ReleaseImage();
-            View.Media3.ReleaseImage();
-            View.Media4.ReleaseImage();
-            View.MediaPlay1.ReleaseImage();
-            View.MediaPlay2.ReleaseImage();
-            View.MediaPlay3.ReleaseImage();
-            View.MediaPlay4.ReleaseImage();
+            View.Media1?.ReleaseImage();
+            View.Media2?.ReleaseImage();
+            View.Media3?.ReleaseImage();
+            View.Media4?.ReleaseImage();
+            View.MediaPlay1?.ReleaseImage();
+            View.MediaPlay2?.ReleaseImage();
+            View.MediaPlay3?.ReleaseImage();
+            View.MediaPlay4?.ReleaseImage();
             View.ReplyIcon.ReleaseImage();
             View.RetweetIcon.ReleaseImage();
             View.FavoriteIcon.ReleaseImage();
