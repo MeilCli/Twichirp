@@ -107,7 +107,7 @@ namespace Twichirp.Android.App.View {
         }
 
         private void collectionChanged(object sender,NotifyCollectionChangedEventArgs e) {
-            // Ç§Å[Å[ÇÒÇ±ÇÃ https://code.google.com/p/android/issues/detail?id=193069
+            // „ÅÜ„Éº„Éº„Çì„Åì„ÅÆ https://code.google.com/p/android/issues/detail?id=193069
             if(e.Action == NotifyCollectionChangedAction.Add) {
                 foreach(var i in e.NewItems) {
                     if(i is T) {

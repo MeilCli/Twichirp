@@ -49,7 +49,7 @@ namespace Twichirp.Android.App.Extensions {
                 }
             });
             // https://developer.xamarin.com/guides/android/advanced_topics/garbage_collection/#Helping_the_GC
-            // Ç±ÇÒÇ»Ç±Ç∆ÇµÇƒÇ¢Ç¢ÇÁÇµÇ¢
+            // „Åì„Çì„Å™„Åì„Å®„Åó„Å¶„ÅÑ„ÅÑ„Çâ„Åó„ÅÑ
             using(bm) {
                 if(bm == null) {
                     return;
