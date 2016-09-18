@@ -108,6 +108,18 @@ namespace Twichirp.Android.App.View.Holder {
 
         public TextView FavoriteCount { get; private set; }
 
+        public FrameLayout QuotingClickable { get; protected set; }
+
+        public TextView QuotingName { get; protected set; }
+
+        public TextView QuotingScreenName { get; protected set; }
+
+        public TextView QuotingPrefixText { get; protected set; }
+
+        public TextView QuotingText { get; protected set; }
+
+        public TextView QuotingSuffixText { get; protected set; }
+
         public StatusHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup,int statusType = StatusViewModel.NormalTweet,int layout = Resource.Layout.StatusHolder)
             : base(view,lifeCycle,viewGroup,layout) {
             StatusType = statusType;
@@ -165,6 +177,22 @@ namespace Twichirp.Android.App.View.Holder {
             MediaClickable2 = ItemView.FindViewById<AView>(Resource.Id.MediaClickable2);
             MediaClickable3 = ItemView.FindViewById<AView>(Resource.Id.MediaClickable3);
             MediaClickable4 = ItemView.FindViewById<AView>(Resource.Id.MediaClickable4);
+        }
+    }
+
+    public class StatusQuotingHolder : StatusHolder {
+        public StatusQuotingHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup)
+            : base(view,lifeCycle,viewGroup,StatusViewModel.QuotedTweet,Resource.Layout.StatusQuotingHolder) {
+        }
+
+        public override void OnCreatedView() {
+            base.OnCreatedView();
+            QuotingClickable = ItemView.FindViewById<FrameLayout>(Resource.Id.QuotingClickable);
+            QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
+            QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
+            QuotingPrefixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingPrefixText);
+            QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
+            QuotingSuffixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingSuffixText);
         }
     }
 

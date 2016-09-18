@@ -68,6 +68,13 @@ namespace Twichirp.Android.App.DataHolder {
         public int FavoriteDrawableTint { get; private set; }
         public ViewStates VisibleFavoriteCount { get; private set; }
 
+        public ViewStates VisibleQuotingPrefixText { get; private set; }
+        public string QuotingPrefixText { get; private set; }
+        public ViewStates VisibleQuotingText { get; private set; }
+        public string QuotingText { get; private set; }
+        public ViewStates VisibleQuotingSuffixText { get; private set; }
+        public string QuotingSuffixText { get; private set; }
+
         public StatusDataHolder(StatusViewModel viewModel,Context context) {
             VisiblePrefixText = viewModel.HiddenPrefix.Map(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone);
             PrefixText = viewModel.HiddenPrefix.Map(x => $"To: {string.Join(" ",x.Select(y => $"@{y.ScreenName}"))}");
@@ -95,6 +102,13 @@ namespace Twichirp.Android.App.DataHolder {
             VisibleRetweetCount = viewModel.RetweetCount.Map(x => x > 0 ? ViewStates.Visible : ViewStates.Invisible);
             FavoriteDrawableTint = viewModel.IsFavorited.Map(x => toFavoriteDrawableTint(context,x));
             VisibleFavoriteCount = viewModel.FavoriteCount.Map(x => x > 0 ? ViewStates.Visible : ViewStates.Invisible);
+
+            VisibleQuotingPrefixText = viewModel.QuotedHiddenPrefix.Map(x => (x?.Count() ?? 0) > 0 ? ViewStates.Visible : ViewStates.Gone);
+            QuotingPrefixText = viewModel.QuotedHiddenPrefix?.Map(x => $"To: {string.Join(" ",x.Select(y => $"@{y.ScreenName}"))}");
+            VisibleQuotingText = viewModel.QuotedText.Map(x => (x?.Count() ?? 0) > 0 ? ViewStates.Visible : ViewStates.Gone);
+            QuotingText = viewModel.QuotedText?.Map(x => x.ToText());
+            VisibleQuotingSuffixText = viewModel.QuotedHiddenSuffix.Map(x => (x?.Count() ?? 0) > 0 ? ViewStates.Visible : ViewStates.Gone);
+            QuotingSuffixText = viewModel.QuotedHiddenSuffix?.Map(x => $"Attach: {string.Join(" ",x.Select(y => y.DisplayUrl))}");
 
         }
 

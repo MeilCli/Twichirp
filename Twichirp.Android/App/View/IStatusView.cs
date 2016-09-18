@@ -102,6 +102,18 @@ namespace Twichirp.Android.App.View {
 
         TextView FavoriteCount { get; }
 
-        AView ClickableView { get; } 
+        AView ClickableView { get; }
+        
+        FrameLayout QuotingClickable { get; }
+        
+        TextView QuotingName { get; }
+        
+        TextView QuotingScreenName { get; }
+        
+        TextView QuotingPrefixText { get; }
+        
+        TextView QuotingText { get; }
+        
+        TextView QuotingSuffixText { get; } 
     }
 }

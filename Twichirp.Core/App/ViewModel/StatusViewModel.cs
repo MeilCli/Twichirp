@@ -153,7 +153,7 @@ namespace Twichirp.Core.App.ViewModel {
             QuotedHiddenPrefix = StatusModel.ToContentStatus().QuotedStatus?.HiddenPrefix;
             QuotedHiddenSuffix = StatusModel.ToContentStatus().QuotedStatus?.HiddenSuffix;
             QuotedName = StatusModel.ToContentStatus().QuotedStatus?.User.Name;
-            QuotedScreenName = StatusModel.ToContentStatus().QuotedStatus?.User.ScreenName;
+            QuotedScreenName = StatusModel.ToContentStatus().QuotedStatus?.User.ScreenName.Map(x => $"@{x}");
             QuotedMedia = StatusModel.ToContentStatus().QuotedStatus?.Media;
         }
 

@@ -92,6 +92,18 @@ namespace Twichirp.Android.App.ViewController {
                 }
             }
 
+            if(View.StatusType == StatusViewModel.QuotedTweet) {
+                View.QuotingName.Text = ViewModel.QuotedName;
+                View.QuotingScreenName.Text = ViewModel.QuotedScreenName;
+
+                View.QuotingPrefixText.Visibility = statusDataHolder.VisibleQuotingPrefixText;
+                View.QuotingPrefixText.Text = statusDataHolder.QuotingPrefixText;
+                View.QuotingText.Visibility = statusDataHolder.VisibleQuotingText;
+                View.QuotingText.Text = statusDataHolder.QuotingText;
+                View.QuotingSuffixText.Visibility = statusDataHolder.VisibleQuotingSuffixText;
+                View.QuotingSuffixText.Text = statusDataHolder.QuotingSuffixText;
+            }
+
             DrawableCompat.SetTint(setRetweetIcon(),statusDataHolder.RetweetDrawableTint);
             View.RetweetCount.Visibility = statusDataHolder.VisibleRetweetCount;
             View.RetweetCount.Text=ViewModel.RetweetCountText;
