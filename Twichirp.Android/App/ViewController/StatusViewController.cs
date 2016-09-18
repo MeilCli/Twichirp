@@ -87,12 +87,13 @@ namespace Twichirp.Android.App.ViewController {
                 var medias = new[] { View.Media1,View.Media2,View.Media3,View.Media4 };
                 var mediPlays = new[] { View.MediaPlay1,View.MediaPlay2,View.MediaPlay3,View.MediaPlay4 };
                 for(int i = 0;i < ViewModel.Media.Count() && i < medias.Length;i++) {
-                    View.ApplicationContext.LoadIntoBitmap(ViewModel.Media.ElementAt(i).MediaUrl+":small",medias[i]);
+                    View.ApplicationContext.LoadIntoBitmap(ViewModel.Media.ElementAt(i).MediaUrl + ":small",medias[i]);
                     mediPlays[i].Visibility = statusDataHolder.VisibleMediaPlays[i];
                 }
             }
 
-            if(View.StatusType == StatusViewModel.QuotedTweet) {
+            if(View.StatusType == StatusViewModel.QuotedTweet ||
+                View.StatusType == StatusViewModel.QuotedOuterMediaTweet) {
                 View.QuotingName.Text = ViewModel.QuotedName;
                 View.QuotingScreenName.Text = ViewModel.QuotedScreenName;
 
@@ -106,13 +107,13 @@ namespace Twichirp.Android.App.ViewController {
 
             DrawableCompat.SetTint(setRetweetIcon(),statusDataHolder.RetweetDrawableTint);
             View.RetweetCount.Visibility = statusDataHolder.VisibleRetweetCount;
-            View.RetweetCount.Text=ViewModel.RetweetCountText;
+            View.RetweetCount.Text = ViewModel.RetweetCountText;
             View.RetweetIconClickable.Enabled = statusDataHolder.IsRetweetIconDisabled == false;
             View.RetweetIconClickable.ClickAsObservable().SetCommand(ViewModel.RetweetCommand);
 
             DrawableCompat.SetTint(setFavoriteIcon(),statusDataHolder.FavoriteDrawableTint);
             View.FavoriteCount.Visibility = statusDataHolder.VisibleFavoriteCount;
-            View.FavoriteCount.Text=ViewModel.FavoriteCountText;
+            View.FavoriteCount.Text = ViewModel.FavoriteCountText;
             View.FavoriteIconClickable.ClickAsObservable().SetCommand(ViewModel.FavoriteCommand);
         }
 

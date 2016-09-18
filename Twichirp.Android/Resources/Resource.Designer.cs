@@ -2993,13 +2993,16 @@ namespace Twichirp.Android
 			public const int StatusQuotingHolder = 2130903116;
 			
 			// aapt resource value: 0x7f03004d
-			public const int StatusTimelineFragment = 2130903117;
+			public const int StatusQuotingOuterMediaHolder = 2130903117;
 			
 			// aapt resource value: 0x7f03004e
-			public const int support_simple_spinner_dropdown_item = 2130903118;
+			public const int StatusTimelineFragment = 2130903118;
 			
 			// aapt resource value: 0x7f03004f
-			public const int Toolbar = 2130903119;
+			public const int support_simple_spinner_dropdown_item = 2130903119;
+			
+			// aapt resource value: 0x7f030050
+			public const int Toolbar = 2130903120;
 			
 			static Layout()
 			{

@@ -198,11 +198,18 @@ namespace Twichirp.Android.App.View.Holder {
 
     public class StatusQuotingOuterMediaHolder : StatusHolder {
         public StatusQuotingOuterMediaHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup)
-            : base(view,lifeCycle,viewGroup,StatusViewModel.QuotedOuterMediaTweet,Resource.Layout.StatusMediaHolder) {
+            : base(view,lifeCycle,viewGroup,StatusViewModel.QuotedOuterMediaTweet,Resource.Layout.StatusQuotingOuterMediaHolder) {
         }
 
         public override void OnCreatedView() {
             base.OnCreatedView();
+            QuotingClickable = ItemView.FindViewById<FrameLayout>(Resource.Id.QuotingClickable);
+            QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
+            QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
+            QuotingPrefixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingPrefixText);
+            QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
+            QuotingSuffixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingSuffixText);
+
             MediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.MediaParent2);
             MediaFrame2 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame2);
             MediaFrame3 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame3);
