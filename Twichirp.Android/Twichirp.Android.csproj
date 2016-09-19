@@ -293,6 +293,15 @@
     <AndroidResource Include="Resources\layout\StatusQuotingOuterMediaHolder.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\IncludeStatusQuotingInnerMedia.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\StatusQuotingInnerMediaHolder.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\StatusQuotingInnerAndOuterMediaHolder.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <None Include="Twichirp.Android.licenseheader" />
   </ItemGroup>
   <ItemGroup>

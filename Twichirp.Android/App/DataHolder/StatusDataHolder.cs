@@ -75,6 +75,11 @@ namespace Twichirp.Android.App.DataHolder {
         public ViewStates VisibleQuotingSuffixText { get; private set; }
         public string QuotingSuffixText { get; private set; }
 
+        public ViewStates VisivleQuotingMediaParent2 { get; private set; }
+        public ViewStates VisivleQuotingMedia2 { get; private set; }
+        public ViewStates VisivleQuotingMedia3 { get; private set; }
+        public ViewStates VisivleQuotingMedia4 { get; private set; }
+
         public StatusDataHolder(StatusViewModel viewModel,Context context) {
             VisiblePrefixText = viewModel.HiddenPrefix.Map(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone);
             PrefixText = viewModel.HiddenPrefix.Map(x => $"To: {string.Join(" ",x.Select(y => $"@{y.ScreenName}"))}");
@@ -120,8 +125,25 @@ namespace Twichirp.Android.App.DataHolder {
             QuotingPrefixText = viewModel.QuotedHiddenPrefix?.Map(x => $"To: {string.Join(" ",x.Select(y => $"@{y.ScreenName}"))}");
             VisibleQuotingText = viewModel.QuotedText.Map(x => (x?.Count() ?? 0) > 0 ? ViewStates.Visible : ViewStates.Gone);
             QuotingText = viewModel.QuotedText?.Map(x => x.ToText());
-            VisibleQuotingSuffixText = viewModel.QuotedHiddenSuffix.Map(x => (x?.Count() ?? 0) > 0 ? ViewStates.Visible : ViewStates.Gone);
+            VisibleQuotingSuffixText = viewModel.QuotedHiddenSuffix.Map(x => {
+                if(x == null) {
+                    return ViewStates.Gone;
+                }
+                int count = x.Count();
+                if(count == 0) {
+                    return ViewStates.Gone;
+                }
+                if(count == 1 && viewModel.QuotedMedia.Count() > 0) {
+                    return ViewStates.Gone;
+                }
+                return ViewStates.Visible;
+            });
             QuotingSuffixText = viewModel.QuotedHiddenSuffix?.Map(x => $"Attach: {string.Join(" ",x.Select(y => y.DisplayUrl))}");
+
+            VisivleQuotingMediaParent2 = viewModel.QuotedMedia.Map(x => (x?.Count() ?? 0) >= 2 ? ViewStates.Visible : ViewStates.Gone);
+            VisivleQuotingMedia2 = viewModel.QuotedMedia.Map(x => (x?.Count() ?? 0) >= 2 ? ViewStates.Visible : ViewStates.Gone);
+            VisivleQuotingMedia3 = viewModel.QuotedMedia.Map(x => (x?.Count() ?? 0) >= 3 ? ViewStates.Visible : ViewStates.Gone);
+            VisivleQuotingMedia4 = viewModel.QuotedMedia.Map(x => (x?.Count() ?? 0) >= 4 ? ViewStates.Visible : ViewStates.Gone);
 
         }
 

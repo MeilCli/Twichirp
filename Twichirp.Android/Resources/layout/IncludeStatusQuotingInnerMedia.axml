@@ -62,10 +62,63 @@
               android:id="@+id/QuotingSuffixText"
               android:textAppearance="@style/AppTheme.Text.Caption" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="horizontal"
+            android:layout_below="@id/QuotingMain"
+            android:id="@+id/QuotingMediaGrid">
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:id="@+id/QuotingMediaParent1"
+              android:layout_weight="1">
+            <ImageView
+                android:src="@drawable/Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/QuotingMedia1"
+                android:scaleType="centerCrop"
+                android:layout_margin="@dimen/ItemPadding"/>
+            <ImageView
+                android:src="@drawable/Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/QuotingMedia3"
+                android:scaleType="centerCrop"
+                android:layout_margin="@dimen/ItemPadding"/>
+          </LinearLayout>
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:id="@+id/QuotingMediaParent2"
+              android:layout_weight="1">
+            <ImageView
+                android:src="@drawable/Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/QuotingMedia2"
+                android:scaleType="centerCrop"
+                android:layout_margin="@dimen/ItemPadding"/>
+            <ImageView
+                android:src="@drawable/Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/QuotingMedia4"
+                android:scaleType="centerCrop"
+                android:layout_margin="@dimen/ItemPadding"/>
+          </LinearLayout>
+        </LinearLayout>
         <Space
           android:layout_width="match_parent"
           android:layout_height="8dp"
-          android:layout_below="@id/QuotingMain"/>
+          android:layout_below="@id/QuotingMediaGrid"/>
       </RelativeLayout>
     </FrameLayout>
   </RelativeLayout>

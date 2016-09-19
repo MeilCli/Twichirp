@@ -93,7 +93,9 @@ namespace Twichirp.Android.App.ViewController {
             }
 
             if(View.StatusType == StatusViewModel.QuotedTweet ||
-                View.StatusType == StatusViewModel.QuotedOuterMediaTweet) {
+                View.StatusType==StatusViewModel.QuotedInnerMediaTweet||
+                View.StatusType == StatusViewModel.QuotedOuterMediaTweet||
+                View.StatusType==StatusViewModel.QuotedInnerAndOuterMediaTweet) {
                 View.QuotingName.Text = ViewModel.QuotedName;
                 View.QuotingScreenName.Text = ViewModel.QuotedScreenName;
 
@@ -103,6 +105,18 @@ namespace Twichirp.Android.App.ViewController {
                 View.QuotingText.Text = statusDataHolder.QuotingText;
                 View.QuotingSuffixText.Visibility = statusDataHolder.VisibleQuotingSuffixText;
                 View.QuotingSuffixText.Text = statusDataHolder.QuotingSuffixText;
+            }
+
+            if(View.StatusType == StatusViewModel.QuotedInnerMediaTweet ||
+                View.StatusType == StatusViewModel.QuotedInnerAndOuterMediaTweet) {
+                View.QuotingMediaParent2.Visibility = statusDataHolder.VisivleQuotingMediaParent2;
+                View.QuotingMedia2.Visibility = statusDataHolder.VisivleQuotingMedia2;
+                View.QuotingMedia3.Visibility = statusDataHolder.VisivleQuotingMedia3;
+                View.QuotingMedia4.Visibility = statusDataHolder.VisivleQuotingMedia4;
+                var medias = new[] { View.QuotingMedia1,View.QuotingMedia2,View.QuotingMedia3,View.QuotingMedia4 };
+                for(int i = 0;i < ViewModel.QuotedMedia.Count() && i < medias.Length;i++) {
+                    View.ApplicationContext.LoadIntoBitmap(ViewModel.QuotedMedia.ElementAt(i).MediaUrl + ":small",medias[i]);
+                }
             }
 
             DrawableCompat.SetTint(setRetweetIcon(),statusDataHolder.RetweetDrawableTint);
@@ -139,6 +153,10 @@ namespace Twichirp.Android.App.ViewController {
             View.MediaPlay2?.ReleaseImage();
             View.MediaPlay3?.ReleaseImage();
             View.MediaPlay4?.ReleaseImage();
+            View.QuotingMedia1?.ReleaseImage();
+            View.QuotingMedia2?.ReleaseImage();
+            View.QuotingMedia3?.ReleaseImage();
+            View.QuotingMedia4?.ReleaseImage();
             View.ReplyIcon.ReleaseImage();
             View.RetweetIcon.ReleaseImage();
             View.FavoriteIcon.ReleaseImage();

@@ -120,6 +120,16 @@ namespace Twichirp.Android.App.View.Holder {
 
         public TextView QuotingSuffixText { get; protected set; }
 
+        public LinearLayout QuotingMediaParent2 { get; protected set; }
+
+        public ImageView QuotingMedia1 { get; protected set; }
+
+        public ImageView QuotingMedia2 { get; protected set; }
+
+        public ImageView QuotingMedia3 { get; protected set; }
+
+        public ImageView QuotingMedia4 { get; protected set; }
+
         public StatusHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup,int statusType = StatusViewModel.NormalTweet,int layout = Resource.Layout.StatusHolder)
             : base(view,lifeCycle,viewGroup,layout) {
             StatusType = statusType;
@@ -196,6 +206,28 @@ namespace Twichirp.Android.App.View.Holder {
         }
     }
 
+    public class StatusQuotingInnerMediaHolder : StatusHolder {
+        public StatusQuotingInnerMediaHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup)
+            : base(view,lifeCycle,viewGroup,StatusViewModel.QuotedInnerMediaTweet,Resource.Layout.StatusQuotingInnerMediaHolder) {
+        }
+
+        public override void OnCreatedView() {
+            base.OnCreatedView();
+            QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
+            QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
+            QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
+            QuotingPrefixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingPrefixText);
+            QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
+            QuotingSuffixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingSuffixText);
+
+            QuotingMediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.QuotingMediaParent2);
+            QuotingMedia1 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia1);
+            QuotingMedia2 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia2);
+            QuotingMedia3 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia3);
+            QuotingMedia4 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia4);
+        }
+    }
+
     public class StatusQuotingOuterMediaHolder : StatusHolder {
         public StatusQuotingOuterMediaHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup)
             : base(view,lifeCycle,viewGroup,StatusViewModel.QuotedOuterMediaTweet,Resource.Layout.StatusQuotingOuterMediaHolder) {
@@ -231,7 +263,7 @@ namespace Twichirp.Android.App.View.Holder {
 
     public class StatusQuotingInnerAndOuterMediaHolder : StatusHolder {
         public StatusQuotingInnerAndOuterMediaHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup)
-            : base(view,lifeCycle,viewGroup,StatusViewModel.QuotedInnerAndOuterMediaTweet,Resource.Layout.StatusMediaHolder) {
+            : base(view,lifeCycle,viewGroup,StatusViewModel.QuotedInnerAndOuterMediaTweet,Resource.Layout.StatusQuotingInnerAndOuterMediaHolder) {
         }
 
         public override void OnCreatedView() {
@@ -252,6 +284,19 @@ namespace Twichirp.Android.App.View.Holder {
             MediaClickable2 = ItemView.FindViewById<AView>(Resource.Id.MediaClickable2);
             MediaClickable3 = ItemView.FindViewById<AView>(Resource.Id.MediaClickable3);
             MediaClickable4 = ItemView.FindViewById<AView>(Resource.Id.MediaClickable4);
+
+            QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
+            QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
+            QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
+            QuotingPrefixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingPrefixText);
+            QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
+            QuotingSuffixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingSuffixText);
+
+            QuotingMediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.QuotingMediaParent2);
+            QuotingMedia1 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia1);
+            QuotingMedia2 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia2);
+            QuotingMedia3 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia3);
+            QuotingMedia4 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia4);
         }
     }
 }

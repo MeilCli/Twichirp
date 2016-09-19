@@ -76,7 +76,7 @@ namespace Twichirp.Android.App.ViewController {
                 case preStatusTypeParam + StatusViewModel.QuotedTweet:
                     return new StatusQuotingHolder(View,View,parent);
                 case preStatusTypeParam + StatusViewModel.QuotedInnerMediaTweet:
-                    return new StatusHolder(View,View,parent);
+                    return new StatusQuotingInnerMediaHolder(View,View,parent);
                 case preStatusTypeParam + StatusViewModel.QuotedOuterMediaTweet:
                     return new StatusQuotingOuterMediaHolder(View,View,parent);
                 case preStatusTypeParam + StatusViewModel.QuotedInnerAndOuterMediaTweet:

@@ -17,7 +17,9 @@
     <include
         layout="@layout/IncludeStatusMain" />
     <include
-        layout="@layout/IncludeStatusQuoting" />
+        layout="@layout/IncludeStatusQuotingInnerMedia" />
+    <include
+        layout="@layout/IncludeStatusMedia" />
     <include
         layout="@layout/IncludeStatusAction" />
 </LinearLayout>

@@ -114,6 +114,16 @@ namespace Twichirp.Android.App.View {
         
         TextView QuotingText { get; }
         
-        TextView QuotingSuffixText { get; } 
+        TextView QuotingSuffixText { get; }
+
+        LinearLayout QuotingMediaParent2 { get; }
+
+        ImageView QuotingMedia1 { get; }
+
+        ImageView QuotingMedia2 { get; }
+
+        ImageView QuotingMedia3 { get; }
+
+        ImageView QuotingMedia4 { get; }
     }
 }
