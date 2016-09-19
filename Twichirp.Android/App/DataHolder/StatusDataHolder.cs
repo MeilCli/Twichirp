@@ -39,7 +39,7 @@ using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.Extensions;
 
 namespace Twichirp.Android.App.DataHolder {
-    public class StatusDataHolder:BaseDataHolder {
+    public class StatusDataHolder : BaseDataHolder {
 
         public ViewStates VisiblePrefixText { get; private set; }
         public string PrefixText { get; private set; }
@@ -80,7 +80,20 @@ namespace Twichirp.Android.App.DataHolder {
             PrefixText = viewModel.HiddenPrefix.Map(x => $"To: {string.Join(" ",x.Select(y => $"@{y.ScreenName}"))}");
             VisibleText = viewModel.Text.Map(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone);
             Text = viewModel.Text.Map(x => x.ToText());
-            VisibleSuffixText = viewModel.HiddenSuffix.Map(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone);
+            VisibleSuffixText = viewModel.HiddenSuffix
+                .Map(x => {
+                    int count = x.Count();
+                    if(count == 0) {
+                        return ViewStates.Gone;
+                    }
+                    if(count == 1 && viewModel.Media.Count() > 0) {
+                        return ViewStates.Gone;
+                    }
+                    if(count == 1 && viewModel.IsQuoting) {
+                        return ViewStates.Gone;
+                    }
+                    return ViewStates.Visible;
+                });
             SuffixText = viewModel.HiddenSuffix.Map(x => $"Attach: {string.Join(" ",x.Select(y => y.DisplayUrl))}");
 
             VisibleRetweetingUser = viewModel.IsRetweeting.Map(x => x == true ? ViewStates.Visible : ViewStates.Gone);

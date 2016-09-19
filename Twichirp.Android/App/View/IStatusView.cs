@@ -104,7 +104,7 @@ namespace Twichirp.Android.App.View {
 
         AView ClickableView { get; }
         
-        FrameLayout QuotingClickable { get; }
+        AView QuotingClickable { get; }
         
         TextView QuotingName { get; }
         

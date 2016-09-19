@@ -108,7 +108,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         public TextView FavoriteCount { get; private set; }
 
-        public FrameLayout QuotingClickable { get; protected set; }
+        public AView QuotingClickable { get; protected set; }
 
         public TextView QuotingName { get; protected set; }
 
@@ -187,7 +187,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         public override void OnCreatedView() {
             base.OnCreatedView();
-            QuotingClickable = ItemView.FindViewById<FrameLayout>(Resource.Id.QuotingClickable);
+            QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
             QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
             QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
             QuotingPrefixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingPrefixText);
@@ -203,7 +203,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         public override void OnCreatedView() {
             base.OnCreatedView();
-            QuotingClickable = ItemView.FindViewById<FrameLayout>(Resource.Id.QuotingClickable);
+            QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
             QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
             QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
             QuotingPrefixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingPrefixText);
