@@ -72,7 +72,7 @@ namespace Twichirp.Android.App.ViewController {
             View.Name.Text = ViewModel.Name;
             View.ScreenName.Text = ViewModel.ScreenName;
             View.DateTime.Text = ViewModel.DateTime.Value;
-            View.ApplicationContext.LoadIntoBitmap(ViewModel.IconUrl,View.Icon);
+            View.Icon.LoadImageUrlAcync(ViewModel.IconUrl);
 
             View.LockIcon.Visibility = statusDataHolder.VisibleLockIcon;
             View.VerifyIcon.Visibility = statusDataHolder.VisibleVerifyIcon;
@@ -87,7 +87,7 @@ namespace Twichirp.Android.App.ViewController {
                 var medias = new[] { View.Media1,View.Media2,View.Media3,View.Media4 };
                 var mediPlays = new[] { View.MediaPlay1,View.MediaPlay2,View.MediaPlay3,View.MediaPlay4 };
                 for(int i = 0;i < ViewModel.Media.Count() && i < medias.Length;i++) {
-                    View.ApplicationContext.LoadIntoBitmap(ViewModel.Media.ElementAt(i).MediaUrl + ":small",medias[i]);
+                    medias[i].LoadImageUrlAcync(ViewModel.Media.ElementAt(i).MediaUrl + ":small");
                     mediPlays[i].Visibility = statusDataHolder.VisibleMediaPlays[i];
                 }
             }
@@ -115,7 +115,7 @@ namespace Twichirp.Android.App.ViewController {
                 View.QuotingMedia4.Visibility = statusDataHolder.VisivleQuotingMedia4;
                 var medias = new[] { View.QuotingMedia1,View.QuotingMedia2,View.QuotingMedia3,View.QuotingMedia4 };
                 for(int i = 0;i < ViewModel.QuotedMedia.Count() && i < medias.Length;i++) {
-                    View.ApplicationContext.LoadIntoBitmap(ViewModel.QuotedMedia.ElementAt(i).MediaUrl + ":small",medias[i]);
+                    medias[i].LoadImageUrlAcync(ViewModel.QuotedMedia.ElementAt(i).MediaUrl + ":small");
                 }
             }
 

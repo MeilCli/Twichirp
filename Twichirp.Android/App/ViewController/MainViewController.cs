@@ -111,11 +111,11 @@ namespace Twichirp.Android.App.ViewController {
                     return;
                 }
             }
-            View.ApplicationContext.LoadIntoBitmap(account.User.GetProfileImageUrl("bigger").AbsoluteUri,View.Icon);
+            View.Icon.LoadImageUrlAcync(account.User.GetProfileImageUrl("bigger").AbsoluteUri);
             View.Name.Text = account.User.Name;
             View.ScreenName.Text = $"@{account.User.ScreenName}";
             if(account.User.ProfileBannerUrl != null) {
-                View.ApplicationContext.LoadIntoBitmap($"{account.User.ProfileBannerUrl}/mobile_retina",View.Background,adaptBackgroundColor);
+                View.Background.LoadImageUrlAcync($"{account.User.ProfileBannerUrl}/mobile_retina",adaptBackgroundColor);
             }else if(account.User.ProfileBackgroundColor != null) {
                 try {
                     View.Background.SetImageDrawable(new ColorDrawable((Color.ParseColor($"#{account.User.ProfileLinkColor}"))));
