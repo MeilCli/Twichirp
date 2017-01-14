@@ -44,6 +44,12 @@ namespace Twichirp.Android.App.View.Holder {
         public LoadingHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup) : base(view,lifeCycle,viewGroup,Resource.Layout.LoadingHolder) {
         }
 
+        ~LoadingHolder() {
+            LoadingText?.Dispose();
+            ProgressBar?.Dispose();
+            ClickableView?.Dispose();
+        }
+
         public override void OnCreatedView() {
             LoadingText = ItemView.FindViewById<TextView>(Resource.Id.LoadingText);
             ProgressBar = ItemView.FindViewById<ProgressBar>(Resource.Id.ProgressBar);

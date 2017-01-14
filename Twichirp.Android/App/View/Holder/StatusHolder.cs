@@ -135,6 +135,56 @@ namespace Twichirp.Android.App.View.Holder {
             : base(view,lifeCycle,viewGroup,layout) {
             StatusType = statusType;
         }
+        
+        ~StatusHolder() {
+            ClickableView?.Dispose();
+            PrefixText?.Dispose();
+            Text?.Dispose();
+            SuffixText?.Dispose();
+            RetweetingUser?.Dispose();
+            ReplyToUser?.Dispose();
+            Name?.Dispose();
+            ScreenName?.Dispose();
+            Icon?.Dispose();
+            LockIcon?.Dispose();
+            VerifyIcon?.Dispose();
+            DateTime?.Dispose();
+            MediaParent2?.Dispose();
+            MediaFrame2?.Dispose();
+            MediaFrame3?.Dispose();
+            MediaFrame4?.Dispose();
+            Media1?.Dispose();
+            Media2?.Dispose();
+            Media3?.Dispose();
+            Media4?.Dispose();
+            MediaPlay1?.Dispose();
+            MediaPlay2?.Dispose();
+            MediaPlay3?.Dispose();
+            MediaPlay4?.Dispose();
+            MediaClickable1?.Dispose();
+            MediaClickable2?.Dispose();
+            MediaClickable3?.Dispose();
+            MediaClickable4?.Dispose();
+            ReplyIconClickable?.Dispose();
+            ReplyIcon?.Dispose();
+            RetweetIconClickable?.Dispose();
+            RetweetIcon?.Dispose();
+            RetweetCount?.Dispose();
+            FavoriteIconClickable?.Dispose();
+            FavoriteIcon?.Dispose();
+            FavoriteCount?.Dispose();
+            QuotingClickable?.Dispose();
+            QuotingName?.Dispose();
+            QuotingScreenName?.Dispose();
+            QuotingPrefixText?.Dispose();
+            QuotingText?.Dispose();
+            QuotingSuffixText?.Dispose();
+            QuotingMediaParent2?.Dispose();
+            QuotingMedia1?.Dispose();
+            QuotingMedia2?.Dispose();
+            QuotingMedia3?.Dispose();
+            QuotingMedia4?.Dispose();
+        }
 
         public override void OnCreatedView() {
             ClickableView = ItemView;
@@ -166,7 +216,7 @@ namespace Twichirp.Android.App.View.Holder {
 
     public class StatusMediaHolder : StatusHolder {
 
-        public StatusMediaHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup) 
+        public StatusMediaHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup)
             : base(view,lifeCycle,viewGroup,StatusViewModel.MediaTweet,Resource.Layout.StatusMediaHolder) {
         }
 
