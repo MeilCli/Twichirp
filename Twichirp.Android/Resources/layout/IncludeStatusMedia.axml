@@ -22,52 +22,30 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/MediaFrame1"
                     android:layout_weight="1"
-                    android:layout_margin="@dimen/ItemPadding">
+                    android:layout_margin="@dimen/ItemPadding"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
                     <FFImageLoading.Views.ImageViewAsync
-                      android:src="@drawable/Icon"
+                       android:src="@drawable/Icon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/Media1"
                         android:scaleType="centerCrop" />
-                    <ImageView
-                        android:src="@drawable/IconPlayCircleOutlineGrey36dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/MediaPlay1"
-                        android:scaleType="center"
-                        android:tint="#fff" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/MediaClickable1"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:clickable="true" />
                 </FrameLayout>
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/MediaFrame3"
                     android:layout_weight="1"
-                    android:layout_margin="@dimen/ItemPadding">
+                    android:layout_margin="@dimen/ItemPadding"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
                     <FFImageLoading.Views.ImageViewAsync
-                      android:src="@drawable/Icon"
+                        android:src="@drawable/Icon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/Media3"
                         android:scaleType="centerCrop" />
-                    <ImageView
-                        android:src="@drawable/IconPlayCircleOutlineGrey36dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/MediaPlay3"
-                        android:scaleType="center"
-                        android:tint="#fff" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/MediaClickable3"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:clickable="true" />
                 </FrameLayout>
             </LinearLayout>
             <LinearLayout
@@ -81,52 +59,30 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/MediaFrame2"
                     android:layout_weight="1"
-                    android:layout_margin="@dimen/ItemPadding">
+                    android:layout_margin="@dimen/ItemPadding"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
                     <FFImageLoading.Views.ImageViewAsync
                       android:src="@drawable/Icon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/Media2"
                         android:scaleType="centerCrop" />
-                    <ImageView
-                        android:src="@drawable/IconPlayCircleOutlineGrey36dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/MediaPlay2"
-                        android:scaleType="center"
-                        android:tint="#fff" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/MediaClickable2"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:clickable="true" />
                 </FrameLayout>
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/MediaFrame4"
                     android:layout_weight="1"
-                    android:layout_margin="@dimen/ItemPadding">
+                    android:layout_margin="@dimen/ItemPadding"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:clickable="true">
                     <FFImageLoading.Views.ImageViewAsync
                       android:src="@drawable/Icon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/Media4"
                         android:scaleType="centerCrop" />
-                    <ImageView
-                        android:src="@drawable/IconPlayCircleOutlineGrey36dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/MediaPlay4"
-                        android:scaleType="center"
-                        android:tint="#fff" />
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/MediaClickable4"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:clickable="true" />
                 </FrameLayout>
             </LinearLayout>
         </LinearLayout>

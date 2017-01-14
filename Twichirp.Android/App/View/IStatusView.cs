@@ -57,6 +57,8 @@ namespace Twichirp.Android.App.View {
 
         LinearLayout MediaParent2 { get; }
 
+        FrameLayout MediaFrame1 { get; }
+
         FrameLayout MediaFrame2 { get; }
 
         FrameLayout MediaFrame3 { get; }
@@ -70,22 +72,6 @@ namespace Twichirp.Android.App.View {
         ImageViewAsync Media3 { get; }
 
         ImageViewAsync Media4 { get; }
-
-        ImageView MediaPlay1 { get; }
-
-        ImageView MediaPlay2 { get; }
-
-        ImageView MediaPlay3 { get; }
-
-        ImageView MediaPlay4 { get; }
-
-        AView MediaClickable1 { get; }
-
-        AView MediaClickable2 { get; }
-
-        AView MediaClickable3 { get; }
-
-        AView MediaClickable4 { get; }
 
         FrameLayout ReplyIconClickable { get; }
 

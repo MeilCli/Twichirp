@@ -60,7 +60,6 @@ namespace Twichirp.Android.App.DataHolder {
         public ViewStates VisivleMedia3 { get; private set; }
         public ViewStates VisivleMedia4 { get; private set; }
         public bool[] MeadiaIsVideoOrGif { get; private set; }
-        public ViewStates[] VisibleMediaPlays { get; private set; }
 
         public bool IsRetweetIconDisabled { get; private set; }
         public int RetweetDrawableTint { get; private set; }
@@ -113,7 +112,6 @@ namespace Twichirp.Android.App.DataHolder {
             VisivleMedia3 = viewModel.Media.Map(x => x.Count() >= 3 ? ViewStates.Visible : ViewStates.Gone);
             VisivleMedia4 = viewModel.Media.Map(x => x.Count() >= 4 ? ViewStates.Visible : ViewStates.Gone);
             MeadiaIsVideoOrGif = viewModel.Media.Select(x => (x?.VideoInfo?.Variants.Length ?? 0) > 0 ? true : false).ToArray();
-            VisibleMediaPlays = MeadiaIsVideoOrGif.Select(x => x == true ? ViewStates.Visible : ViewStates.Gone).ToArray();
 
             IsRetweetIconDisabled = viewModel.IsProtected;
             RetweetDrawableTint = viewModel.IsRetweeted.Map(x => toRetweetDrawableTint(context,x));

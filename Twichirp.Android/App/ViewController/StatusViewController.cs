@@ -86,10 +86,12 @@ namespace Twichirp.Android.App.ViewController {
                 View.MediaFrame3.Visibility = statusDataHolder.VisivleMedia3;
                 View.MediaFrame4.Visibility = statusDataHolder.VisivleMedia4;
                 var medias = new[] { View.Media1,View.Media2,View.Media3,View.Media4 };
-                var mediPlays = new[] { View.MediaPlay1,View.MediaPlay2,View.MediaPlay3,View.MediaPlay4 };
                 for(int i = 0;i < ViewModel.Media.Count() && i < medias.Length;i++) {
-                    ImageService.Instance.LoadUrl(ViewModel.Media.ElementAt(i).MediaUrl + ":small").FadeAnimation(true).Into(medias[i]);
-                    mediPlays[i].Visibility = statusDataHolder.VisibleMediaPlays[i];
+                    var _imageTask = ImageService.Instance.LoadUrl(ViewModel.Media.ElementAt(i).MediaUrl + ":small");
+                    if(statusDataHolder.MeadiaIsVideoOrGif[i]) {
+                        _imageTask.Transform(new PlayCircleTransformation(View.ApplicationContext));
+                    }
+                    _imageTask.Into(medias[i]);
                 }
             }
 
@@ -150,10 +152,6 @@ namespace Twichirp.Android.App.ViewController {
             View.Media2?.ReleaseImage();
             View.Media3?.ReleaseImage();
             View.Media4?.ReleaseImage();
-            View.MediaPlay1?.ReleaseImage();
-            View.MediaPlay2?.ReleaseImage();
-            View.MediaPlay3?.ReleaseImage();
-            View.MediaPlay4?.ReleaseImage();
             View.QuotingMedia1?.ReleaseImage();
             View.QuotingMedia2?.ReleaseImage();
             View.QuotingMedia3?.ReleaseImage();
