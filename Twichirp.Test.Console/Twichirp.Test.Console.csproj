@@ -33,12 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CoreTweet, Version=0.7.0.339, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CoreTweet.0.7.0.339\lib\net45\CoreTweet.dll</HintPath>
+    <Reference Include="CoreTweet, Version=0.7.2.352, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CoreTweet.0.7.2.352\lib\net45\CoreTweet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="CoreTweetSupplement, Version=1.6.0.21, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CoreTweetSupplement.1.6.0.21\lib\net40\CoreTweetSupplement.dll</HintPath>
+    <Reference Include="CoreTweetSupplement, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CoreTweetSupplement.1.6.2\lib\net40\CoreTweetSupplement.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">

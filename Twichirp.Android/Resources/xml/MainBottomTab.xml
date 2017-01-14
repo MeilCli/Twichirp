@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<tabs>
+  <tab
+      id="@+id/HomeTab"
+      icon="@drawable/iconhomegrey24dp"
+      title="Home" />
+  <tab
+      id="@+id/MentionTab"
+      icon="@drawable/iconnotificationsgrey24dp"
+      title="Mention" />
+  <tab
+      id="@+id/DirectMessageTab"
+      icon="@drawable/iconmailgrey24dp"
+      title="DM" />
+  <tab
+      id="@+id/UserTab"
+      icon="@drawable/iconpersongrey24dp"
+      title="User" />
+  <tab
+      id="@+id/TweetTab"
+      icon="@drawable/iconcommentgrey24dp"
+      title="Tweet" />
+</tabs>

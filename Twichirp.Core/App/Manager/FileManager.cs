@@ -32,6 +32,8 @@ namespace Twichirp.Core.App.Manager {
 
         public string UserContainerDatabasePath => Path.Combine(fileSystem.GetPersonalFolderPath(),"UserContainer.db");
 
+        public string BaseStatusContainerDatabasePath => Path.Combine(fileSystem.GetPersonalFolderPath(),"StatusContainer");
+
         public FileManager(IFileSystem fileSystem) {
             this.fileSystem = fileSystem;
         }

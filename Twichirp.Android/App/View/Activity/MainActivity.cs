@@ -39,6 +39,8 @@ namespace Twichirp.Android.App.View.Activity{
 
         public NavigationView Navigation { get; private set; }
 
+        public CoordinatorLayout Coordinator { get; private set; }
+
         public ImageView Icon { get; private set; }
 
         public RelativeLayout Subtitle { get; private set; }
@@ -60,6 +62,7 @@ namespace Twichirp.Android.App.View.Activity{
 
             DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.DrawerLayout);
             Navigation = FindViewById<NavigationView>(Resource.Id.Navigation);
+            Coordinator = FindViewById<CoordinatorLayout>(Resource.Id.Coordinator);
             // xmlごしだとなぜか見つからないエラー
             Navigation.InflateHeaderView(Resource.Layout.NavigationHeader);
             var headerView = Navigation.GetHeaderView(0);

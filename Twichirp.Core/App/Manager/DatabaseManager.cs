@@ -20,9 +20,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Twichirp.Core.App.Manager {
-    public class DatabaseManager :IDisposable{
+    public class DatabaseManager : IDisposable {
 
         private IDatabaseSystem databaseSystem;
 
@@ -32,11 +33,14 @@ namespace Twichirp.Core.App.Manager {
 
         public SQLiteAsyncConnection UserContainerConnection { get; }
 
+        public StatusContainer StatusContainerConnections { get; }
+
         public DatabaseManager(ITwichirpApplication appilication,IDatabaseSystem databaseSystem) {
             this.databaseSystem = databaseSystem;
             AccountConnection = databaseSystem.GetSQLiteAsyncConnection(appilication.FileManager.AccountDatabasePath);
             ConsumerConnection = databaseSystem.GetSQLiteAsyncConnection(appilication.FileManager.ConsumerDatabasePath);
             UserContainerConnection = databaseSystem.GetSQLiteAsyncConnection(appilication.FileManager.UserContainerDatabasePath);
+            StatusContainerConnections = new StatusContainer(appilication,databaseSystem);
         }
 
         public void Dispose() {
@@ -44,5 +48,29 @@ namespace Twichirp.Core.App.Manager {
                 d.Dispose();
             }
         }
+    }
+
+    public class StatusContainer {
+
+        private Dictionary<long,SQLiteAsyncConnection> connections = new Dictionary<long,SQLiteAsyncConnection>();
+        private ITwichirpApplication application;
+        private IDatabaseSystem databaseSystem;
+
+        internal StatusContainer(ITwichirpApplication application,IDatabaseSystem databaseSystem) {
+            this.application = application;
+            this.databaseSystem = databaseSystem;
+        }
+
+        public SQLiteAsyncConnection this[long id] {
+            get {
+                if(connections.ContainsKey(id)) {
+                    return connections[id];
+                }
+                var connection = databaseSystem.GetSQLiteAsyncConnection(Path.Combine(application.FileManager.BaseStatusContainerDatabasePath,$"{id}.db"));
+                connections[id] = connection;
+                return connection;
+            }
+        }
+
     }
 }

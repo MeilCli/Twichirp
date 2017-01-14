@@ -35,6 +35,8 @@ namespace Twichirp.Android.App.View {
 
         NavigationView Navigation { get; }
 
+        CoordinatorLayout Coordinator { get; }
+
         ImageView Icon { get; }
 
         RelativeLayout Subtitle { get; }

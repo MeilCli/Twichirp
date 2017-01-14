@@ -39,6 +39,7 @@ using Android.Support.V4.Content;
 using Twichirp.Android.App.View.Activity;
 using Twichirp.Android.App.Setting;
 using CoreTweet;
+using Android.Util;
 
 namespace Twichirp.Android.App.ViewController {
     public class MainViewController : BaseViewController<IMainView> {
@@ -46,10 +47,12 @@ namespace Twichirp.Android.App.ViewController {
         private bool isShowAccounts = false;
         private string addAccountText;
         private string settingText;
+        //private BottomBar bottomBar;
 
         public MainViewController(IMainView view) : base(view) {
             view.OnCreateEventHandler += onCreate;
             view.OnResumeEventHandler += onResume;
+            view.OnSaveInstanceStateEventHandler += onSaveState;
             addAccountText = view.ApplicationContext.GetString(Resource.String.MainAddAccount);
             settingText = view.ApplicationContext.GetString(Resource.String.Setting);
         }
@@ -60,10 +63,33 @@ namespace Twichirp.Android.App.ViewController {
                 isShowAccounts = isShowAccounts == false;
                 resetMenu();
             };
+            /*
+            bottomBar = AppCompatBottomBar.Attach(View.Coordinator,args.State);
+            bottomBar.NoTabletGoodness();
+            bottomBar.SetOnTabClickListener(this);
+            bottomBar.SetItems(new BottomBarTab[] {
+                new BottomBarTab(Resource.Drawable.IconHomeGrey24dp,"Home"),
+                new BottomBarTab(Resource.Drawable.IconNotificationsGrey24dp,"Mention"),
+                new BottomBarTab(Resource.Drawable.IconMailGrey24dp,"DM"),
+                new BottomBarTab(Resource.Drawable.IconPersonGrey24dp,"User"),
+                new BottomBarTab(Resource.Drawable.IconCommentGrey24dp,"Tweet")
+            });
+            */
+            
         }
 
         private void onResume(object sender,LifeCycleEventArgs args) {
             resetMenu();
+        }
+
+        private void onSaveState(object sender,LifeCycleEventArgs args) {
+            //bottomBar?.OnSaveInstanceState(args.State);
+        }
+
+        public void OnTabSelected(int position) {
+        }
+
+        public void OnTabReSelected(int position) {
         }
 
         private void resetMenu() {
@@ -213,5 +239,6 @@ namespace Twichirp.Android.App.ViewController {
                 View.DrawerLayout.CloseDrawers();
             }
         }
+
     }
 }
