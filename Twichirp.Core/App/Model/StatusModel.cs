@@ -106,7 +106,11 @@ namespace Twichirp.Core.App.Model {
         public void SetStatus(Status status) {
             this.status = status;
 
-            User = new UserModel(Application,status.User);
+            if(User == null) {
+                User = new UserModel(Application,status.User);
+            } else {
+                User.SetUser(status.User);
+            }
             RaisePropertyChanged(nameof(User));
 
             Id = status.Id;
@@ -162,7 +166,11 @@ namespace Twichirp.Core.App.Model {
             InReplyToUserId = status.InReplyToUserId;
             RaisePropertyChanged(nameof(InReplyToUserId));
 
-            QuotedStatus = status.QuotedStatus == null ? null : new StatusModel(Application,status.QuotedStatus);
+            if(QuotedStatus == null) {
+                QuotedStatus = new StatusModel(Application,status.QuotedStatus);
+            } else {
+                QuotedStatus.SetStatus(status.QuotedStatus);
+            }
             RaisePropertyChanged(nameof(QuotedStatus));
 
             RetweetCount = status.RetweetCount ?? 0;
@@ -171,7 +179,11 @@ namespace Twichirp.Core.App.Model {
             IsRetweeted = status.IsRetweeted ?? false;
             RaisePropertyChanged(nameof(IsRetweeted));
 
-            RetweetedStatus = status.RetweetedStatus == null ? null : new StatusModel(Application,status.RetweetedStatus);
+            if(RetweetedStatus == null) {
+                RetweetedStatus = new StatusModel(Application,status.RetweetedStatus);
+            } else {
+                RetweetedStatus.SetStatus(status.RetweetedStatus);
+            }
             RaisePropertyChanged(nameof(RetweetedStatus));
 
             PushTime = DateTime.Now;
