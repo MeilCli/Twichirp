@@ -166,10 +166,12 @@ namespace Twichirp.Core.App.Model {
             InReplyToUserId = status.InReplyToUserId;
             RaisePropertyChanged(nameof(InReplyToUserId));
 
-            if(QuotedStatus == null) {
+            if(status.QuotedStatus != null && QuotedStatus == null) {
                 QuotedStatus = new StatusModel(Application,status.QuotedStatus);
-            } else {
+            } else if(status.QuotedStatus != null) {
                 QuotedStatus.SetStatus(status.QuotedStatus);
+            } else {
+                QuotedStatus = null;
             }
             RaisePropertyChanged(nameof(QuotedStatus));
 
@@ -179,10 +181,12 @@ namespace Twichirp.Core.App.Model {
             IsRetweeted = status.IsRetweeted ?? false;
             RaisePropertyChanged(nameof(IsRetweeted));
 
-            if(RetweetedStatus == null) {
+            if(status.RetweetedStatus != null && RetweetedStatus == null) {
                 RetweetedStatus = new StatusModel(Application,status.RetweetedStatus);
-            } else {
+            } else if(status.RetweetedStatus != null) {
                 RetweetedStatus.SetStatus(status.RetweetedStatus);
+            } else {
+                RetweetedStatus = null;
             }
             RaisePropertyChanged(nameof(RetweetedStatus));
 
@@ -190,7 +194,7 @@ namespace Twichirp.Core.App.Model {
         }
 
         public StatusModel ToContentStatus() => RetweetedStatus == null ? this : RetweetedStatus;
-        
+
         public string ExportJson() => JsonConvert.SerializeObject(status);
 
         public IEnumerable<StatusModel> DeploymentStatus() {
@@ -214,7 +218,7 @@ namespace Twichirp.Core.App.Model {
                 foreach(var s in status.DeploymentStatus()) {
                     Application.TwitterEvent.UpdateStatus = Tuple.Create(account,s);
                 }
-            }catch(Exception e) {
+            } catch(Exception e) {
                 ErrorMessage = e.Message;
             } finally {
                 slim.Release();
