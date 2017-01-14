@@ -24,10 +24,10 @@ using Twichirp.Core.Constant;
 namespace Twichirp.Android.Constant {
     public class AndroidLibraryConstant {
         public static readonly Library SupportLibrary = new Library("Xamarin Android Support Library","Copyright (c) .NET Foundation Contributors",LicenseConstant.MITLicense);
-        public static readonly Library SquareBindings = new Library("square-bindings","Copyright (c) mattleibow",LicenseConstant.ApacheLicenseV2);
+        public static readonly Library FFImageLoading = new Library("FFImageLoading","Copyright (c) 2015 Fabien Molinet",LicenseConstant.MITLicense);
         public static readonly Library MaterialDesignIcon = new Library("Material design icons","Copyright (c) Google",LicenseConstant.ApacheLicenseV2);
-        public static readonly Library BottomBar = new Library("BottomBarSharp","Copyright (c) 2016 meil",LicenseConstant.ApacheLicenseV2);
+        public static readonly Library BottomBar = new Library("BottomBarSharp","Copyright (c) 2016 meil",LicenseConstant.MITLicense);
 
-        public static readonly Library[] Libraries = { SupportLibrary,SquareBindings,MaterialDesignIcon,BottomBar };
+        public static readonly Library[] Libraries = { SupportLibrary,FFImageLoading,MaterialDesignIcon,BottomBar };
     }
 }

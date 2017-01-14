@@ -25,6 +25,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using FFImageLoading.Views;
 using Twichirp.Android.App.ViewController;
 using Twichirp.Core.App.ViewModel;
 using AView = Android.Views.View;
@@ -52,7 +53,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         public TextView ScreenName { get; private set; }
 
-        public ImageView Icon { get; private set; }
+        public ImageViewAsync Icon { get; private set; }
 
         public ImageView LockIcon { get; private set; }
 
@@ -68,13 +69,13 @@ namespace Twichirp.Android.App.View.Holder {
 
         public FrameLayout MediaFrame4 { get; protected set; }
 
-        public ImageView Media1 { get; protected set; }
+        public ImageViewAsync Media1 { get; protected set; }
 
-        public ImageView Media2 { get; protected set; }
+        public ImageViewAsync Media2 { get; protected set; }
 
-        public ImageView Media3 { get; protected set; }
+        public ImageViewAsync Media3 { get; protected set; }
 
-        public ImageView Media4 { get; protected set; }
+        public ImageViewAsync Media4 { get; protected set; }
 
         public ImageView MediaPlay1 { get; protected set; }
 
@@ -122,13 +123,13 @@ namespace Twichirp.Android.App.View.Holder {
 
         public LinearLayout QuotingMediaParent2 { get; protected set; }
 
-        public ImageView QuotingMedia1 { get; protected set; }
+        public ImageViewAsync QuotingMedia1 { get; protected set; }
 
-        public ImageView QuotingMedia2 { get; protected set; }
+        public ImageViewAsync QuotingMedia2 { get; protected set; }
 
-        public ImageView QuotingMedia3 { get; protected set; }
+        public ImageViewAsync QuotingMedia3 { get; protected set; }
 
-        public ImageView QuotingMedia4 { get; protected set; }
+        public ImageViewAsync QuotingMedia4 { get; protected set; }
 
         public StatusHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup,int statusType = StatusViewModel.NormalTweet,int layout = Resource.Layout.StatusHolder)
             : base(view,lifeCycle,viewGroup,layout) {
@@ -144,7 +145,7 @@ namespace Twichirp.Android.App.View.Holder {
             ReplyToUser = ItemView.FindViewById<TextView>(Resource.Id.ReplyToUser);
             Name = ItemView.FindViewById<TextView>(Resource.Id.Name);
             ScreenName = ItemView.FindViewById<TextView>(Resource.Id.ScreenName);
-            Icon = ItemView.FindViewById<ImageView>(Resource.Id.Icon);
+            Icon = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Icon);
             LockIcon = ItemView.FindViewById<ImageView>(Resource.Id.LockIcon);
             VerifyIcon = ItemView.FindViewById<ImageView>(Resource.Id.VerifyIcon);
             DateTime = ItemView.FindViewById<TextView>(Resource.Id.DateTime);
@@ -175,10 +176,10 @@ namespace Twichirp.Android.App.View.Holder {
             MediaFrame2 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame2);
             MediaFrame3 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame3);
             MediaFrame4 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame4);
-            Media1 = ItemView.FindViewById<ImageView>(Resource.Id.Media1);
-            Media2 = ItemView.FindViewById<ImageView>(Resource.Id.Media2);
-            Media3 = ItemView.FindViewById<ImageView>(Resource.Id.Media3);
-            Media4 = ItemView.FindViewById<ImageView>(Resource.Id.Media4);
+            Media1 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media1);
+            Media2 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media2);
+            Media3 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media3);
+            Media4 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media4);
             MediaPlay1 = ItemView.FindViewById<ImageView>(Resource.Id.MediaPlay1);
             MediaPlay2 = ItemView.FindViewById<ImageView>(Resource.Id.MediaPlay2);
             MediaPlay3 = ItemView.FindViewById<ImageView>(Resource.Id.MediaPlay3);
@@ -221,10 +222,10 @@ namespace Twichirp.Android.App.View.Holder {
             QuotingSuffixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingSuffixText);
 
             QuotingMediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.QuotingMediaParent2);
-            QuotingMedia1 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia1);
-            QuotingMedia2 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia2);
-            QuotingMedia3 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia3);
-            QuotingMedia4 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia4);
+            QuotingMedia1 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia1);
+            QuotingMedia2 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia2);
+            QuotingMedia3 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia3);
+            QuotingMedia4 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia4);
         }
     }
 
@@ -246,10 +247,10 @@ namespace Twichirp.Android.App.View.Holder {
             MediaFrame2 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame2);
             MediaFrame3 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame3);
             MediaFrame4 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame4);
-            Media1 = ItemView.FindViewById<ImageView>(Resource.Id.Media1);
-            Media2 = ItemView.FindViewById<ImageView>(Resource.Id.Media2);
-            Media3 = ItemView.FindViewById<ImageView>(Resource.Id.Media3);
-            Media4 = ItemView.FindViewById<ImageView>(Resource.Id.Media4);
+            Media1 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media1);
+            Media2 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media2);
+            Media3 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media3);
+            Media4 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media4);
             MediaPlay1 = ItemView.FindViewById<ImageView>(Resource.Id.MediaPlay1);
             MediaPlay2 = ItemView.FindViewById<ImageView>(Resource.Id.MediaPlay2);
             MediaPlay3 = ItemView.FindViewById<ImageView>(Resource.Id.MediaPlay3);
@@ -272,10 +273,10 @@ namespace Twichirp.Android.App.View.Holder {
             MediaFrame2 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame2);
             MediaFrame3 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame3);
             MediaFrame4 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame4);
-            Media1 = ItemView.FindViewById<ImageView>(Resource.Id.Media1);
-            Media2 = ItemView.FindViewById<ImageView>(Resource.Id.Media2);
-            Media3 = ItemView.FindViewById<ImageView>(Resource.Id.Media3);
-            Media4 = ItemView.FindViewById<ImageView>(Resource.Id.Media4);
+            Media1 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media1);
+            Media2 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media2);
+            Media3 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media3);
+            Media4 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media4);
             MediaPlay1 = ItemView.FindViewById<ImageView>(Resource.Id.MediaPlay1);
             MediaPlay2 = ItemView.FindViewById<ImageView>(Resource.Id.MediaPlay2);
             MediaPlay3 = ItemView.FindViewById<ImageView>(Resource.Id.MediaPlay3);
@@ -293,10 +294,10 @@ namespace Twichirp.Android.App.View.Holder {
             QuotingSuffixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingSuffixText);
 
             QuotingMediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.QuotingMediaParent2);
-            QuotingMedia1 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia1);
-            QuotingMedia2 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia2);
-            QuotingMedia3 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia3);
-            QuotingMedia4 = ItemView.FindViewById<ImageView>(Resource.Id.QuotingMedia4);
+            QuotingMedia1 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia1);
+            QuotingMedia2 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia2);
+            QuotingMedia3 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia3);
+            QuotingMedia4 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia4);
         }
     }
 }

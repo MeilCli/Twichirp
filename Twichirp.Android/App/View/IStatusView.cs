@@ -25,6 +25,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using FFImageLoading.Views;
 using AView = Android.Views.View;
 
 namespace Twichirp.Android.App.View {
@@ -46,7 +47,7 @@ namespace Twichirp.Android.App.View {
 
         TextView ScreenName { get; }
 
-        ImageView Icon { get; }
+        ImageViewAsync Icon { get; }
 
         ImageView LockIcon { get; }
 
@@ -62,13 +63,13 @@ namespace Twichirp.Android.App.View {
 
         FrameLayout MediaFrame4 { get; }
 
-        ImageView Media1 { get; }
+        ImageViewAsync Media1 { get; }
 
-        ImageView Media2 { get; }
+        ImageViewAsync Media2 { get; }
 
-        ImageView Media3 { get; }
+        ImageViewAsync Media3 { get; }
 
-        ImageView Media4 { get; }
+        ImageViewAsync Media4 { get; }
 
         ImageView MediaPlay1 { get; }
 
@@ -118,12 +119,12 @@ namespace Twichirp.Android.App.View {
 
         LinearLayout QuotingMediaParent2 { get; }
 
-        ImageView QuotingMedia1 { get; }
+        ImageViewAsync QuotingMedia1 { get; }
 
-        ImageView QuotingMedia2 { get; }
+        ImageViewAsync QuotingMedia2 { get; }
 
-        ImageView QuotingMedia3 { get; }
+        ImageViewAsync QuotingMedia3 { get; }
 
-        ImageView QuotingMedia4 { get; }
+        ImageViewAsync QuotingMedia4 { get; }
     }
 }

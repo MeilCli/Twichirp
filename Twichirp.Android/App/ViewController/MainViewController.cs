@@ -27,7 +27,6 @@ using Android.Views;
 using Android.Widget;
 using Twichirp.Android.App.View;
 using static Android.Support.Design.Widget.NavigationView;
-using Square.Picasso;
 using Android.Graphics;
 using Twichirp.Core.Model;
 using System.Threading.Tasks;
@@ -40,6 +39,8 @@ using Twichirp.Android.App.View.Activity;
 using Twichirp.Android.App.Setting;
 using CoreTweet;
 using Android.Util;
+using FFImageLoading;
+using FFImageLoading.Transformations;
 
 namespace Twichirp.Android.App.ViewController {
     public class MainViewController : BaseViewController<IMainView> {
@@ -137,11 +138,11 @@ namespace Twichirp.Android.App.ViewController {
                     return;
                 }
             }
-            View.Icon.LoadImageUrlAcync(account.User.GetProfileImageUrl("bigger").AbsoluteUri);
+            ImageService.Instance.LoadUrl(account.User.GetProfileImageUrl("bigger").AbsoluteUri).Transform(new CircleTransformation()).Into(View.Icon);
             View.Name.Text = account.User.Name;
             View.ScreenName.Text = $"@{account.User.ScreenName}";
             if(account.User.ProfileBannerUrl != null) {
-                View.Background.LoadImageUrlAcync($"{account.User.ProfileBannerUrl}/mobile_retina",adaptBackgroundColor);
+                await ImageService.Instance.LoadUrl($"{account.User.ProfileBannerUrl}/mobile_retina").IntoAsync(View.Background);
             }else if(account.User.ProfileBackgroundColor != null) {
                 try {
                     View.Background.SetImageDrawable(new ColorDrawable((Color.ParseColor($"#{account.User.ProfileLinkColor}"))));

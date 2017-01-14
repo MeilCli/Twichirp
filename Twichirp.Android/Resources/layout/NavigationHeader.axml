@@ -20,12 +20,12 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="180dp">
-    <ImageView
+    <FFImageLoading.Views.ImageViewAsync
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:id="@+id/Background"
         android:scaleType="centerCrop" />
-    <twichirp.android.app.view.CircleImageView
+    <FFImageLoading.Views.ImageViewAsync
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:id="@+id/Icon"

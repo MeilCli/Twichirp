@@ -27,6 +27,7 @@ using Android.Support.V4.Widget;
 using Twichirp.Android.App.ViewController;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View.Fragment;
+using FFImageLoading.Views;
 
 namespace Twichirp.Android.App.View.Activity{
 
@@ -41,7 +42,7 @@ namespace Twichirp.Android.App.View.Activity{
 
         public CoordinatorLayout Coordinator { get; private set; }
 
-        public ImageView Icon { get; private set; }
+        public ImageViewAsync Icon { get; private set; }
 
         public RelativeLayout Subtitle { get; private set; }
 
@@ -51,7 +52,7 @@ namespace Twichirp.Android.App.View.Activity{
 
         public ImageView Drop { get; private set; }
 
-        public ImageView Background { get; private set; }
+        public ImageViewAsync Background { get; private set; }
 
         protected override void OnViewCreate(Bundle savedInstanceState) {
 
@@ -66,12 +67,12 @@ namespace Twichirp.Android.App.View.Activity{
             // xmlごしだとなぜか見つからないエラー
             Navigation.InflateHeaderView(Resource.Layout.NavigationHeader);
             var headerView = Navigation.GetHeaderView(0);
-            Icon = headerView.FindViewById<ImageView>(Resource.Id.Icon);
+            Icon = headerView.FindViewById<ImageViewAsync>(Resource.Id.Icon);
             Subtitle = headerView.FindViewById<RelativeLayout>(Resource.Id.Subtitle);
             Name = headerView.FindViewById<TextView>(Resource.Id.Name);
             ScreenName = headerView.FindViewById<TextView>(Resource.Id.ScreenName);
             Drop = headerView.FindViewById<ImageView>(Resource.Id.Drop);
-            Background = headerView.FindViewById<ImageView>(Resource.Id.Background);
+            Background = headerView.FindViewById<ImageViewAsync>(Resource.Id.Background);
 
             SupportFragmentManager.BeginTransaction().Replace(Resource.Id.Content,new StatusTimelineFragment()).Commit();
         }

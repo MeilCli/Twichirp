@@ -81,8 +81,8 @@
                 android:id="@+id/SuffixText"
                 android:textAppearance="@style/AppTheme.Text.Caption" />
         </LinearLayout>
-        <ImageView
-            android:src="@drawable/Icon"
+        <FFImageLoading.Views.ImageViewAsync
+          android:src="@drawable/Icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/Icon"

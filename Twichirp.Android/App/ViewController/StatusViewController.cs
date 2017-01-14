@@ -31,6 +31,7 @@ using Android.Support.V7.Widget;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using FFImageLoading;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.DataHolder;
@@ -72,7 +73,7 @@ namespace Twichirp.Android.App.ViewController {
             View.Name.Text = ViewModel.Name;
             View.ScreenName.Text = ViewModel.ScreenName;
             View.DateTime.Text = ViewModel.DateTime.Value;
-            View.Icon.LoadImageUrlAcync(ViewModel.IconUrl);
+            ImageService.Instance.LoadUrl(ViewModel.IconUrl).FadeAnimation(true).Into(View.Icon);
 
             View.LockIcon.Visibility = statusDataHolder.VisibleLockIcon;
             View.VerifyIcon.Visibility = statusDataHolder.VisibleVerifyIcon;
@@ -87,7 +88,7 @@ namespace Twichirp.Android.App.ViewController {
                 var medias = new[] { View.Media1,View.Media2,View.Media3,View.Media4 };
                 var mediPlays = new[] { View.MediaPlay1,View.MediaPlay2,View.MediaPlay3,View.MediaPlay4 };
                 for(int i = 0;i < ViewModel.Media.Count() && i < medias.Length;i++) {
-                    medias[i].LoadImageUrlAcync(ViewModel.Media.ElementAt(i).MediaUrl + ":small");
+                    ImageService.Instance.LoadUrl(ViewModel.Media.ElementAt(i).MediaUrl + ":small").FadeAnimation(true).Into(medias[i]);
                     mediPlays[i].Visibility = statusDataHolder.VisibleMediaPlays[i];
                 }
             }
@@ -115,7 +116,7 @@ namespace Twichirp.Android.App.ViewController {
                 View.QuotingMedia4.Visibility = statusDataHolder.VisivleQuotingMedia4;
                 var medias = new[] { View.QuotingMedia1,View.QuotingMedia2,View.QuotingMedia3,View.QuotingMedia4 };
                 for(int i = 0;i < ViewModel.QuotedMedia.Count() && i < medias.Length;i++) {
-                    medias[i].LoadImageUrlAcync(ViewModel.QuotedMedia.ElementAt(i).MediaUrl + ":small");
+                    ImageService.Instance.LoadUrl(ViewModel.QuotedMedia.ElementAt(i).MediaUrl + ":small").FadeAnimation(true).Into(medias[i]);
                 }
             }
 

@@ -23,8 +23,8 @@
                     android:id="@+id/MediaFrame1"
                     android:layout_weight="1"
                     android:layout_margin="@dimen/ItemPadding">
-                    <ImageView
-                        android:src="@drawable/Icon"
+                    <FFImageLoading.Views.ImageViewAsync
+                      android:src="@drawable/Icon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/Media1"
@@ -49,8 +49,8 @@
                     android:id="@+id/MediaFrame3"
                     android:layout_weight="1"
                     android:layout_margin="@dimen/ItemPadding">
-                    <ImageView
-                        android:src="@drawable/Icon"
+                    <FFImageLoading.Views.ImageViewAsync
+                      android:src="@drawable/Icon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/Media3"
@@ -82,8 +82,8 @@
                     android:id="@+id/MediaFrame2"
                     android:layout_weight="1"
                     android:layout_margin="@dimen/ItemPadding">
-                    <ImageView
-                        android:src="@drawable/Icon"
+                    <FFImageLoading.Views.ImageViewAsync
+                      android:src="@drawable/Icon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/Media2"
@@ -108,8 +108,8 @@
                     android:id="@+id/MediaFrame4"
                     android:layout_weight="1"
                     android:layout_margin="@dimen/ItemPadding">
-                    <ImageView
-                        android:src="@drawable/Icon"
+                    <FFImageLoading.Views.ImageViewAsync
+                      android:src="@drawable/Icon"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/Media4"

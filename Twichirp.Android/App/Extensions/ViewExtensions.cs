@@ -28,9 +28,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using Square.Picasso;
 using AView = Android.Views.View;
-using JString = Java.Lang.String;
 
 namespace Twichirp.Android.App.Extensions {
     public static class ViewExtensions {
@@ -47,37 +45,6 @@ namespace Twichirp.Android.App.Extensions {
             imageView.Tag = null;
             if(drawable is BitmapDrawable) {
                 //(drawable as BitmapDrawable)?.Bitmap?.Recycle();
-            }
-        }
-
-        public static async void LoadImageUrlAcync(this ImageView imageView,string url,Action<Bitmap> callback = null) {
-            if(imageView == null) {
-                return;
-            }
-            if(imageView.Drawable != null && (imageView.Tag?.ToString().Equals(new JString(url)) ?? false)) {
-                // 実行されるかどうかは確認していない
-                return;
-            }
-            Bitmap bm = await Task.Run(() => {
-                try {
-                    return Picasso.With(imageView.Context.ApplicationContext).Load(url).Get();
-                } catch(Exception) {
-                    return null;
-                }
-            });
-            // https://developer.xamarin.com/guides/android/advanced_topics/garbage_collection/#Helping_the_GC
-            // こんなことしていいらしい
-            using(bm) {
-                if(bm == null) {
-                    return;
-                }
-                if(imageView == null) {
-                    bm?.Recycle();
-                    return;
-                }
-                imageView.SetImageBitmap(bm);
-                imageView.Tag = new JString(url);
-                callback?.Invoke(bm);
             }
         }
     }

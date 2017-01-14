@@ -70,6 +70,18 @@
       <HintPath>..\packages\CoreTweetSupplement.1.6.2\lib\portable45-net45+win8+wpa81\CoreTweetSupplement.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FFImageLoading, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.FFImageLoading.2.2.7\lib\MonoAndroid10\FFImageLoading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FFImageLoading.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.FFImageLoading.2.2.7\lib\MonoAndroid10\FFImageLoading.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FFImageLoading.Transformations, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.FFImageLoading.Transformations.2.2.7\lib\MonoAndroid10\FFImageLoading.Transformations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -102,18 +114,6 @@
     </Reference>
     <Reference Include="SQLite.Net.Platform.XamarinAndroid, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SQLite.Net-PCL.3.1.1\lib\MonoAndroid\SQLite.Net.Platform.XamarinAndroid.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Square.OkHttp, Version=2.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Square.OkHttp.2.4.0.0\lib\MonoAndroid\Square.OkHttp.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Square.OkIO, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Square.OkIO.1.5.0.0\lib\MonoAndroid\Square.OkIO.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Square.Picasso, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Square.Picasso.2.5.2.1\lib\MonoAndroid\Square.Picasso.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -233,7 +233,6 @@
     <Compile Include="App\View\Activity\OpenSourceActivity.cs" />
     <Compile Include="App\View\Activity\SplashActivity.cs" />
     <Compile Include="App\View\AppCompatAutoCompleteTextView.cs" />
-    <Compile Include="App\View\CircleImageView.cs" />
     <Compile Include="App\View\DividerItemDecoration.cs" />
     <Compile Include="App\View\Fragment\Dialog\ProgressDialogFragment.cs" />
     <Compile Include="App\View\Fragment\StatusTimelineFragment.cs" />

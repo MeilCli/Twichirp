@@ -27,6 +27,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
+using FFImageLoading.Views;
 
 namespace Twichirp.Android.App.View {
     public interface IMainView :IView,ILifeCycle{
@@ -37,7 +38,7 @@ namespace Twichirp.Android.App.View {
 
         CoordinatorLayout Coordinator { get; }
 
-        ImageView Icon { get; }
+        ImageViewAsync Icon { get; }
 
         RelativeLayout Subtitle { get; }
 
@@ -47,6 +48,6 @@ namespace Twichirp.Android.App.View {
 
         ImageView Drop { get; }
 
-        ImageView Background { get; }
+        ImageViewAsync Background { get; }
     }
 }
