@@ -84,13 +84,13 @@ namespace Twichirp.Core.App.Model {
             Name = user.Name ?? string.Empty;
             RaisePropertyChanged(nameof(Name));
 
-            Description = CoreTweetSupplement.EnumerateTextParts(user.Description ?? string.Empty,user.Entities?.Description);
+            Description = user.Description == null ? Enumerable.Empty<TextPart>() : CoreTweetSupplement.EnumerateTextParts(user.Description,user.Entities?.Description);
             RaisePropertyChanged(nameof(Description));
 
             Location = user.Location ?? string.Empty;
             RaisePropertyChanged(nameof(Location));
 
-            Url = CoreTweetSupplement.EnumerateTextParts(user.Url ?? string.Empty,user.Entities?.Url);
+            Url = user.Url == null ? Enumerable.Empty<TextPart>() : CoreTweetSupplement.EnumerateTextParts(user.Url,user.Entities?.Url);
             RaisePropertyChanged(nameof(Url));
 
             CreatedAt = user.CreatedAt;
