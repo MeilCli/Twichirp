@@ -37,11 +37,7 @@ namespace Twichirp.Android.App.View {
 
         TextView ReplyToUser { get; }
 
-        TextView PrefixText { get; }
-
         TextView Text { get; }
-
-        TextView SuffixText { get; }
 
         TextView Name { get; }
 
@@ -97,11 +93,7 @@ namespace Twichirp.Android.App.View {
         
         TextView QuotingScreenName { get; }
         
-        TextView QuotingPrefixText { get; }
-        
         TextView QuotingText { get; }
-        
-        TextView QuotingSuffixText { get; }
 
         LinearLayout QuotingMediaParent2 { get; }
 

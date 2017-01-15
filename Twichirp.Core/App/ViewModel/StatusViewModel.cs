@@ -26,6 +26,8 @@ using Twichirp.Core.App.Model;
 using System.Reactive.Linq;
 using Twichirp.Core.Extensions;
 using Twichirp.Core.Model;
+using Plugin.CrossFormattedText.Abstractions;
+using Plugin.CrossFormattedText;
 
 namespace Twichirp.Core.App.ViewModel {
     public class StatusViewModel : BaseViewModel {
@@ -42,10 +44,8 @@ namespace Twichirp.Core.App.ViewModel {
 
         internal StatusModel StatusModel;
         public long Id { get; private set; }
-        public IEnumerable<TextPart> Text { get; private set; }
-        public IEnumerable<UserMentionEntity> HiddenPrefix { get; private set; }
-        public IEnumerable<UrlEntity> HiddenSuffix { get; private set; }
-        public string Source { get; private set; } 
+        public ReactiveProperty<ISpannableString> SpannableText { get; private set; } = new ReactiveProperty<ISpannableString>();
+        public string Source { get; private set; }
         public ReadOnlyReactiveProperty<string> DateTime { get; private set; }
         public int RetweetCount { get; private set; }
         public string RetweetCountText { get; private set; }
@@ -66,10 +66,11 @@ namespace Twichirp.Core.App.ViewModel {
         public bool IsRetweeting { get; private set; }
         public string RetweetingUser { get; private set; }
 
+        /*
+         * Quoted Status is Nullable
+         * */
         public bool IsQuoting { get; private set; }
-        public IEnumerable<TextPart> QuotedText { get; private set; }
-        public IEnumerable<UserMentionEntity> QuotedHiddenPrefix { get; private set; }
-        public IEnumerable<UrlEntity> QuotedHiddenSuffix { get; private set; }
+        public ReactiveProperty<ISpannableString> QuotedSpannableText { get; private set; } = new ReactiveProperty<ISpannableString>();
         public string QuotedName { get; private set; }
         public string QuotedScreenName { get; private set; }
         public IEnumerable<MediaEntity> QuotedMedia { get; private set; }
@@ -86,7 +87,7 @@ namespace Twichirp.Core.App.ViewModel {
                 .CombineLatest(ShowStatusCommand,(x,y) => relativeDateTime(x))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
-            
+
             StatusModel.ObserveProperty(x => x.PushTime)
                 .ToReadOnlyReactiveProperty(mode: ReactivePropertyMode.RaiseLatestValueOnSubscribe)
                 .Subscribe(x => initStaticValue())
@@ -100,12 +101,11 @@ namespace Twichirp.Core.App.ViewModel {
                 .Subscribe(x => initStaticValue())
                 .AddTo(Disposable);
 
-            //StatusModel.ToContentStatus().PropertyChanged +=(s,e)=>{ initStaticValue(); };
             RetweetCommand
-                .Subscribe(x=> {
+                .Subscribe(x => {
                     if(IsRetweeted) {
                         StatusModel.ToContentStatus().UnRetweet(account);
-                    }else {
+                    } else {
                         StatusModel.ToContentStatus().Retweet(account);
                     }
                 })
@@ -123,12 +123,25 @@ namespace Twichirp.Core.App.ViewModel {
 
         private void initStaticValue() {
             IStringResource stringResource = Application.StringResource;
+            var contentStatus = StatusModel.ToContentStatus();
+
+            SpannableText.Value = spannableText(
+                contentStatus.Text,
+                contentStatus.HiddenPrefix,
+                contentStatus.HiddenSuffix,
+                contentStatus.QuotedStatus == null && contentStatus.Media.Count() == 0
+                );
+
+            if(StatusModel.ToContentStatus().QuotedStatus != null) {
+                var quotedStatus = contentStatus.QuotedStatus;
+
+                QuotedSpannableText.Value = spannableText(quotedStatus.Text,quotedStatus.HiddenPrefix,quotedStatus.HiddenSuffix,quotedStatus.Media.Count() == 0);
+            }
+
             Id = StatusModel.Id;
-            Text = StatusModel.ToContentStatus().Text;
-            HiddenPrefix = StatusModel.ToContentStatus().HiddenPrefix;
-            HiddenSuffix = StatusModel.ToContentStatus().HiddenSuffix;
+
             Source = StatusModel.ToContentStatus().Source;
-            
+
             RetweetCount = StatusModel.ToContentStatus().RetweetCount;
             RetweetCountText = RetweetCount.ToString();
             FavoriteCount = StatusModel.ToContentStatus().FavoriteCount;
@@ -149,9 +162,6 @@ namespace Twichirp.Core.App.ViewModel {
             RetweetingUser = StatusModel.User.ScreenName.Map(x => string.Format(Application.GetLocalizedString(stringResource.StatusRetweetingUser),x));
 
             IsQuoting = StatusModel.ToContentStatus().QuotedStatus.Map(x => x != null);
-            QuotedText = StatusModel.ToContentStatus().QuotedStatus?.Text;
-            QuotedHiddenPrefix = StatusModel.ToContentStatus().QuotedStatus?.HiddenPrefix;
-            QuotedHiddenSuffix = StatusModel.ToContentStatus().QuotedStatus?.HiddenSuffix;
             QuotedName = StatusModel.ToContentStatus().QuotedStatus?.User.Name;
             QuotedScreenName = StatusModel.ToContentStatus().QuotedStatus?.User.ScreenName.Map(x => $"@{x}");
             QuotedMedia = StatusModel.ToContentStatus().QuotedStatus?.Media;
@@ -185,6 +195,45 @@ namespace Twichirp.Core.App.ViewModel {
                 return string.Format(Application.GetLocalizedString(stringResource.TimeDaysAgo),span.Days);
             }
             return dateTimeOffset.ToLocalTime().ToString("G");
+        }
+
+        private ISpannableString spannableText(IEnumerable<TextPart> text,IEnumerable<UserMentionEntity> hiddenPrefix,IEnumerable<UrlEntity> hiddenSuffix,bool containsSuffix) {
+            var blueColor = new SpanColor(60,90,170);
+
+            var spans = new List<Span>();
+            foreach(var mention in hiddenPrefix) {
+                spans.Add(new Span() { Text = $"@{mention.ScreenName} ",ForegroundColor = blueColor });
+            }
+            foreach(var textPart in text) {
+                switch(textPart.Type) {
+                    case TextPartType.Plain: {
+                            spans.Add(new Span { Text = textPart.Text });
+                            break;
+                        }
+                    case TextPartType.Hashtag: {
+                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = blueColor });
+                            break;
+                        }
+                    case TextPartType.Cashtag: {
+                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = blueColor });
+                            break;
+                        }
+                    case TextPartType.Url: {
+                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = blueColor });
+                            break;
+                        }
+                    case TextPartType.UserMention: {
+                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = blueColor });
+                            break;
+                        }
+                }
+            }
+            if(containsSuffix) {
+                foreach(var url in hiddenSuffix) {
+                    spans.Add(new Span { Text = $" {url.DisplayUrl}",ForegroundColor = blueColor });
+                }
+            }
+            return CrossCrossFormattedText.Current.Format(new FormattedString() { Spans = spans });
         }
 
         public int ToStatusType() {

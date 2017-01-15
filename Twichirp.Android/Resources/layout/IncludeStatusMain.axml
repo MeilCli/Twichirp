@@ -53,36 +53,19 @@
                 android:id="@+id/VerifyIcon"
                 android:tint="@color/Grey600" />
         </LinearLayout>
-        <LinearLayout
-            android:orientation="vertical"
+        <TextView
+            android:text="Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/Text"
+            android:textAppearance="@style/AppTheme.Text.Body1"
             android:layout_marginStart="@dimen/StartMargin"
             android:layout_marginEnd="@dimen/LayoutMargin"
             android:paddingTop="@dimen/ItemPadding"
             android:paddingBottom="@dimen/ItemPadding"
-            android:layout_below="@id/ScreenNameLinear">
-            <TextView
-                android:text="PrefixText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/PrefixText"
-                android:textAppearance="@style/AppTheme.Text.Caption" />
-            <TextView
-                android:text="Text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/Text"
-                android:textAppearance="@style/AppTheme.Text.Body1" />
-            <TextView
-                android:text="SuffixText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/SuffixText"
-                android:textAppearance="@style/AppTheme.Text.Caption" />
-        </LinearLayout>
+            android:layout_below="@id/ScreenNameLinear" />
         <FFImageLoading.Views.ImageViewAsync
-          android:src="@drawable/Icon"
+            android:src="@drawable/Icon"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/Icon"

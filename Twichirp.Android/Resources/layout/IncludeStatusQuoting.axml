@@ -1,72 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/StartMargin"
-        android:layout_marginEnd="@dimen/LayoutMargin"
-        android:background="@drawable/Card"
-        android:layout_marginBottom="@dimen/ItemMargin"
-        android:layout_marginTop="@dimen/ItemMargin">
-      <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:padding="@dimen/ItemMargin"
-          android:id="@+id/QuotingClickable"
-          android:background="?android:attr/selectableItemBackground"
-          android:clickable="true">
-        <TextView
-            android:text="QuotingName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/QuotingName"
-            android:textAppearance="@style/AppTheme.Text.Subhead"
-            android:singleLine="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginEnd="@dimen/ItemPadding"
-            android:layout_marginBottom="@dimen/ItemPadding"/>
-        <TextView
-            android:text="QuotingScreenName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/QuotingScreenName"
-            android:textAppearance="@style/AppTheme.Text.Caption"
-            android:singleLine="true"
-            android:layout_toEndOf="@id/QuotingName"/>
-        <LinearLayout
-            android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/QuotingName"
-            android:id="@+id/QuotingMain">
-          <TextView
-              android:text="QuotingPrefixText"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/QuotingPrefixText"
-              android:textAppearance="@style/AppTheme.Text.Caption" />
-          <TextView
-              android:text="QuotingText"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/QuotingText"
-              android:textAppearance="@style/AppTheme.Text.Body1" />
-          <TextView
-              android:text="QuotingSuffixText"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/QuotingSuffixText"
-              android:textAppearance="@style/AppTheme.Text.Caption" />
-        </LinearLayout>
-        <Space
-          android:layout_width="match_parent"
-          android:layout_height="8dp"
-          android:layout_below="@id/QuotingMain"/>
-      </RelativeLayout>
-    </FrameLayout>
-  </RelativeLayout>
+            android:layout_marginStart="@dimen/StartMargin"
+            android:layout_marginEnd="@dimen/LayoutMargin"
+            android:background="@drawable/Card"
+            android:layout_marginBottom="@dimen/ItemMargin"
+            android:layout_marginTop="@dimen/ItemMargin">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/ItemMargin"
+                android:id="@+id/QuotingClickable"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true">
+                <TextView
+                    android:text="QuotingName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/QuotingName"
+                    android:textAppearance="@style/AppTheme.Text.Subhead"
+                    android:singleLine="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/ItemPadding"
+                    android:layout_marginBottom="@dimen/ItemPadding" />
+                <TextView
+                    android:text="QuotingScreenName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/QuotingScreenName"
+                    android:textAppearance="@style/AppTheme.Text.Caption"
+                    android:singleLine="true"
+                    android:layout_toEndOf="@id/QuotingName" />
+                <TextView
+                    android:text="QuotingText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/QuotingText"
+                    android:textAppearance="@style/AppTheme.Text.Body1"
+                    android:layout_below="@id/QuotingName" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_below="@id/QuotingText" />
+            </RelativeLayout>
+        </FrameLayout>
+    </RelativeLayout>
 </merge>

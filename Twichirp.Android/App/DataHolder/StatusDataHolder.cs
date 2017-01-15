@@ -40,14 +40,6 @@ using Twichirp.Core.Extensions;
 
 namespace Twichirp.Android.App.DataHolder {
     public class StatusDataHolder : BaseDataHolder {
-
-        public ViewStates VisiblePrefixText { get; private set; }
-        public string PrefixText { get; private set; }
-        public ViewStates VisibleText { get; private set; }
-        public string Text { get; private set; }
-        public ViewStates VisibleSuffixText { get; private set; }
-        public string SuffixText { get; private set; }
-
         public ViewStates VisibleRetweetingUser { get; private set; }
 
         public ViewStates VisibleReplyToUser { get; private set; }
@@ -67,39 +59,12 @@ namespace Twichirp.Android.App.DataHolder {
         public int FavoriteDrawableTint { get; private set; }
         public ViewStates VisibleFavoriteCount { get; private set; }
 
-        public ViewStates VisibleQuotingPrefixText { get; private set; }
-        public string QuotingPrefixText { get; private set; }
-        public ViewStates VisibleQuotingText { get; private set; }
-        public string QuotingText { get; private set; }
-        public ViewStates VisibleQuotingSuffixText { get; private set; }
-        public string QuotingSuffixText { get; private set; }
-
         public ViewStates VisivleQuotingMediaParent2 { get; private set; }
         public ViewStates VisivleQuotingMedia2 { get; private set; }
         public ViewStates VisivleQuotingMedia3 { get; private set; }
         public ViewStates VisivleQuotingMedia4 { get; private set; }
 
         public StatusDataHolder(StatusViewModel viewModel,Context context) {
-            VisiblePrefixText = viewModel.HiddenPrefix.Map(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone);
-            PrefixText = viewModel.HiddenPrefix.Map(x => $"To: {string.Join(" ",x.Select(y => $"@{y.ScreenName}"))}");
-            VisibleText = viewModel.Text.Map(x => x.Count() > 0 ? ViewStates.Visible : ViewStates.Gone);
-            Text = viewModel.Text.Map(x => x.ToText());
-            VisibleSuffixText = viewModel.HiddenSuffix
-                .Map(x => {
-                    int count = x.Count();
-                    if(count == 0) {
-                        return ViewStates.Gone;
-                    }
-                    if(count == 1 && viewModel.Media.Count() > 0) {
-                        return ViewStates.Gone;
-                    }
-                    if(count == 1 && viewModel.IsQuoting) {
-                        return ViewStates.Gone;
-                    }
-                    return ViewStates.Visible;
-                });
-            SuffixText = viewModel.HiddenSuffix.Map(x => $"Attach: {string.Join(" ",x.Select(y => y.DisplayUrl))}");
-
             VisibleRetweetingUser = viewModel.IsRetweeting.Map(x => x == true ? ViewStates.Visible : ViewStates.Gone);
 
             VisibleReplyToUser = viewModel.InReplyToScreenName.Map(x => x == null ? ViewStates.Gone : ViewStates.Visible);
@@ -118,25 +83,6 @@ namespace Twichirp.Android.App.DataHolder {
             VisibleRetweetCount = viewModel.RetweetCount.Map(x => x > 0 ? ViewStates.Visible : ViewStates.Invisible);
             FavoriteDrawableTint = viewModel.IsFavorited.Map(x => toFavoriteDrawableTint(context,x));
             VisibleFavoriteCount = viewModel.FavoriteCount.Map(x => x > 0 ? ViewStates.Visible : ViewStates.Invisible);
-
-            VisibleQuotingPrefixText = viewModel.QuotedHiddenPrefix.Map(x => (x?.Count() ?? 0) > 0 ? ViewStates.Visible : ViewStates.Gone);
-            QuotingPrefixText = viewModel.QuotedHiddenPrefix?.Map(x => $"To: {string.Join(" ",x.Select(y => $"@{y.ScreenName}"))}");
-            VisibleQuotingText = viewModel.QuotedText.Map(x => (x?.Count() ?? 0) > 0 ? ViewStates.Visible : ViewStates.Gone);
-            QuotingText = viewModel.QuotedText?.Map(x => x.ToText());
-            VisibleQuotingSuffixText = viewModel.QuotedHiddenSuffix.Map(x => {
-                if(x == null) {
-                    return ViewStates.Gone;
-                }
-                int count = x.Count();
-                if(count == 0) {
-                    return ViewStates.Gone;
-                }
-                if(count == 1 && viewModel.QuotedMedia.Count() > 0) {
-                    return ViewStates.Gone;
-                }
-                return ViewStates.Visible;
-            });
-            QuotingSuffixText = viewModel.QuotedHiddenSuffix?.Map(x => $"Attach: {string.Join(" ",x.Select(y => y.DisplayUrl))}");
 
             VisivleQuotingMediaParent2 = viewModel.QuotedMedia.Map(x => (x?.Count() ?? 0) >= 2 ? ViewStates.Visible : ViewStates.Gone);
             VisivleQuotingMedia2 = viewModel.QuotedMedia.Map(x => (x?.Count() ?? 0) >= 2 ? ViewStates.Visible : ViewStates.Gone);

@@ -217,7 +217,6 @@
     <Compile Include="App\DataHolder\StatusDataHolder.cs" />
     <Compile Include="App\Extensions\ActivityExtensions.cs" />
     <Compile Include="App\Extensions\ContextExtensions.cs" />
-    <Compile Include="App\Extensions\StatusExtensions.cs" />
     <Compile Include="App\Extensions\UtilExtensions.cs" />
     <Compile Include="App\Extensions\ViewExtensions.cs" />
     <Compile Include="App\Manager\DatabaseSystem.cs" />

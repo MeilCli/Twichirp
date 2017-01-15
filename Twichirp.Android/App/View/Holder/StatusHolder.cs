@@ -39,11 +39,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         public AView ClickableView { get; private set; }
 
-        public TextView PrefixText { get; private set; }
-
         public TextView Text { get; private set; }
-
-        public TextView SuffixText { get; private set; }
 
         public TextView RetweetingUser { get; private set; }
 
@@ -101,11 +97,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         public TextView QuotingScreenName { get; protected set; }
 
-        public TextView QuotingPrefixText { get; protected set; }
-
         public TextView QuotingText { get; protected set; }
-
-        public TextView QuotingSuffixText { get; protected set; }
 
         public LinearLayout QuotingMediaParent2 { get; protected set; }
 
@@ -121,12 +113,10 @@ namespace Twichirp.Android.App.View.Holder {
             : base(view,lifeCycle,viewGroup,layout) {
             StatusType = statusType;
         }
-        
+
         ~StatusHolder() {
             ClickableView?.Dispose();
-            PrefixText?.Dispose();
             Text?.Dispose();
-            SuffixText?.Dispose();
             RetweetingUser?.Dispose();
             ReplyToUser?.Dispose();
             Name?.Dispose();
@@ -155,9 +145,7 @@ namespace Twichirp.Android.App.View.Holder {
             QuotingClickable?.Dispose();
             QuotingName?.Dispose();
             QuotingScreenName?.Dispose();
-            QuotingPrefixText?.Dispose();
             QuotingText?.Dispose();
-            QuotingSuffixText?.Dispose();
             QuotingMediaParent2?.Dispose();
             QuotingMedia1?.Dispose();
             QuotingMedia2?.Dispose();
@@ -167,9 +155,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         public override void OnCreatedView() {
             ClickableView = ItemView;
-            PrefixText = ItemView.FindViewById<TextView>(Resource.Id.PrefixText);
             Text = ItemView.FindViewById<TextView>(Resource.Id.Text);
-            SuffixText = ItemView.FindViewById<TextView>(Resource.Id.SuffixText);
             RetweetingUser = ItemView.FindViewById<TextView>(Resource.Id.RetweeingUser);
             ReplyToUser = ItemView.FindViewById<TextView>(Resource.Id.ReplyToUser);
             Name = ItemView.FindViewById<TextView>(Resource.Id.Name);
@@ -223,9 +209,7 @@ namespace Twichirp.Android.App.View.Holder {
             QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
             QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
             QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
-            QuotingPrefixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingPrefixText);
             QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
-            QuotingSuffixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingSuffixText);
         }
     }
 
@@ -239,9 +223,7 @@ namespace Twichirp.Android.App.View.Holder {
             QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
             QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
             QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
-            QuotingPrefixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingPrefixText);
             QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
-            QuotingSuffixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingSuffixText);
 
             QuotingMediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.QuotingMediaParent2);
             QuotingMedia1 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia1);
@@ -261,9 +243,7 @@ namespace Twichirp.Android.App.View.Holder {
             QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
             QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
             QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
-            QuotingPrefixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingPrefixText);
             QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
-            QuotingSuffixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingSuffixText);
 
             MediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.MediaParent2);
             MediaFrame1 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame1);
@@ -297,9 +277,7 @@ namespace Twichirp.Android.App.View.Holder {
             QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
             QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
             QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
-            QuotingPrefixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingPrefixText);
             QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
-            QuotingSuffixText = ItemView.FindViewById<TextView>(Resource.Id.QuotingSuffixText);
 
             QuotingMediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.QuotingMediaParent2);
             QuotingMedia1 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia1);

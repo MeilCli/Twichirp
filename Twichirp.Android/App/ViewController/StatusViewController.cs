@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text;
 
@@ -32,6 +33,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using FFImageLoading;
+using Plugin.CrossFormattedText;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.DataHolder;
@@ -57,12 +59,7 @@ namespace Twichirp.Android.App.ViewController {
 
             ViewModel.ShowStatusCommand.Execute();
 
-            View.PrefixText.Visibility = statusDataHolder.VisiblePrefixText;
-            View.PrefixText.Text = statusDataHolder.PrefixText;
-            View.Text.Visibility = statusDataHolder.VisibleText;
-            View.Text.Text = statusDataHolder.Text;
-            View.SuffixText.Visibility = statusDataHolder.VisibleSuffixText;
-            View.SuffixText.Text = statusDataHolder.SuffixText;
+            ViewModel.SpannableText.Subscribe(x => View.Text.TextFormatted = x.Span()).AddTo(Disposable);
 
             View.RetweetingUser.Visibility = statusDataHolder.VisibleRetweetingUser;
             View.RetweetingUser.Text = ViewModel.RetweetingUser;
@@ -102,12 +99,7 @@ namespace Twichirp.Android.App.ViewController {
                 View.QuotingName.Text = ViewModel.QuotedName;
                 View.QuotingScreenName.Text = ViewModel.QuotedScreenName;
 
-                View.QuotingPrefixText.Visibility = statusDataHolder.VisibleQuotingPrefixText;
-                View.QuotingPrefixText.Text = statusDataHolder.QuotingPrefixText;
-                View.QuotingText.Visibility = statusDataHolder.VisibleQuotingText;
-                View.QuotingText.Text = statusDataHolder.QuotingText;
-                View.QuotingSuffixText.Visibility = statusDataHolder.VisibleQuotingSuffixText;
-                View.QuotingSuffixText.Text = statusDataHolder.QuotingSuffixText;
+                ViewModel.QuotedSpannableText.Subscribe(x => View.QuotingText.TextFormatted = x.Span()).AddTo(Disposable);
             }
 
             if(View.StatusType == StatusViewModel.QuotedInnerMediaTweet ||

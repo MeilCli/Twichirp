@@ -37,36 +37,18 @@
                     android:textAppearance="@style/AppTheme.Text.Caption"
                     android:singleLine="true"
                     android:layout_toEndOf="@id/QuotingName" />
-                <LinearLayout
-                    android:orientation="vertical"
+                <TextView
+                    android:text="QuotingText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/QuotingName"
-                    android:id="@+id/QuotingMain">
-                    <TextView
-                        android:text="QuotingPrefixText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/QuotingPrefixText"
-                        android:textAppearance="@style/AppTheme.Text.Caption" />
-                    <TextView
-                        android:text="QuotingText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/QuotingText"
-                        android:textAppearance="@style/AppTheme.Text.Body1" />
-                    <TextView
-                        android:text="QuotingSuffixText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/QuotingSuffixText"
-                        android:textAppearance="@style/AppTheme.Text.Caption" />
-                </LinearLayout>
+                    android:id="@+id/QuotingText"
+                    android:textAppearance="@style/AppTheme.Text.Body1"
+                    android:layout_below="@id/QuotingName" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
                     android:orientation="horizontal"
-                    android:layout_below="@id/QuotingMain"
+                    android:layout_below="@id/QuotingText"
                     android:id="@+id/QuotingMediaGrid">
                     <LinearLayout
                         android:layout_width="wrap_content"
