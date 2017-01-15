@@ -26,6 +26,7 @@ namespace Twichirp.Core.Constant {
         public static readonly Library CoreTweet = new Library("CoreTweet",@"CoreTweet - A .NET Twitter Library supporting Twitter API 1.1
 Copyright (c) 2013-2016 CoreTweet Development Team",LicenseConstant.MITLicense);
         public static readonly Library CoreTweetSupplement = new Library("CoreTweetSupplement","Copyright (c) 2014 azyobuzin",LicenseConstant.MITLicense);
+        public static readonly Library CrossFormattedText = new Library("CrossFormattedText","Copyright (c) 2016 meil",LicenseConstant.MITLicense);
         public static readonly Library NewtonsoftJson = new Library("Newtonsoft.Json","Copyright (c) 2007 James Newton-King",LicenseConstant.MITLicense);
         public static readonly Library ReactiveProperty = new Library("ReactiveProperty","Copyright (c) 2016 neuecc, xin9le, okazuki",LicenseConstant.MITLicense);
         public static readonly Library SettingsPlugin = new Library("Settings Plugin for Xamarin And Windows","Copyright (c) 2016 James Montemagno / Refractored LLC",LicenseConstant.MITLicense);
