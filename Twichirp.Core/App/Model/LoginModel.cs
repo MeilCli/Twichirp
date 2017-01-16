@@ -21,12 +21,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.Model;
-using static CoreTweet.OAuth;
 
 namespace Twichirp.Core.App.Model {
     class LoginModel : BaseModel {
 
-        private OAuthSession oAuthSession;
+		private OAuth.OAuthSession oAuthSession;
         private Consumer consumer;
 
         private string _authorizeUri;
@@ -101,7 +100,7 @@ namespace Twichirp.Core.App.Model {
             IsLoading = true;
             ErrorMessage = null;
             try {
-                Tokens token = await oAuthSession.GetTokensAsync(pin);
+				Tokens token = await oAuthSession.GetTokensAsync(pin);
                 var account = new Account(token,consumer);
                 account.User = await token.Users.ShowAsync(token.UserId);
                 await Application.AccountManager.AddAsync(account);
