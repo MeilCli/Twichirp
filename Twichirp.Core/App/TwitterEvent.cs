@@ -26,24 +26,34 @@ using Reactive.Bindings.Extensions;
 using Twichirp.Core.Model;
 
 namespace Twichirp.Core.App {
-    public class TwitterEvent : INotifyPropertyChanged {
 
-        public event PropertyChangedEventHandler PropertyChanged;
+    public class TwitterEventArgs : EventArgs {
 
-        public ReadOnlyReactiveProperty<Tuple<Account,Status>> UpdateStatusEvent { get; }
-        private Tuple<Account,Status> _updateStatus;
-        public Tuple<Account,Status> UpdateStatus {
-            get {
-                return _updateStatus;
-            }
-            set {
-                _updateStatus = value;
-                PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(UpdateStatus)));
-            }
+        public Account Account { get; }
+
+        public TwitterEventArgs(Account account) {
+            Account = account;
         }
+    }
+
+    public class StatusEventArgs : TwitterEventArgs {
+
+        public Status Status { get; }
+
+        public StatusEventArgs(Account account,Status status) : base(account) {
+            Status = status;
+        }
+    }
+
+    public class TwitterEvent {
+
+        public event EventHandler<StatusEventArgs> StatusUpdated;
 
         public TwitterEvent() {
-            UpdateStatusEvent = this.ObserveProperty(x => x.UpdateStatus).ToReadOnlyReactiveProperty(mode: ReactivePropertyMode.None);
+        }
+
+        public void UpdateStatus(Account account,Status status) {
+            StatusUpdated?.Invoke(this,new StatusEventArgs(account,status));
         }
 
     }

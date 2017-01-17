@@ -50,9 +50,9 @@ namespace Twichirp.Core.App.ViewModel {
             LoadCommand.Subscribe(x => StatusTimelineModel.Load());
             LoadMoreComannd.Subscribe(x => StatusTimelineModel.LoadMore());
 
-            Application.TwitterEvent.UpdateStatusEvent
+            Observable.FromEventPattern<StatusEventArgs>(x => Application.TwitterEvent.StatusUpdated += x,x => Application.TwitterEvent.StatusUpdated -= x)
                 .SubscribeOnUIDispatcher()
-                .Subscribe(x => StatusTimelineModel.NotifyStatusUpdate(x.Item1,x.Item2))
+                .Subscribe(x => StatusTimelineModel.NotifyStatusUpdate(x.EventArgs.Account,x.EventArgs.Status))
                 .AddTo(Disposable);
         }
 

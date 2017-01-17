@@ -88,18 +88,20 @@ namespace Twichirp.Core.App.ViewModel {
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
 
-            StatusModel.ObserveProperty(x => x.PushTime)
-                .ToReadOnlyReactiveProperty(mode: ReactivePropertyMode.RaiseLatestValueOnSubscribe)
+            initStaticValue();
+            Observable.FromEventPattern<EventArgs>(x => StatusModel.StatusChanged += x,x => StatusModel.StatusChanged -= x)
                 .Subscribe(x => initStaticValue())
                 .AddTo(Disposable);
-            StatusModel.RetweetedStatus?.ObserveProperty(x => x.PushTime)
-                .ToReadOnlyReactiveProperty(mode: ReactivePropertyMode.RaiseLatestValueOnSubscribe)
-                .Subscribe(x => initStaticValue())
-                .AddTo(Disposable);
-            StatusModel.ToContentStatus().QuotedStatus?.ObserveProperty(x => x.PushTime)
-                .ToReadOnlyReactiveProperty(mode: ReactivePropertyMode.RaiseLatestValueOnSubscribe)
-                .Subscribe(x => initStaticValue())
-                .AddTo(Disposable);
+            if(StatusModel.RetweetedStatus != null) {
+                Observable.FromEventPattern<EventArgs>(x => StatusModel.RetweetedStatus.StatusChanged += x,x => StatusModel.RetweetedStatus.StatusChanged -= x)
+                    .Subscribe(x => initStaticValue())
+                    .AddTo(Disposable);
+            }
+            if(StatusModel.QuotedStatus != null) {
+                Observable.FromEventPattern<EventArgs>(x => StatusModel.QuotedStatus.StatusChanged += x,x => StatusModel.QuotedStatus.StatusChanged -= x)
+                    .Subscribe(x => initStaticValue())
+                    .AddTo(Disposable);
+            }
 
             RetweetCommand
                 .Subscribe(x => {

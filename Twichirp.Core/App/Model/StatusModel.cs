@@ -28,6 +28,8 @@ using Twichirp.Core.Extensions;
 namespace Twichirp.Core.App.Model {
     class StatusModel : BaseModel {
 
+        public event EventHandler<EventArgs> StatusChanged;
+
         private SemaphoreSlim slim = new SemaphoreSlim(1,1);
 
         private string _errorMessage;
@@ -38,18 +40,6 @@ namespace Twichirp.Core.App.Model {
             private set {
                 _errorMessage = value;
                 RaisePropertyChanged(nameof(ErrorMessage));
-            }
-        }
-
-        // Statusを反映した時刻
-        private DateTime _pushTime;
-        public DateTime PushTime {
-            get {
-                return _pushTime;
-            }
-            private set {
-                _pushTime = value;
-                RaisePropertyChanged(nameof(PushTime));
             }
         }
 
@@ -190,7 +180,7 @@ namespace Twichirp.Core.App.Model {
             }
             RaisePropertyChanged(nameof(RetweetedStatus));
 
-            PushTime = DateTime.Now;
+            StatusChanged?.Invoke(this,new EventArgs());
         }
 
         public StatusModel ToContentStatus() => RetweetedStatus == null ? this : RetweetedStatus;
@@ -216,7 +206,7 @@ namespace Twichirp.Core.App.Model {
             try {
                 Status status = await account.Token.Statuses.RetweetAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
                 foreach(var s in status.DeploymentStatus()) {
-                    Application.TwitterEvent.UpdateStatus = Tuple.Create(account,s);
+                    Application.TwitterEvent.UpdateStatus(account,s);
                 }
             } catch(Exception e) {
                 ErrorMessage = e.Message;
@@ -236,7 +226,7 @@ namespace Twichirp.Core.App.Model {
                     status.RetweetCount -= 1;
                 }
                 foreach(var s in status.DeploymentStatus()) {
-                    Application.TwitterEvent.UpdateStatus = Tuple.Create(account,s);
+                    Application.TwitterEvent.UpdateStatus(account,s);
                 }
             } catch(Exception e) {
                 ErrorMessage = e.Message;
@@ -251,7 +241,7 @@ namespace Twichirp.Core.App.Model {
             try {
                 Status status = await account.Token.Favorites.CreateAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
                 foreach(var s in status.DeploymentStatus()) {
-                    Application.TwitterEvent.UpdateStatus = Tuple.Create(account,s);
+                    Application.TwitterEvent.UpdateStatus(account,s);
                 }
             } catch(Exception e) {
                 ErrorMessage = e.Message;
@@ -266,7 +256,7 @@ namespace Twichirp.Core.App.Model {
             try {
                 Status status = await account.Token.Favorites.DestroyAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
                 foreach(var s in status.DeploymentStatus()) {
-                    Application.TwitterEvent.UpdateStatus = Tuple.Create(account,s);
+                    Application.TwitterEvent.UpdateStatus(account,s);
                 }
             } catch(Exception e) {
                 ErrorMessage = e.Message;
