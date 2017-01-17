@@ -52,5 +52,12 @@ namespace Twichirp.Android.App.View.Activity {
             Login = FindViewById<Button>(Resource.Id.Login);
             Pin = FindViewById<EditText>(Resource.Id.Pin);
         }
+
+        protected override void OnDestroy() {
+            base.OnDestroy();
+            GoToWeb?.Dispose();
+            Login?.Dispose();
+            Pin?.Dispose();
+        }
     }
 }

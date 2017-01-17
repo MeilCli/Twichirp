@@ -44,13 +44,13 @@ namespace Twichirp.Android.App.ViewController {
                 .Select(x => View.ApplicationContext.GetString(x))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
-            View.LoadingText.SetBinding(x => x.Text,loadingText);
+            View.LoadingText.SetBinding(x => x.Text,loadingText).AddTo(Disposable);
             var progressBarVisible = ViewModel.IsLoaing
                 .Select(x => x == true ? ViewStates.Visible : ViewStates.Invisible)
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
-            View.ProgressBar.SetBinding(x => x.Visibility,progressBarVisible);
-            View.ClickableView.ClickAsObservable().SetCommand(ViewModel.LoadCommand);
+            View.ProgressBar.SetBinding(x => x.Visibility,progressBarVisible).AddTo(Disposable);
+            View.ClickableView.ClickAsObservable().SetCommand(ViewModel.LoadCommand).AddTo(Disposable);
         }
     }
 }

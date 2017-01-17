@@ -30,6 +30,7 @@ using Twichirp.Core.App.ViewModel;
 using Reactive.Bindings;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View.Activity;
+using Reactive.Bindings.Extensions;
 
 namespace Twichirp.Android.App.ViewController {
     public class SplashViewController : BaseViewController<ISplashView,SplashViewModel> {
@@ -39,15 +40,15 @@ namespace Twichirp.Android.App.ViewController {
             viewModel.StartMainPageCommand.Subscribe(x => {
                 View.Activity.StartActivityCompat(typeof(MainActivity));
                 View.Activity.Finish();
-            });
+            }).AddTo(Disposable);
             viewModel.StartLoginPageCommand.Subscribe(x => {
                 View.Activity.StartActivityCompat(typeof(LoginActivity));
                 View.Activity.Finish();
-            });
+            }).AddTo(Disposable);
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
-            View.Message.SetBinding(x => x.Text,ViewModel.Message);
+            View.Message.SetBinding(x => x.Text,ViewModel.Message).AddTo(Disposable);
             ViewModel.ApplicationInitCommand.Execute();
         }
     }

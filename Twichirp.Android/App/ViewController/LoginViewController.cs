@@ -38,15 +38,15 @@ namespace Twichirp.Android.App.ViewController {
 
         public LoginViewController(ILoginView view,LoginViewModel viewModel) : base(view,viewModel) {
             view.OnCreateEventHandler += onCreate;
-            viewModel.ShowMessageCommand.Subscribe(x => View.ApplicationContext.ShowToast(x));
+            viewModel.ShowMessageCommand.Subscribe(x => View.ApplicationContext.ShowToast(x)).AddTo(Disposable);
             viewModel.StartNextPageCommand.Subscribe(x => {
                 View.Activity.StartActivityCompat(typeof(MainActivity));
                 View.Activity.Finish();
-            });
+            }).AddTo(Disposable);
             viewModel.StartLoginWebPageCommand.Subscribe(x => {
                 var intent = new Intent(Intent.ActionView,global::Android.Net.Uri.Parse(x));
                 View.Activity.StartActivity(intent);
-            });
+            }).AddTo(Disposable);
             viewModel.IsLoading.ObserveOnUIDispatcher().Subscribe(x => {
                 if(x == true) {
                     if(View.Activity.SupportFragmentManager.FindFragmentByTag(ProgressDialogFragment.FragmentTag) != null) {
@@ -61,13 +61,13 @@ namespace Twichirp.Android.App.ViewController {
                     }
                     (fragment as ProgressDialogFragment).Dialog.Dismiss();
                 }
-            });
+            }).AddTo(Disposable);
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
-            View.GoToWeb.ClickAsObservable().SetCommand(ViewModel.AuthorizeCommand);
-            View.Login.ClickAsObservable().SetCommand(ViewModel.LoginCommand);
-            View.Pin.SetBinding(x => x.Text,ViewModel.Pin,x=>x.TextChangedAsObservable().ToUnit());
+            View.GoToWeb.ClickAsObservable().SetCommand(ViewModel.AuthorizeCommand).AddTo(Disposable);
+            View.Login.ClickAsObservable().SetCommand(ViewModel.LoginCommand).AddTo(Disposable);
+            View.Pin.SetBinding(x => x.Text,ViewModel.Pin,x=>x.TextChangedAsObservable().ToUnit()).AddTo(Disposable);
         }
     }
 }

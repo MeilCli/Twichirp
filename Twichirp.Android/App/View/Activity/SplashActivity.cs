@@ -47,5 +47,10 @@ namespace Twichirp.Android.App.View.Activity {
             SetSupportActionBar(toolbar);
             Message = FindViewById<TextView>(Resource.Id.Message);
         }
+
+        protected override void OnDestroy() {
+            base.OnDestroy();
+            Message?.Dispose();
+        }
     }
 }

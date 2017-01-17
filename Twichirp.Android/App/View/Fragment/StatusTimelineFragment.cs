@@ -53,5 +53,11 @@ namespace Twichirp.Android.App.View.Fragment {
             statusTimelineViewController = new StatusTimelineViewController(this,statusTimelineViewModel);
             return view;
         }
+
+        public override void OnDestroy() {
+            base.OnDestroy();
+            RecyclerView?.Dispose();
+            SwipeRefrech?.Dispose();
+        }
     }
 }
