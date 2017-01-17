@@ -149,9 +149,9 @@ namespace Twichirp.Android.App.ViewController {
         private void setMedia(IEnumerable<MediaEntity> media) {
             int count = media.Count();
             View.MediaParent2.Visibility = count >= 2 ? ViewStates.Visible : ViewStates.Gone;
-            View.Media2.Visibility = count >= 2 ? ViewStates.Visible : ViewStates.Gone;
-            View.Media3.Visibility = count >= 3 ? ViewStates.Visible : ViewStates.Gone;
-            View.Media4.Visibility = count >= 4 ? ViewStates.Visible : ViewStates.Gone;
+            View.MediaFrame2.Visibility = count >= 2 ? ViewStates.Visible : ViewStates.Gone;
+            View.MediaFrame3.Visibility = count >= 3 ? ViewStates.Visible : ViewStates.Gone;
+            View.MediaFrame4.Visibility = count >= 4 ? ViewStates.Visible : ViewStates.Gone;
             var mediaViews = new[] { View.Media1,View.Media2,View.Media3,View.Media4 };
             for(int i = 0;i < count && i < mediaViews.Length;i++) {
                 var m = media.ElementAt(i);
