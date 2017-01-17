@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 
 using Android.App;
@@ -50,13 +51,15 @@ namespace Twichirp.Android.App.ViewController {
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
             adapter = ViewModel.Timeline.ToAdapter(adapterViewSelect,adapterViewCreate);
-            adapter.LastItemVisibleCommand.Subscribe(x => ViewModel.LoadMoreComannd.Execute()).AddTo(Disposable);
+            Observable.FromEventPattern<EventArgs>(x => adapter.LastItemShowed += x,x => adapter.LastItemShowed -= x)
+                .Subscribe(x => ViewModel.LoadMoreComannd.Execute())
+                .AddTo(Disposable);
             View.RecyclerView.SetLayoutManager(new LinearLayoutManager(View.RecyclerView.Context));
             View.RecyclerView.SetAdapter(adapter);
             //View.RecyclerView.AddItemDecoration(new DividerItemDecoration());
             View.RecyclerView.SetItemViewCacheSize(0);
             View.SwipeRefrech.SetBinding(x => x.Refreshing,ViewModel.IsLoading);
-            View.SwipeRefrech.Refresh += onRefresh;       
+            View.SwipeRefrech.Refresh += onRefresh;
         }
 
         private void onDestroy(object sender,LifeCycleEventArgs e) {

@@ -32,14 +32,15 @@ using Android.Util;
 using Java.Lang;
 
 namespace Twichirp.Android.App.View {
-    public class ReactiveCollectionAdapter<T> : RecyclerView.Adapter, IDisposable where T:class {
+    public class ReactiveCollectionAdapter<T> : RecyclerView.Adapter, IDisposable where T : class {
+
+        public event EventHandler<EventArgs> LastItemShowed;
 
         private List<RecyclerView> recyclerViews = new List<RecyclerView>();
         private INotifyCollectionChanged notify;
         private IList<T> list;
         private Func<T,int,int> viewTypeSelector;
         private Func<ViewGroup,int,RecyclerView.ViewHolder> viewCreator;
-        public ReactiveCommand LastItemVisibleCommand { get; } = new ReactiveCommand();
 
         public ReactiveCollectionAdapter(
             INotifyCollectionChanged list,
@@ -67,7 +68,7 @@ namespace Twichirp.Android.App.View {
                 (holder as IBindable<T>).OnBind(list[position],position);
             }
             if(position == list.Count - 1) {
-                LastItemVisibleCommand.Execute();
+                LastItemShowed?.Invoke(this,new EventArgs());
             }
         }
 
@@ -112,10 +113,10 @@ namespace Twichirp.Android.App.View {
                     this.NotifyItemInserted(e.NewStartingIndex);
                 } else {
                     this.NotifyItemRangeInserted(e.NewStartingIndex,e.NewItems.Count);
-                }  
-            }else if(e.Action == NotifyCollectionChangedAction.Move) {
+                }
+            } else if(e.Action == NotifyCollectionChangedAction.Move) {
                 this.NotifyItemMoved(e.OldStartingIndex,e.NewStartingIndex);
-            }else if(e.Action == NotifyCollectionChangedAction.Remove) {
+            } else if(e.Action == NotifyCollectionChangedAction.Remove) {
                 if(e.OldItems.Count == 1) {
                     this.NotifyItemRemoved(e.OldStartingIndex);
                 } else {
@@ -130,7 +131,7 @@ namespace Twichirp.Android.App.View {
                     } else {
                         this.NotifyItemRangeChanged(e.NewStartingIndex,e.NewItems.Count);
                     }
-                }else {
+                } else {
                     this.NotifyDataSetChanged();
                 }
             } else if(e.Action == NotifyCollectionChangedAction.Reset) {
@@ -161,7 +162,7 @@ namespace Twichirp.Android.App.View {
             this ReadOnlyReactiveCollection<T> collection,
             Func<T,int,int> viewTypeSelector,
             Func<ViewGroup,int,RecyclerView.ViewHolder> viewCreator)
-            where T:class
+            where T : class
             => new ReactiveCollectionAdapter<T>(collection,viewTypeSelector,viewCreator);
 
         public static ReactiveCollectionAdapter<T> ToAdapter<T>(
