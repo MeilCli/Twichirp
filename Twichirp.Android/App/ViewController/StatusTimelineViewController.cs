@@ -30,7 +30,6 @@ using Android.Views;
 using Android.Widget;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using Twichirp.Android.App.DataHolder;
 using Twichirp.Android.App.View;
 using Twichirp.Android.App.View.Holder;
 using Twichirp.Core.App.ViewModel;
@@ -52,7 +51,6 @@ namespace Twichirp.Android.App.ViewController {
         private void onCreate(object sender,LifeCycleEventArgs e) {
             adapter = ViewModel.Timeline.ToAdapter(adapterViewSelect,adapterViewCreate);
             adapter.LastItemVisibleCommand.Subscribe(x => ViewModel.LoadMoreComannd.Execute()).AddTo(Disposable);
-            adapter.SetDataHolderCommand.Subscribe(x => setDataHolder(x)).AddTo(Disposable);
             View.RecyclerView.SetLayoutManager(new LinearLayoutManager(View.RecyclerView.Context));
             View.RecyclerView.SetAdapter(adapter);
             //View.RecyclerView.AddItemDecoration(new DividerItemDecoration());
@@ -93,13 +91,6 @@ namespace Twichirp.Android.App.ViewController {
                 return preStatusTypeParam + (viewModel as StatusViewModel).ToStatusType();
             }
             return 0;
-        }
-
-        private void setDataHolder(BaseViewModel viewModel) {
-            if(viewModel is StatusViewModel) {
-                var statusViewModel = viewModel as StatusViewModel;
-                statusViewModel.DataHolder = new StatusDataHolder(statusViewModel,View.ApplicationContext);
-            }
         }
 
         public void onRefresh(object sender,EventArgs args) {

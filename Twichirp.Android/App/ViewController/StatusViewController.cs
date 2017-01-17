@@ -27,16 +27,17 @@ using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V4.Content.Res;
 using Android.Support.V4.Graphics.Drawable;
 using Android.Support.V7.Widget;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using CoreTweet;
 using FFImageLoading;
 using Plugin.CrossFormattedText;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using Twichirp.Android.App.DataHolder;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View;
 using Twichirp.Core.App.ViewModel;
@@ -51,89 +52,127 @@ namespace Twichirp.Android.App.ViewController {
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
-            if(ViewModel.DataHolder == null || ViewModel.DataHolder is StatusDataHolder == false) {
-                ViewModel.DataHolder = new StatusDataHolder(ViewModel,View.ApplicationContext);
-            }
-            var statusDataHolder = ViewModel.DataHolder as StatusDataHolder;
             int statusType = ViewModel.ToStatusType();
 
-            ViewModel.ShowStatusCommand.Execute();
+            ViewModel.UpdateDateTimeCommand.Execute();
 
             ViewModel.SpannableText.Subscribe(x => View.Text.TextFormatted = x.Span()).AddTo(Disposable);
 
-            View.RetweetingUser.Visibility = statusDataHolder.VisibleRetweetingUser;
-            View.RetweetingUser.Text = ViewModel.RetweetingUser;
+            ViewModel.RetweetingUser
+                .Subscribe(x => {
+                    View.RetweetingUser.Visibility = x != null ? ViewStates.Visible : ViewStates.Gone;
+                    if(x != null) {
+                        View.RetweetingUser.Text = x;
+                    }
+                })
+                .AddTo(Disposable);
+            ViewModel.ReplyToUser
+                .Subscribe(x => {
+                    View.ReplyToUser.Visibility = x != null ? ViewStates.Visible : ViewStates.Gone;
+                    if(x != null) {
+                        View.ReplyToUser.Text = x;
+                    }
+                })
+                .AddTo(Disposable);
 
-            View.ReplyToUser.Visibility = statusDataHolder.VisibleReplyToUser;
-            View.ReplyToUser.Text = ViewModel.ReplyToUser;
-
-            View.Name.Text = ViewModel.Name;
-            View.ScreenName.Text = ViewModel.ScreenName;
+            ViewModel.SpannableName.Subscribe(x => View.Name.TextFormatted = x.Span()).AddTo(Disposable);
             View.DateTime.Text = ViewModel.DateTime.Value;
-            ImageService.Instance.LoadUrl(ViewModel.IconUrl).FadeAnimation(true).Into(View.Icon);
+            ViewModel.IconUrl.Subscribe(x => ImageService.Instance.LoadUrl(x).FadeAnimation(true).Into(View.Icon)).AddTo(Disposable);
 
-            View.LockIcon.Visibility = statusDataHolder.VisibleLockIcon;
-            View.VerifyIcon.Visibility = statusDataHolder.VisibleVerifyIcon;
+            ViewModel.IsProtected.Subscribe(x => View.LockIcon.Visibility = x ? ViewStates.Visible : ViewStates.Gone).AddTo(Disposable);
+            ViewModel.IsVerified.Subscribe(x => View.VerifyIcon.Visibility = x ? ViewStates.Visible : ViewStates.Gone).AddTo(Disposable);
 
             if(View.StatusType == StatusViewModel.MediaTweet ||
                 View.StatusType == StatusViewModel.QuotedOuterMediaTweet ||
                 View.StatusType == StatusViewModel.QuotedInnerAndOuterMediaTweet) {
-                View.MediaParent2.Visibility = statusDataHolder.VisivleMediaParent2;
-                View.MediaFrame2.Visibility = statusDataHolder.VisivleMedia2;
-                View.MediaFrame3.Visibility = statusDataHolder.VisivleMedia3;
-                View.MediaFrame4.Visibility = statusDataHolder.VisivleMedia4;
-                var medias = new[] { View.Media1,View.Media2,View.Media3,View.Media4 };
-                for(int i = 0;i < ViewModel.Media.Count() && i < medias.Length;i++) {
-                    var _imageTask = ImageService.Instance.LoadUrl(ViewModel.Media.ElementAt(i).MediaUrl + ":small");
-                    if(statusDataHolder.MeadiaIsVideoOrGif[i]) {
-                        _imageTask.Transform(new PlayCircleTransformation(View.ApplicationContext));
-                    }
-                    _imageTask.Into(medias[i]);
-                }
+
+                ViewModel.Media.Subscribe(x => setMedia(x)).AddTo(Disposable);
             }
 
             if(View.StatusType == StatusViewModel.QuotedTweet ||
                 View.StatusType==StatusViewModel.QuotedInnerMediaTweet||
                 View.StatusType == StatusViewModel.QuotedOuterMediaTweet||
                 View.StatusType==StatusViewModel.QuotedInnerAndOuterMediaTweet) {
-                View.QuotingName.Text = ViewModel.QuotedName;
-                View.QuotingScreenName.Text = ViewModel.QuotedScreenName;
 
+                ViewModel.QuotedSpannableText.Subscribe(x => View.QuotingName.TextFormatted = x.Span()).AddTo(Disposable);
                 ViewModel.QuotedSpannableText.Subscribe(x => View.QuotingText.TextFormatted = x.Span()).AddTo(Disposable);
             }
 
             if(View.StatusType == StatusViewModel.QuotedInnerMediaTweet ||
                 View.StatusType == StatusViewModel.QuotedInnerAndOuterMediaTweet) {
-                View.QuotingMediaParent2.Visibility = statusDataHolder.VisivleQuotingMediaParent2;
-                View.QuotingMedia2.Visibility = statusDataHolder.VisivleQuotingMedia2;
-                View.QuotingMedia3.Visibility = statusDataHolder.VisivleQuotingMedia3;
-                View.QuotingMedia4.Visibility = statusDataHolder.VisivleQuotingMedia4;
-                var medias = new[] { View.QuotingMedia1,View.QuotingMedia2,View.QuotingMedia3,View.QuotingMedia4 };
-                for(int i = 0;i < ViewModel.QuotedMedia.Count() && i < medias.Length;i++) {
-                    ImageService.Instance.LoadUrl(ViewModel.QuotedMedia.ElementAt(i).MediaUrl + ":small").FadeAnimation(true).Into(medias[i]);
-                }
+
+                ViewModel.QuotedMedia.Subscribe(x => setQuotingMedia(x)).AddTo(Disposable);
             }
 
-            DrawableCompat.SetTint(setRetweetIcon(),statusDataHolder.RetweetDrawableTint);
-            View.RetweetCount.Visibility = statusDataHolder.VisibleRetweetCount;
-            View.RetweetCount.Text = ViewModel.RetweetCountText;
-            View.RetweetIconClickable.Enabled = statusDataHolder.IsRetweetIconDisabled == false;
+            ViewModel.IsRetweeted.Subscribe(x => setRetweetIcon(x)).AddTo(Disposable);
+            ViewModel.RetweetCount
+                .Subscribe(x => {
+                    View.RetweetCount.Visibility = x > 0 ? ViewStates.Visible : ViewStates.Gone;
+                    View.RetweetCount.Text = x.ToString();
+                })
+                .AddTo(Disposable);
+            ViewModel.IsProtected.Subscribe(x => View.RetweetIconClickable.Enabled = x == false).AddTo(Disposable);
             View.RetweetIconClickable.ClickAsObservable().SetCommand(ViewModel.RetweetCommand);
 
-            DrawableCompat.SetTint(setFavoriteIcon(),statusDataHolder.FavoriteDrawableTint);
-            View.FavoriteCount.Visibility = statusDataHolder.VisibleFavoriteCount;
-            View.FavoriteCount.Text = ViewModel.FavoriteCountText;
+            ViewModel.IsFavorited.Subscribe(x => setFavoriteIcon(x)).AddTo(Disposable);
+            ViewModel.FavoriteCount
+                .Subscribe(x => {
+                    View.FavoriteCount.Visibility = x > 0 ? ViewStates.Visible : ViewStates.Gone;
+                    View.FavoriteCount.Text = x.ToString();
+                })
+                .AddTo(Disposable);
             View.FavoriteIconClickable.ClickAsObservable().SetCommand(ViewModel.FavoriteCommand);
         }
 
-        private Drawable setRetweetIcon() {
-            View.RetweetIcon.SetImageDrawable(DrawableCompat.Wrap(View.ApplicationContext.GetDrawable(Resource.Drawable.IconRepeatGrey36dp)));
-            return View.RetweetIcon.Drawable;
+        private void setRetweetIcon(bool isRetweeted) {
+            var drawable = DrawableCompat.Wrap(View.ApplicationContext.GetDrawable(Resource.Drawable.IconRepeatGrey36dp));
+            View.RetweetIcon.SetImageDrawable(drawable);
+            if(ViewModel.IsProtected.Value) {
+                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Resource.Color.Grey300,null));
+            } else if(isRetweeted) {
+                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Resource.Color.Retweet,null));
+            } else {
+                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Resource.Color.Grey600,null));
+            }           
         }
 
-        private Drawable setFavoriteIcon() {
-            View.FavoriteIcon.SetImageDrawable(DrawableCompat.Wrap(View.ApplicationContext.GetDrawable(Resource.Drawable.IconStarGrey36dp)));
-            return View.FavoriteIcon.Drawable;
+        private void setFavoriteIcon(bool isFavorited) {
+            var drawable = DrawableCompat.Wrap(View.ApplicationContext.GetDrawable(Resource.Drawable.IconStarGrey36dp));
+            View.FavoriteIcon.SetImageDrawable(drawable);
+            if(isFavorited) {
+                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Resource.Color.Favorite,null));
+            }else {
+                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Resource.Color.Grey600,null));
+            }
+        }
+
+        private void setMedia(IEnumerable<MediaEntity> media) {
+            int count = media.Count();
+            View.MediaParent2.Visibility = count >= 2 ? ViewStates.Visible : ViewStates.Gone;
+            View.Media2.Visibility = count >= 2 ? ViewStates.Visible : ViewStates.Gone;
+            View.Media3.Visibility = count >= 3 ? ViewStates.Visible : ViewStates.Gone;
+            View.Media4.Visibility = count >= 4 ? ViewStates.Visible : ViewStates.Gone;
+            var mediaViews = new[] { View.Media1,View.Media2,View.Media3,View.Media4 };
+            for(int i = 0;i < count && i < mediaViews.Length;i++) {
+                var m = media.ElementAt(i);
+                var _imageTask = ImageService.Instance.LoadUrl(m.MediaUrl + ":small");
+                if((m.VideoInfo?.Variants.Length??0)>0) {
+                    _imageTask.Transform(new PlayCircleTransformation(View.ApplicationContext));
+                }
+                _imageTask.Into(mediaViews[i]);
+            }
+        }
+
+        private void setQuotingMedia(IEnumerable<MediaEntity> media) {
+            int count = media.Count();
+            View.QuotingMediaParent2.Visibility = count >= 2 ? ViewStates.Visible : ViewStates.Gone;
+            View.QuotingMedia2.Visibility = count >= 2 ? ViewStates.Visible : ViewStates.Gone;
+            View.QuotingMedia3.Visibility = count >= 3 ? ViewStates.Visible : ViewStates.Gone;
+            View.QuotingMedia4.Visibility = count >= 4 ? ViewStates.Visible : ViewStates.Gone;
+            var mediaViews = new[] { View.QuotingMedia1,View.QuotingMedia2,View.QuotingMedia3,View.QuotingMedia4 };
+            for(int i = 0;i < count && i < mediaViews.Length;i++) {
+                ImageService.Instance.LoadUrl(media.ElementAt(i).MediaUrl + ":small").FadeAnimation(true).Into(mediaViews[i]);
+            }
         }
 
         private void onDestory(object sender,LifeCycleEventArgs e) {

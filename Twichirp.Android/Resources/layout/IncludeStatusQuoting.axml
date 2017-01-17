@@ -30,14 +30,6 @@
                     android:layout_marginEnd="@dimen/ItemPadding"
                     android:layout_marginBottom="@dimen/ItemPadding" />
                 <TextView
-                    android:text="QuotingScreenName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/QuotingScreenName"
-                    android:textAppearance="@style/AppTheme.Text.Caption"
-                    android:singleLine="true"
-                    android:layout_toEndOf="@id/QuotingName" />
-                <TextView
                     android:text="QuotingText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

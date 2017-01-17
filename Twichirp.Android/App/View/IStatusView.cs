@@ -41,8 +41,6 @@ namespace Twichirp.Android.App.View {
 
         TextView Name { get; }
 
-        TextView ScreenName { get; }
-
         ImageViewAsync Icon { get; }
 
         ImageView LockIcon { get; }
@@ -90,8 +88,6 @@ namespace Twichirp.Android.App.View {
         AView QuotingClickable { get; }
         
         TextView QuotingName { get; }
-        
-        TextView QuotingScreenName { get; }
         
         TextView QuotingText { get; }
 

@@ -40,7 +40,6 @@ namespace Twichirp.Android.App.View {
         private Func<T,int,int> viewTypeSelector;
         private Func<ViewGroup,int,RecyclerView.ViewHolder> viewCreator;
         public ReactiveCommand LastItemVisibleCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand<T> SetDataHolderCommand { get; } = new ReactiveCommand<T>();
 
         public ReactiveCollectionAdapter(
             INotifyCollectionChanged list,
@@ -109,11 +108,6 @@ namespace Twichirp.Android.App.View {
         private void collectionChanged(object sender,NotifyCollectionChangedEventArgs e) {
             // うーーんこの https://code.google.com/p/android/issues/detail?id=193069
             if(e.Action == NotifyCollectionChangedAction.Add) {
-                foreach(var i in e.NewItems) {
-                    if(i is T) {
-                        SetDataHolderCommand.Execute(i as T);
-                    }
-                }
                 if(e.NewItems.Count == 1) {
                     this.NotifyItemInserted(e.NewStartingIndex);
                 } else {
@@ -129,11 +123,6 @@ namespace Twichirp.Android.App.View {
                 }
                 this.NotifyDataSetChanged();
             } else if(e.Action == NotifyCollectionChangedAction.Replace) {
-                foreach(var i in e.NewItems) {
-                    if(i is T) {
-                        SetDataHolderCommand.Execute(i as T);
-                    }
-                }
                 bool isRecylable = isHolderRecyclable(e.NewStartingIndex,e.NewItems.Count);
                 if(isRecylable) {
                     if(e.NewItems.Count == 1) {

@@ -17,29 +17,13 @@
             android:layout_marginEnd="@dimen/LayoutMargin"
             android:layout_alignParentEnd="true"
             android:gravity="end" />
-        <TextView
-            android:text="Name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/Name"
-            android:textAppearance="@style/AppTheme.Text.Subhead"
-            android:layout_marginStart="@dimen/StartMargin"
-            android:layout_toStartOf="@id/DateTime"
-            android:singleLine="true" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ScreenNameLinear"
+            android:id="@+id/NameLinear"
             android:layout_marginStart="@dimen/StartMargin"
-            android:layout_marginEnd="@dimen/LayoutMargin"
-            android:layout_below="@id/Name">
-            <TextView
-                android:text="ScreenName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ScreenName"
-                android:textAppearance="@style/AppTheme.Text.Caption" />
+            android:layout_toStartOf="@id/DateTime">
             <ImageView
                 android:src="@drawable/IconEnhancedEncryptionBlack36dp"
                 android:layout_width="16dp"
@@ -52,6 +36,13 @@
                 android:layout_height="16dp"
                 android:id="@+id/VerifyIcon"
                 android:tint="@color/Grey600" />
+            <TextView
+                android:text="Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Name"
+                android:textAppearance="@style/AppTheme.Text.Subhead"
+                android:singleLine="true" />
         </LinearLayout>
         <TextView
             android:text="Text"
@@ -63,7 +54,7 @@
             android:layout_marginEnd="@dimen/LayoutMargin"
             android:paddingTop="@dimen/ItemPadding"
             android:paddingBottom="@dimen/ItemPadding"
-            android:layout_below="@id/ScreenNameLinear" />
+            android:layout_below="@id/NameLinear" />
         <FFImageLoading.Views.ImageViewAsync
             android:src="@drawable/Icon"
             android:layout_width="40dp"

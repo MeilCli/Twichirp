@@ -47,8 +47,6 @@ namespace Twichirp.Android.App.View.Holder {
 
         public TextView Name { get; private set; }
 
-        public TextView ScreenName { get; private set; }
-
         public ImageViewAsync Icon { get; private set; }
 
         public ImageView LockIcon { get; private set; }
@@ -95,8 +93,6 @@ namespace Twichirp.Android.App.View.Holder {
 
         public TextView QuotingName { get; protected set; }
 
-        public TextView QuotingScreenName { get; protected set; }
-
         public TextView QuotingText { get; protected set; }
 
         public LinearLayout QuotingMediaParent2 { get; protected set; }
@@ -120,7 +116,6 @@ namespace Twichirp.Android.App.View.Holder {
             RetweetingUser?.Dispose();
             ReplyToUser?.Dispose();
             Name?.Dispose();
-            ScreenName?.Dispose();
             Icon?.Dispose();
             LockIcon?.Dispose();
             VerifyIcon?.Dispose();
@@ -144,7 +139,6 @@ namespace Twichirp.Android.App.View.Holder {
             FavoriteCount?.Dispose();
             QuotingClickable?.Dispose();
             QuotingName?.Dispose();
-            QuotingScreenName?.Dispose();
             QuotingText?.Dispose();
             QuotingMediaParent2?.Dispose();
             QuotingMedia1?.Dispose();
@@ -159,7 +153,6 @@ namespace Twichirp.Android.App.View.Holder {
             RetweetingUser = ItemView.FindViewById<TextView>(Resource.Id.RetweeingUser);
             ReplyToUser = ItemView.FindViewById<TextView>(Resource.Id.ReplyToUser);
             Name = ItemView.FindViewById<TextView>(Resource.Id.Name);
-            ScreenName = ItemView.FindViewById<TextView>(Resource.Id.ScreenName);
             Icon = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Icon);
             LockIcon = ItemView.FindViewById<ImageView>(Resource.Id.LockIcon);
             VerifyIcon = ItemView.FindViewById<ImageView>(Resource.Id.VerifyIcon);
@@ -208,7 +201,6 @@ namespace Twichirp.Android.App.View.Holder {
             base.OnCreatedView();
             QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
             QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
-            QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
             QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
         }
     }
@@ -222,7 +214,6 @@ namespace Twichirp.Android.App.View.Holder {
             base.OnCreatedView();
             QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
             QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
-            QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
             QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
 
             QuotingMediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.QuotingMediaParent2);
@@ -242,7 +233,6 @@ namespace Twichirp.Android.App.View.Holder {
             base.OnCreatedView();
             QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
             QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
-            QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
             QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
 
             MediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.MediaParent2);
@@ -276,7 +266,6 @@ namespace Twichirp.Android.App.View.Holder {
 
             QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
             QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
-            QuotingScreenName = ItemView.FindViewById<TextView>(Resource.Id.QuotingScreenName);
             QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
 
             QuotingMediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.QuotingMediaParent2);

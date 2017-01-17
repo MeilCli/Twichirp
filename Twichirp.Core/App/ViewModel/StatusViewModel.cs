@@ -45,37 +45,37 @@ namespace Twichirp.Core.App.ViewModel {
         internal StatusModel StatusModel;
         public long Id { get; private set; }
         public ReactiveProperty<ISpannableString> SpannableText { get; private set; } = new ReactiveProperty<ISpannableString>();
-        public string Source { get; private set; }
+        public ReactiveProperty<string> Source { get; private set; } = new ReactiveProperty<string>();
         public ReadOnlyReactiveProperty<string> DateTime { get; private set; }
-        public int RetweetCount { get; private set; }
-        public string RetweetCountText { get; private set; }
-        public int FavoriteCount { get; private set; }
-        public string FavoriteCountText { get; private set; }
-        public bool IsRetweeted { get; private set; }
-        public bool IsFavorited { get; private set; }
-        public string InReplyToScreenName { get; private set; }
-        public string ReplyToUser { get; private set; }
-        public IEnumerable<MediaEntity> Media { get; private set; }
+        public ReactiveProperty<int> RetweetCount { get; private set; } = new ReactiveProperty<int>();
+        public ReactiveProperty<int> FavoriteCount { get; private set; } = new ReactiveProperty<int>();
+        public ReactiveProperty<bool> IsRetweeted { get; private set; } = new ReactiveProperty<bool>();
+        public ReactiveProperty<bool> IsFavorited { get; private set; } = new ReactiveProperty<bool>();
+        /// <summary>
+        /// Nullable
+        /// </summary>
+        public ReactiveProperty<string> ReplyToUser { get; private set; } = new ReactiveProperty<string>();
+        public ReactiveProperty<IEnumerable<MediaEntity>> Media { get; private set; } = new ReactiveProperty<IEnumerable<MediaEntity>>();
 
-        public string IconUrl { get; private set; }
-        public string Name { get; private set; }
-        public string ScreenName { get; private set; }
-        public bool IsProtected { get; private set; }
-        public bool IsVerified { get; private set; }
+        public ReactiveProperty<string> IconUrl { get; private set; } = new ReactiveProperty<string>();
+        public ReactiveProperty<ISpannableString> SpannableName { get; private set; } = new ReactiveProperty<ISpannableString>();
+        public ReactiveProperty<bool> IsProtected { get; private set; } = new ReactiveProperty<bool>();
+        public ReactiveProperty<bool> IsVerified { get; private set; } = new ReactiveProperty<bool>();
 
-        public bool IsRetweeting { get; private set; }
-        public string RetweetingUser { get; private set; }
+        /// <summary>
+        /// Nullable
+        /// </summary>
+        public ReactiveProperty<string> RetweetingUser { get; private set; } = new ReactiveProperty<string>();
 
         /*
          * Quoted Status is Nullable
          * */
         public bool IsQuoting { get; private set; }
+        public ReactiveProperty<ISpannableString> QuotedSpannableName { get; private set; } = new ReactiveProperty<ISpannableString>();
         public ReactiveProperty<ISpannableString> QuotedSpannableText { get; private set; } = new ReactiveProperty<ISpannableString>();
-        public string QuotedName { get; private set; }
-        public string QuotedScreenName { get; private set; }
-        public IEnumerable<MediaEntity> QuotedMedia { get; private set; }
+        public ReactiveProperty<IEnumerable<MediaEntity>> QuotedMedia { get; private set; } = new ReactiveProperty<IEnumerable<MediaEntity>>();
 
-        public ReactiveCommand ShowStatusCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand UpdateDateTimeCommand { get; } = new ReactiveCommand();
         public ReactiveCommand RetweetCommand { get; } = new ReactiveCommand();
         public ReactiveCommand FavoriteCommand { get; } = new ReactiveCommand();
 
@@ -84,7 +84,7 @@ namespace Twichirp.Core.App.ViewModel {
             StatusModel = new StatusModel(Application,status);
 
             DateTime = StatusModel.ToContentStatus().ObserveProperty(x => x.CreatedAt)
-                .CombineLatest(ShowStatusCommand,(x,y) => relativeDateTime(x))
+                .CombineLatest(UpdateDateTimeCommand,(x,y) => relativeDateTime(x))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
 
@@ -105,7 +105,7 @@ namespace Twichirp.Core.App.ViewModel {
 
             RetweetCommand
                 .Subscribe(x => {
-                    if(IsRetweeted) {
+                    if(IsRetweeted.Value) {
                         StatusModel.ToContentStatus().UnRetweet(account);
                     } else {
                         StatusModel.ToContentStatus().Retweet(account);
@@ -114,7 +114,7 @@ namespace Twichirp.Core.App.ViewModel {
                 .AddTo(Disposable);
             FavoriteCommand
                 .Subscribe(x => {
-                    if(IsFavorited) {
+                    if(IsFavorited.Value) {
                         StatusModel.ToContentStatus().UnFavorite(account);
                     } else {
                         StatusModel.ToContentStatus().Favorite(account);
@@ -127,46 +127,40 @@ namespace Twichirp.Core.App.ViewModel {
             IStringResource stringResource = Application.StringResource;
             var contentStatus = StatusModel.ToContentStatus();
 
+            Id = StatusModel.Id;
             SpannableText.Value = spannableText(
                 contentStatus.Text,
                 contentStatus.HiddenPrefix,
                 contentStatus.HiddenSuffix,
                 contentStatus.QuotedStatus == null && contentStatus.Media.Count() == 0
                 );
+            Source.Value = contentStatus.Source;
+            RetweetCount.Value = contentStatus.RetweetCount;
+            FavoriteCount.Value = contentStatus.FavoriteCount;
+            IsRetweeted.Value = contentStatus.IsRetweeted;
+            IsFavorited.Value = contentStatus.IsFavorited;
+            if(contentStatus.InReplyToScreenName != null) {
+                ReplyToUser.Value = string.Format(Application.GetLocalizedString(stringResource.StatusReplyToUser),$"@{contentStatus.InReplyToScreenName}");
+            }
+            Media.Value = contentStatus.Media;
 
-            if(StatusModel.ToContentStatus().QuotedStatus != null) {
-                var quotedStatus = contentStatus.QuotedStatus;
+            IconUrl.Value = contentStatus.User.ProfileImageUrl;
+            SpannableName.Value = spannableName(contentStatus.User.Name,contentStatus.User.ScreenName);
+            IsProtected.Value = contentStatus.User.IsProtected;
+            IsVerified.Value = contentStatus.User.IsVerified;
 
-                QuotedSpannableText.Value = spannableText(quotedStatus.Text,quotedStatus.HiddenPrefix,quotedStatus.HiddenSuffix,quotedStatus.Media.Count() == 0);
+            if(StatusModel.RetweetedStatus != null) {
+                RetweetingUser.Value = string.Format(Application.GetLocalizedString(stringResource.StatusRetweetingUser),$"@{StatusModel.User.ScreenName}");
             }
 
-            Id = StatusModel.Id;
+            if(contentStatus.QuotedStatus != null) {
+                var quotedStatus = contentStatus.QuotedStatus;
 
-            Source = StatusModel.ToContentStatus().Source;
-
-            RetweetCount = StatusModel.ToContentStatus().RetweetCount;
-            RetweetCountText = RetweetCount.ToString();
-            FavoriteCount = StatusModel.ToContentStatus().FavoriteCount;
-            FavoriteCountText = FavoriteCount.ToString();
-            IsRetweeted = StatusModel.ToContentStatus().IsRetweeted;
-            IsFavorited = StatusModel.ToContentStatus().IsFavorited;
-            InReplyToScreenName = StatusModel.ToContentStatus().InReplyToScreenName.Map(x => x == null ? null : $"@{x}");
-            ReplyToUser = InReplyToScreenName?.Map(x => string.Format(Application.GetLocalizedString(stringResource.StatusReplyToUser),x));
-            Media = StatusModel.ToContentStatus().Media;
-
-            IconUrl = StatusModel.ToContentStatus().User.ProfileImageUrl;
-            Name = StatusModel.ToContentStatus().User.Name;
-            ScreenName = StatusModel.ToContentStatus().User.ScreenName.Map(x => $"@{x}");
-            IsProtected = StatusModel.ToContentStatus().User.IsProtected;
-            IsVerified = StatusModel.ToContentStatus().User.IsVerified;
-
-            IsRetweeting = StatusModel.RetweetedStatus.Map(x => x != null);
-            RetweetingUser = StatusModel.User.ScreenName.Map(x => string.Format(Application.GetLocalizedString(stringResource.StatusRetweetingUser),x));
-
-            IsQuoting = StatusModel.ToContentStatus().QuotedStatus.Map(x => x != null);
-            QuotedName = StatusModel.ToContentStatus().QuotedStatus?.User.Name;
-            QuotedScreenName = StatusModel.ToContentStatus().QuotedStatus?.User.ScreenName.Map(x => $"@{x}");
-            QuotedMedia = StatusModel.ToContentStatus().QuotedStatus?.Media;
+                IsQuoting = true;
+                QuotedSpannableName.Value = spannableName(quotedStatus.User.Name,quotedStatus.User.ScreenName);
+                QuotedSpannableText.Value = spannableText(quotedStatus.Text,quotedStatus.HiddenPrefix,quotedStatus.HiddenSuffix,quotedStatus.Media.Count() == 0);
+                QuotedMedia.Value = quotedStatus.Media;
+            }
         }
 
         private string relativeDateTime(DateTimeOffset dateTimeOffset) {
@@ -238,20 +232,29 @@ namespace Twichirp.Core.App.ViewModel {
             return CrossCrossFormattedText.Current.Format(new FormattedString() { Spans = spans });
         }
 
+        private ISpannableString spannableName(string name,string screenName) {
+            var spans = new List<Span>();
+
+            spans.Add(new Span() { Text = name });
+            spans.Add(new Span() { Text = $" @{screenName}",FontSize = FontSize.Small });
+
+            return CrossCrossFormattedText.Current.Format(new FormattedString() { Spans = spans });
+        }
+
         public int ToStatusType() {
-            if(IsQuoting && QuotedMedia.Count() > 0 && Media.Count() > 0) {
+            if(IsQuoting && QuotedMedia.Value.Count() > 0 && Media.Value.Count() > 0) {
                 return QuotedInnerAndOuterMediaTweet;
             }
-            if(IsQuoting && QuotedMedia.Count() > 0) {
+            if(IsQuoting && QuotedMedia.Value.Count() > 0) {
                 return QuotedInnerMediaTweet;
             }
-            if(IsQuoting && Media.Count() > 0) {
+            if(IsQuoting && Media.Value.Count() > 0) {
                 return QuotedOuterMediaTweet;
             }
             if(IsQuoting) {
                 return QuotedTweet;
             }
-            if(Media.Count() > 0) {
+            if(Media.Value.Count() > 0) {
                 return MediaTweet;
             }
             return NormalTweet;

@@ -42,7 +42,6 @@
     <Compile Include="Aclog\Data\Status.cs" />
     <Compile Include="Aclog\Data\User.cs" />
     <Compile Include="Aclog\TokenExtension.cs" />
-    <Compile Include="App\DataHolder\BaseDataHolder.cs" />
     <Compile Include="App\IStringResource.cs" />
     <Compile Include="App\ITwichirpApplication.cs" />
     <Compile Include="App\Manager\AccountManager.cs" />
@@ -76,7 +75,6 @@
     <Compile Include="App\Setting\SettingManager.cs" />
     <Compile Include="Extensions\StatusExtensions.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
-    <Compile Include="Extensions\UtilExtensions.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\Consumer.cs" />
