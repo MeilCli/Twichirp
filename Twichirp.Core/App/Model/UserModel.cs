@@ -77,65 +77,36 @@ namespace Twichirp.Core.App.Model {
         public void SetUser(User user) {
             this.user = user;
 
-            Id = user.Id.Value;
-            RaisePropertyChanged(nameof(Id));
+            SetProperty(this,x => x.Id,user.Id.Value);
+            SetProperty(this,x => x.ScreenName,user.ScreenName);
+            SetProperty(this,x => x.Name,user.Name ?? string.Empty);
 
-            ScreenName = user.ScreenName;
-            RaisePropertyChanged(nameof(ScreenName));
+            {
+                var _description = user.Description == null ? Enumerable.Empty<TextPart>() : CoreTweetSupplement.EnumerateTextParts(user.Description,user.Entities?.Description);
+                SetProperty(this,x => x.Description,_description);
+            }
 
-            Name = user.Name ?? string.Empty;
-            RaisePropertyChanged(nameof(Name));
+            SetProperty(this,x => x.Location,user.Location ?? string.Empty);
 
-            Description = user.Description == null ? Enumerable.Empty<TextPart>() : CoreTweetSupplement.EnumerateTextParts(user.Description,user.Entities?.Description);
-            RaisePropertyChanged(nameof(Description));
+            {
+                var _url = user.Url == null ? Enumerable.Empty<TextPart>() : CoreTweetSupplement.EnumerateTextParts(user.Url,user.Entities?.Url);
+                SetProperty(this,x => x.Url,_url);
+            }
 
-            Location = user.Location ?? string.Empty;
-            RaisePropertyChanged(nameof(Location));
-
-            Url = user.Url == null ? Enumerable.Empty<TextPart>() : CoreTweetSupplement.EnumerateTextParts(user.Url,user.Entities?.Url);
-            RaisePropertyChanged(nameof(Url));
-
-            CreatedAt = user.CreatedAt;
-            RaisePropertyChanged(nameof(CreatedAt));
-
-            FavouritesCount = user.FavouritesCount;
-            RaisePropertyChanged(nameof(FavouritesCount));
-
-            IsFollowRequestSent = user.IsFollowRequestSent ?? false;
-            RaisePropertyChanged(nameof(IsFollowRequestSent));
-
-            FollowersCount = user.FollowersCount;
-            RaisePropertyChanged(nameof(FollowersCount));
-
-            FriendsCount = user.FriendsCount;
-            RaisePropertyChanged(nameof(FriendsCount));
-
-            ListedCount = user.ListedCount ?? 0;
-            RaisePropertyChanged(nameof(ListedCount));
-
-            IsMuting = user.IsMuting ?? false;
-            RaisePropertyChanged(nameof(IsMuting));
-
-            ProfileBannerUrl = user.ProfileBannerUrl;
-            RaisePropertyChanged(nameof(ProfileBannerUrl));
-
-            ProfileImageUrl = user.ProfileImageUrl;
-            RaisePropertyChanged(nameof(ProfileImageUrl));
-
-            ProfileLinkColor = user.ProfileLinkColor;
-            RaisePropertyChanged(nameof(ProfileLinkColor));
-
-            IsProtected = user.IsProtected;
-            RaisePropertyChanged(nameof(IsProtected));
-
-            StatusesCount = user.StatusesCount;
-            RaisePropertyChanged(nameof(StatusesCount));
-
-            IsSuspended = user.IsSuspended ?? false;
-            RaisePropertyChanged(nameof(IsSuspended));
-
-            IsVerified = user.IsVerified;
-            RaisePropertyChanged(nameof(IsVerified));
+            SetProperty(this,x => x.CreatedAt,user.CreatedAt);
+            SetProperty(this,x => x.FavouritesCount,user.FavouritesCount);
+            SetProperty(this,x => x.IsFollowRequestSent,user.IsFollowRequestSent ?? false);
+            SetProperty(this,x => x.FollowersCount,user.FollowersCount);
+            SetProperty(this,x => x.FriendsCount,user.FriendsCount);
+            SetProperty(this,x => x.ListedCount,user.ListedCount ?? 0);
+            SetProperty(this,x => x.IsMuting,user.IsMuting ?? false);
+            SetProperty(this,x => x.ProfileBannerUrl,user.ProfileBannerUrl);
+            SetProperty(this,x => x.ProfileImageUrl,user.ProfileImageUrl);
+            SetProperty(this,x => x.ProfileLinkColor,user.ProfileLinkColor);
+            SetProperty(this,x => x.IsProtected,user.IsProtected);
+            SetProperty(this,x => x.StatusesCount,user.StatusesCount);
+            SetProperty(this,x => x.IsSuspended,user.IsSuspended);
+            SetProperty(this,x => x.IsVerified,user.IsVerified);
 
             UserChanged?.Invoke(this,new EventArgs());
         }

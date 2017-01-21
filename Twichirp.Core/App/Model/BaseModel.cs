@@ -18,6 +18,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +36,35 @@ namespace Twichirp.Core.App.Model {
 
         protected void RaisePropertyChanged(string name) {
             PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(name));
+        }
+
+        protected bool SetValue<T>(ref T property,T value,string propertyName = null) {
+            if(Equals(property,value)) {
+                return false;
+            }
+            property = value;
+            if(propertyName != null) {
+                RaisePropertyChanged(propertyName);
+            }
+            return true;
+        }
+
+        // とても遅い
+        protected bool SetProperty<TTarget, TValue>(TTarget target,Expression<Func<TTarget,TValue>> outExpression,TValue value) {
+            if(outExpression.Body is MemberExpression == false) {
+                return false;
+            }
+            var expression = outExpression.Body as MemberExpression;
+            if(expression.Member is PropertyInfo == false) {
+                return false;
+            }
+            var property = expression.Member as PropertyInfo;
+            if(Equals(property.GetValue(target),value)) {
+                return false;
+            }
+            property.SetValue(target,value);
+            RaisePropertyChanged(property.Name);
+            return true;
         }
     }
 }

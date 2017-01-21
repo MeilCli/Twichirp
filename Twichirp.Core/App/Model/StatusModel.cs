@@ -93,58 +93,27 @@ namespace Twichirp.Core.App.Model {
             }
             RaisePropertyChanged(nameof(User));
 
-            Id = status.Id;
-            RaisePropertyChanged(nameof(Id));
-
-            var extended = status.GetExtendedTweetElements();
-
-            Text = extended.TweetText;
-            RaisePropertyChanged(nameof(Text));
-
-            HiddenPrefix = extended.HiddenPrefix;
-            RaisePropertyChanged(nameof(HiddenPrefix));
-
-            HiddenSuffix = extended.HiddenSuffix;
-            RaisePropertyChanged(nameof(HiddenSuffix));
-
-            Source = status.ParseSource().Name;
-            RaisePropertyChanged(nameof(Source));
-
-            CreatedAt = status.CreatedAt;
-            RaisePropertyChanged(nameof(CreatedAt));
-
-            CurrentUserRetweet = status.CurrentUserRetweet;
-            RaisePropertyChanged(nameof(CurrentUserRetweet));
-
-            UserMention = status.Entities?.UserMentions ?? Enumerable.Empty<UserMentionEntity>();
-            RaisePropertyChanged(nameof(UserMention));
-
-            Hashtag = status.Entities?.HashTags ?? Enumerable.Empty<HashtagEntity>();
-            RaisePropertyChanged(nameof(Hashtag));
-
-            Symbol = status.Entities?.Symbols ?? Enumerable.Empty<CashtagEntity>();
-            RaisePropertyChanged(nameof(Symbol));
-
-            Url = status.Entities?.Urls ?? Enumerable.Empty<UrlEntity>();
-            RaisePropertyChanged(nameof(Url));
-
-            Media = status.ExtendedEntities?.Media ?? Enumerable.Empty<MediaEntity>();
-            RaisePropertyChanged(nameof(Media));
-
-            FavoriteCount = status.FavoriteCount ?? 0;
-            RaisePropertyChanged(nameof(FavoriteCount));
-
-            IsFavorited = status.IsFavorited ?? false;
-            RaisePropertyChanged(nameof(IsFavorited));
-
-            InReplyToScreenName = status.InReplyToScreenName;
-            RaisePropertyChanged(nameof(InReplyToScreenName));
-
-            InReplyToStatusId = status.InReplyToStatusId;
-            RaisePropertyChanged(nameof(InReplyToStatusId));
-
-            InReplyToUserId = status.InReplyToUserId;
-            RaisePropertyChanged(nameof(InReplyToUserId));
+            SetProperty(this,x => x.Id,status.Id);
+            {
+                var extended = status.GetExtendedTweetElements();
+                SetProperty(this,x => x.Text,extended.TweetText);
+                SetProperty(this,x => x.HiddenPrefix,extended.HiddenPrefix);
+                SetProperty(this,x => x.HiddenSuffix,extended.HiddenSuffix);
+            }
+        
+            SetProperty(this,x => x.Source,status.ParseSource().Name);
+            SetProperty(this,x => x.CreatedAt,status.CreatedAt);
+            SetProperty(this,x => x.CurrentUserRetweet,status.CurrentUserRetweet);
+            SetProperty(this,x => x.UserMention,status.Entities?.UserMentions ?? Enumerable.Empty<UserMentionEntity>());
+            SetProperty(this,x => x.Hashtag,status.Entities?.HashTags ?? Enumerable.Empty<HashtagEntity>());
+            SetProperty(this,x => x.Symbol,status.Entities?.Symbols ?? Enumerable.Empty<CashtagEntity>());
+            SetProperty(this,x => x.Url,status.Entities?.Urls ?? Enumerable.Empty<UrlEntity>());
+            SetProperty(this,x => x.Media,status.ExtendedEntities?.Media ?? Enumerable.Empty<MediaEntity>());
+            SetProperty(this,x => x.FavoriteCount,status.FavoriteCount ?? 0);
+            SetProperty(this,x => x.IsFavorited,status.IsFavorited ?? false);
+            SetProperty(this,x => x.InReplyToScreenName,status.InReplyToScreenName);
+            SetProperty(this,x => x.InReplyToStatusId,status.InReplyToStatusId);
+            SetProperty(this,x => x.InReplyToUserId,status.InReplyToUserId);
 
             if(status.QuotedStatus != null && QuotedStatus == null) {
                 QuotedStatus = new StatusModel(Application,status.QuotedStatus);
@@ -155,11 +124,8 @@ namespace Twichirp.Core.App.Model {
             }
             RaisePropertyChanged(nameof(QuotedStatus));
 
-            RetweetCount = status.RetweetCount ?? 0;
-            RaisePropertyChanged(nameof(RetweetCount));
-
-            IsRetweeted = status.IsRetweeted ?? false;
-            RaisePropertyChanged(nameof(IsRetweeted));
+            SetProperty(this,x => x.RetweetCount,status.RetweetCount ?? 0);
+            SetProperty(this,x => x.IsRetweeted,status.IsRetweeted ?? false);
 
             if(status.RetweetedStatus != null && RetweetedStatus == null) {
                 RetweetedStatus = new StatusModel(Application,status.RetweetedStatus);

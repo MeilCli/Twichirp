@@ -44,8 +44,7 @@ namespace Twichirp.Core.App.Model {
                 return _isLoading;
             }
             private set {
-                _isLoading = value;
-                RaisePropertyChanged(nameof(IsLoading));
+                SetValue(ref _isLoading,value,nameof(IsLoading));
             }
         }
 

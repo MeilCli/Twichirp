@@ -32,8 +32,7 @@ namespace Twichirp.Core.App.Model {
                 return _isRunning;
             }
             private set {
-                _isRunning = value;
-                RaisePropertyChanged(nameof(IsRunning));
+                SetValue(ref _isRunning,value,nameof(IsRunning));
             }
         }
 
@@ -43,8 +42,7 @@ namespace Twichirp.Core.App.Model {
                 return _isAccountExist;
             }
             private set {
-                _isAccountExist = value;
-                RaisePropertyChanged(nameof(IsAccountExist));
+                SetValue(ref _isAccountExist,value,nameof(IsAccountExist));
             }
         }
 
@@ -54,8 +52,7 @@ namespace Twichirp.Core.App.Model {
                 return _message;
             }
             private set {
-                _message = value;
-                RaisePropertyChanged(nameof(Message));
+                SetValue(ref _message,value,nameof(Message));
             }
         }
 
