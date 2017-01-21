@@ -25,9 +25,12 @@ using System.Threading.Tasks;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.Model;
 using Twichirp.Core.Extensions;
+using Twichirp.Core.App.Event;
 
 namespace Twichirp.Core.App.Model {
     public class StatusTimelineModel : BaseModel {
+
+        public event EventHandler<EventArgs<string>> ErrorMessageCreated;
 
         private SemaphoreSlim slim = new SemaphoreSlim(1,1);
         public ReactiveCollection<BaseViewModel> Timeline { get; } = new ReactiveCollection<BaseViewModel>();
@@ -46,17 +49,6 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        private string _errorMessage;
-        public string ErrorMessage {
-            get {
-                return _errorMessage;
-            }
-            private set {
-                _errorMessage = value;
-                RaisePropertyChanged(nameof(ErrorMessage));
-            }
-        }
-
         public StatusTimelineModel(ITwichirpApplication application,Timeline<IEnumerable<Status>> timelineResource,Account account) : base(application) {
             this.timelineResource = timelineResource;
             this.account = account;
@@ -69,7 +61,6 @@ namespace Twichirp.Core.App.Model {
             }
             await slim.WaitAsync();
             IsLoading = true;
-            ErrorMessage = null;
             try {
                 int count = Application.SettingManager.Timeline.Count;
                 if(_timeline.Count >= 1) {
@@ -89,7 +80,7 @@ namespace Twichirp.Core.App.Model {
                     }
                 }
             } catch(Exception e) {
-                ErrorMessage = e.Message;
+                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             } finally {
                 slim.Release();
             }
@@ -107,7 +98,6 @@ namespace Twichirp.Core.App.Model {
             await slim.WaitAsync();
             IsLoading = true;
             target.IsLoaing.Value = true;
-            ErrorMessage = null;
             try {
                 int count = Application.SettingManager.Timeline.Count;
                 int targetIndex = Timeline.IndexOf(target);
@@ -150,7 +140,7 @@ namespace Twichirp.Core.App.Model {
                     }
                 }
             } catch(Exception e) {
-                ErrorMessage = e.Message;
+                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             } finally {
                 slim.Release();
             }
@@ -165,7 +155,6 @@ namespace Twichirp.Core.App.Model {
             }
             await slim.WaitAsync();
             IsLoading = true;
-            ErrorMessage = null;
             try {
                 int count = Application.SettingManager.Timeline.Count;
                 IEnumerable<Status> response = await timelineResource.Load(account,count,maxId: _timeline[_timeline.Count - 1].Id - 1);
@@ -174,7 +163,7 @@ namespace Twichirp.Core.App.Model {
                     Timeline.AddOnScheduler(s);
                 }
             } catch(Exception e) {
-                ErrorMessage = e.Message;
+                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             } finally {
                 slim.Release();
             }

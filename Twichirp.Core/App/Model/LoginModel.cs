@@ -21,23 +21,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.Model;
+using Twichirp.Core.App.Event;
 
 namespace Twichirp.Core.App.Model {
     class LoginModel : BaseModel {
 
+        public event EventHandler<EventArgs<string>> AuthorizeUriCreated;
+        public event EventHandler<EventArgs> LoginSucceeded;
+        public event EventHandler<EventArgs<string>> ErrorMessageCreated;
+
         private OAuth.OAuthSession oAuthSession;
         private Consumer consumer;
-
-        private string _authorizeUri;
-        public string AuthorizeUri {
-            get {
-                return _authorizeUri;
-            }
-            private set {
-                _authorizeUri = value;
-                RaisePropertyChanged(nameof(AuthorizeUri));
-            }
-        }
 
         private bool _isLoding;
         public bool IsLoading {
@@ -50,40 +44,16 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        private bool _isLoginFinish;
-        public bool IsLoginFinish {
-            get {
-                return _isLoginFinish;
-            }
-            private set {
-                _isLoginFinish = value;
-                RaisePropertyChanged(nameof(IsLoginFinish));
-            }
-        }
-
-        private string _errorMessage;
-        public string ErrorMessage {
-            get {
-                return _errorMessage;
-            }
-            private set {
-                _errorMessage = value;
-                RaisePropertyChanged(nameof(ErrorMessage));
-            }
-        }
-
         public LoginModel(ITwichirpApplication application) : base(application) {
         }
 
         public async void Authorize(Consumer consumer) {
             this.consumer = consumer;
-            ErrorMessage = null;
-            AuthorizeUri = null;
             try {
                 oAuthSession = await OAuth.AuthorizeAsync(consumer.ConsumerKey,consumer.ConsumerSecret);
-                AuthorizeUri = oAuthSession.AuthorizeUri.AbsoluteUri;
+                AuthorizeUriCreated?.Invoke(this,new EventArgs<string>(oAuthSession.AuthorizeUri.AbsoluteUri));
             } catch(Exception e) {
-                ErrorMessage = e.Message;
+                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             }
         }
 
@@ -98,19 +68,18 @@ namespace Twichirp.Core.App.Model {
                 return;
             }
             IsLoading = true;
-            ErrorMessage = null;
             try {
                 Tokens token = await oAuthSession.GetTokensAsync(pin);
                 var account = new Account(token,consumer);
                 account.User = await token.Users.ShowAsync(token.UserId);
                 await Application.AccountManager.AddAsync(account);
                 await Application.UserContainerManager.AddAsync(account.User);
-                IsLoginFinish = true;
-            }catch(Exception e) {
-                ErrorMessage = e.Message;
+                LoginSucceeded?.Invoke(this,new EventArgs());
+            } catch(Exception e) {
+                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             }
             IsLoading = false;
         }
-        
+
     }
 }

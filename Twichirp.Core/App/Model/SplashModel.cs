@@ -24,6 +24,8 @@ using System.Threading.Tasks;
 namespace Twichirp.Core.App.Model {
     class SplashModel : BaseModel {
 
+        public event EventHandler<EventArgs> ApplicationInitialized;
+
         private bool _isRunning;
         public bool IsRunning {
             get {
@@ -32,17 +34,6 @@ namespace Twichirp.Core.App.Model {
             private set {
                 _isRunning = value;
                 RaisePropertyChanged(nameof(IsRunning));
-            }
-        }
-
-        private bool _isApplicationInited;
-        public bool IsApplicationInited {
-            get {
-                return _isApplicationInited;
-            }
-            private set {
-                _isApplicationInited = value;
-                RaisePropertyChanged(nameof(IsApplicationInited));
             }
         }
 
@@ -84,7 +75,7 @@ namespace Twichirp.Core.App.Model {
             Message = string.Empty;
             IsAccountExist = Application.AccountManager.Account.Count > 0;
             IsRunning = false;
-            IsApplicationInited = true;
+            ApplicationInitialized?.Invoke(this,new EventArgs());
         }
 
         private async Task accountInitAsync() {

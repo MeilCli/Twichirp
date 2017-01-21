@@ -24,25 +24,15 @@ using System.Threading.Tasks;
 using Twichirp.Core.Model;
 using System.Threading;
 using Twichirp.Core.Extensions;
+using Twichirp.Core.App.Event;
 
 namespace Twichirp.Core.App.Model {
     class StatusModel : BaseModel {
 
         public event EventHandler<EventArgs> StatusChanged;
+        public event EventHandler<EventArgs<string>> ErrorMessageCreated;
 
         private SemaphoreSlim slim = new SemaphoreSlim(1,1);
-
-        private string _errorMessage;
-        public string ErrorMessage {
-            get {
-                return _errorMessage;
-            }
-            private set {
-                _errorMessage = value;
-                RaisePropertyChanged(nameof(ErrorMessage));
-            }
-        }
-
         private Status status;
 
         public UserModel User { get; private set; }
@@ -201,7 +191,6 @@ namespace Twichirp.Core.App.Model {
         }
 
         public async void Retweet(Account account) {
-            ErrorMessage = null;
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Statuses.RetweetAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
@@ -209,14 +198,13 @@ namespace Twichirp.Core.App.Model {
                     Application.TwitterEvent.UpdateStatus(account,s);
                 }
             } catch(Exception e) {
-                ErrorMessage = e.Message;
+                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             } finally {
                 slim.Release();
             }
         }
 
         public async void UnRetweet(Account account) {
-            ErrorMessage = null;
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Statuses.UnretweetAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
@@ -229,14 +217,13 @@ namespace Twichirp.Core.App.Model {
                     Application.TwitterEvent.UpdateStatus(account,s);
                 }
             } catch(Exception e) {
-                ErrorMessage = e.Message;
+                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             } finally {
                 slim.Release();
             }
         }
 
         public async void Favorite(Account account) {
-            ErrorMessage = null;
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Favorites.CreateAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
@@ -244,14 +231,13 @@ namespace Twichirp.Core.App.Model {
                     Application.TwitterEvent.UpdateStatus(account,s);
                 }
             } catch(Exception e) {
-                ErrorMessage = e.Message;
+                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             } finally {
                 slim.Release();
             }
         }
 
         public async void UnFavorite(Account account) {
-            ErrorMessage = null;
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Favorites.DestroyAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
@@ -259,7 +245,7 @@ namespace Twichirp.Core.App.Model {
                     Application.TwitterEvent.UpdateStatus(account,s);
                 }
             } catch(Exception e) {
-                ErrorMessage = e.Message;
+                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             } finally {
                 slim.Release();
             }

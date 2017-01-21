@@ -25,6 +25,8 @@ using System.Threading.Tasks;
 namespace Twichirp.Core.App.Model {
     class UserModel : BaseModel {
 
+        public event EventHandler<EventArgs> UserChanged;
+
         private User user;
 
         public long Id { get; private set; }
@@ -134,6 +136,8 @@ namespace Twichirp.Core.App.Model {
 
             IsVerified = user.IsVerified;
             RaisePropertyChanged(nameof(IsVerified));
+
+            UserChanged?.Invoke(this,new EventArgs());
         }
 
         public void ExportJson() => JsonConvert.SerializeObject(user);

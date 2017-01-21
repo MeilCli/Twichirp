@@ -29,7 +29,6 @@ namespace Twichirp.Core.App.ViewModel {
 
         private SplashModel splashModel;
         public ReadOnlyReactiveProperty<bool> IsRunning { get; }
-        public ReadOnlyReactiveProperty<bool> IsApplicationInited { get; }
         public ReadOnlyReactiveProperty<bool> IsAccountExist { get; }
         public ReadOnlyReactiveProperty<string> Message { get; }
         public ReactiveCommand StartLoginPageCommand { get; } = new ReactiveCommand();
@@ -39,18 +38,20 @@ namespace Twichirp.Core.App.ViewModel {
         public SplashViewModel(ITwichirpApplication application) : base(application) {
             this.splashModel = new SplashModel(application);
             IsRunning = splashModel.ObserveProperty(x => x.IsRunning).ToReadOnlyReactiveProperty().AddTo(Disposable);
-            IsApplicationInited = splashModel.ObserveProperty(x => x.IsApplicationInited).ToReadOnlyReactiveProperty().AddTo(Disposable);
             IsAccountExist = splashModel.ObserveProperty(x => x.IsAccountExist).ToReadOnlyReactiveProperty().AddTo(Disposable);
             Message = splashModel.ObserveProperty(x => x.Message).ToReadOnlyReactiveProperty().AddTo(Disposable);
 
-            IsApplicationInited.Where(x => x == true).ObserveOnUIDispatcher().Subscribe(x => startNextPage()).AddTo(Disposable);
+            Observable.FromEventPattern<EventArgs>(x => splashModel.ApplicationInitialized += x,x => splashModel.ApplicationInitialized -= x)
+                .ObserveOnUIDispatcher()
+                .Subscribe(x => startNextPage())
+                .AddTo(Disposable);
             ApplicationInitCommand.Subscribe(x => splashModel.ApplicationInit());
         }
 
         private void startNextPage() {
             if(IsAccountExist.Value) {
                 StartMainPageCommand.Execute();
-            }else {
+            } else {
                 StartLoginPageCommand.Execute();
             }
         }

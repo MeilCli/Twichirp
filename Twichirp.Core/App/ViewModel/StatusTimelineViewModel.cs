@@ -26,6 +26,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.App.Model;
 using Twichirp.Core.Model;
+using Twichirp.Core.App.Event;
 
 namespace Twichirp.Core.App.ViewModel {
     public class StatusTimelineViewModel : BaseViewModel {
@@ -34,7 +35,6 @@ namespace Twichirp.Core.App.ViewModel {
 
         public ReactiveCollection<BaseViewModel> Timeline { get; }
         public ReadOnlyReactiveProperty<bool> IsLoading { get; }
-        public ReadOnlyReactiveProperty<string> ErrorMessage { get; }
         public ReactiveCommand<string> ShowMessageCommand { get; } = new ReactiveCommand<string>();
         public ReactiveCommand LoadCommand { get; } = new ReactiveCommand();
         public ReactiveCommand LoadMoreComannd { get; } = new ReactiveCommand();
@@ -43,10 +43,12 @@ namespace Twichirp.Core.App.ViewModel {
             StatusTimelineModel = new StatusTimelineModel(application,timelineResource,account);
             Timeline = StatusTimelineModel.Timeline;
             IsLoading = StatusTimelineModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);
-            ErrorMessage = StatusTimelineModel.ObserveProperty(x => x.ErrorMessage).ToReadOnlyReactiveProperty().AddTo(Disposable);
 
             Timeline.CollectionChanged += collectionChanged;
-            ErrorMessage.Where(x => x != null).SubscribeOnUIDispatcher().Subscribe(x => ShowMessageCommand.Execute(x)).AddTo(Disposable);
+            Observable.FromEventPattern<EventArgs<string>>(x => StatusTimelineModel.ErrorMessageCreated += x,x => StatusTimelineModel.ErrorMessageCreated -= x)
+                .SubscribeOnUIDispatcher()
+                .Subscribe(x => ShowMessageCommand.Execute(x.EventArgs.EventData))
+                .AddTo(Disposable);
             LoadCommand.Subscribe(x => StatusTimelineModel.Load());
             LoadMoreComannd.Subscribe(x => StatusTimelineModel.LoadMore());
 

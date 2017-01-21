@@ -23,6 +23,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.App.Model;
+using Twichirp.Core.App.Event;
 
 namespace Twichirp.Core.App.ViewModel {
     public class LoginViewModel : BaseViewModel {
@@ -30,10 +31,7 @@ namespace Twichirp.Core.App.ViewModel {
         private LoginModel loginModel;
 
         public ReactiveProperty<string> Pin { get; } = new ReactiveProperty<string>();
-        public ReadOnlyReactiveProperty<string> AuthorizeUri { get; }
         public ReadOnlyReactiveProperty<bool> IsLoading { get; }
-        public ReadOnlyReactiveProperty<bool> IsLoginFinish { get; }
-        public ReadOnlyReactiveProperty<string> ErrorMessage { get; }
         public ReactiveCommand AuthorizeCommand { get; } = new ReactiveCommand();
         public ReactiveCommand LoginCommand { get; } = new ReactiveCommand();
         public ReactiveCommand<string> StartLoginWebPageCommand { get; } = new ReactiveCommand<string>();
@@ -42,14 +40,20 @@ namespace Twichirp.Core.App.ViewModel {
 
         public LoginViewModel(ITwichirpApplication application) : base(application) {
             loginModel = new LoginModel(application);
-            AuthorizeUri = loginModel.ObserveProperty(x => x.AuthorizeUri).ToReadOnlyReactiveProperty().AddTo(Disposable);
             IsLoading = loginModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);
-            IsLoginFinish = loginModel.ObserveProperty(x => x.IsLoginFinish).ToReadOnlyReactiveProperty().AddTo(Disposable);
-            ErrorMessage = loginModel.ObserveProperty(x => x.ErrorMessage).ToReadOnlyReactiveProperty().AddTo(Disposable);
 
-            AuthorizeUri.Where(x => x != null).ObserveOnUIDispatcher().Subscribe(x => StartLoginWebPageCommand.Execute(x)).AddTo(Disposable);
-            IsLoginFinish.Where(x => x == true).ObserveOnUIDispatcher().Subscribe(x => StartNextPageCommand.Execute()).AddTo(Disposable);
-            ErrorMessage.Where(x => x != null).ObserveOnUIDispatcher().Subscribe(x => ShowMessageCommand.Execute(x)).AddTo(Disposable);
+            Observable.FromEventPattern<EventArgs<string>>(x => loginModel.AuthorizeUriCreated += x,x => loginModel.AuthorizeUriCreated -= x)
+                .ObserveOnUIDispatcher()
+                .Subscribe(x => StartLoginWebPageCommand.Execute(x.EventArgs.EventData))
+                .AddTo(Disposable);
+            Observable.FromEventPattern<EventArgs>(x => loginModel.LoginSucceeded += x,x => loginModel.LoginSucceeded -= x)
+                .ObserveOnUIDispatcher()
+                .Subscribe(x => StartNextPageCommand.Execute())
+                .AddTo(Disposable);
+            Observable.FromEventPattern<EventArgs<string>>(x => loginModel.ErrorMessageCreated += x,x => loginModel.ErrorMessageCreated -= x)
+                .ObserveOnUIDispatcher()
+                .Subscribe(x => ShowMessageCommand.Execute(x.EventArgs.EventData))
+                .AddTo(Disposable);
             AuthorizeCommand.Subscribe(x => loginModel.Authorize(Application.ConsumerManager.DefaultConsumer));
             LoginCommand.Subscribe(x => loginModel.Login(Pin.Value));
         }
