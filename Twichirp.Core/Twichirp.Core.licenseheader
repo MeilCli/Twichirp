@@ -1,6 +1,6 @@
 ﻿extensions: designer.cs generated.cs
 extensions: .cs .cpp .h
-// Copyright (c) 2016 meil
+// Copyright (c) 2016-2017 meil
 //
 // This file is part of Twichirp.
 // 
@@ -18,7 +18,7 @@ extensions: .cs .cpp .h
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 extensions:  .xml .axml
 <!--
-Copyright (c) 2016 meil
+Copyright (c) 2016-2017 meil
 
 This file is part of Twichirp.
 

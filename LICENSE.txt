@@ -1,4 +1,4 @@
-Copyright (c) 2016 meil
+Copyright (c) 2016-2017 meil
 
 This file is part of Twichirp.
 
