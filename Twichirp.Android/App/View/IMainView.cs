@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using SToolbar = Android.Support.V7.Widget.Toolbar;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -30,8 +31,10 @@ using Android.Support.Design.Widget;
 using FFImageLoading.Views;
 
 namespace Twichirp.Android.App.View {
-    public interface IMainView :IView,ILifeCycle{
-        
+    public interface IMainView : IView, ILifeCycle {
+
+        SToolbar Toolbar { get; }
+
         DrawerLayout DrawerLayout { get; }
 
         NavigationView Navigation { get; }

@@ -105,7 +105,7 @@ namespace Twichirp.Android.App.ViewModel {
         }
 
         private void setUserValues(UserModel user) {
-            UserIcon.Value = user.ProfileImageUrl;
+            UserIcon.Value = user.ProfileImageUrl.Replace("_normal","_bigger");
             UserBanner.Value = user.ProfileBannerUrl;
             UserLinkColor.Value = user.ProfileLinkColor;
             UserName.Value = user.Name;

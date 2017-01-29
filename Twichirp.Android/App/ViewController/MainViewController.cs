@@ -67,9 +67,7 @@ namespace Twichirp.Android.App.ViewController {
                 setSubIconsVisible(x);
             }).AddTo(Disposable);
 
-            ViewModel.UserIcon.Subscribe(x => {
-                ImageService.Instance.LoadUrl(x).Transform(new CircleTransformation()).Into(View.Icon);
-            }).AddTo(Disposable);
+            ViewModel.UserIcon.Subscribe(x => setIcon(x)).AddTo(Disposable);
             ViewModel.UserBanner.CombineLatest(ViewModel.UserLinkColor,(x,y) => Tuple.Create(x,y)).Subscribe(x => setUserBanner(x.Item1,x.Item2)).AddTo(Disposable);
             View.Name.SetBinding(x => x.Text,ViewModel.UserName).AddTo(Disposable);
             View.ScreenName.SetBinding(x => x.Text,ViewModel.UserScreenName).AddTo(Disposable);
@@ -128,6 +126,13 @@ namespace Twichirp.Android.App.ViewController {
             Drawable d = DrawableCompat.Wrap(View.Drop.Drawable);
             DrawableCompat.SetTint(d,Color.White);
             View.Drop.SetImageDrawable(d);
+        }
+
+        private async void setIcon(string url) {
+            ImageService.Instance.LoadUrl(url).Transform(new CircleTransformation()).Into(View.Icon);
+            var drawable = await ImageService.Instance.LoadUrl(url).DownSampleInDip(24,24).Transform(new CircleTransformation()).AsBitmapDrawableAsync();
+            View.Toolbar.Logo = drawable;
+            View.Toolbar.TitleMarginStart = 100;
         }
 
         private void setSubIcon(FrameLayout container,ImageViewAsync imageview,string url) {

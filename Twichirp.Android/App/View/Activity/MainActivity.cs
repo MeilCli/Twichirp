@@ -37,6 +37,8 @@ namespace Twichirp.Android.App.View.Activity {
 
         private MainViewController mainViewController;
 
+        public SToolbar Toolbar { get; private set; }
+
         public DrawerLayout DrawerLayout { get; private set; }
 
         public NavigationView Navigation { get; private set; }
@@ -69,8 +71,8 @@ namespace Twichirp.Android.App.View.Activity {
 
             mainViewController = new MainViewController(this,new MainViewModel(TwichirpApplication));
             SetContentView(Resource.Layout.MainActivity);
-            SToolbar toolbar = FindViewById<SToolbar>(Resource.Id.Toolbar);
-            SetSupportActionBar(toolbar);
+            Toolbar = FindViewById<SToolbar>(Resource.Id.Toolbar);
+            SetSupportActionBar(Toolbar);
 
             DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.DrawerLayout);
             Navigation = FindViewById<NavigationView>(Resource.Id.Navigation);
