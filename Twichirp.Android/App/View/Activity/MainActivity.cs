@@ -28,11 +28,12 @@ using Twichirp.Android.App.ViewController;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View.Fragment;
 using FFImageLoading.Views;
+using Twichirp.Android.App.ViewModel;
 
-namespace Twichirp.Android.App.View.Activity{
+namespace Twichirp.Android.App.View.Activity {
 
-    [Activity(LaunchMode =global::Android.Content.PM.LaunchMode.SingleTask)]
-    public class MainActivity : BaseActivity,IMainView {
+    [Activity(LaunchMode = global::Android.Content.PM.LaunchMode.SingleTask)]
+    public class MainActivity : BaseActivity, IMainView {
 
         private MainViewController mainViewController;
 
@@ -42,7 +43,17 @@ namespace Twichirp.Android.App.View.Activity{
 
         public CoordinatorLayout Coordinator { get; private set; }
 
+        public FrameLayout IconClickable { get; private set; }
+
         public ImageViewAsync Icon { get; private set; }
+
+        public FrameLayout FirstSubIconClickable { get; private set; }
+
+        public ImageViewAsync FirstSubIcon { get; private set; }
+
+        public FrameLayout SecondSubIconClickable { get; private set; }
+
+        public ImageViewAsync SecondSubIcon { get; private set; }
 
         public RelativeLayout Subtitle { get; private set; }
 
@@ -56,7 +67,7 @@ namespace Twichirp.Android.App.View.Activity{
 
         protected override void OnViewCreate(Bundle savedInstanceState) {
 
-            mainViewController = new MainViewController(this);
+            mainViewController = new MainViewController(this,new MainViewModel(TwichirpApplication));
             SetContentView(Resource.Layout.MainActivity);
             SToolbar toolbar = FindViewById<SToolbar>(Resource.Id.Toolbar);
             SetSupportActionBar(toolbar);
@@ -67,7 +78,12 @@ namespace Twichirp.Android.App.View.Activity{
             // xmlごしだとなぜか見つからないエラー
             Navigation.InflateHeaderView(Resource.Layout.NavigationHeader);
             var headerView = Navigation.GetHeaderView(0);
+            IconClickable = headerView.FindViewById<FrameLayout>(Resource.Id.IconClickable);
             Icon = headerView.FindViewById<ImageViewAsync>(Resource.Id.Icon);
+            FirstSubIconClickable = headerView.FindViewById<FrameLayout>(Resource.Id.FirstSubIconClickable);
+            FirstSubIcon = headerView.FindViewById<ImageViewAsync>(Resource.Id.FirstSubIcon);
+            SecondSubIconClickable = headerView.FindViewById<FrameLayout>(Resource.Id.SecondSubIconClickable);
+            SecondSubIcon = headerView.FindViewById<ImageViewAsync>(Resource.Id.SecondSubIcon);
             Subtitle = headerView.FindViewById<RelativeLayout>(Resource.Id.Subtitle);
             Name = headerView.FindViewById<TextView>(Resource.Id.Name);
             ScreenName = headerView.FindViewById<TextView>(Resource.Id.ScreenName);

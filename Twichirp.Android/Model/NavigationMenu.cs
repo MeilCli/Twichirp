@@ -25,39 +25,29 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Android.Support.V4.Widget;
-using Android.Support.Design.Widget;
-using FFImageLoading.Views;
 
-namespace Twichirp.Android.App.View {
-    public interface IMainView :IView,ILifeCycle{
-        
-        DrawerLayout DrawerLayout { get; }
+namespace Twichirp.Android.Model {
+    public class NavigationMenu {
 
-        NavigationView Navigation { get; }
+        public int GroupId { get; private set; }
+        public int Id { get; private set; }
+        public int Icon { get; private set; }
+        public string Text { get; private set; }
+        public int? TextId { get; private set; }
+        public bool IsChecked { get; set; }
 
-        CoordinatorLayout Coordinator { get; }
+        public NavigationMenu(int groupId,int id,string text,int icon) {
+            GroupId = groupId;
+            Id = id;
+            Icon = icon;
+            Text = text;
+        }
 
-        FrameLayout IconClickable { get; }
-
-        ImageViewAsync Icon { get; }
-
-        FrameLayout FirstSubIconClickable { get; }
-
-        ImageViewAsync FirstSubIcon { get; }
-
-        FrameLayout SecondSubIconClickable { get; }
-
-        ImageViewAsync SecondSubIcon { get; }
-
-        RelativeLayout Subtitle { get; }
-
-        TextView Name { get; }
-
-        TextView ScreenName { get; }
-
-        ImageView Drop { get; }
-
-        ImageViewAsync Background { get; }
+        public NavigationMenu(int groupId,int id,int text,int icon) {
+            GroupId = groupId;
+            Id = id;
+            Icon = icon;
+            TextId = text;
+        }
     }
 }

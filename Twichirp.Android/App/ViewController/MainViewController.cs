@@ -41,203 +41,145 @@ using CoreTweet;
 using Android.Util;
 using FFImageLoading;
 using FFImageLoading.Transformations;
+using Twichirp.Android.App.ViewModel;
+using Reactive.Bindings.Extensions;
+using Twichirp.Android.Model;
+using System.Reactive.Linq;
+using Reactive.Bindings;
+using FFImageLoading.Views;
+using Android.Animation;
 
 namespace Twichirp.Android.App.ViewController {
-    public class MainViewController : BaseViewController<IMainView> {
+    public class MainViewController : BaseViewController<IMainView,MainViewModel> {
 
-        private bool isShowAccounts = false;
-        private string addAccountText;
-        private string settingText;
-        //private BottomBar bottomBar;
-
-        public MainViewController(IMainView view) : base(view) {
+        public MainViewController(IMainView view,MainViewModel viewModel) : base(view,viewModel) {
             view.OnCreateEventHandler += onCreate;
-            view.OnResumeEventHandler += onResume;
-            view.OnSaveInstanceStateEventHandler += onSaveState;
-            addAccountText = view.ApplicationContext.GetString(Resource.String.MainAddAccount);
-            settingText = view.ApplicationContext.GetString(Resource.String.Setting);
         }
 
         private void onCreate(object sender,LifeCycleEventArgs args) {
-            View.Navigation.NavigationItemSelected += selectItem;
-            View.Subtitle.Click += (s,e)=> {
-                isShowAccounts = isShowAccounts == false;
-                resetMenu();
+            View.Navigation.NavigationItemSelected += (s,e) => {
+                ViewModel.NavigationMenuSelectedCommand.Execute(Tuple.Create(e.MenuItem.GroupId,e.MenuItem.ItemId));
             };
-            /*
-            bottomBar = AppCompatBottomBar.Attach(View.Coordinator,args.State);
-            bottomBar.NoTabletGoodness();
-            bottomBar.SetOnTabClickListener(this);
-            bottomBar.SetItems(new BottomBarTab[] {
-                new BottomBarTab(Resource.Drawable.IconHomeGrey24dp,"Home"),
-                new BottomBarTab(Resource.Drawable.IconNotificationsGrey24dp,"Mention"),
-                new BottomBarTab(Resource.Drawable.IconMailGrey24dp,"DM"),
-                new BottomBarTab(Resource.Drawable.IconPersonGrey24dp,"User"),
-                new BottomBarTab(Resource.Drawable.IconCommentGrey24dp,"Tweet")
-            });
-            */
-            
+            View.Subtitle.ClickAsObservable().Subscribe(x => ViewModel.NavigationMenuGroupReverseCommand.Execute()).AddTo(Disposable);
+            ViewModel.NavigationMenus.Subscribe(x => setNavigationMenus(x)).AddTo(Disposable);
+            ViewModel.IsNavigationHidingGroup.Subscribe(x => {
+                setDrop(x);
+                setSubIconsVisible(x);
+            }).AddTo(Disposable);
+
+            ViewModel.UserIcon.Subscribe(x => {
+                ImageService.Instance.LoadUrl(x).Transform(new CircleTransformation()).Into(View.Icon);
+            }).AddTo(Disposable);
+            ViewModel.UserBanner.CombineLatest(ViewModel.UserLinkColor,(x,y) => Tuple.Create(x,y)).Subscribe(x => setUserBanner(x.Item1,x.Item2)).AddTo(Disposable);
+            View.Name.SetBinding(x => x.Text,ViewModel.UserName).AddTo(Disposable);
+            View.ScreenName.SetBinding(x => x.Text,ViewModel.UserScreenName).AddTo(Disposable);
+            ViewModel.FirsrSubUserIcon.Subscribe(x => setSubIcon(View.FirstSubIconClickable,View.FirstSubIcon,x)).AddTo(Disposable);
+            ViewModel.SecondSubUserIcon.Subscribe(x => setSubIcon(View.SecondSubIconClickable,View.SecondSubIcon,x)).AddTo(Disposable);
+            View.FirstSubIconClickable.ClickAsObservable().SetCommand(ViewModel.FirstSubUserIconClickedCommand).AddTo(Disposable);
+            View.SecondSubIconClickable.ClickAsObservable().SetCommand(ViewModel.SecondSubUserIconClickedCommand).AddTo(Disposable);
+
+            ViewModel.StartLoginActivityCommand.Subscribe(x => {
+                View.Activity.StartActivityCompat(typeof(LoginActivity));
+                View.DrawerLayout.CloseDrawers();
+            }).AddTo(Disposable);
+            ViewModel.StartSettingActivityCommand.Subscribe(x => {
+                SettingActivity.StartMain(View.Activity);
+                View.DrawerLayout.CloseDrawers();
+            }).AddTo(Disposable);
         }
 
-        private void onResume(object sender,LifeCycleEventArgs args) {
-            resetMenu();
-        }
-
-        private void onSaveState(object sender,LifeCycleEventArgs args) {
-            //bottomBar?.OnSaveInstanceState(args.State);
-        }
-
-        public void OnTabSelected(int position) {
-        }
-
-        public void OnTabReSelected(int position) {
-        }
-
-        private void resetMenu() {
-            var accountManager = Application.AccountManager;
-            var nowAccount = accountManager[Application.SettingManager.Accounts.DefaultAccountId];
-
-            setDrop();
-            setUser(nowAccount);
-
+        private void setNavigationMenus(List<NavigationMenu> menus) {
             IMenu menu = View.Navigation.Menu;
             menu.Clear();
-            if(isShowAccounts) {
-                foreach(var account in accountManager.Account) {
-                    IMenuItem item = menu.Add(1,account.Id.GetHashCode(),Menu.None,account.ScreenName);
-                    if(account.Id == nowAccount.Id) {
-                        item.SetChecked(true);
-                    }
-                    item.SetIcon(Resource.Drawable.IconPersonGrey48dp);
+            foreach(var m in menus) {
+                IMenuItem item;
+                if(m.TextId != null) {
+                    item = menu.Add(m.GroupId,m.Id,Menu.None,View.ApplicationContext.GetString(m.TextId.Value));
+                } else {
+                    item = menu.Add(m.GroupId,m.Id,Menu.None,m.Text);
                 }
-                {
-                    IMenuItem item = menu.Add(2,addAccountText.GetHashCode(),Menu.None,addAccountText);
-                    item.SetIcon(Resource.Drawable.IconPersonAddGrey48dp);
-                }
-            } else {
-                {
-                    int id =1;
-                    IMenuItem item = menu.Add(1,id,Menu.None,$"@{nowAccount.ScreenName}");
-                    item.SetIcon(Resource.Drawable.IconPersonOutlineGrey48dp);
-                }
-                {
-                    IMenuItem item = menu.Add(2,settingText.GetHashCode(),Menu.None,settingText);
-                    item.SetIcon(Resource.Drawable.IconSettingsApplicationsGrey48dp);
+                item.SetIcon(m.Icon);
+                if(m.IsChecked) {
+                    item.SetChecked(true);
                 }
             }
         }
 
-        private async void setUser(Account account) {
-            View.ScreenName.Text = $"@{account.ScreenName}";
-            if(account.User == null) {
+        private void setUserBanner(string banner,string linkColor) {
+            if(banner != null) {
+                ImageService.Instance.LoadUrl($"{banner}/mobile_retina").IntoAsync(View.Background);
+            } else if(banner != null) {
                 try {
-                    account.User = await account.Token.Users.ShowAsync(account.Id);
-                    await Application.UserContainerManager.AddAsync(account.User);
-                } catch(Exception) {
-                    View.Background.SetImageDrawable(new ColorDrawable(Color.Green));
-                    return;
-                }
-            }
-            ImageService.Instance.LoadUrl(account.User.GetProfileImageUrl("bigger").AbsoluteUri).Transform(new CircleTransformation()).Into(View.Icon);
-            View.Name.Text = account.User.Name;
-            View.ScreenName.Text = $"@{account.User.ScreenName}";
-            if(account.User.ProfileBannerUrl != null) {
-                await ImageService.Instance.LoadUrl($"{account.User.ProfileBannerUrl}/mobile_retina").IntoAsync(View.Background);
-            }else if(account.User.ProfileBackgroundColor != null) {
-                try {
-                    View.Background.SetImageDrawable(new ColorDrawable((Color.ParseColor($"#{account.User.ProfileLinkColor}"))));
+                    View.Background.SetImageDrawable(new ColorDrawable((Color.ParseColor($"#{linkColor}"))));
                 } catch(Exception) {
                     View.Background.SetImageDrawable(new ColorDrawable((Color.Green)));
                 }
-            }else {
+            } else {
                 View.Background.SetImageDrawable(new ColorDrawable((Color.Green)));
             }
-            if(View.Background.Drawable is BitmapDrawable) {
-                Bitmap bm = ((BitmapDrawable)View.Background.Drawable).Bitmap;
-                adaptBackgroundColor(bm);
-            }else {
-                adaptBackgroundColor(Color.Black.ToArgb());
-            }
         }
 
-        private async void adaptBackgroundColor(Bitmap bm) {
-            Palette palette = await Task.Run(() => {
-               try {
-                    return Palette.From(bm).Generate();
-                } catch(Exception) {
-                    return null;
-                }
-            });
-            if(palette == null) {
-                return;
-            }
-            if(palette.MutedSwatch == null) {
-                return;
-            }
-            adaptBackgroundColor(palette.MutedSwatch.BodyTextColor);
-        }
-
-        private void adaptBackgroundColor(int color) {
-            View.Name.SetTextColor(new Color(color));
-            View.ScreenName.SetTextColor(new Color(color));
-            if(View.Drop.Drawable == null) {
-                return;
-            }
-            Drawable d = DrawableCompat.Wrap(View.Drop.Drawable);
-            DrawableCompat.SetTint(d,color);
-            View.Drop.SetImageDrawable(d);
-        }
-
-        private void setDrop() {
-            if(isShowAccounts) {
+        private void setDrop(bool isHiding) {
+            if(isHiding) {
                 View.Drop.SetImageResource(Resource.Drawable.IconArrowDropUpGrey24dp);
             } else {
                 View.Drop.SetImageResource(Resource.Drawable.IconArrowDropDownGrey24dp);
             }
+            Drawable d = DrawableCompat.Wrap(View.Drop.Drawable);
+            DrawableCompat.SetTint(d,Color.White);
+            View.Drop.SetImageDrawable(d);
         }
 
-        private void selectItem(object sender,NavigationItemSelectedEventArgs e) {
-            IMenuItem item = e.MenuItem;
-            if(isShowAccounts) {
-                if(item.GroupId == 1) {
-                    selectAccount1Item(item);
-                }
-                if(item.GroupId == 2) {
-                    selectAccount2Item(item);
-                }
-            }else {
-                if(item.GroupId == 1) {
-                    selectGeneral1Item(item);
-                }
-                if(item.GroupId == 2) {
-                    selectGeneral2Item(item);
-                }
-            }
-            
-        }
-
-        private void selectAccount1Item(IMenuItem item) {
-            if(Application.AccountManager.Account.Any(x => x.Id.GetHashCode() == item.ItemId)) {
-                Application.SettingManager.Accounts.DefaultAccountId = Application.AccountManager.Account.First(x => x.Id.GetHashCode() == item.ItemId).Id;
-                resetMenu();
+        private void setSubIcon(FrameLayout container,ImageViewAsync imageview,string url) {
+            setSubIconVisible(container,url != null);
+            if(url != null) {
+                ImageService.Instance.LoadUrl(url).Transform(new CircleTransformation()).Into(imageview);
             }
         }
 
-        private void selectAccount2Item(IMenuItem item) {
-            if(item.ItemId == addAccountText.GetHashCode()) {
-                View.Activity.StartActivityCompat(typeof(LoginActivity));
-                View.DrawerLayout.CloseDrawers();
+        private void setSubIconVisible(FrameLayout container,bool isVisible) {
+            if(isVisible) {
+                container.Visibility = ViewStates.Visible;
+            } else {
+                container.Visibility = ViewStates.Gone;
             }
         }
 
-        private void selectGeneral1Item(IMenuItem item) {
+        private void setSubIconsVisible(bool isHiding) {
+            Action<FrameLayout> hideAnimation = container => {
+                var animation = ValueAnimator.OfFloat(1f,0f);
+                animation.SetDuration(500);
+                animation.Update += (s,e) => {
+                    container.Alpha = (float)e.Animation.AnimatedValue;
+                };
+                animation.AnimationEnd += (s,e) => {
+                    container.Visibility = ViewStates.Invisible;
+                };
+                animation.Start();
+            };
+            if(isHiding == true && View.FirstSubIconClickable.Visibility == ViewStates.Visible) {
+                hideAnimation(View.FirstSubIconClickable);
+            }
+            if(isHiding == true && View.SecondSubIconClickable.Visibility == ViewStates.Visible) {
+                hideAnimation(View.SecondSubIconClickable);
+            }
 
-        }
-
-        private void selectGeneral2Item(IMenuItem item) {
-            if(item.ItemId == settingText.GetHashCode()) {
-                SettingActivity.StartMain(View.Activity);
-                View.DrawerLayout.CloseDrawers();
+            Action<FrameLayout> showAnimation = container => {
+                var animation = ValueAnimator.OfFloat(0f,1f);
+                animation.SetDuration(500);
+                animation.AnimationStart += (s,e) => {
+                    container.Visibility = ViewStates.Visible;
+                };
+                animation.Update += (s,e) => {
+                    container.Alpha = (float)e.Animation.AnimatedValue;
+                };
+                animation.Start();
+            };
+            if(isHiding == false && View.FirstSubIconClickable.Visibility == ViewStates.Invisible) {
+                showAnimation(View.FirstSubIconClickable);
+            }
+            if(isHiding == false && View.SecondSubIconClickable.Visibility == ViewStates.Invisible) {
+                showAnimation(View.SecondSubIconClickable);
             }
         }
 

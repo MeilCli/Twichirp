@@ -20,47 +20,91 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="180dp">
+  <FFImageLoading.Views.ImageViewAsync
+      android:layout_width="match_parent"
+      android:layout_height="180dp"
+      android:id="@+id/Background"
+      android:scaleType="centerCrop" />
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:background="@drawable/ShadowGradation"/>
+  <FrameLayout
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:id="@+id/IconClickable"
+    android:layout_marginStart="@dimen/LayoutMargin"
+    android:layout_marginTop="32dp"
+    android:layout_marginBottom="@dimen/LayoutMargin"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackgroundBorderless">
     <FFImageLoading.Views.ImageViewAsync
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:id="@+id/Background"
-        android:scaleType="centerCrop" />
-    <FFImageLoading.Views.ImageViewAsync
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:id="@+id/Icon"
-        android:layout_marginStart="@dimen/LayoutMargin"
-        android:layout_marginTop="@dimen/LayoutMargin"
-        android:layout_marginBottom="@dimen/LayoutMargin"
-        android:background="?android:attr/selectableItemBackground" />
-    <RelativeLayout
-        android:layout_width="match_parent"
+      android:layout_width="64dp"
+      android:layout_height="64dp"
+      android:id="@+id/Icon"/>
+  </FrameLayout>
+
+  <LinearLayout
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_marginTop="32dp"
+    android:layout_marginEnd="@dimen/LayoutMargin"
+    android:layout_alignParentEnd="true"
+    android:orientation="horizontal">
+    <FrameLayout
         android:layout_height="wrap_content"
-        android:layout_below="@id/Icon"
-        android:id="@+id/Subtitle"
-        android:background="?android:attr/selectableItemBackground"
-        android:paddingBottom="@dimen/ItemMargin">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/Name"
-            android:layout_marginStart="@dimen/LayoutMargin"
-            android:layout_marginTop="@dimen/ItemMargin"
-            android:textAppearance="@style/AppTheme.Text.Body1" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/Name"
-            android:id="@+id/ScreenName"
-            android:layout_marginStart="@dimen/LayoutMargin"
-            android:layout_marginTop="@dimen/ItemMargin"
-            android:textAppearance="@style/AppTheme.Text.Caption" />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/Drop"
-            android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@id/ScreenName"
-            android:layout_marginEnd="@dimen/LayoutMargin" />
-    </RelativeLayout>
+        android:layout_width="wrap_content"
+        android:id="@+id/FirstSubIconClickable"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless">
+      <FFImageLoading.Views.ImageViewAsync
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:id="@+id/FirstSubIcon"/>
+    </FrameLayout>
+    <FrameLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="@dimen/ItemMargin"
+        android:id="@+id/SecondSubIconClickable"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless">
+      <FFImageLoading.Views.ImageViewAsync
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:id="@+id/SecondSubIcon"/>
+    </FrameLayout>
+  </LinearLayout>
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/IconClickable"
+      android:id="@+id/Subtitle"
+      android:background="?android:attr/selectableItemBackground"
+      android:paddingBottom="@dimen/ItemMargin">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Name"
+        android:layout_marginStart="@dimen/LayoutMargin"
+        android:layout_marginTop="@dimen/ItemMargin"
+        android:textAppearance="@style/AppTheme.Text.Body1"
+        android:textColor="@android:color/white" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Name"
+        android:id="@+id/ScreenName"
+        android:layout_marginStart="@dimen/LayoutMargin"
+        android:layout_marginTop="@dimen/ItemMargin"
+        android:textAppearance="@style/AppTheme.Text.Caption"
+        android:textColor="@android:color/white" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Drop"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@id/ScreenName"
+        android:layout_marginEnd="@dimen/LayoutMargin" />
+  </RelativeLayout>
 </RelativeLayout>

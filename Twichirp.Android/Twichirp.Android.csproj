@@ -220,6 +220,7 @@
     <Compile Include="App\Extensions\ViewExtensions.cs" />
     <Compile Include="App\Manager\DatabaseSystem.cs" />
     <Compile Include="App\Manager\FileSystem.cs" />
+    <Compile Include="App\Model\MainModel.cs" />
     <Compile Include="App\Setting\AccountSettingFragment.cs" />
     <Compile Include="App\Setting\ApplicationSettingFragment.cs" />
     <Compile Include="App\Setting\MainSettingFragment.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="App\ViewController\SplashViewController.cs" />
     <Compile Include="App\ViewController\StatusTimelineViewController.cs" />
     <Compile Include="App\ViewController\StatusViewController.cs" />
+    <Compile Include="App\ViewModel\MainViewModel.cs" />
     <Compile Include="App\View\Activity\LicenseActivity.cs" />
     <Compile Include="App\View\Activity\LoginActivity.cs" />
     <Compile Include="App\View\Activity\OpenSourceActivity.cs" />
@@ -261,6 +263,7 @@
     <Compile Include="App\View\Activity\MainActivity.cs" />
     <Compile Include="App\View\ReactiveCollectionAdapter.cs" />
     <Compile Include="Helpers\Settings.cs" />
+    <Compile Include="Model\NavigationMenu.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -717,9 +720,14 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-xxxhdpi\IconMailGrey24dp.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ShadowGradation.xml" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\xml\MainBottomTab.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Ids.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.24.2.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
