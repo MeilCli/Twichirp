@@ -25,7 +25,7 @@ namespace Twichirp.Core.App.ViewModel {
     public class BaseViewModel :IDisposable{
 
         protected ITwichirpApplication Application{ get; }
-        internal CompositeDisposable Disposable { get; } = new CompositeDisposable();
+        protected internal CompositeDisposable Disposable { get; } = new CompositeDisposable();
 
         public BaseViewModel(ITwichirpApplication application) {
             Application = application;

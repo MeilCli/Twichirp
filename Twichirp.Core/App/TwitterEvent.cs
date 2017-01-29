@@ -45,15 +45,30 @@ namespace Twichirp.Core.App {
         }
     }
 
+    public class UserEventArgs : TwitterEventArgs {
+
+        public User User { get; }
+
+        public UserEventArgs(Account account,User user) : base(account) {
+            User = user;
+        }
+
+    }
+
     public class TwitterEvent {
 
         public event EventHandler<StatusEventArgs> StatusUpdated;
+        public event EventHandler<UserEventArgs> UserUpdated;
 
         public TwitterEvent() {
         }
 
         public void UpdateStatus(Account account,Status status) {
             StatusUpdated?.Invoke(this,new StatusEventArgs(account,status));
+        }
+
+        public void UpdateUser(Account account,User user) {
+            UserUpdated?.Invoke(this,new UserEventArgs(account,user));
         }
 
     }

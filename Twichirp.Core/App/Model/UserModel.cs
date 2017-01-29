@@ -23,7 +23,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Twichirp.Core.App.Model {
-    class UserModel : BaseModel {
+    public class UserModel : BaseModel {
 
         public event EventHandler<EventArgs> UserChanged;
 

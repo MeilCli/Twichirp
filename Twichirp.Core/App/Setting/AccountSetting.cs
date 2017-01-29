@@ -50,7 +50,11 @@ namespace Twichirp.Core.App.Setting {
             }
         }
 
+        [JsonIgnore]
+        public SettingList<long> AccountUsedOrder { get; private set; }
+
         public AccountsSetting(SettingManager settingManager) : base(settingManager,nameof(AccountSetting)) {
+            AccountUsedOrder = new SettingList<long>(settingManager,MakeSettingName(nameof(AccountUsedOrder)));
         }
 
         public override void ImportJson(JObject jObject) {

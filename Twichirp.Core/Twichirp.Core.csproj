@@ -61,6 +61,7 @@
     <Compile Include="App\Setting\AccountSetting.cs" />
     <Compile Include="App\Setting\ApplicationSetting.cs" />
     <Compile Include="App\Setting\BaseSetting.cs" />
+    <Compile Include="App\Setting\SettingList.cs" />
     <Compile Include="App\Setting\TimelineSetting.cs" />
     <Compile Include="App\TwitterEvent.cs" />
     <Compile Include="App\ViewModel\BaseViewModel.cs" />
@@ -96,6 +97,9 @@
     <Reference Include="CoreTweetSupplement, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CoreTweetSupplement.1.6.2\lib\portable45-net45+win8+wpa81\CoreTweetSupplement.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Android">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\MonoAndroid\v7.0\Mono.Android.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
