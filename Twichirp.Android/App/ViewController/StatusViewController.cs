@@ -77,7 +77,7 @@ namespace Twichirp.Android.App.ViewController {
                 .AddTo(Disposable);
 
             ViewModel.SpannableName.Subscribe(x => View.Name.TextFormatted = x.Span()).AddTo(Disposable);
-            View.DateTime.Text = ViewModel.DateTime.Value;
+            View.DateTime.SetBinding(x => x.Text,ViewModel.DateTime);
             ViewModel.IconUrl.Subscribe(x => ImageService.Instance.LoadUrl(x).Transform(new RoundedTransformation(60d)).FadeAnimation(true).Into(View.Icon)).AddTo(Disposable);
 
             ViewModel.IsProtected.Subscribe(x => View.LockIcon.Visibility = x ? ViewStates.Visible : ViewStates.Gone).AddTo(Disposable);
