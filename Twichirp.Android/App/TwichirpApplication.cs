@@ -45,7 +45,7 @@ namespace Twichirp.Android.App {
 
         public ConsumerManager ConsumerManager { get; private set; }
 
-        public IStringResource StringResource { get; private set; }
+        public IResource Resource { get; private set; }
 
         public UserContainerManager UserContainerManager { get; private set; }
 
@@ -63,7 +63,7 @@ namespace Twichirp.Android.App {
             AccountManager = new AccountManager(this);
             ConsumerManager = new ConsumerManager(this,ConsumerConstant.TwichirpForAndroid);
             UserContainerManager = new UserContainerManager(this);
-            StringResource = new StringResource();
+            Resource = new Resource(this.Resources);
             TwitterEvent = new TwitterEvent();
         }
 
@@ -72,6 +72,5 @@ namespace Twichirp.Android.App {
             DatabaseManager.Dispose();
         }
 
-        public string GetLocalizedString(int resource) => GetString(resource);
     }
 }

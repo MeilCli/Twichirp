@@ -43,7 +43,7 @@
     <Compile Include="Aclog\Data\User.cs" />
     <Compile Include="Aclog\TokenExtension.cs" />
     <Compile Include="App\Event\EventArgs.cs" />
-    <Compile Include="App\IStringResource.cs" />
+    <Compile Include="App\IResource.cs" />
     <Compile Include="App\ITwichirpApplication.cs" />
     <Compile Include="App\Manager\AccountManager.cs" />
     <Compile Include="App\Manager\ConsumerManager.cs" />

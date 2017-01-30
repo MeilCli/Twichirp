@@ -45,12 +45,12 @@ namespace Twichirp.Android.App.View.Activity {
         protected override void OnViewCreate(Bundle savedInstanceState) {
             loginViewModel = new LoginViewModel(TwichirpApplication);
             loginViewController = new LoginViewController(this,loginViewModel);
-            SetContentView(Resource.Layout.LoginActivity);
-            var toolbar = FindViewById<SToolbar>(Resource.Id.Toolbar);
+            base.SetContentView(Android.Resource.Layout.LoginActivity);
+            var toolbar = FindViewById<SToolbar>(Android.Resource.Id.Toolbar);
             SetSupportActionBar(toolbar);
-            GoToWeb = FindViewById<Button>(Resource.Id.GoToWeb);
-            Login = FindViewById<Button>(Resource.Id.Login);
-            Pin = FindViewById<EditText>(Resource.Id.Pin);
+            GoToWeb = FindViewById<Button>(Android.Resource.Id.GoToWeb);
+            Login = FindViewById<Button>(Android.Resource.Id.Login);
+            Pin = FindViewById<EditText>(Android.Resource.Id.Pin);
         }
 
         protected override void OnDestroy() {

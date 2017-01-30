@@ -47,7 +47,7 @@ namespace Twichirp.Android.App.Setting {
                 new Intent(activity.ApplicationContext,typeof(SettingActivity))
                 .Apply(x => {
                     x.PutExtra(typeKey,main);
-                    x.PutExtra(titleKey,activity.GetString(Resource.String.Setting));
+                    x.PutExtra(titleKey,activity.GetString(Android.Resource.String.Setting));
                 })
             );
         }
@@ -57,7 +57,7 @@ namespace Twichirp.Android.App.Setting {
                 new Intent(activity.ApplicationContext,typeof(SettingActivity))
                 .Apply(x => {
                     x.PutExtra(typeKey,application);
-                    x.PutExtra(titleKey,activity.GetString(Resource.String.SettingApplication));
+                    x.PutExtra(titleKey,activity.GetString(Android.Resource.String.SettingApplication));
                 })
             );
         }
@@ -67,7 +67,7 @@ namespace Twichirp.Android.App.Setting {
                 new Intent(activity.ApplicationContext,typeof(SettingActivity))
                 .Apply(x => {
                     x.PutExtra(typeKey,accounts);
-                    x.PutExtra(titleKey,activity.GetString(Resource.String.SettingAccount));
+                    x.PutExtra(titleKey,activity.GetString(Android.Resource.String.SettingAccount));
                 })
             );
         }
@@ -77,7 +77,7 @@ namespace Twichirp.Android.App.Setting {
                 new Intent(activity.ApplicationContext,typeof(SettingActivity))
                 .Apply(x => {
                     x.PutExtra(typeKey,timeline);
-                    x.PutExtra(titleKey,activity.GetString(Resource.String.SettingTimeline));
+                    x.PutExtra(titleKey,activity.GetString(Android.Resource.String.SettingTimeline));
                 })
             );
         }
@@ -87,16 +87,16 @@ namespace Twichirp.Android.App.Setting {
                 new Intent(activity.ApplicationContext,typeof(SettingActivity))
                 .Apply(x => {
                     x.PutExtra(typeKey,openSource);
-                    x.PutExtra(titleKey,activity.GetString(Resource.String.OpenSource));
+                    x.PutExtra(titleKey,activity.GetString(Android.Resource.String.OpenSource));
                 })
             );
         }
 
         protected override void OnCreate(Bundle savedInstanceState) {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.SettingActivity);
-            SetSupportActionBar(FindViewById<SToolbar>(Resource.Id.Toolbar));
-            SupportActionBar.Title = Intent.GetStringExtra(titleKey) ?? GetString(Resource.String.Setting);
+            SetContentView(Android.Resource.Layout.SettingActivity);
+            SetSupportActionBar(FindViewById<SToolbar>(Android.Resource.Id.Toolbar));
+            SupportActionBar.Title = Intent.GetStringExtra(titleKey) ?? GetString(Android.Resource.String.Setting);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetDisplayShowHomeEnabled(true);
 
@@ -121,7 +121,7 @@ namespace Twichirp.Android.App.Setting {
             if(fragment == null) {
                 return;
             }
-            SupportFragmentManager.BeginTransaction().Replace(Resource.Id.Content,fragment).Commit();
+            SupportFragmentManager.BeginTransaction().Replace(Android.Resource.Id.Content,fragment).Commit();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item) {

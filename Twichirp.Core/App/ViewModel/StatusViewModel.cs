@@ -124,7 +124,7 @@ namespace Twichirp.Core.App.ViewModel {
         }
 
         private void initStaticValue() {
-            IStringResource stringResource = Application.StringResource;
+            IResource stringResource = Application.Resource;
             var contentStatus = StatusModel.ToContentStatus();
 
             Id = StatusModel.Id;
@@ -140,7 +140,7 @@ namespace Twichirp.Core.App.ViewModel {
             IsRetweeted.Value = contentStatus.IsRetweeted;
             IsFavorited.Value = contentStatus.IsFavorited;
             if(contentStatus.InReplyToScreenName != null) {
-                ReplyToUser.Value = string.Format(Application.GetLocalizedString(stringResource.StatusReplyToUser),$"@{contentStatus.InReplyToScreenName}");
+                ReplyToUser.Value = string.Format(Application.Resource.StatusReplyToUser.Value,$"@{contentStatus.InReplyToScreenName}");
             }
             Media.Value = contentStatus.Media;
 
@@ -150,7 +150,7 @@ namespace Twichirp.Core.App.ViewModel {
             IsVerified.Value = contentStatus.User.IsVerified;
 
             if(StatusModel.RetweetedStatus != null) {
-                RetweetingUser.Value = string.Format(Application.GetLocalizedString(stringResource.StatusRetweetingUser),$"@{StatusModel.User.ScreenName}");
+                RetweetingUser.Value = string.Format(Application.Resource.StatusRetweetingUser.Value,$"@{StatusModel.User.ScreenName}");
             }
 
             if(contentStatus.QuotedStatus != null) {
@@ -164,31 +164,31 @@ namespace Twichirp.Core.App.ViewModel {
         }
 
         private string relativeDateTime(DateTimeOffset dateTimeOffset) {
-            IStringResource stringResource = Application.StringResource;
+            IResource stringResource = Application.Resource;
             TimeSpan span = DateTimeOffset.Now - dateTimeOffset;
             if(span.TotalMinutes < 1) {
                 if(span.Seconds == 1) {
-                    return string.Format(Application.GetLocalizedString(stringResource.TimeSecoundAgo),span.Seconds);
+                    return string.Format(Application.Resource.TimeSecoundAgo.Value,span.Seconds);
                 }
-                return string.Format(Application.GetLocalizedString(stringResource.TimeSecoundsAgo),span.Seconds);
+                return string.Format(Application.Resource.TimeSecoundsAgo.Value,span.Seconds);
             }
             if(span.TotalHours < 1) {
                 if(span.Minutes == 1) {
-                    return string.Format(Application.GetLocalizedString(stringResource.TimeMinuteAgo),span.Minutes);
+                    return string.Format(Application.Resource.TimeMinuteAgo.Value,span.Minutes);
                 }
-                return string.Format(Application.GetLocalizedString(stringResource.TimeMinutesAgo),span.Minutes);
+                return string.Format(Application.Resource.TimeMinutesAgo.Value,span.Minutes);
             }
             if(span.TotalDays < 1) {
                 if(span.Hours == 1) {
-                    return string.Format(Application.GetLocalizedString(stringResource.TimeHourAgo),span.Hours);
+                    return string.Format(Application.Resource.TimeHourAgo.Value,span.Hours);
                 }
-                return string.Format(Application.GetLocalizedString(stringResource.TimeHoursAgo),span.Hours);
+                return string.Format(Application.Resource.TimeHoursAgo.Value,span.Hours);
             }
             if(span.TotalDays < 31) {
                 if(span.Days == 1) {
-                    return string.Format(Application.GetLocalizedString(stringResource.TimeDayAgo),span.Days);
+                    return string.Format(Application.Resource.TimeDayAgo.Value,span.Days);
                 }
-                return string.Format(Application.GetLocalizedString(stringResource.TimeDaysAgo),span.Days);
+                return string.Format(Application.Resource.TimeDaysAgo.Value,span.Days);
             }
             return dateTimeOffset.ToLocalTime().ToString("G");
         }

@@ -38,8 +38,8 @@ namespace Twichirp.Android.App.Setting {
             var settingManager = application.SettingManager;
             new ListPreference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Resource.String.SettingTimelineDownloadCount);
-                x.SetDialogTitle(Resource.String.SettingTimelineDownloadCount);
+                x.SetTitle(Android.Resource.String.SettingTimelineDownloadCount);
+                x.SetDialogTitle(Android.Resource.String.SettingTimelineDownloadCount);
                 x.Key = x.Title;
                 string[] values = new string[] { "20","30","50","100","150","200",settingManager.Timeline.Count.ToString() }.Distinct().ToArray();
                 x.SetEntries(values);

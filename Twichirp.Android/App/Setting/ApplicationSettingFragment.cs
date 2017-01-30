@@ -40,8 +40,8 @@ namespace Twichirp.Android.App.Setting {
                 screen.AddPreference(x);
                 x.Checked = settingManager.Applications.IsCleanLaunch;
                 x.PreferenceChange += (s,e) => settingManager.Applications.IsCleanLaunch = (bool)e.NewValue;
-                x.SetTitle(Resource.String.SettingCleanUp);
-                x.SetSummary(Resource.String.SettingCleanUpSummary);
+                x.SetTitle(Android.Resource.String.SettingCleanUp);
+                x.SetSummary(Android.Resource.String.SettingCleanUpSummary);
             });
             PreferenceScreen = screen;
         }

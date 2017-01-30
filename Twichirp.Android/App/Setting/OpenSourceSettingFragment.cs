@@ -39,22 +39,22 @@ namespace Twichirp.Android.App.Setting {
             var settingManager = application.SettingManager;
             new Preference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Resource.String.OpenSourceCode);
+                x.SetTitle(Android.Resource.String.OpenSourceCode);
                 x.PreferenceClick += (s,e) => Activity.StartActivity(new Intent(Intent.ActionView,global::Android.Net.Uri.Parse("https://github.com/MeilCli/Twichirp")));
             });
             new Preference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Resource.String.OpenSourceLicense);
+                x.SetTitle(Android.Resource.String.OpenSourceLicense);
                 x.PreferenceClick += (s,e) => Activity.StartActivityCompat(typeof(OpenSourceLicenseActivity));
             });
             new Preference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Resource.String.OpenSourceCopyingLesser);
+                x.SetTitle(Android.Resource.String.OpenSourceCopyingLesser);
                 x.PreferenceClick += (s,e) => Activity.StartActivityCompat(typeof(OpenSourceCopyingLesserActivity));
             });
             new Preference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Resource.String.OpenSourceCopying);
+                x.SetTitle(Android.Resource.String.OpenSourceCopying);
                 x.PreferenceClick += (s,e) => Activity.StartActivityCompat(typeof(OpenSourceCopyingActivity));
             });
 

@@ -38,8 +38,8 @@ namespace Twichirp.Android.App.Setting {
             var settingManager = application.SettingManager;
             new ListPreference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Resource.String.SettingUseAccount);
-                x.SetDialogTitle(Resource.String.SettingUseAccount);
+                x.SetTitle(Android.Resource.String.SettingUseAccount);
+                x.SetDialogTitle(Android.Resource.String.SettingUseAccount);
                 x.Key = x.Title;
                 x.SetEntries(application.AccountManager.Account.Select(y => y.ScreenName).ToArray());
                 x.SetEntryValues(application.AccountManager.Account.Select(y => y.ScreenName).ToArray());
@@ -50,7 +50,7 @@ namespace Twichirp.Android.App.Setting {
                 new Preference(screen.Context).Apply(x => {
                     screen.AddPreference(x);
                     x.Title = account.ScreenName;
-                    x.SetIcon(Resource.Drawable.IconPersonGrey36dp);
+                    x.SetIcon(Android.Resource.Drawable.IconPersonGrey36dp);
                     if(account.User != null) {
                         x.Summary = account.User.Name;
                     }

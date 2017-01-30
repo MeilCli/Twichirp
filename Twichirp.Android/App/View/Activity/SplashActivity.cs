@@ -42,10 +42,10 @@ namespace Twichirp.Android.App.View.Activity {
         protected override void OnViewCreate(Bundle savedInstanceState) {
             splashViewModel = new SplashViewModel(TwichirpApplication);
             splashViewController = new SplashViewController(this,splashViewModel);
-            SetContentView(Resource.Layout.SplashActivity);
-            var toolbar = FindViewById<SToolbar>(Resource.Id.Toolbar);
+            base.SetContentView(Android.Resource.Layout.SplashActivity);
+            var toolbar = FindViewById<SToolbar>(Android.Resource.Id.Toolbar);
             SetSupportActionBar(toolbar);
-            Message = FindViewById<TextView>(Resource.Id.Message);
+            Message = FindViewById<TextView>(Android.Resource.Id.Message);
         }
 
         protected override void OnDestroy() {

@@ -61,11 +61,11 @@ namespace Twichirp.Core.App.Model {
 
         public async void ApplicationInit() {
             IsRunning = true;
-            Message = Application.GetLocalizedString(Application.StringResource.SplashAccountLoading);
+            Message = Application.Resource.SplashAccountLoading.Value;
             await Application.AccountManager.InitAsync();
-            Message = Application.GetLocalizedString(Application.StringResource.SplashConsumerLoading);
+            Message = Application.Resource.SplashConsumerLoading.Value;
             await Application.ConsumerManager.InitAsync();
-            Message = Application.GetLocalizedString(Application.StringResource.SplashAccountDownLoading);
+            Message = Application.Resource.SplashAccountDownLoading.Value;
             try {
                 await accountInitAsync();
             } catch(Exception) { }

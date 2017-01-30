@@ -37,9 +37,7 @@ namespace Twichirp.Core.App {
 
         UserContainerManager UserContainerManager { get; }
 
-        IStringResource StringResource { get; }
-
-        string GetLocalizedString(int resource);
+        IResource Resource { get; }
 
         TwitterEvent TwitterEvent { get; }
 

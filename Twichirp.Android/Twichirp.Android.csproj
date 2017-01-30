@@ -227,7 +227,7 @@
     <Compile Include="App\Setting\OpenSourceSettingFragment.cs" />
     <Compile Include="App\Setting\SettingActivity.cs" />
     <Compile Include="App\Setting\TimelineSettingFragment.cs" />
-    <Compile Include="App\StringResource.cs" />
+    <Compile Include="App\Resource.cs" />
     <Compile Include="App\ViewController\BaseViewController.cs" />
     <Compile Include="App\ViewController\LoadingViewController.cs" />
     <Compile Include="App\ViewController\LoginViewController.cs" />

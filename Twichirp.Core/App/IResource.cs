@@ -21,21 +21,28 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Twichirp.Core.App {
-    public interface IStringResource {
-        int SplashAccountLoading { get; }
-        int SplashConsumerLoading { get; }
-        int SplashAccountDownLoading { get; }
 
-        int StatusRetweetingUser { get; }
-        int StatusReplyToUser { get; }
+    public interface IValue<T> {
+        T Value { get; }
+    }
 
-        int TimeSecoundAgo { get; }
-        int TimeSecoundsAgo { get; }
-        int TimeMinuteAgo { get; }
-        int TimeMinutesAgo { get; }
-        int TimeHourAgo { get; }
-        int TimeHoursAgo { get; }
-        int TimeDayAgo { get; }
-        int TimeDaysAgo { get; }
+    public interface IResource {
+
+        IValue<string> SplashAccountLoading { get; }
+        IValue<string> SplashConsumerLoading { get; }
+        IValue<string> SplashAccountDownLoading { get; }
+
+        IValue<string> StatusRetweetingUser { get; }
+        IValue<string> StatusReplyToUser { get; }
+
+        IValue<string> TimeSecoundAgo { get; }
+        IValue<string> TimeSecoundsAgo { get; }
+        IValue<string> TimeMinuteAgo { get; }
+        IValue<string> TimeMinutesAgo { get; }
+        IValue<string> TimeHourAgo { get; }
+        IValue<string> TimeHoursAgo { get; }
+        IValue<string> TimeDayAgo { get; }
+        IValue<string> TimeDaysAgo { get; }
+
     }
 }

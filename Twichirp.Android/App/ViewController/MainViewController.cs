@@ -119,9 +119,9 @@ namespace Twichirp.Android.App.ViewController {
 
         private void setDrop(bool isHiding) {
             if(isHiding) {
-                View.Drop.SetImageResource(Resource.Drawable.IconArrowDropUpGrey24dp);
+                View.Drop.SetImageResource(Android.Resource.Drawable.IconArrowDropUpGrey24dp);
             } else {
-                View.Drop.SetImageResource(Resource.Drawable.IconArrowDropDownGrey24dp);
+                View.Drop.SetImageResource(Android.Resource.Drawable.IconArrowDropDownGrey24dp);
             }
             Drawable d = DrawableCompat.Wrap(View.Drop.Drawable);
             DrawableCompat.SetTint(d,Color.White);

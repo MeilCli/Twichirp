@@ -41,7 +41,7 @@ namespace Twichirp.Android.App.View {
         }
 
         protected override Bitmap Transform(Bitmap source) {
-            var playCircle = BitmapFactory.DecodeResource(context.Resources,Resource.Drawable.IconPlayCircleOutlineGrey36dp);
+            var playCircle = BitmapFactory.DecodeResource(context.Resources,Android.Resource.Drawable.IconPlayCircleOutlineGrey36dp);
 
             var config = source.GetConfig() ?? Bitmap.Config.Argb8888;
             int width = source.Width;

@@ -40,37 +40,37 @@ namespace Twichirp.Android.App.Setting {
             var settingManager = application.SettingManager;
             new PreferenceCategory(screen.Context).Apply(category => {
                 screen.AddPreference(category);
-                category.Title = Context.GetString(Resource.String.SettingGeneral);
+                category.Title = base.Context.GetString(Android.Resource.String.SettingGeneral);
                 new Preference(screen.Context).Apply(x => {
                     category.AddPreference(x);
-                    x.SetTitle(Resource.String.SettingAccount);
+                    x.SetTitle(Android.Resource.String.SettingAccount);
                     x.PreferenceClick += (s,e) => SettingActivity.StartAccounts(Activity);
-                    x.SetIcon(Resource.Drawable.IconPeopleGrey36dp);
+                    x.SetIcon(Android.Resource.Drawable.IconPeopleGrey36dp);
                 });
                 new Preference(screen.Context).Apply(x => {
                     category.AddPreference(x);
-                    x.SetTitle(Resource.String.SettingTimeline);
+                    x.SetTitle(Android.Resource.String.SettingTimeline);
                     x.PreferenceClick += (s,e) => SettingActivity.StartTimeline(Activity);
-                    x.SetIcon(Resource.Drawable.IconDashboardGrey36dp);
+                    x.SetIcon(Android.Resource.Drawable.IconDashboardGrey36dp);
                 });
                 new Preference(screen.Context).Apply(x => {
                     category.AddPreference(x);
-                    x.SetTitle(Resource.String.SettingApplication);
+                    x.SetTitle(Android.Resource.String.SettingApplication);
                     x.PreferenceClick += (s,e) => SettingActivity.StartApplication(Activity);
-                    x.SetIcon(Resource.Drawable.IconAndroidGrey36dp);
+                    x.SetIcon(Android.Resource.Drawable.IconAndroidGrey36dp);
                 });
             });
             new PreferenceCategory(screen.Context).Apply(category => {
                 screen.AddPreference(category);
-                category.Title = Context.GetString(Resource.String.SettingOther);
+                category.Title = base.Context.GetString(Android.Resource.String.SettingOther);
                 new Preference(screen.Context).Apply(x => {
                     category.AddPreference(x);
-                    x.SetTitle(Resource.String.License);
+                    x.SetTitle(Android.Resource.String.License);
                     x.PreferenceClick += (s,e) => Activity.StartActivityCompat(typeof(LicenseActivity));
                 });
                 new Preference(screen.Context).Apply(x => {
                     category.AddPreference(x);
-                    x.SetTitle(Resource.String.OpenSource);
+                    x.SetTitle(Android.Resource.String.OpenSource);
                     x.PreferenceClick += (s,e) => SettingActivity.StartOpenSource(Activity);
                 });
             });

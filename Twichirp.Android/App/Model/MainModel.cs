@@ -39,8 +39,8 @@ namespace Twichirp.Android.App.Model {
         public const int NavigationMenuHidingFirstGroup = 3;
         public const int NavigationMenuHidingSecondGroup = 4;
 
-        public const int NavigationMenuAddAccount = Resource.Id.NavigationMenuAddAccount;
-        public const int NavigationMenuSetting = Resource.Id.NavigationMenuSetting;
+        public const int NavigationMenuAddAccount = Android.Resource.Id.NavigationMenuAddAccount;
+        public const int NavigationMenuSetting = Android.Resource.Id.NavigationMenuSetting;
 
         private List<NavigationMenu> _navigationMenus;
         public List<NavigationMenu> NavigationMenus {
@@ -172,22 +172,22 @@ namespace Twichirp.Android.App.Model {
             if(IsHiding) {
                 foreach(var account in getOrderdAccount()) {
                     string title = account.ScreenName;
-                    var menu = new NavigationMenu(NavigationMenuHidingFirstGroup,title.GetHashCode(),title,Resource.Drawable.IconPersonGrey48dp);
+                    var menu = new NavigationMenu(NavigationMenuHidingFirstGroup,title.GetHashCode(),title,Android.Resource.Drawable.IconPersonGrey48dp);
                     if(account.Id == nowAccount.Id) {
                         menu.IsChecked = true;
                     }
                     list.Add(menu);
                 }
                 {
-                    list.Add(new NavigationMenu(NavigationMenuHidingSecondGroup,NavigationMenuAddAccount,Resource.String.MainAddAccount,Resource.Drawable.IconPersonAddGrey48dp));
+                    list.Add(new NavigationMenu(NavigationMenuHidingSecondGroup,NavigationMenuAddAccount,Android.Resource.String.MainAddAccount,Android.Resource.Drawable.IconPersonAddGrey48dp));
                 }
             } else {
                 {
                     int id = 0;
-                    list.Add(new NavigationMenu(NavigationMenuStandardFirstGroup,id++,$"@{nowAccount.ScreenName}",Resource.Drawable.IconPersonOutlineGrey48dp));
+                    list.Add(new NavigationMenu(NavigationMenuStandardFirstGroup,id++,$"@{nowAccount.ScreenName}",Android.Resource.Drawable.IconPersonOutlineGrey48dp));
                 }
                 {
-                    list.Add(new NavigationMenu(NavigationMenuStandardSecondGroup,NavigationMenuSetting,Resource.String.Setting,Resource.Drawable.IconSettingsApplicationsGrey48dp));
+                    list.Add(new NavigationMenu(NavigationMenuStandardSecondGroup,NavigationMenuSetting,Android.Resource.String.Setting,Android.Resource.Drawable.IconSettingsApplicationsGrey48dp));
                 }
             }
             NavigationMenus = list;

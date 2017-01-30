@@ -70,29 +70,29 @@ namespace Twichirp.Android.App.View.Activity {
         protected override void OnViewCreate(Bundle savedInstanceState) {
 
             mainViewController = new MainViewController(this,new MainViewModel(TwichirpApplication));
-            SetContentView(Resource.Layout.MainActivity);
-            Toolbar = FindViewById<SToolbar>(Resource.Id.Toolbar);
+            base.SetContentView(Android.Resource.Layout.MainActivity);
+            Toolbar = FindViewById<SToolbar>(Android.Resource.Id.Toolbar);
             SetSupportActionBar(Toolbar);
 
-            DrawerLayout = FindViewById<DrawerLayout>(Resource.Id.DrawerLayout);
-            Navigation = FindViewById<NavigationView>(Resource.Id.Navigation);
-            Coordinator = FindViewById<CoordinatorLayout>(Resource.Id.Coordinator);
+            DrawerLayout = FindViewById<DrawerLayout>(Android.Resource.Id.DrawerLayout);
+            Navigation = FindViewById<NavigationView>(Android.Resource.Id.Navigation);
+            Coordinator = FindViewById<CoordinatorLayout>(Android.Resource.Id.Coordinator);
             // xmlごしだとなぜか見つからないエラー
-            Navigation.InflateHeaderView(Resource.Layout.NavigationHeader);
+            Navigation.InflateHeaderView(Android.Resource.Layout.NavigationHeader);
             var headerView = Navigation.GetHeaderView(0);
-            IconClickable = headerView.FindViewById<FrameLayout>(Resource.Id.IconClickable);
-            Icon = headerView.FindViewById<ImageViewAsync>(Resource.Id.Icon);
-            FirstSubIconClickable = headerView.FindViewById<FrameLayout>(Resource.Id.FirstSubIconClickable);
-            FirstSubIcon = headerView.FindViewById<ImageViewAsync>(Resource.Id.FirstSubIcon);
-            SecondSubIconClickable = headerView.FindViewById<FrameLayout>(Resource.Id.SecondSubIconClickable);
-            SecondSubIcon = headerView.FindViewById<ImageViewAsync>(Resource.Id.SecondSubIcon);
-            Subtitle = headerView.FindViewById<RelativeLayout>(Resource.Id.Subtitle);
-            Name = headerView.FindViewById<TextView>(Resource.Id.Name);
-            ScreenName = headerView.FindViewById<TextView>(Resource.Id.ScreenName);
-            Drop = headerView.FindViewById<ImageView>(Resource.Id.Drop);
-            Background = headerView.FindViewById<ImageViewAsync>(Resource.Id.Background);
+            IconClickable = headerView.FindViewById<FrameLayout>(Android.Resource.Id.IconClickable);
+            Icon = headerView.FindViewById<ImageViewAsync>(Android.Resource.Id.Icon);
+            FirstSubIconClickable = headerView.FindViewById<FrameLayout>(Android.Resource.Id.FirstSubIconClickable);
+            FirstSubIcon = headerView.FindViewById<ImageViewAsync>(Android.Resource.Id.FirstSubIcon);
+            SecondSubIconClickable = headerView.FindViewById<FrameLayout>(Android.Resource.Id.SecondSubIconClickable);
+            SecondSubIcon = headerView.FindViewById<ImageViewAsync>(Android.Resource.Id.SecondSubIcon);
+            Subtitle = headerView.FindViewById<RelativeLayout>(Android.Resource.Id.Subtitle);
+            Name = headerView.FindViewById<TextView>(Android.Resource.Id.Name);
+            ScreenName = headerView.FindViewById<TextView>(Android.Resource.Id.ScreenName);
+            Drop = headerView.FindViewById<ImageView>(Android.Resource.Id.Drop);
+            Background = headerView.FindViewById<ImageViewAsync>(Android.Resource.Id.Background);
 
-            SupportFragmentManager.BeginTransaction().Replace(Resource.Id.Content,new StatusTimelineFragment()).Commit();
+            base.SupportFragmentManager.BeginTransaction().Replace(Android.Resource.Id.Content,new StatusTimelineFragment()).Commit();
         }
     }
 }

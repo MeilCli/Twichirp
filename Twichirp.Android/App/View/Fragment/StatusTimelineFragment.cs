@@ -44,9 +44,9 @@ namespace Twichirp.Android.App.View.Fragment {
         public SwipeRefreshLayout SwipeRefrech { get; private set; }
 
         public override AView OnCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-            AView view =  inflater.Inflate(Resource.Layout.StatusTimelineFragment, container, false);
-            RecyclerView = view.FindViewById<RecyclerView>(Resource.Id.RecyclerView);
-            SwipeRefrech = view.FindViewById<SwipeRefreshLayout>(Resource.Id.SwipeRefresh);
+            AView view =  inflater.Inflate(Android.Resource.Layout.StatusTimelineFragment, container, false);
+            RecyclerView = view.FindViewById<RecyclerView>(Android.Resource.Id.RecyclerView);
+            SwipeRefrech = view.FindViewById<SwipeRefreshLayout>(Android.Resource.Id.SwipeRefresh);
             var account = TwichirpApplication.AccountManager[TwichirpApplication.SettingManager.Accounts.DefaultAccountId];
             var timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.HomeTimeline();
             statusTimelineViewModel = new StatusTimelineViewModel(TwichirpApplication,timelineResource,account);

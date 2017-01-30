@@ -41,7 +41,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         public AView ClickableView { get; private set; }
 
-        public LoadingHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup) : base(view,lifeCycle,viewGroup,Resource.Layout.LoadingHolder) {
+        public LoadingHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup) : base(view,lifeCycle,viewGroup,Android.Resource.Layout.LoadingHolder) {
         }
 
         ~LoadingHolder() {
@@ -51,8 +51,8 @@ namespace Twichirp.Android.App.View.Holder {
         }
 
         public override void OnCreatedView() {
-            LoadingText = ItemView.FindViewById<TextView>(Resource.Id.LoadingText);
-            ProgressBar = ItemView.FindViewById<ProgressBar>(Resource.Id.ProgressBar);
+            LoadingText = ItemView.FindViewById<TextView>(Android.Resource.Id.LoadingText);
+            ProgressBar = ItemView.FindViewById<ProgressBar>(Android.Resource.Id.ProgressBar);
             ClickableView = ItemView;
         }
 
