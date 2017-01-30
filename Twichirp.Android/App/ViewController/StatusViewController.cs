@@ -35,6 +35,7 @@ using Android.Views;
 using Android.Widget;
 using CoreTweet;
 using FFImageLoading;
+using FFImageLoading.Transformations;
 using Plugin.CrossFormattedText;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
@@ -77,7 +78,7 @@ namespace Twichirp.Android.App.ViewController {
 
             ViewModel.SpannableName.Subscribe(x => View.Name.TextFormatted = x.Span()).AddTo(Disposable);
             View.DateTime.Text = ViewModel.DateTime.Value;
-            ViewModel.IconUrl.Subscribe(x => ImageService.Instance.LoadUrl(x).FadeAnimation(true).Into(View.Icon)).AddTo(Disposable);
+            ViewModel.IconUrl.Subscribe(x => ImageService.Instance.LoadUrl(x).Transform(new RoundedTransformation(60d)).FadeAnimation(true).Into(View.Icon)).AddTo(Disposable);
 
             ViewModel.IsProtected.Subscribe(x => View.LockIcon.Visibility = x ? ViewStates.Visible : ViewStates.Gone).AddTo(Disposable);
             ViewModel.IsVerified.Subscribe(x => View.VerifyIcon.Visibility = x ? ViewStates.Visible : ViewStates.Gone).AddTo(Disposable);
