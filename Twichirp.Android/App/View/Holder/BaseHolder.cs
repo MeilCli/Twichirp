@@ -35,7 +35,7 @@ namespace Twichirp.Android.App.View.Holder {
     public abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView, ILifeCycle, IBindable<T>, IRecyclable {
 
         public event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnDestoryEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnDestroyEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnResumeEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnPauseEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnSaveInstanceStateEventHandler;
@@ -69,7 +69,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         private void onDetatchViewFromWindow(object sender,EventArgs e) {
             ItemView.ViewDetachedFromWindow -= onDetatchViewFromWindow;
-            OnDestoryEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
+            OnDestroyEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
             OnDestroyView();
         }
 

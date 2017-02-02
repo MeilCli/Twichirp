@@ -35,7 +35,7 @@ namespace Twichirp.Android.App.View.Activity {
     public abstract class BaseActivity : AppCompatActivity ,ILifeCycle,IView{ 
 
         public event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnDestoryEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnDestroyEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnPauseEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnRestoreInstanceStateEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnResumeEventHandler;
@@ -59,7 +59,7 @@ namespace Twichirp.Android.App.View.Activity {
 
         protected override void OnDestroy() {
             base.OnDestroy();
-            OnDestoryEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnDestroy)));
+            OnDestroyEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnDestroy)));
         }
 
         protected override void OnResume() {

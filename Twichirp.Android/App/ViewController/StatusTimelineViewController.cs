@@ -46,7 +46,7 @@ namespace Twichirp.Android.App.ViewController {
 
         public StatusTimelineViewController(IStatusTimelineView view,StatusTimelineViewModel viewModel) : base(view,viewModel) {
             view.OnCreateEventHandler += onCreate;
-            view.OnDestoryEventHandler += onDestroy;
+            view.OnDestroyEventHandler += onDestroy;
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {

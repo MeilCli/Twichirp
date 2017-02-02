@@ -49,7 +49,7 @@ namespace Twichirp.Android.App.ViewController {
         public StatusViewController(IStatusView view,StatusViewModel viewModel) : base(view,viewModel) {
             AutoDisposeViewModel = false;
             view.OnCreateEventHandler += onCreate;
-            view.OnDestoryEventHandler += onDestory;
+            view.OnDestroyEventHandler += onDestory;
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
