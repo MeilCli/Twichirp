@@ -77,7 +77,7 @@ namespace Twichirp.Android.App.ViewController {
                 .AddTo(Disposable);
 
             ViewModel.SpannableName.Subscribe(x => View.Name.TextFormatted = x.Span()).AddTo(Disposable);
-            View.DateTime.SetBinding(x => x.Text,ViewModel.DateTime);
+            View.DateTime.SetBinding(x => x.Text,ViewModel.DateTime).AddTo(Disposable);
             ViewModel.IconUrl.Subscribe(x => ImageService.Instance.LoadUrl(x).Transform(new RoundedTransformation(60d)).FadeAnimation(true).Into(View.Icon)).AddTo(Disposable);
 
             ViewModel.IsProtected.Subscribe(x => View.LockIcon.Visibility = x ? ViewStates.Visible : ViewStates.Gone).AddTo(Disposable);
@@ -113,7 +113,7 @@ namespace Twichirp.Android.App.ViewController {
                 })
                 .AddTo(Disposable);
             ViewModel.IsProtected.Subscribe(x => View.RetweetIconClickable.Enabled = x == false).AddTo(Disposable);
-            View.RetweetIconClickable.ClickAsObservable().SetCommand(ViewModel.RetweetCommand);
+            View.RetweetIconClickable.ClickAsObservable().SetCommand(ViewModel.RetweetCommand).AddTo(Disposable);
 
             ViewModel.IsFavorited.Subscribe(x => setFavoriteIcon(x)).AddTo(Disposable);
             ViewModel.FavoriteCount
@@ -122,7 +122,7 @@ namespace Twichirp.Android.App.ViewController {
                     View.FavoriteCount.Text = x.ToString();
                 })
                 .AddTo(Disposable);
-            View.FavoriteIconClickable.ClickAsObservable().SetCommand(ViewModel.FavoriteCommand);
+            View.FavoriteIconClickable.ClickAsObservable().SetCommand(ViewModel.FavoriteCommand).AddTo(Disposable);
         }
 
         private void setRetweetIcon(bool isRetweeted) {

@@ -32,7 +32,7 @@ using Android.Util;
 using Android.Support.V4.View;
 
 namespace Twichirp.Android.App.View.Holder {
-    public abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView,ILifeCycle,IBindable<T>,IRecyclable {
+    public abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView, ILifeCycle, IBindable<T>, IRecyclable {
 
         public event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnDestoryEventHandler;
@@ -50,7 +50,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         public ITwichirpApplication TwichirpApplication => view.TwichirpApplication;
 
-        public BaseHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup,int layoutResource) 
+        public BaseHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup,int layoutResource)
             : base(LayoutInflater.From(view.Activity).Inflate(layoutResource,null)) {
             this.IsRecyclable = false;
             this.view = view;
@@ -67,12 +67,15 @@ namespace Twichirp.Android.App.View.Holder {
 
         public abstract void OnPreBind(T item,int position);
 
-        public void OnRecycled() {
-            //OnDestoryEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnRecycled)));
+        private void onDetatchViewFromWindow(object sender,EventArgs e) {
+            ItemView.ViewDetachedFromWindow -= onDetatchViewFromWindow;
+            OnDestoryEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
+            OnDestroyView();
         }
 
-        private void onDetatchViewFromWindow(object sender,EventArgs e) {
-            OnDestoryEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
+        protected abstract void OnDestroyView();
+
+        public void OnRecycled() {
         }
     }
 }

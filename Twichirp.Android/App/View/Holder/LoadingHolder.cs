@@ -31,7 +31,7 @@ using Twichirp.Core.App.ViewModel;
 using AView = Android.Views.View;
 
 namespace Twichirp.Android.App.View.Holder {
-    public class LoadingHolder : BaseHolder<BaseViewModel> ,ILoadingView{
+    public class LoadingHolder : BaseHolder<BaseViewModel>, ILoadingView {
 
         private LoadingViewController loadingViewController;
 
@@ -44,7 +44,7 @@ namespace Twichirp.Android.App.View.Holder {
         public LoadingHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup) : base(view,lifeCycle,viewGroup,Android.Resource.Layout.LoadingHolder) {
         }
 
-        ~LoadingHolder() {
+        protected override void OnDestroyView() {
             LoadingText?.Dispose();
             ProgressBar?.Dispose();
             ClickableView?.Dispose();

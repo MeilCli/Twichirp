@@ -110,7 +110,7 @@ namespace Twichirp.Android.App.View.Holder {
             StatusType = statusType;
         }
 
-        ~StatusHolder() {
+        protected override void OnDestroyView() {
             ClickableView?.Dispose();
             Text?.Dispose();
             RetweetingUser?.Dispose();
