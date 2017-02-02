@@ -24,6 +24,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Twichirp.Android.App.View;
@@ -44,7 +45,7 @@ namespace Twichirp.Android.App.ViewController {
             if(viewModel is IDisposable) {
                 view.OnDestoryEventHandler += (x,y) => { if(AutoDisposeViewModel) (viewModel as IDisposable).Dispose(); };
             }
-            view.OnDestoryEventHandler += (x,y) => { if(Disposable.IsDisposed != false) Disposable.Dispose(); };
+            view.OnDestoryEventHandler += (x,y) => { if(Disposable.IsDisposed == false) Disposable.Dispose(); };
         }
 
         public void Dispose() {
@@ -60,7 +61,7 @@ namespace Twichirp.Android.App.ViewController {
 
         public BaseViewController(TView view) {
             View = view;
-            view.OnDestoryEventHandler += (x,y) => { if(Disposable.IsDisposed != false) Disposable.Dispose(); };
+            view.OnDestoryEventHandler += (x,y) => { if(Disposable.IsDisposed == false) Disposable.Dispose(); };
         }
 
         public void Dispose() {
