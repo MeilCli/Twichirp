@@ -25,7 +25,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
         android:id="@+id/MediaGrid">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="160dp"
             android:orientation="horizontal"
             android:layout_marginStart="@dimen/StartMargin"
             android:layout_marginEnd="@dimen/LayoutMargin">
