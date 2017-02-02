@@ -72,7 +72,7 @@ namespace Twichirp.Android.App.View.Holder {
         }
 
         private void onDetatchViewFromWindow(object sender,EventArgs e) {
-            OnDestoryEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnRecycled)));
+            OnDestoryEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
         }
     }
 }
