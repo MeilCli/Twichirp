@@ -36,13 +36,8 @@ namespace Twichirp.Android.App.Extensions {
         }
 
         public static void StartActivityCompat(this Activity activity,Intent intent,Tuple<AView,string> element = null) {
-            if(Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop) {
-                ActivityOptions options;
-                if(element == null) {
-                    options = ActivityOptions.MakeSceneTransitionAnimation(activity,null);
-                } else {
-                    options = ActivityOptions.MakeSceneTransitionAnimation(activity,element.Item1,element.Item2);
-                }
+            if(Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop && element != null) {
+                ActivityOptions options = ActivityOptions.MakeSceneTransitionAnimation(activity,element.Item1,element.Item2);
                 activity.StartActivity(intent,options.ToBundle());
             } else {
                 activity.StartActivity(intent);
