@@ -207,6 +207,12 @@ namespace Twichirp.Android.App.ViewController {
             var mediaViews = new[] { View.QuotingMedia1,View.QuotingMedia2,View.QuotingMedia3,View.QuotingMedia4 };
             for(int i = 0;i < count && i < mediaViews.Length;i++) {
                 ImageService.Instance.LoadUrl(media.ElementAt(i).MediaUrl + ":small").FadeAnimation(true).Into(mediaViews[i]);
+                var m = media.ElementAt(i);
+                var _imageTask = ImageService.Instance.LoadUrl(m.MediaUrl + ":small");
+                if((m.VideoInfo?.Variants.Length ?? 0) > 0) {
+                    _imageTask.Transform(new PlayCircleTransformation(View.ApplicationContext));
+                }
+                _imageTask.Into(mediaViews[i]);
             }
         }
 
