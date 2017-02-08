@@ -36,6 +36,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         public event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnDestroyEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnDestroyViewEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnResumeEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnPauseEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnSaveInstanceStateEventHandler;
@@ -69,6 +70,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         private void onDetatchViewFromWindow(object sender,EventArgs e) {
             ItemView.ViewDetachedFromWindow -= onDetatchViewFromWindow;
+            OnDestroyViewEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
             OnDestroyEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
             OnDestroyView();
         }

@@ -26,6 +26,7 @@ using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.Model;
 using Twichirp.Core.Extensions;
 using Twichirp.Core.App.Event;
+using Newtonsoft.Json;
 
 namespace Twichirp.Core.App.Model {
     public class StatusTimelineModel : BaseModel {
@@ -51,6 +52,21 @@ namespace Twichirp.Core.App.Model {
         public StatusTimelineModel(ITwichirpApplication application,Timeline<IEnumerable<Status>> timelineResource,Account account) : base(application) {
             this.timelineResource = timelineResource;
             this.account = account;
+        }
+
+        /// <summary>
+        /// Export Statuses
+        /// </summary>
+        /// <returns>Array of string</returns>
+        public string ExportJson() {
+            var list = new List<string>();
+            foreach(var viewModel in Timeline) {
+                if(viewModel is StatusViewModel == false) {
+                    break;
+                }
+                list.Add((viewModel as StatusViewModel).Json);
+            }
+            return JsonConvert.SerializeObject(list);
         }
 
         public async void Load(Timeline<IEnumerable<Status>> timelineResource = null) {

@@ -35,6 +35,7 @@ namespace Twichirp.Android.App.View.Fragment {
         
         public event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnDestroyEventHandler;
+        public event EventHandler<LifeCycleEventArgs> OnDestroyViewEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnPauseEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnRestoreInstanceStateEventHandler;
         public event EventHandler<LifeCycleEventArgs> OnResumeEventHandler;
@@ -64,6 +65,11 @@ namespace Twichirp.Android.App.View.Fragment {
             if(savedInstanceState != null) {
                 OnRestoreInstanceStateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnActivityCreated),savedInstanceState));
             }
+        }
+
+        public override void OnDestroyView() {
+            base.OnDestroyView();
+            OnDestroyViewEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnDestroyView)));
         }
 
         public override void OnDestroy() {

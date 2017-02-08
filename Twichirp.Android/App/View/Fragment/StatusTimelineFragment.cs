@@ -43,19 +43,23 @@ namespace Twichirp.Android.App.View.Fragment {
 
         public SwipeRefreshLayout SwipeRefrech { get; private set; }
 
-        public override AView OnCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-            AView view =  inflater.Inflate(Android.Resource.Layout.StatusTimelineFragment, container, false);
-            RecyclerView = view.FindViewById<RecyclerView>(Android.Resource.Id.RecyclerView);
-            SwipeRefrech = view.FindViewById<SwipeRefreshLayout>(Android.Resource.Id.SwipeRefresh);
+        public override void OnCreate(Bundle savedInstanceState) {
+            base.OnCreate(savedInstanceState);
             var account = TwichirpApplication.AccountManager[TwichirpApplication.SettingManager.Accounts.DefaultAccountId];
             var timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.HomeTimeline();
             statusTimelineViewModel = new StatusTimelineViewModel(TwichirpApplication,timelineResource,account);
             statusTimelineViewController = new StatusTimelineViewController(this,statusTimelineViewModel);
+        }
+
+        public override AView OnCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
+            AView view =  inflater.Inflate(Android.Resource.Layout.StatusTimelineFragment, container, false);
+            RecyclerView = view.FindViewById<RecyclerView>(Android.Resource.Id.RecyclerView);
+            SwipeRefrech = view.FindViewById<SwipeRefreshLayout>(Android.Resource.Id.SwipeRefresh);
             return view;
         }
 
-        public override void OnDestroy() {
-            base.OnDestroy();
+        public override void OnDestroyView() {
+            base.OnDestroyView();
             RecyclerView?.Dispose();
             SwipeRefrech?.Dispose();
         }

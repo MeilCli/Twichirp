@@ -33,10 +33,16 @@ namespace Twichirp.Core.App.ViewModel {
 
         protected StatusTimelineModel StatusTimelineModel;
 
+        public string Json {
+            get {
+                return StatusTimelineModel.ExportJson();
+            }
+        }
+
         public ReactiveCollection<BaseViewModel> Timeline { get; }
         public ReadOnlyReactiveProperty<bool> IsLoading { get; }
         public ReactiveCommand<string> ShowMessageCommand { get; } = new ReactiveCommand<string>();
-        public ReactiveCommand LoadCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand<Timeline<IEnumerable<Status>>> LoadCommand { get; } = new ReactiveCommand<Timeline<IEnumerable<Status>>>();
         public ReactiveCommand LoadMoreComannd { get; } = new ReactiveCommand();
 
         public StatusTimelineViewModel(ITwichirpApplication application,Timeline<IEnumerable<Status>> timelineResource,Account account) : base(application) {
@@ -49,7 +55,7 @@ namespace Twichirp.Core.App.ViewModel {
                 .SubscribeOnUIDispatcher()
                 .Subscribe(x => ShowMessageCommand.Execute(x.EventArgs.EventData))
                 .AddTo(Disposable);
-            LoadCommand.Subscribe(x => StatusTimelineModel.Load());
+            LoadCommand.Subscribe(x => StatusTimelineModel.Load(x));
             LoadMoreComannd.Subscribe(x => StatusTimelineModel.LoadMore());
 
             Observable.FromEventPattern<StatusEventArgs>(x => Application.TwitterEvent.StatusUpdated += x,x => Application.TwitterEvent.StatusUpdated -= x)

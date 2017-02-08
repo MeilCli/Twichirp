@@ -24,6 +24,7 @@ using System.Threading.Tasks;
 namespace Twichirp.Core.Model {
     public class Timeline<TResult> {
 
+        public const int Undefined = 0;
         public const int Home = 1;
         public const int Mention = 2;
 

@@ -48,6 +48,8 @@ namespace Twichirp.Android.App.View {
 
         event EventHandler<LifeCycleEventArgs> OnDestroyEventHandler;
 
+        event EventHandler<LifeCycleEventArgs> OnDestroyViewEventHandler;
+
         event EventHandler<LifeCycleEventArgs> OnResumeEventHandler;
 
         event EventHandler<LifeCycleEventArgs> OnPauseEventHandler;

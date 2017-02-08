@@ -92,7 +92,9 @@ namespace Twichirp.Android.App.View.Activity {
             Drop = headerView.FindViewById<ImageView>(Android.Resource.Id.Drop);
             Background = headerView.FindViewById<ImageViewAsync>(Android.Resource.Id.Background);
 
-            base.SupportFragmentManager.BeginTransaction().Replace(Android.Resource.Id.Content,new StatusTimelineFragment()).Commit();
+            if(savedInstanceState == null) {
+                base.SupportFragmentManager.BeginTransaction().Replace(Android.Resource.Id.Content,new StatusTimelineFragment()).Commit();
+            }
         }
     }
 }
