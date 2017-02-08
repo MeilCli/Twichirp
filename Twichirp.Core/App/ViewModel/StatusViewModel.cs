@@ -50,6 +50,11 @@ namespace Twichirp.Core.App.ViewModel {
                 return StatusModel.ExportJson();
             }
         }
+        public string QuotedJson {
+            get {
+                return StatusModel.QuotedStatus?.ExportJson();
+            }
+        }
 
         public ReactiveProperty<ISpannableString> SpannableText { get; private set; } = new ReactiveProperty<ISpannableString>();
         public ReactiveProperty<string> Source { get; private set; } = new ReactiveProperty<string>();
