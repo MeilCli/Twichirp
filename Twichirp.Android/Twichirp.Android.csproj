@@ -244,6 +244,7 @@
     <Compile Include="App\ViewController\SplashViewController.cs" />
     <Compile Include="App\ViewController\StatusTimelineViewController.cs" />
     <Compile Include="App\ViewController\StatusViewController.cs" />
+    <Compile Include="App\ViewController\VideoViewerViewController.cs" />
     <Compile Include="App\ViewModel\ImageViewerViewModel.cs" />
     <Compile Include="App\ViewModel\MainViewModel.cs" />
     <Compile Include="App\View\Activity\ImageViewerActivity.cs" />
@@ -251,6 +252,7 @@
     <Compile Include="App\View\Activity\LoginActivity.cs" />
     <Compile Include="App\View\Activity\OpenSourceActivity.cs" />
     <Compile Include="App\View\Activity\SplashActivity.cs" />
+    <Compile Include="App\View\Activity\VideoViewerActivity.cs" />
     <Compile Include="App\View\AppCompatAutoCompleteTextView.cs" />
     <Compile Include="App\View\DividerItemDecoration.cs" />
     <Compile Include="App\View\Fragment\Dialog\ProgressDialogFragment.cs" />
@@ -265,6 +267,7 @@
     <Compile Include="App\View\ISplashView.cs" />
     <Compile Include="App\View\IStatusTimelineView.cs" />
     <Compile Include="App\View\IStatusView.cs" />
+    <Compile Include="App\View\IVideoViewerView.cs" />
     <Compile Include="App\View\IView.cs" />
     <Compile Include="App\TwichirpApplication.cs" />
     <Compile Include="App\View\Activity\BaseActivity.cs" />
@@ -353,6 +356,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ImageViewerActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\VideoViewerActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Twichirp.Android.licenseheader" />

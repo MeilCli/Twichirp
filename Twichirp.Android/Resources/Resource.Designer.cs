@@ -4226,8 +4226,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f0700b2
 			public const int Description = 2131165362;
 			
-			// aapt resource value: 0x7f0700dd
-			public const int DirectMessageTab = 2131165405;
+			// aapt resource value: 0x7f0700de
+			public const int DirectMessageTab = 2131165406;
 			
 			// aapt resource value: 0x7f0700ac
 			public const int DrawerLayout = 2131165356;
@@ -4253,8 +4253,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f0700b1
 			public const int GoToWeb = 2131165361;
 			
-			// aapt resource value: 0x7f0700db
-			public const int HomeTab = 2131165403;
+			// aapt resource value: 0x7f0700dc
+			public const int HomeTab = 2131165404;
 			
 			// aapt resource value: 0x7f070094
 			public const int Icon = 2131165332;
@@ -4304,8 +4304,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f07009b
 			public const int MediaParent2 = 2131165339;
 			
-			// aapt resource value: 0x7f0700dc
-			public const int MentionTab = 2131165404;
+			// aapt resource value: 0x7f0700dd
+			public const int MentionTab = 2131165405;
 			
 			// aapt resource value: 0x7f0700d8
 			public const int Message = 2131165400;
@@ -4415,14 +4415,17 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f0700b9
 			public const int Toolbar = 2131165369;
 			
-			// aapt resource value: 0x7f0700df
-			public const int TweetTab = 2131165407;
+			// aapt resource value: 0x7f0700e0
+			public const int TweetTab = 2131165408;
 			
-			// aapt resource value: 0x7f0700de
-			public const int UserTab = 2131165406;
+			// aapt resource value: 0x7f0700df
+			public const int UserTab = 2131165407;
 			
 			// aapt resource value: 0x7f070091
 			public const int VerifyIcon = 2131165329;
+			
+			// aapt resource value: 0x7f0700db
+			public const int VideoView = 2131165403;
 			
 			// aapt resource value: 0x7f0700ad
 			public const int Web = 2131165357;
@@ -5205,6 +5208,9 @@ namespace Twichirp.Android
 			
 			// aapt resource value: 0x7f03005e
 			public const int Toolbar = 2130903134;
+			
+			// aapt resource value: 0x7f03005f
+			public const int VideoViewerActivity = 2130903135;
 			
 			static Layout()
 			{

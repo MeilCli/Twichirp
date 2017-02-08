@@ -179,7 +179,7 @@ namespace Twichirp.Android.App.ViewController {
 
         private void startMediaViewer(int page) {
             if(isVideoMedia) {
-
+                VideoViewerActivity.Start(View.Activity,ViewModel.Account,ViewModel.Json);
             } else {
                 switch(page) {
                     case 0:
