@@ -30,6 +30,7 @@ using Plugin.CrossFormattedText.Abstractions;
 using Plugin.CrossFormattedText;
 
 namespace Twichirp.Core.App.ViewModel {
+
     public class StatusViewModel : BaseViewModel {
 
         public const int NormalTweet = 1;
@@ -44,6 +45,12 @@ namespace Twichirp.Core.App.ViewModel {
 
         internal StatusModel StatusModel;
         public long Id { get; private set; }
+        public string Json {
+            get {
+                return StatusModel.ExportJson();
+            }
+        }
+
         public ReactiveProperty<ISpannableString> SpannableText { get; private set; } = new ReactiveProperty<ISpannableString>();
         public ReactiveProperty<string> Source { get; private set; } = new ReactiveProperty<string>();
         public ReadOnlyReactiveProperty<string> DateTime { get; private set; }
@@ -78,6 +85,7 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveCommand UpdateDateTimeCommand { get; } = new ReactiveCommand();
         public ReactiveCommand RetweetCommand { get; } = new ReactiveCommand();
         public ReactiveCommand FavoriteCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand<int> StartMediaViewerPageCommand { get; } = new ReactiveCommand<int>();
 
         public StatusViewModel(ITwichirpApplication application,Status status,Account account) : base(application) {
             Account = account;
