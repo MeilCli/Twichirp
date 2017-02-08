@@ -41,10 +41,13 @@ using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View;
+using Twichirp.Android.App.View.Activity;
 using Twichirp.Core.App.ViewModel;
 
 namespace Twichirp.Android.App.ViewController {
     public class StatusViewController : BaseViewController<IStatusView,StatusViewModel> {
+
+        private bool isVideoMedia;
 
         public StatusViewController(IStatusView view,StatusViewModel viewModel) : base(view,viewModel) {
             AutoDisposeViewModel = false;
@@ -88,12 +91,21 @@ namespace Twichirp.Android.App.ViewController {
                 View.StatusType == StatusViewModel.QuotedInnerAndOuterMediaTweet) {
 
                 ViewModel.Media.Subscribe(x => setMedia(x)).AddTo(Disposable);
+                ViewModel.StartMediaViewerPageCommand
+                    .Subscribe(x => {
+                        startMediaViewer(x);
+                    })
+                    .AddTo(Disposable);
+                View.MediaFrame1.ClickAsObservable().Select(x => 0).SetCommand(ViewModel.StartMediaViewerPageCommand).AddTo(Disposable);
+                View.MediaFrame2.ClickAsObservable().Select(x => 1).SetCommand(ViewModel.StartMediaViewerPageCommand).AddTo(Disposable);
+                View.MediaFrame3.ClickAsObservable().Select(x => 2).SetCommand(ViewModel.StartMediaViewerPageCommand).AddTo(Disposable);
+                View.MediaFrame4.ClickAsObservable().Select(x => 3).SetCommand(ViewModel.StartMediaViewerPageCommand).AddTo(Disposable);
             }
 
             if(View.StatusType == StatusViewModel.QuotedTweet ||
-                View.StatusType==StatusViewModel.QuotedInnerMediaTweet||
-                View.StatusType == StatusViewModel.QuotedOuterMediaTweet||
-                View.StatusType==StatusViewModel.QuotedInnerAndOuterMediaTweet) {
+                View.StatusType == StatusViewModel.QuotedInnerMediaTweet ||
+                View.StatusType == StatusViewModel.QuotedOuterMediaTweet ||
+                View.StatusType == StatusViewModel.QuotedInnerAndOuterMediaTweet) {
 
                 ViewModel.QuotedSpannableText.Subscribe(x => View.QuotingName.TextFormatted = x.Span()).AddTo(Disposable);
                 ViewModel.QuotedSpannableText.Subscribe(x => View.QuotingText.TextFormatted = x.Span()).AddTo(Disposable);
@@ -134,7 +146,7 @@ namespace Twichirp.Android.App.ViewController {
                 DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Android.Resource.Color.Retweet,null));
             } else {
                 DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Android.Resource.Color.Grey600,null));
-            }           
+            }
         }
 
         private void setFavoriteIcon(bool isFavorited) {
@@ -142,7 +154,7 @@ namespace Twichirp.Android.App.ViewController {
             View.FavoriteIcon.SetImageDrawable(drawable);
             if(isFavorited) {
                 DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Android.Resource.Color.Favorite,null));
-            }else {
+            } else {
                 DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Android.Resource.Color.Grey600,null));
             }
         }
@@ -157,10 +169,32 @@ namespace Twichirp.Android.App.ViewController {
             for(int i = 0;i < count && i < mediaViews.Length;i++) {
                 var m = media.ElementAt(i);
                 var _imageTask = ImageService.Instance.LoadUrl(m.MediaUrl + ":small");
-                if((m.VideoInfo?.Variants.Length??0)>0) {
+                if((m.VideoInfo?.Variants.Length ?? 0) > 0) {
                     _imageTask.Transform(new PlayCircleTransformation(View.ApplicationContext));
+                    isVideoMedia = true;
                 }
                 _imageTask.Into(mediaViews[i]);
+            }
+        }
+
+        private void startMediaViewer(int page) {
+            if(isVideoMedia) {
+
+            } else {
+                switch(page) {
+                    case 0:
+                        ImageViewerActivity.Start(View.Activity,ViewModel.Account,ViewModel.Json,View.Media1,0);
+                        break;
+                    case 1:
+                        ImageViewerActivity.Start(View.Activity,ViewModel.Account,ViewModel.Json,View.Media2,1);
+                        break;
+                    case 2:
+                        ImageViewerActivity.Start(View.Activity,ViewModel.Account,ViewModel.Json,View.Media3,2);
+                        break;
+                    case 3:
+                        ImageViewerActivity.Start(View.Activity,ViewModel.Account,ViewModel.Json,View.Media4,3);
+                        break;
+                }
             }
         }
 

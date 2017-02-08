@@ -58,6 +58,14 @@
     <DebugSymbols>False</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AndroidPageLayout, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Meilcli.Android.PageLayout.1.0.1\lib\MonoAndroid70\AndroidPageLayout.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AndroidSlideLayout, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Meilcli.Android.SlideLayout.1.0.1\lib\MonoAndroid70\AndroidSlideLayout.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="BottomBarSharp, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\BottomBarSharp.1.0.0\lib\MonoAndroid70\BottomBarSharp.dll</HintPath>
       <Private>True</Private>
@@ -229,13 +237,16 @@
     <Compile Include="App\Setting\TimelineSettingFragment.cs" />
     <Compile Include="App\Resource.cs" />
     <Compile Include="App\ViewController\BaseViewController.cs" />
+    <Compile Include="App\ViewController\ImageViewerViewController.cs" />
     <Compile Include="App\ViewController\LoadingViewController.cs" />
     <Compile Include="App\ViewController\LoginViewController.cs" />
     <Compile Include="App\ViewController\MainViewController.cs" />
     <Compile Include="App\ViewController\SplashViewController.cs" />
     <Compile Include="App\ViewController\StatusTimelineViewController.cs" />
     <Compile Include="App\ViewController\StatusViewController.cs" />
+    <Compile Include="App\ViewModel\ImageViewerViewModel.cs" />
     <Compile Include="App\ViewModel\MainViewModel.cs" />
+    <Compile Include="App\View\Activity\ImageViewerActivity.cs" />
     <Compile Include="App\View\Activity\LicenseActivity.cs" />
     <Compile Include="App\View\Activity\LoginActivity.cs" />
     <Compile Include="App\View\Activity\OpenSourceActivity.cs" />
@@ -247,6 +258,7 @@
     <Compile Include="App\View\Holder\BaseHolder.cs" />
     <Compile Include="App\View\Holder\LoadingHolder.cs" />
     <Compile Include="App\View\Holder\StatusHolder.cs" />
+    <Compile Include="App\View\IImageViewerView.cs" />
     <Compile Include="App\View\ILoadingView.cs" />
     <Compile Include="App\View\ILoginView.cs" />
     <Compile Include="App\View\IMainView.cs" />
@@ -338,6 +350,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\StatusQuotingInnerAndOuterMediaHolder.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ImageViewerActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Twichirp.Android.licenseheader" />
