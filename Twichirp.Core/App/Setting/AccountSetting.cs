@@ -23,6 +23,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
 namespace Twichirp.Core.App.Setting {
+
     public class AccountsSetting : BaseSetting {
 
         [JsonProperty]
@@ -31,7 +32,7 @@ namespace Twichirp.Core.App.Setting {
         [JsonProperty]
         public long DefaultAccountId {
             get {
-                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(DefaultAccountId)),SettingManager.Application.AccountManager.Account[0].Id);
+                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(DefaultAccountId)),SettingManager.Application.AccountManager.First().Id);
             }
             set {
                 SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(DefaultAccountId)),value);
@@ -75,7 +76,7 @@ namespace Twichirp.Core.App.Setting {
         }
 
         public override void ImportJson(JObject jObject) {
-            
+
         }
     }
 }

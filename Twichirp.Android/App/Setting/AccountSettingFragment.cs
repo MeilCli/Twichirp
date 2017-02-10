@@ -30,6 +30,7 @@ using Android.Support.V7.Preferences;
 using Twichirp.Android.App.Extensions;
 
 namespace Twichirp.Android.App.Setting {
+
     public class AccountsSettingFragment : PreferenceFragmentCompat {
 
         public override void OnCreatePreferences(Bundle savedInstanceState,string rootKey) {
@@ -41,12 +42,12 @@ namespace Twichirp.Android.App.Setting {
                 x.SetTitle(Android.Resource.String.SettingUseAccount);
                 x.SetDialogTitle(Android.Resource.String.SettingUseAccount);
                 x.Key = x.Title;
-                x.SetEntries(application.AccountManager.Account.Select(y => y.ScreenName).ToArray());
-                x.SetEntryValues(application.AccountManager.Account.Select(y => y.ScreenName).ToArray());
-                x.SetValueIndex(application.AccountManager.Account.FindIndex(y => y.Id == settingManager.Accounts.DefaultAccountId));
-                x.PreferenceChange += (s,e) => settingManager.Accounts.DefaultAccountId = application.AccountManager.Account.First(y => y.ScreenName == (string)e.NewValue).Id;
+                x.SetEntries(application.AccountManager.Select(y => y.ScreenName).ToArray());
+                x.SetEntryValues(application.AccountManager.Select(y => y.ScreenName).ToArray());
+                x.SetValueIndex(application.AccountManager.ToList().FindIndex(y => y.Id == settingManager.Accounts.DefaultAccountId));
+                x.PreferenceChange += (s,e) => settingManager.Accounts.DefaultAccountId = application.AccountManager.First(y => y.ScreenName == (string)e.NewValue).Id;
             });
-            foreach(var account in application.AccountManager.Account) {
+            foreach(var account in application.AccountManager) {
                 new Preference(screen.Context).Apply(x => {
                     screen.AddPreference(x);
                     x.Title = account.ScreenName;

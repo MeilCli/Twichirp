@@ -22,6 +22,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Twichirp.Core.App.Model {
+
     class SplashModel : BaseModel {
 
         public event EventHandler<EventArgs> ApplicationInitialized;
@@ -70,13 +71,13 @@ namespace Twichirp.Core.App.Model {
                 await accountInitAsync();
             } catch(Exception) { }
             Message = string.Empty;
-            IsAccountExist = Application.AccountManager.Account.Count > 0;
+            IsAccountExist = Application.AccountManager.Count() > 0;
             IsRunning = false;
             ApplicationInitialized?.Invoke(this,new EventArgs());
         }
 
         private async Task accountInitAsync() {
-            foreach(var account in Application.AccountManager.Account) {
+            foreach(var account in Application.AccountManager) {
                 account.User = (await Application.UserContainerManager.FindAsync(account.Id))?.User;
                 if(account.User != null && Application.SettingManager.Applications.IsCleanLaunch == false) {
                     continue;

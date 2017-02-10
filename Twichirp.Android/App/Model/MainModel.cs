@@ -32,6 +32,7 @@ using Twichirp.Core.App.Model;
 using Twichirp.Core.Model;
 
 namespace Twichirp.Android.App.Model {
+
     public class MainModel : BaseModel {
 
         public const int NavigationMenuStandardFirstGroup = 1;
@@ -239,7 +240,7 @@ namespace Twichirp.Android.App.Model {
                     Application.SettingManager.Accounts.AccountUsedOrder.Remove(userId);
                 }
             }
-            foreach(var a in Application.AccountManager.Account) {
+            foreach(var a in Application.AccountManager) {
                 addAccount(a);
             }
             return result;

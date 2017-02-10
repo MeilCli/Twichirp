@@ -21,17 +21,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.Model;
+using System.Collections;
 
 namespace Twichirp.Core.App.Manager {
-    public class AccountManager {
+
+    public class AccountManager : IEnumerable<Account> {
 
         private ITwichirpApplication application;
 
-        public List<Account> Account { get; private set; } = new List<Account>();
+        private List<Account> account = new List<Account>();
 
-        public Account this[long id] => Account.FirstOrDefault(x => x.Id == id);
+        public Account this[long id] => account.FirstOrDefault(x => x.Id == id);
 
-        public Account this[string screenName] => Account.FirstOrDefault(x => x.ScreenName == screenName);
+        public Account this[string screenName] => account.FirstOrDefault(x => x.ScreenName == screenName);
 
         public AccountManager(ITwichirpApplication application) {
             this.application = application;
@@ -39,22 +41,22 @@ namespace Twichirp.Core.App.Manager {
         }
 
         public async Task InitAsync() {
-            Account = await application.DatabaseManager.AccountConnection.Table<Account>().ToListAsync();
+            account = await application.DatabaseManager.AccountConnection.Table<Account>().ToListAsync();
         }
 
         public async Task AddAsync(Account account) {
             await application.DatabaseManager.AccountConnection.InsertOrReplaceAsync(account);
-            if(Account.Any(x => x.Id == account.Id) == false) {
-                Account.Add(account);
+            if(this.account.Any(x => x.Id == account.Id) == false) {
+                this.account.Add(account);
             }
         }
 
         public async Task RemoveAsync(Account account) {
-            if(Account.Count <= 1) {
+            if(this.account.Count <= 1) {
                 return;
             }
             await application.DatabaseManager.AccountConnection.DeleteAsync(account);
-            Account.Remove(Account.First(x => x.Id == account.Id));
+            this.account.Remove(this.account.First(x => x.Id == account.Id));
         }
 
         public async Task ImportJsonAsync(string json) {
@@ -67,9 +69,17 @@ namespace Twichirp.Core.App.Manager {
             }
             await application.DatabaseManager.AccountConnection.DeleteAllAsync<Account>();
             await application.DatabaseManager.AccountConnection.InsertAllAsync(accounts);
-            Account = accounts;
+            account = accounts;
         }
 
-        public string ExportJson() => JsonConvert.SerializeObject(Account);
+        public string ExportJson() => JsonConvert.SerializeObject(account);
+
+        public IEnumerator<Account> GetEnumerator() {
+            return account.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return GetEnumerator();
+        }
     }
 }
