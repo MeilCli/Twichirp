@@ -27,4 +27,9 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
   <item type="id" name="Tab3" />
   <item type="id" name="Tab4" />
   <item type="id" name="Tab5" />
+
+  <item type="id" name="TabHome" />
+  <item type="id" name="TabMention" />
+  <item type="id" name="TabDM" />
+  <item type="id" name="TabUser" />
 </resources>

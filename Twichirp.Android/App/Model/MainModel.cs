@@ -208,10 +208,10 @@ namespace Twichirp.Android.App.Model {
         private void makeNavigationTab() {
             var list = new List<NavigationTab>();
             {
-                list.Add(new NavigationTab(Android.Resource.Id.HomeTab,Android.Resource.String.TabHome,Android.Resource.Drawable.IconHomeGrey24dp));
-                list.Add(new NavigationTab(Android.Resource.Id.MentionTab,Android.Resource.String.TabMention,Android.Resource.Drawable.IconNotificationsGrey24dp));
-                list.Add(new NavigationTab(Android.Resource.Id.DirectMessageTab,Android.Resource.String.TabDM,Android.Resource.Drawable.IconMailGrey24dp));
-                list.Add(new NavigationTab(Android.Resource.Id.UserTab,Android.Resource.String.TabUser,Android.Resource.Drawable.IconPersonGrey24dp));
+                list.Add(new NavigationTab(Android.Resource.Id.TabHome,Android.Resource.String.TabHome,Android.Resource.Drawable.IconHomeGrey24dp));
+                list.Add(new NavigationTab(Android.Resource.Id.TabMention,Android.Resource.String.TabMention,Android.Resource.Drawable.IconNotificationsGrey24dp));
+                list.Add(new NavigationTab(Android.Resource.Id.TabDM,Android.Resource.String.TabDM,Android.Resource.Drawable.IconMailGrey24dp));
+                list.Add(new NavigationTab(Android.Resource.Id.TabUser,Android.Resource.String.TabUser,Android.Resource.Drawable.IconPersonGrey24dp));
             }
             NavigationTabs = list;
         }

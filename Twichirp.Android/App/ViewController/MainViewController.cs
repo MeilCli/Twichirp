@@ -242,18 +242,18 @@ namespace Twichirp.Android.App.ViewController {
             }
             trasaction.Commit();
 
+            View.BottomBar.SetItems(tabList);
             if(changed) {
                 View.BottomBar.SelectTabAtPosition(0);
             }
-            View.BottomBar.SetItems(tabList);
 
         }
 
         private bool wasAddedFragment(SFragment fragment,NavigationTab tab,Account account) {
             switch(tab.Id) {
-                case Android.Resource.Id.HomeTab:
+                case Android.Resource.Id.TabHome:
                     return (fragment as StatusTimelineFragment)?.Equals(StatusTimelineFragmentType.Home,account) ?? false;
-                case Android.Resource.Id.MentionTab:
+                case Android.Resource.Id.TabMention:
                     return (fragment as StatusTimelineFragment)?.Equals(StatusTimelineFragmentType.Mention,account) ?? false;
             }
             return false;
@@ -261,9 +261,9 @@ namespace Twichirp.Android.App.ViewController {
 
         private SFragment createFragment(NavigationTab tab,Account account) {
             switch(tab.Id) {
-                case Android.Resource.Id.HomeTab:
+                case Android.Resource.Id.TabHome:
                     return StatusTimelineFragment.Make(StatusTimelineFragmentType.Home,account);
-                case Android.Resource.Id.MentionTab:
+                case Android.Resource.Id.TabMention:
                     return StatusTimelineFragment.Make(StatusTimelineFragmentType.Mention,account);
             }
             return null;

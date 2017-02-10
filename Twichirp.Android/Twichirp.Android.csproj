@@ -746,9 +746,6 @@
     <AndroidResource Include="Resources\drawable\ShadowGradation.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\xml\MainBottomTab.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\values\Ids.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
