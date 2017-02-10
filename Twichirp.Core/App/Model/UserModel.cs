@@ -111,6 +111,6 @@ namespace Twichirp.Core.App.Model {
             UserChanged?.Invoke(this,new EventArgs());
         }
 
-        public void ExportJson() => JsonConvert.SerializeObject(user);
+        public string ExportJson() => JsonConvert.SerializeObject(user);
     }
 }
