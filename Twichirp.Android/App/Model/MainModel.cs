@@ -132,11 +132,30 @@ namespace Twichirp.Android.App.Model {
             }
         }
 
+        public void UpdateDefaultAccountIfChanged() {
+            long defaultAccountId = Application.SettingManager.Accounts.DefaultAccountId;
+            if(User.Id != defaultAccountId) {
+                SetDefaultUser(defaultAccountId);
+            }
+        }
+
         public void SetDefaultUser(string screenName) {
             var account = Application.AccountManager[screenName];
             if(account == null) {
                 return;
             }
+            SetDefaultUser(account);
+        }
+
+        public void SetDefaultUser(long userId) {
+            var account = Application.AccountManager[userId];
+            if(account == null) {
+                return;
+            }
+            SetDefaultUser(account);
+        }
+
+        public void SetDefaultUser(Account account) {
             Application.SettingManager.Accounts.DefaultAccountId = account.Id;
             var orderdUserList = Application.SettingManager.Accounts.AccountUsedOrder;
             if(orderdUserList.Contains(account.Id)) {

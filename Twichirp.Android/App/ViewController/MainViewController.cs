@@ -63,6 +63,7 @@ namespace Twichirp.Android.App.ViewController {
 
         public MainViewController(IMainView view,MainViewModel viewModel) : base(view,viewModel) {
             view.OnCreateEventHandler += onCreate;
+            view.OnResumeEventHandler += onResume;
         }
 
         private void onCreate(object sender,LifeCycleEventArgs args) {
@@ -96,6 +97,10 @@ namespace Twichirp.Android.App.ViewController {
                 SettingActivity.StartMain(View.Activity);
                 View.DrawerLayout.CloseDrawers();
             }).AddTo(Disposable);
+        }
+
+        private void onResume(object sender,LifeCycleEventArgs args) {
+            ViewModel.UpdateDefaultAccountIfChangedCommand.Execute();
         }
 
         private void setNavigationMenus(List<NavigationMenu> menus) {

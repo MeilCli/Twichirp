@@ -35,6 +35,7 @@ using Twichirp.Core.App.Model;
 using Twichirp.Core.App.ViewModel;
 
 namespace Twichirp.Android.App.ViewModel {
+
     public class MainViewModel : BaseViewModel {
 
         private MainModel mainModel;
@@ -55,6 +56,7 @@ namespace Twichirp.Android.App.ViewModel {
         public ReactiveCommand FirstSubUserIconClickedCommand { get; } = new ReactiveCommand();
         public ReactiveCommand SecondSubUserIconClickedCommand { get; } = new ReactiveCommand();
 
+        public ReactiveCommand UpdateDefaultAccountIfChangedCommand { get; } = new ReactiveCommand();
         public ReactiveCommand StartSettingActivityCommand { get; } = new ReactiveCommand();
         public ReactiveCommand StartLoginActivityCommand { get; } = new ReactiveCommand();
 
@@ -70,16 +72,22 @@ namespace Twichirp.Android.App.ViewModel {
             mainModel.ObserveProperty(x => x.User).Subscribe(x => setUserValues(x)).AddTo(Disposable);
             mainModel.ObserveProperty(x => x.FirstSubUser).Subscribe(x => setFirstSubUserValue(x)).AddTo(Disposable);
             mainModel.ObserveProperty(x => x.SecondSubUser).Subscribe(x => setSecondSubUserValue(x)).AddTo(Disposable);
-            FirstSubUserIconClickedCommand.Subscribe(x => {
-                if(mainModel.FirstSubUser != null) {
-                    mainModel.SetDefaultUser(mainModel.FirstSubUser.ScreenName);
-                }
-            }).AddTo(Disposable);
-            SecondSubUserIconClickedCommand.Subscribe(x => {
-                if(mainModel.SecondSubUser != null) {
-                    mainModel.SetDefaultUser(mainModel.SecondSubUser.ScreenName);
-                }
-            }).AddTo(Disposable);
+            FirstSubUserIconClickedCommand
+                .Subscribe(x => {
+                    if(mainModel.FirstSubUser != null) {
+                        mainModel.SetDefaultUser(mainModel.FirstSubUser.ScreenName);
+                    }
+                })
+                .AddTo(Disposable);
+            SecondSubUserIconClickedCommand
+                .Subscribe(x => {
+                    if(mainModel.SecondSubUser != null) {
+                        mainModel.SetDefaultUser(mainModel.SecondSubUser.ScreenName);
+                    }
+                })
+                .AddTo(Disposable);
+
+            UpdateDefaultAccountIfChangedCommand.Subscribe(x => mainModel.UpdateDefaultAccountIfChanged()).AddTo(Disposable);
 
             Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.UserUpdated += x,x => application.TwitterEvent.UserUpdated -= x)
                 .Subscribe(x => mainModel.NotifyUserUpdate(x.EventArgs.Account,x.EventArgs.User))
