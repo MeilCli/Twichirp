@@ -40,10 +40,9 @@ namespace Twichirp.Core.App.ViewModel {
         public const int QuotedOuterMediaTweet = 5;
         public const int QuotedInnerAndOuterMediaTweet = 6;
 
-        public IDisposable DataHolder { get; set; }
         public Account Account { get; }
 
-        internal StatusModel StatusModel;
+        internal StatusModel StatusModel { get; }
         public long Id { get; private set; }
         public string Json {
             get {
@@ -275,7 +274,6 @@ namespace Twichirp.Core.App.ViewModel {
 
         public override void Dispose() {
             base.Dispose();
-            DataHolder?.Dispose();
         }
     }
 }
