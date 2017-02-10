@@ -67,6 +67,7 @@ namespace Twichirp.Android.App.ViewController {
             Observable.FromEventPattern<EventArgs>(x => adapter.LastItemShowed += x,x => adapter.LastItemShowed -= x)
                 .Subscribe(x => ViewModel.LoadMoreComannd.Execute())
                 .AddTo(Disposable);
+            ViewModel.ShowMessageCommand.Subscribe(x => Toast.MakeText(View.ApplicationContext,x,ToastLength.Short).Show()).AddTo(Disposable);
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
