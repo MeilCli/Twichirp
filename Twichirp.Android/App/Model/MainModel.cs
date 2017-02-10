@@ -52,6 +52,16 @@ namespace Twichirp.Android.App.Model {
             }
         }
 
+        private List<NavigationTab> _navigationTabs;
+        public List<NavigationTab> NavigationTabs {
+            get {
+                return _navigationTabs;
+            }
+            private set {
+                SetValue(ref _navigationTabs,value,nameof(NavigationTabs));
+            }
+        }
+
         private bool _isHiding;
         public bool IsHiding {
             get {
@@ -96,6 +106,7 @@ namespace Twichirp.Android.App.Model {
 
         public MainModel(ITwichirpApplication application) : base(application) {
             makeNavigationMenu();
+            makeNavigationTab();
             setUsers();
         }
 
@@ -134,6 +145,7 @@ namespace Twichirp.Android.App.Model {
 
             IsHiding = false;
             makeNavigationMenu();
+            makeNavigationTab();
             setUsers();
         }
 
@@ -191,6 +203,17 @@ namespace Twichirp.Android.App.Model {
                 }
             }
             NavigationMenus = list;
+        }
+
+        private void makeNavigationTab() {
+            var list = new List<NavigationTab>();
+            {
+                list.Add(new NavigationTab(Android.Resource.Id.HomeTab,Android.Resource.String.TabHome,Android.Resource.Drawable.IconHomeGrey24dp));
+                list.Add(new NavigationTab(Android.Resource.Id.MentionTab,Android.Resource.String.TabMention,Android.Resource.Drawable.IconNotificationsGrey24dp));
+                list.Add(new NavigationTab(Android.Resource.Id.DirectMessageTab,Android.Resource.String.TabDM,Android.Resource.Drawable.IconMailGrey24dp));
+                list.Add(new NavigationTab(Android.Resource.Id.UserTab,Android.Resource.String.TabUser,Android.Resource.Drawable.IconPersonGrey24dp));
+            }
+            NavigationTabs = list;
         }
 
         private List<Account> getOrderdAccount() {

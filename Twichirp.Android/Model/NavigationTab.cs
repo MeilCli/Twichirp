@@ -19,51 +19,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using SToolbar = Android.Support.V7.Widget.Toolbar;
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Android.Support.V4.Widget;
-using Android.Support.Design.Widget;
-using FFImageLoading.Views;
-using BottomBarSharp;
 
-namespace Twichirp.Android.App.View {
-    public interface IMainView : IView, ILifeCycle {
+namespace Twichirp.Android.Model {
 
-        SToolbar Toolbar { get; }
+    public class NavigationTab {
 
-        BottomBar BottomBar { get; }
+        public int Id { get; private set; }
+        public int Text { get; private set; }
+        public int Icon { get; private set; }
 
-        DrawerLayout DrawerLayout { get; }
-
-        NavigationView Navigation { get; }
-
-        CoordinatorLayout Coordinator { get; }
-
-        FrameLayout IconClickable { get; }
-
-        ImageViewAsync Icon { get; }
-
-        FrameLayout FirstSubIconClickable { get; }
-
-        ImageViewAsync FirstSubIcon { get; }
-
-        FrameLayout SecondSubIconClickable { get; }
-
-        ImageViewAsync SecondSubIcon { get; }
-
-        RelativeLayout Subtitle { get; }
-
-        TextView Name { get; }
-
-        TextView ScreenName { get; }
-
-        ImageView Drop { get; }
-
-        ImageViewAsync Background { get; }
+        public NavigationTab(int id,int text,int icon) {
+            Id = id;
+            Text = text;
+            Icon = icon;
+        }
     }
 }

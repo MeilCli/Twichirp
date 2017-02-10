@@ -62,4 +62,9 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
   <string name="TimeHoursAgo">{0}時間前</string>
   <string name="TimeDayAgo">{0}日前</string>
   <string name="TimeDaysAgo">{0}日前</string>
+
+  <string name="TabHome">ホーム</string>
+  <string name="TabMention">メンション</string>
+  <string name="TabDM">メッセージ</string>
+  <string name="TabUser">ユーザー</string>
 </resources>

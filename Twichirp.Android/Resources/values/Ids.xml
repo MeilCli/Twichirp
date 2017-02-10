@@ -21,4 +21,10 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 <resources>
   <item type="id" name="NavigationMenuAddAccount" />
   <item type="id" name="NavigationMenuSetting" />
+
+  <item type="id" name="Tab1" />
+  <item type="id" name="Tab2" />
+  <item type="id" name="Tab3" />
+  <item type="id" name="Tab4" />
+  <item type="id" name="Tab5" />
 </resources>

@@ -32,10 +32,37 @@ using Twichirp.Android.App.ViewController;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.Model;
 using AView = Android.Views.View;
+using SFragment = Android.Support.V4.App.Fragment;
 
 namespace Twichirp.Android.App.View.Fragment {
-    public class StatusTimelineFragment : BaseFragment,IStatusTimelineView {
 
+    public enum StatusTimelineFragmentType {
+        Home = 0,
+        Mention = 1
+    }
+
+    public class StatusTimelineFragment : BaseFragment, IStatusTimelineView {
+
+        private const string argumentType = "arg_type";
+        private const string argumentAccount = "arg_account";
+
+        public static StatusTimelineFragment Make(StatusTimelineFragmentType type,Account account) {
+            var fragment = new StatusTimelineFragment();
+            var bundle = new Bundle();
+            bundle.PutLong(argumentAccount,account.Id);
+            switch(type) {
+                default:
+                case StatusTimelineFragmentType.Home:
+                    bundle.PutInt(argumentType,(int)type);
+                    break;
+                case StatusTimelineFragmentType.Mention:
+                    bundle.PutInt(argumentType,(int)type);
+                    break;
+            }
+            fragment.Arguments = bundle;
+            return fragment;
+        }
+        
         private StatusTimelineViewModel statusTimelineViewModel;
         private StatusTimelineViewController statusTimelineViewController;
 
@@ -45,14 +72,25 @@ namespace Twichirp.Android.App.View.Fragment {
 
         public override void OnCreate(Bundle savedInstanceState) {
             base.OnCreate(savedInstanceState);
-            var account = TwichirpApplication.AccountManager[TwichirpApplication.SettingManager.Accounts.DefaultAccountId];
-            var timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.HomeTimeline();
+            long accountId = Arguments.GetLong(argumentAccount);
+            var account = TwichirpApplication.AccountManager[accountId];
+            var type = (StatusTimelineFragmentType)Enum.ToObject(typeof(StatusTimelineFragmentType),Arguments.GetInt(argumentType));
+            Timeline<IEnumerable<CoreTweet.Status>> timelineResource;
+            switch(type) {
+                default:
+                case StatusTimelineFragmentType.Home:
+                    timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.HomeTimeline();
+                    break;
+                case StatusTimelineFragmentType.Mention:
+                    timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.MentionTimeline();
+                    break;
+            }
             statusTimelineViewModel = new StatusTimelineViewModel(TwichirpApplication,timelineResource,account);
             statusTimelineViewController = new StatusTimelineViewController(this,statusTimelineViewModel);
         }
 
         public override AView OnCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-            AView view =  inflater.Inflate(Android.Resource.Layout.StatusTimelineFragment, container, false);
+            AView view = inflater.Inflate(Android.Resource.Layout.StatusTimelineFragment,container,false);
             RecyclerView = view.FindViewById<RecyclerView>(Android.Resource.Id.RecyclerView);
             SwipeRefrech = view.FindViewById<SwipeRefreshLayout>(Android.Resource.Id.SwipeRefresh);
             return view;
@@ -62,6 +100,22 @@ namespace Twichirp.Android.App.View.Fragment {
             base.OnDestroyView();
             RecyclerView?.Dispose();
             SwipeRefrech?.Dispose();
+        }
+
+        public bool Equals(StatusTimelineFragmentType type,Account account) {
+            var arg = Arguments;
+            if(arg == null) {
+                return false;
+            }
+            long id = arg.GetLong(argumentAccount,-1);
+            if(id == -1 || id != account.Id) {
+                return false;
+            }
+            int t = arg.GetInt(argumentType,-1);
+            if(t != (int)type) {
+                return false;
+            }
+            return true;
         }
     }
 }

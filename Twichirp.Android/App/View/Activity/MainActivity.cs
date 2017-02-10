@@ -29,6 +29,7 @@ using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View.Fragment;
 using FFImageLoading.Views;
 using Twichirp.Android.App.ViewModel;
+using BottomBarSharp;
 
 namespace Twichirp.Android.App.View.Activity {
 
@@ -38,6 +39,8 @@ namespace Twichirp.Android.App.View.Activity {
         private MainViewController mainViewController;
 
         public SToolbar Toolbar { get; private set; }
+
+        public BottomBar BottomBar { get; private set; }
 
         public DrawerLayout DrawerLayout { get; private set; }
 
@@ -74,6 +77,7 @@ namespace Twichirp.Android.App.View.Activity {
             Toolbar = FindViewById<SToolbar>(Android.Resource.Id.Toolbar);
             SetSupportActionBar(Toolbar);
 
+            BottomBar = FindViewById<BottomBar>(Android.Resource.Id.BottomBar);
             DrawerLayout = FindViewById<DrawerLayout>(Android.Resource.Id.DrawerLayout);
             Navigation = FindViewById<NavigationView>(Android.Resource.Id.Navigation);
             Coordinator = FindViewById<CoordinatorLayout>(Android.Resource.Id.Coordinator);
@@ -91,10 +95,6 @@ namespace Twichirp.Android.App.View.Activity {
             ScreenName = headerView.FindViewById<TextView>(Android.Resource.Id.ScreenName);
             Drop = headerView.FindViewById<ImageView>(Android.Resource.Id.Drop);
             Background = headerView.FindViewById<ImageViewAsync>(Android.Resource.Id.Background);
-
-            if(savedInstanceState == null) {
-                base.SupportFragmentManager.BeginTransaction().Replace(Android.Resource.Id.Content,new StatusTimelineFragment()).Commit();
-            }
         }
     }
 }

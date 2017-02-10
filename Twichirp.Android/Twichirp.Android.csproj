@@ -67,7 +67,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="BottomBarSharp, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BottomBarSharp.1.0.0\lib\MonoAndroid70\BottomBarSharp.dll</HintPath>
+      <HintPath>..\packages\BottomBarSharp.1.1.3\lib\MonoAndroid70\BottomBarSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="CoreTweet, Version=0.7.2.352, Culture=neutral, processorArchitecture=MSIL">
@@ -279,6 +279,7 @@
     <Compile Include="App\View\ReactiveCollectionAdapter.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Model\NavigationMenu.cs" />
+    <Compile Include="Model\NavigationTab.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

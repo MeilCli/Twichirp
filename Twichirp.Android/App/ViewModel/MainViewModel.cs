@@ -40,6 +40,7 @@ namespace Twichirp.Android.App.ViewModel {
         private MainModel mainModel;
 
         public ReadOnlyReactiveProperty<List<NavigationMenu>> NavigationMenus { get; }
+        public ReadOnlyReactiveProperty<List<NavigationTab>> NavigationTabs { get; }
         public ReadOnlyReactiveProperty<bool> IsNavigationHidingGroup { get; }
         public ReactiveCommand NavigationMenuGroupReverseCommand { get; } = new ReactiveCommand();
         public ReactiveCommand<Tuple<int,int>> NavigationMenuSelectedCommand { get; } = new ReactiveCommand<Tuple<int,int>>();
@@ -61,6 +62,7 @@ namespace Twichirp.Android.App.ViewModel {
             mainModel = new MainModel(application);
 
             NavigationMenus = mainModel.ObserveProperty(x => x.NavigationMenus).ToReadOnlyReactiveProperty().AddTo(Disposable);
+            NavigationTabs = mainModel.ObserveProperty(x => x.NavigationTabs).ToReadOnlyReactiveProperty().AddTo(Disposable);
             IsNavigationHidingGroup = mainModel.ObserveProperty(x => x.IsHiding).ToReadOnlyReactiveProperty().AddTo(Disposable);
             NavigationMenuGroupReverseCommand.Subscribe(x => mainModel.NavigationMenuGroupReverse()).AddTo(Disposable);
             NavigationMenuSelectedCommand.Subscribe(x => navigationMenuSelected(x.Item1,x.Item2)).AddTo(Disposable);

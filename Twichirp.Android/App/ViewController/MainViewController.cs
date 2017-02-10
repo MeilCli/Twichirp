@@ -48,9 +48,18 @@ using System.Reactive.Linq;
 using Reactive.Bindings;
 using FFImageLoading.Views;
 using Android.Animation;
+using SFragment = Android.Support.V4.App.Fragment;
+using Twichirp.Android.App.View.Fragment;
+using BottomBarSharp;
 
 namespace Twichirp.Android.App.ViewController {
     public class MainViewController : BaseViewController<IMainView,MainViewModel> {
+
+        private static string getFragmentTag(int position) {
+            return $"fragment_{position}";
+        }
+
+        private bool isTabInited;
 
         public MainViewController(IMainView view,MainViewModel viewModel) : base(view,viewModel) {
             view.OnCreateEventHandler += onCreate;
@@ -66,6 +75,9 @@ namespace Twichirp.Android.App.ViewController {
                 setDrop(x);
                 setSubIconsVisible(x);
             }).AddTo(Disposable);
+
+            View.BottomBar.TabSelect += tabSelect;
+            ViewModel.NavigationTabs.Subscribe(x => setNavigationTabs(x)).AddTo(Disposable);
 
             ViewModel.UserIcon.Subscribe(x => setIcon(x)).AddTo(Disposable);
             ViewModel.UserBanner.CombineLatest(ViewModel.UserLinkColor,(x,y) => Tuple.Create(x,y)).Subscribe(x => setUserBanner(x.Item1,x.Item2)).AddTo(Disposable);
@@ -188,5 +200,109 @@ namespace Twichirp.Android.App.ViewController {
             }
         }
 
+        private void setNavigationTabs(List<NavigationTab> tabs) {
+            var account = View.TwichirpApplication.AccountManager[View.TwichirpApplication.SettingManager.Accounts.DefaultAccountId];
+            var trasaction = View.Activity.SupportFragmentManager.BeginTransaction();
+            var tabList = new List<BottomBarTab>();
+
+            bool changed = false;
+            SFragment firstFragment = null;
+            for(int i = 0;i < 5 && i < tabs.Count;i++) {
+                var tab = tabs[i];
+
+                tabList.Add(View.BottomBar.NewTab(getTabId(i),tab.Icon,View.ApplicationContext.GetString(tab.Text)));
+
+                SFragment fragment = View.Activity.SupportFragmentManager.FindFragmentByTag(getFragmentTag(i));
+                if(fragment != null && wasAddedFragment(fragment,tab,account)) {
+                    continue;
+                } else if(fragment != null) {
+                    trasaction.Remove(fragment);
+                }
+
+                changed = true;
+                fragment = createFragment(tab,account);
+                if(fragment == null) {
+                    continue;
+                }
+                trasaction.Add(Android.Resource.Id.Content,fragment,getFragmentTag(i));
+
+                if(i == 0) {
+                    firstFragment = fragment;
+                }
+
+                if(isTabInited == false && i == 0) {
+                    isTabInited = true;
+                } else {
+                    trasaction.Hide(fragment);
+                }
+            }
+            if(changed && firstFragment != null) {
+                // Fragment追加時、BottomBarのイベントで表示しようとしてもタイミングが合わない
+                trasaction.Show(firstFragment);
+            }
+            trasaction.Commit();
+
+            if(changed) {
+                View.BottomBar.SelectTabAtPosition(0);
+            }
+            View.BottomBar.SetItems(tabList);
+
+        }
+
+        private bool wasAddedFragment(SFragment fragment,NavigationTab tab,Account account) {
+            switch(tab.Id) {
+                case Android.Resource.Id.HomeTab:
+                    return (fragment as StatusTimelineFragment)?.Equals(StatusTimelineFragmentType.Home,account) ?? false;
+                case Android.Resource.Id.MentionTab:
+                    return (fragment as StatusTimelineFragment)?.Equals(StatusTimelineFragmentType.Mention,account) ?? false;
+            }
+            return false;
+        }
+
+        private SFragment createFragment(NavigationTab tab,Account account) {
+            switch(tab.Id) {
+                case Android.Resource.Id.HomeTab:
+                    return StatusTimelineFragment.Make(StatusTimelineFragmentType.Home,account);
+                case Android.Resource.Id.MentionTab:
+                    return StatusTimelineFragment.Make(StatusTimelineFragmentType.Mention,account);
+            }
+            return null;
+        }
+
+        private void tabSelect(object sender,TabEventArgs args) {
+            showOrHideTab(View.BottomBar.FindPositionForTabWithId(args.TabId));
+        }
+
+        private void showOrHideTab(int showPosition) {
+            var trasaction = View.Activity.SupportFragmentManager.BeginTransaction();
+            for(int i = 0;i < 5;i++) {
+                SFragment fragment = View.Activity.SupportFragmentManager.FindFragmentByTag(getFragmentTag(i));
+                if(fragment == null) {
+                    continue;
+                }
+                if(i == showPosition) {
+                    trasaction.Show(fragment);
+                } else {
+                    trasaction.Hide(fragment);
+                }
+            }
+            trasaction.Commit();
+        }
+
+        private int getTabId(int position) {
+            switch(position) {
+                default:
+                case 0:
+                    return Android.Resource.Id.Tab1;
+                case 1:
+                    return Android.Resource.Id.Tab2;
+                case 2:
+                    return Android.Resource.Id.Tab3;
+                case 3:
+                    return Android.Resource.Id.Tab4;
+                case 4:
+                    return Android.Resource.Id.Tab5;
+            }
+        }
     }
 }
