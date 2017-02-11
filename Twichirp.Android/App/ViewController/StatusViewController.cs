@@ -138,7 +138,7 @@ namespace Twichirp.Android.App.ViewController {
         }
 
         private void setRetweetIcon(bool isRetweeted) {
-            var drawable = DrawableCompat.Wrap(View.ApplicationContext.GetDrawable(Android.Resource.Drawable.IconRepeatGrey36dp));
+            var drawable = DrawableCompat.Wrap(ResourcesCompat.GetDrawable(View.ApplicationContext.Resources,Android.Resource.Drawable.IconRepeatGrey36dp,null));
             View.RetweetIcon.SetImageDrawable(drawable);
             if(ViewModel.IsProtected.Value) {
                 DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Android.Resource.Color.Grey300,null));
@@ -150,7 +150,7 @@ namespace Twichirp.Android.App.ViewController {
         }
 
         private void setFavoriteIcon(bool isFavorited) {
-            var drawable = DrawableCompat.Wrap(View.ApplicationContext.GetDrawable(Android.Resource.Drawable.IconStarGrey36dp));
+            var drawable = DrawableCompat.Wrap(ResourcesCompat.GetDrawable(View.ApplicationContext.Resources,Android.Resource.Drawable.IconStarGrey36dp,null));
             View.FavoriteIcon.SetImageDrawable(drawable);
             if(isFavorited) {
                 DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Android.Resource.Color.Favorite,null));
