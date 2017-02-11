@@ -38,7 +38,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
             android:layout_height="24dp"
             android:layout_marginEnd="@dimen/ItemMargin"
             android:id="@+id/ReplyIconClickable"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackground"
             android:clickable="true">
           <ImageView
               android:src="@drawable/IconReplyGrey36dp"
@@ -58,7 +58,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
             android:layout_height="24dp"
             android:layout_marginEnd="@dimen/ItemMargin"
             android:id="@+id/RetweetIconClickable"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackground"
             android:clickable="true">
           <ImageView
               android:src="@drawable/IconRepeatGrey36dp"
@@ -85,7 +85,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
             android:layout_height="24dp"
             android:layout_marginEnd="@dimen/ItemMargin"
             android:id="@+id/FavoriteIconClickable"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackground"
             android:clickable="true">
           <ImageView
               android:src="@drawable/IconStarGrey36dp"

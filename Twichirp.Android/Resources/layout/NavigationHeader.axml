@@ -37,7 +37,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
     android:layout_marginTop="32dp"
     android:layout_marginBottom="@dimen/LayoutMargin"
     android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackgroundBorderless">
+    android:foreground="?attr/selectableItemBackgroundBorderless">
     <FFImageLoading.Views.ImageViewAsync
       android:layout_width="64dp"
       android:layout_height="64dp"
@@ -56,7 +56,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
         android:layout_width="wrap_content"
         android:id="@+id/FirstSubIconClickable"
         android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless">
+        android:foreground="?attr/selectableItemBackgroundBorderless">
       <FFImageLoading.Views.ImageViewAsync
         android:layout_width="42dp"
         android:layout_height="42dp"
@@ -68,7 +68,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
         android:layout_marginStart="@dimen/ItemMargin"
         android:id="@+id/SecondSubIconClickable"
         android:clickable="true"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless">
+        android:foreground="?attr/selectableItemBackgroundBorderless">
       <FFImageLoading.Views.ImageViewAsync
         android:layout_width="42dp"
         android:layout_height="42dp"
@@ -80,7 +80,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
       android:layout_height="wrap_content"
       android:layout_below="@id/IconClickable"
       android:id="@+id/Subtitle"
-      android:background="?android:attr/selectableItemBackground"
+      android:background="?attr/selectableItemBackground"
       android:paddingBottom="@dimen/ItemMargin">
     <TextView
         android:layout_width="wrap_content"
