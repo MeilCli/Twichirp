@@ -107,7 +107,7 @@ namespace Twichirp.Android.App.ViewController {
                 View.StatusType == StatusViewModel.QuotedOuterMediaTweet ||
                 View.StatusType == StatusViewModel.QuotedInnerAndOuterMediaTweet) {
 
-                ViewModel.QuotedSpannableText.Subscribe(x => View.QuotingName.TextFormatted = x.Span()).AddTo(Disposable);
+                ViewModel.QuotedSpannableName.Subscribe(x => View.QuotingName.TextFormatted = x.Span()).AddTo(Disposable);
                 ViewModel.QuotedSpannableText.Subscribe(x => View.QuotingText.TextFormatted = x.Span()).AddTo(Disposable);
             }
 
