@@ -118,6 +118,9 @@ namespace Twichirp.Core.App.Model {
             } finally {
                 slim.Release();
             }
+
+            // TLのUIの更新中に読み込み可能になるのを防ぐ(暫定) 
+            await Task.Delay(300);
             IsLoading = false;
         }
 
