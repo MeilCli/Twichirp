@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2016-2017 meil
+// Copyright (c) 2016-2017 meil
 //
 // This file is part of Twichirp.
 // 
@@ -14,33 +14,28 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using CoreTweet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Twichirp.Core.Extensions {
-    public static class UserExtensions {
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Views;
+using Android.Widget;
+using FFImageLoading.Views;
+using SToolbar = Android.Support.V7.Widget.Toolbar;
 
-        public static bool IsValid(this User user) {
-            if(user.Id == null) {
-                return false;
-            }
-            if(user.ScreenName == null) {
-                return false;
-            }
-            if(user.ProfileImageUrl == null) {
-                return false;
-            }
-            return true;
-        }
+namespace Twichirp.Android.App.View {
 
-        public static void CheckValid(this User user) {
-            if(user.IsValid() == false) {
-                throw new Exception("invalid user");
-            }
-        }
+    public interface IUserProfileView : IUserView {
+
+        SToolbar Toolbar { get; }
+
+        ImageViewAsync Banner { get; }
+
+        TextView Relationship { get; }
     }
 }

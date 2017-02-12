@@ -32,4 +32,8 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
   <item type="id" name="TabMention" />
   <item type="id" name="TabDM" />
   <item type="id" name="TabUser" />
+  <item type="id" name="TabTweet" />
+  <item type="id" name="TabFavorite" />
+  <item type="id" name="TabFollowing" />
+  <item type="id" name="TabFollower" />
 </resources>

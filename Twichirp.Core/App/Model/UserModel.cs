@@ -53,8 +53,6 @@ namespace Twichirp.Core.App.Model {
 
         public int ListedCount { get; private set; }
 
-        public bool IsMuting { get; private set; }
-
         public string ProfileBannerUrl { get; private set; }
 
         public string ProfileImageUrl { get; private set; }
@@ -64,9 +62,6 @@ namespace Twichirp.Core.App.Model {
         public bool IsProtected { get; private set; }
 
         public int StatusesCount { get; private set; }
-
-        // 凍結?
-        public bool IsSuspended { get; private set; }
 
         public bool IsVerified { get; private set; }
 
@@ -99,13 +94,11 @@ namespace Twichirp.Core.App.Model {
             SetProperty(this,x => x.FollowersCount,user.FollowersCount);
             SetProperty(this,x => x.FriendsCount,user.FriendsCount);
             SetProperty(this,x => x.ListedCount,user.ListedCount ?? 0);
-            SetProperty(this,x => x.IsMuting,user.IsMuting ?? false);
             SetProperty(this,x => x.ProfileBannerUrl,user.ProfileBannerUrl);
             SetProperty(this,x => x.ProfileImageUrl,user.ProfileImageUrl);
             SetProperty(this,x => x.ProfileLinkColor,user.ProfileLinkColor);
             SetProperty(this,x => x.IsProtected,user.IsProtected);
             SetProperty(this,x => x.StatusesCount,user.StatusesCount);
-            SetProperty(this,x => x.IsSuspended,user.IsSuspended);
             SetProperty(this,x => x.IsVerified,user.IsVerified);
 
             UserChanged?.Invoke(this,new EventArgs());

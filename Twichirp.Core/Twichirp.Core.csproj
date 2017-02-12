@@ -58,6 +58,7 @@
     <Compile Include="App\Model\StatusModel.cs" />
     <Compile Include="App\Model\StatusTimelineModel.cs" />
     <Compile Include="App\Model\UserModel.cs" />
+    <Compile Include="App\Model\UserProfileModel.cs" />
     <Compile Include="App\Setting\AccountSetting.cs" />
     <Compile Include="App\Setting\ApplicationSetting.cs" />
     <Compile Include="App\Setting\BaseSetting.cs" />
@@ -70,6 +71,8 @@
     <Compile Include="App\ViewModel\SplashViewModel.cs" />
     <Compile Include="App\ViewModel\StatusTimelineViewModel.cs" />
     <Compile Include="App\ViewModel\StatusViewModel.cs" />
+    <Compile Include="App\ViewModel\UserProfileViewModel.cs" />
+    <Compile Include="App\ViewModel\UserViewModel.cs" />
     <Compile Include="Constant\ConsumerConstant.cs" />
     <Compile Include="Constant\LibraryConstant.cs" />
     <Compile Include="Constant\LicenseConstant.cs" />

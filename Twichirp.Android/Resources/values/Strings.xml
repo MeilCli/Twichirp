@@ -67,4 +67,25 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
   <string name="TabMention">Mention</string>
   <string name="TabDM">DM</string>
   <string name="TabUser">User</string>
+  <string name="TabTweet">Tweet</string>
+  <string name="TabFavorite">Favorite</string>
+  <string name="TabFollowing">Following</string>
+  <string name="TabFollower">Follower</string>
+
+  <string name="UserFollowedBy">Followed by this user</string>
+  <string name="UserFollowingReceived">Received following request</string>
+  <string name="UserBlockedBy">Blocked by this user</string>
+  <string name="UserFollowing">Following</string>
+  <string name="UserFollowingRequested">Sending follow reuest</string>
+  <string name="UserBlocking">Blocking</string>
+  <string name="UserFollow">Follow</string>
+  <string name="UserMuting">Muting</string>
+  <string name="UserMarkedSpam">Marked spam this user</string>
+  <string name="UserDoFollow">Follow</string>
+  <string name="UserDoUnfollow">Unfollow</string>
+  <string name="UserDoBlock">Block</string>
+  <string name="UserDoUnblock">Unblock</string>
+  <string name="UserDoMute">Mute</string>
+  <string name="UserDoUnmute">Unmute</string>
+  <string name="UserDoSpam">Report spam</string>
 </resources>

@@ -13,6 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twichirp.Test.Console", "Tw
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0D4450A0-52C5-4C5C-B3AD-6955D33FC10D}"
 	ProjectSection(SolutionItems) = preProject
+		Architecture.md = Architecture.md
 		COPYING.LESSER.txt = COPYING.LESSER.txt
 		COPYING.txt = COPYING.txt
 		COPYRIGHT.txt = COPYRIGHT.txt

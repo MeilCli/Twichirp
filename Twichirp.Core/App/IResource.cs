@@ -44,5 +44,15 @@ namespace Twichirp.Core.App {
         IValue<string> TimeDayAgo { get; }
         IValue<string> TimeDaysAgo { get; }
 
+        IValue<string> UserFollowedBy { get; }
+        IValue<string> UserFollowingReceived { get; }
+        IValue<string> UserBlockedBy { get; }
+        IValue<string> UserFollowing { get; }
+        IValue<string> UserFollowingRequested { get; }
+        IValue<string> UserBlocking { get; }
+        IValue<string> UserFollow { get; }
+        IValue<string> UserMuting { get; }
+        IValue<string> UserMarkedSpam { get; }
+
     }
 }

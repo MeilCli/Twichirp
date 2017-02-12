@@ -27,6 +27,7 @@ namespace Twichirp.Core.Model {
         public const int Undefined = 0;
         public const int Home = 1;
         public const int Mention = 2;
+        public const int User = 3;
 
         private Func<Account,int,long?,long?,Task<TResult>> load;
         public int Type { get; }
@@ -49,6 +50,13 @@ namespace Twichirp.Core.Model {
         public static Timeline<IEnumerable<Status>> MentionTimeline() {
             Func<Account,int,long?,long?,Task<IEnumerable<Status>>> load = async (account,x,y,z) => {
                 return await account.Token.Statuses.MentionsTimelineAsync(count: x,since_id: y,max_id: z,include_entities: true,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+            };
+            return new Timeline<IEnumerable<Status>>(load,Mention);
+        }
+
+        public static Timeline<IEnumerable<Status>> UserTimeline(long userId) {
+            Func<Account,int,long?,long?,Task<IEnumerable<Status>>> load = async (account,x,y,z) => {
+                return await account.Token.Statuses.UserTimelineAsync(count: x,since_id: y,max_id: z,user_id: userId,include_rts: true,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
             };
             return new Timeline<IEnumerable<Status>>(load,Mention);
         }

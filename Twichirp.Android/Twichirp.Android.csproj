@@ -31,11 +31,14 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
-    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <BundleAssemblies>False</BundleAssemblies>
     <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
     <Debugger>Xamarin</Debugger>
     <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <AotAssemblies>False</AotAssemblies>
+    <EnableLLVM>False</EnableLLVM>
+    <EnableProguard>False</EnableProguard>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -244,6 +247,8 @@
     <Compile Include="App\ViewController\SplashViewController.cs" />
     <Compile Include="App\ViewController\StatusTimelineViewController.cs" />
     <Compile Include="App\ViewController\StatusViewController.cs" />
+    <Compile Include="App\ViewController\UserProfileViewController.cs" />
+    <Compile Include="App\ViewController\UserViewController.cs" />
     <Compile Include="App\ViewController\VideoViewerViewController.cs" />
     <Compile Include="App\ViewModel\ImageViewerViewModel.cs" />
     <Compile Include="App\ViewModel\MainViewModel.cs" />
@@ -252,6 +257,7 @@
     <Compile Include="App\View\Activity\LoginActivity.cs" />
     <Compile Include="App\View\Activity\OpenSourceActivity.cs" />
     <Compile Include="App\View\Activity\SplashActivity.cs" />
+    <Compile Include="App\View\Activity\UserProfileActivity.cs" />
     <Compile Include="App\View\Activity\VideoViewerActivity.cs" />
     <Compile Include="App\View\AppCompatAutoCompleteTextView.cs" />
     <Compile Include="App\View\DividerItemDecoration.cs" />
@@ -267,6 +273,8 @@
     <Compile Include="App\View\Interface\ISplashView.cs" />
     <Compile Include="App\View\Interface\IStatusTimelineView.cs" />
     <Compile Include="App\View\Interface\IStatusView.cs" />
+    <Compile Include="App\View\Interface\IUserProfileView.cs" />
+    <Compile Include="App\View\Interface\IUserView.cs" />
     <Compile Include="App\View\Interface\IVideoViewerView.cs" />
     <Compile Include="App\View\IView.cs" />
     <Compile Include="App\TwichirpApplication.cs" />
@@ -360,6 +368,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\VideoViewerActivity.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\UserProfileActivity.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="Twichirp.Android.licenseheader" />

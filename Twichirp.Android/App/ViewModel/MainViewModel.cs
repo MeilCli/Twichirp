@@ -40,12 +40,19 @@ namespace Twichirp.Android.App.ViewModel {
 
         private MainModel mainModel;
 
+        public string UserJson {
+            get {
+                return mainModel.User.ExportJson();
+            }
+        }
+
         public ReadOnlyReactiveProperty<List<NavigationMenu>> NavigationMenus { get; }
         public ReadOnlyReactiveProperty<List<NavigationTab>> NavigationTabs { get; }
         public ReadOnlyReactiveProperty<bool> IsNavigationHidingGroup { get; }
         public ReactiveCommand NavigationMenuGroupReverseCommand { get; } = new ReactiveCommand();
         public ReactiveCommand<Tuple<int,int>> NavigationMenuSelectedCommand { get; } = new ReactiveCommand<Tuple<int,int>>();
 
+        public ReactiveProperty<long> UserId { get; } = new ReactiveProperty<long>();
         public ReactiveProperty<string> UserIcon { get; } = new ReactiveProperty<string>();
         public ReactiveProperty<string> UserBanner { get; } = new ReactiveProperty<string>();
         public ReactiveProperty<string> UserLinkColor { get; } = new ReactiveProperty<string>();
@@ -59,6 +66,7 @@ namespace Twichirp.Android.App.ViewModel {
         public ReactiveCommand UpdateDefaultAccountIfChangedCommand { get; } = new ReactiveCommand();
         public ReactiveCommand StartSettingActivityCommand { get; } = new ReactiveCommand();
         public ReactiveCommand StartLoginActivityCommand { get; } = new ReactiveCommand();
+        public ReactiveCommand StartUserProfileActivityCommand { get; } = new ReactiveCommand();
 
         public MainViewModel(ITwichirpApplication application) : base(application) {
             mainModel = new MainModel(application);
@@ -115,6 +123,7 @@ namespace Twichirp.Android.App.ViewModel {
         }
 
         private void setUserValues(UserModel user) {
+            UserId.Value = user.Id;
             UserIcon.Value = user.ProfileImageUrl.Replace("_normal","_bigger");
             UserBanner.Value = user.ProfileBannerUrl;
             UserLinkColor.Value = user.ProfileLinkColor;

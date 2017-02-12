@@ -67,4 +67,25 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
   <string name="TabMention">メンション</string>
   <string name="TabDM">メッセージ</string>
   <string name="TabUser">ユーザー</string>
+  <string name="TabTweet">ツイート</string>
+  <string name="TabFavorite">お気に入り</string>
+  <string name="TabFollowing">フォロー</string>
+  <string name="TabFollower">フォロワー</string>
+
+  <string name="UserFollowedBy">フォローされています</string>
+  <string name="UserFollowingReceived">フォローリクエストを受けています</string>
+  <string name="UserBlockedBy">ブロックされています</string>
+  <string name="UserFollowing">フォロー中</string>
+  <string name="UserFollowingRequested">フォローリクエスト中</string>
+  <string name="UserBlocking">ブロック中</string>
+  <string name="UserFollow">フォロー</string>
+  <string name="UserMuting">ミュートしています</string>
+  <string name="UserMarkedSpam">スパム報告をしています</string>
+  <string name="UserDoFollow">フォローする</string>
+  <string name="UserDoUnfollow">フォロー解除する</string>
+  <string name="UserDoBlock">ブロックする</string>
+  <string name="UserDoUnblock">ブロック解除する</string>
+  <string name="UserDoMute">ミュートする</string>
+  <string name="UserDoUnmute">ミュート解除する</string>
+  <string name="UserDoSpam">スパム報告する</string>
 </resources>

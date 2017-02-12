@@ -75,6 +75,16 @@ namespace Twichirp.Android.App {
         public IValue<string> TimeDayAgo { get; }
         public IValue<string> TimeDaysAgo { get; }
 
+        public IValue<string> UserFollowedBy { get; }
+        public IValue<string> UserFollowingReceived { get; }
+        public IValue<string> UserBlockedBy { get; }
+        public IValue<string> UserFollowing { get; }
+        public IValue<string> UserFollowingRequested { get; }
+        public IValue<string> UserBlocking { get; }
+        public IValue<string> UserFollow { get; }
+        public IValue<string> UserMuting { get; }
+        public IValue<string> UserMarkedSpam { get; }
+
         public Resource(Resources resources) {
             this.resources = resources;
 
@@ -93,6 +103,16 @@ namespace Twichirp.Android.App {
             TimeHoursAgo = new StringValue(resources,Android.Resource.String.TimeHoursAgo);
             TimeDayAgo = new StringValue(resources,Android.Resource.String.TimeDayAgo);
             TimeDaysAgo = new StringValue(resources,Android.Resource.String.TimeDaysAgo);
+
+            UserFollowedBy = new StringValue(resources,Android.Resource.String.UserFollowedBy);
+            UserFollowingReceived = new StringValue(resources,Android.Resource.String.UserFollowingReceived);
+            UserBlockedBy = new StringValue(resources,Android.Resource.String.UserBlockedBy);
+            UserFollowing = new StringValue(resources,Android.Resource.String.UserFollowing);
+            UserFollowingRequested = new StringValue(resources,Android.Resource.String.UserFollowingRequested);
+            UserBlocking = new StringValue(resources,Android.Resource.String.UserBlocking);
+            UserFollow = new StringValue(resources,Android.Resource.String.UserFollow);
+            UserMuting = new StringValue(resources,Android.Resource.String.UserMuting);
+            UserMarkedSpam = new StringValue(resources,Android.Resource.String.UserMarkedSpam);
         }
 
     }

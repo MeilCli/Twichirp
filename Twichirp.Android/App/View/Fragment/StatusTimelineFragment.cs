@@ -38,31 +38,31 @@ namespace Twichirp.Android.App.View.Fragment {
 
     public enum StatusTimelineFragmentType {
         Home = 0,
-        Mention = 1
+        Mention = 1,
+        User = 2
     }
 
     public class StatusTimelineFragment : BaseFragment, IStatusTimelineView {
 
         private const string argumentType = "arg_type";
         private const string argumentAccount = "arg_account";
+        private const string argumentUser = "arg_user";
 
         public static StatusTimelineFragment Make(StatusTimelineFragmentType type,Account account) {
             var fragment = new StatusTimelineFragment();
             var bundle = new Bundle();
             bundle.PutLong(argumentAccount,account.Id);
-            switch(type) {
-                default:
-                case StatusTimelineFragmentType.Home:
-                    bundle.PutInt(argumentType,(int)type);
-                    break;
-                case StatusTimelineFragmentType.Mention:
-                    bundle.PutInt(argumentType,(int)type);
-                    break;
-            }
+            bundle.PutInt(argumentType,(int)type);
             fragment.Arguments = bundle;
             return fragment;
         }
-        
+
+        public static StatusTimelineFragment MakeUser(StatusTimelineFragmentType type,Account account,long userId) {
+            var fragment = Make(type,account);
+            fragment.Arguments.PutLong(argumentUser,userId);
+            return fragment;
+        }
+
         private StatusTimelineViewModel statusTimelineViewModel;
         private StatusTimelineViewController statusTimelineViewController;
 
@@ -75,6 +75,7 @@ namespace Twichirp.Android.App.View.Fragment {
             long accountId = Arguments.GetLong(argumentAccount);
             var account = TwichirpApplication.AccountManager[accountId];
             var type = (StatusTimelineFragmentType)Enum.ToObject(typeof(StatusTimelineFragmentType),Arguments.GetInt(argumentType));
+            long userId = Arguments.GetLong(argumentUser,-1);
             Timeline<IEnumerable<CoreTweet.Status>> timelineResource;
             switch(type) {
                 default:
@@ -83,6 +84,9 @@ namespace Twichirp.Android.App.View.Fragment {
                     break;
                 case StatusTimelineFragmentType.Mention:
                     timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.MentionTimeline();
+                    break;
+                case StatusTimelineFragmentType.User:
+                    timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.UserTimeline(userId);
                     break;
             }
             statusTimelineViewModel = new StatusTimelineViewModel(TwichirpApplication,timelineResource,account);

@@ -81,6 +81,7 @@ namespace Twichirp.Android.App.ViewController {
             ViewModel.NavigationTabs.Subscribe(x => setNavigationTabs(x)).AddTo(Disposable);
 
             ViewModel.UserIcon.Subscribe(x => setIcon(x)).AddTo(Disposable);
+            View.IconClickable.ClickAsObservable().SetCommand(ViewModel.StartUserProfileActivityCommand).AddTo(Disposable);
             ViewModel.UserBanner.CombineLatest(ViewModel.UserLinkColor,(x,y) => Tuple.Create(x,y)).Subscribe(x => setUserBanner(x.Item1,x.Item2)).AddTo(Disposable);
             View.Name.SetBinding(x => x.Text,ViewModel.UserName).AddTo(Disposable);
             View.ScreenName.SetBinding(x => x.Text,ViewModel.UserScreenName).AddTo(Disposable);
@@ -89,14 +90,23 @@ namespace Twichirp.Android.App.ViewController {
             View.FirstSubIconClickable.ClickAsObservable().SetCommand(ViewModel.FirstSubUserIconClickedCommand).AddTo(Disposable);
             View.SecondSubIconClickable.ClickAsObservable().SetCommand(ViewModel.SecondSubUserIconClickedCommand).AddTo(Disposable);
 
-            ViewModel.StartLoginActivityCommand.Subscribe(x => {
-                View.Activity.StartActivityCompat(typeof(LoginActivity));
-                View.DrawerLayout.CloseDrawers();
-            }).AddTo(Disposable);
-            ViewModel.StartSettingActivityCommand.Subscribe(x => {
-                SettingActivity.StartMain(View.Activity);
-                View.DrawerLayout.CloseDrawers();
-            }).AddTo(Disposable);
+            ViewModel.StartLoginActivityCommand
+                .Subscribe(x => {
+                    View.Activity.StartActivityCompat(typeof(LoginActivity));
+                    View.DrawerLayout.CloseDrawers();
+                })
+                .AddTo(Disposable);
+            ViewModel.StartSettingActivityCommand
+                .Subscribe(x => {
+                    SettingActivity.StartMain(View.Activity);
+                    View.DrawerLayout.CloseDrawers();
+                })
+                .AddTo(Disposable);
+            ViewModel.StartUserProfileActivityCommand
+                .Subscribe(x => {
+                    UserProfileActivity.Start(View.Activity,ViewModel.UserId.Value,ViewModel.UserJson,null,View.Icon);
+                })
+                .AddTo(Disposable);
         }
 
         private void onResume(object sender,LifeCycleEventArgs args) {
