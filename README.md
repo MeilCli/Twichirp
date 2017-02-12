@@ -7,6 +7,9 @@ Next target will be UWP(Windows10)
 ## ToDo
 [タスク](https://github.com/MeilCli/Twichirp/projects/1)
 
+## Architecture
+[アーキテクチャ](Architecture.md)
+
 ## License
 This application license is LGPL v3.0
 
