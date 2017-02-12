@@ -156,7 +156,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async void Retweet(Account account) {
+        public async Task Retweet(Account account) {
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Statuses.RetweetAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
@@ -171,7 +171,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async void UnRetweet(Account account) {
+        public async Task UnRetweet(Account account) {
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Statuses.UnretweetAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
@@ -191,7 +191,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async void Favorite(Account account) {
+        public async Task Favorite(Account account) {
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Favorites.CreateAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
@@ -206,7 +206,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async void UnFavorite(Account account) {
+        public async Task UnFavorite(Account account) {
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Favorites.DestroyAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);

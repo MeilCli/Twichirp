@@ -87,8 +87,8 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveProperty<IEnumerable<MediaEntity>> QuotedMedia { get; private set; } = new ReactiveProperty<IEnumerable<MediaEntity>>();
 
         public ReactiveCommand UpdateDateTimeCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand RetweetCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand FavoriteCommand { get; } = new ReactiveCommand();
+        public AsyncReactiveCommand RetweetCommand { get; } = new AsyncReactiveCommand();
+        public AsyncReactiveCommand FavoriteCommand { get; } = new AsyncReactiveCommand();
         public ReactiveCommand<int> StartMediaViewerPageCommand { get; } = new ReactiveCommand<int>();
 
         public StatusViewModel(ITwichirpApplication application,Status status,Account account) : this(application,new StatusModel(application,status),account) { }
@@ -118,20 +118,20 @@ namespace Twichirp.Core.App.ViewModel {
             }
 
             RetweetCommand
-                .Subscribe(x => {
+                .Subscribe(async x => {
                     if(IsRetweeted.Value) {
-                        StatusModel.ToContentStatus().UnRetweet(account);
+                        await StatusModel.ToContentStatus().UnRetweet(account);
                     } else {
-                        StatusModel.ToContentStatus().Retweet(account);
+                        await StatusModel.ToContentStatus().Retweet(account);
                     }
                 })
                 .AddTo(Disposable);
             FavoriteCommand
-                .Subscribe(x => {
+                .Subscribe(async x => {
                     if(IsFavorited.Value) {
-                        StatusModel.ToContentStatus().UnFavorite(account);
+                        await StatusModel.ToContentStatus().UnFavorite(account);
                     } else {
-                        StatusModel.ToContentStatus().Favorite(account);
+                        await StatusModel.ToContentStatus().Favorite(account);
                     }
                 })
                 .AddTo(Disposable);

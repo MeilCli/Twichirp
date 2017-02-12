@@ -285,6 +285,7 @@
     <Compile Include="Constant\AndroidLibraryConstant.cs" />
     <Compile Include="App\View\Activity\MainActivity.cs" />
     <Compile Include="App\View\ReactiveCollectionAdapter.cs" />
+    <Compile Include="Extensions\ReactivePropertyExtension.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Model\NavigationMenu.cs" />
     <Compile Include="Model\NavigationTab.cs" />
