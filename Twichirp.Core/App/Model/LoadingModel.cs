@@ -14,30 +14,35 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Twichirp.Core.App.Model;
-using Reactive.Bindings.Extensions;
 
-namespace Twichirp.Core.App.ViewModel {
-    public class LoadingViewModel : BaseViewModel {
+namespace Twichirp.Core.App.Model {
 
-        public ReadOnlyReactiveProperty<bool> IsLoading { get; }
-        public ReactiveCommand LoadCommand { get; } = new ReactiveCommand();
-        internal LoadingModel LoadingModel { get; }
+    public class LoadingModel : BaseModel {
 
-        public LoadingViewModel(ITwichirpApplication application,LoadingModel model) : base(application) {
-            LoadingModel = model;
-            IsLoading = LoadingModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);
+        private bool _isLoading;
+        public bool IsLoading {
+            get {
+                return _isLoading;
+            }
+            private set {
+                SetValue(ref _isLoading,value,nameof(IsLoading));
+            }
         }
 
-        public override void Dispose() {
-            base.Dispose();
-            LoadCommand.Dispose();
+        public LoadingModel(ITwichirpApplication application) : base(application) {
+        }
+
+        public void StartLoading() {
+            IsLoading = true;
+        }
+
+        public void StopLoading() {
+            IsLoading = false;
         }
     }
 }

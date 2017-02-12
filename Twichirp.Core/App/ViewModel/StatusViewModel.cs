@@ -91,9 +91,11 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveCommand FavoriteCommand { get; } = new ReactiveCommand();
         public ReactiveCommand<int> StartMediaViewerPageCommand { get; } = new ReactiveCommand<int>();
 
-        public StatusViewModel(ITwichirpApplication application,Status status,Account account) : base(application) {
+        public StatusViewModel(ITwichirpApplication application,Status status,Account account) : this(application,new StatusModel(application,status),account) { }
+
+        internal StatusViewModel(ITwichirpApplication application,StatusModel status,Account account) : base(application) {
             Account = account;
-            StatusModel = new StatusModel(Application,status);
+            StatusModel = status;
 
             DateTime = StatusModel.ToContentStatus().ObserveProperty(x => x.CreatedAt)
                 .CombineLatest(UpdateDateTimeCommand,(x,y) => relativeDateTime(x))

@@ -31,6 +31,7 @@ using Twichirp.Core.App.Event;
 namespace Twichirp.Core.App.ViewModel {
     public class StatusTimelineViewModel : BaseViewModel {
 
+        private Account account;
         protected StatusTimelineModel StatusTimelineModel;
 
         public string Json {
@@ -39,18 +40,19 @@ namespace Twichirp.Core.App.ViewModel {
             }
         }
 
-        public ReactiveCollection<BaseViewModel> Timeline { get; }
+        public ReadOnlyReactiveCollection<BaseViewModel> Timeline { get; }
         public ReadOnlyReactiveProperty<bool> IsLoading { get; }
         public ReactiveCommand<string> ShowMessageCommand { get; } = new ReactiveCommand<string>();
         public ReactiveCommand<Timeline<IEnumerable<Status>>> LoadCommand { get; } = new ReactiveCommand<Timeline<IEnumerable<Status>>>();
         public ReactiveCommand LoadMoreComannd { get; } = new ReactiveCommand();
 
         public StatusTimelineViewModel(ITwichirpApplication application,Timeline<IEnumerable<Status>> timelineResource,Account account) : base(application) {
+            this.account = account;
             StatusTimelineModel = new StatusTimelineModel(application,timelineResource,account);
-            Timeline = StatusTimelineModel.Timeline;
+            Timeline = StatusTimelineModel.Timeline.ToReadOnlyReactiveCollection(toViewModel).AddTo(Disposable);
+            Timeline.CollectionChangedAsObservable().Subscribe(x => collectionChanged(x)).AddTo(Disposable);
             IsLoading = StatusTimelineModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);
 
-            Timeline.CollectionChanged += collectionChanged;
             Observable.FromEventPattern<EventArgs<string>>(x => StatusTimelineModel.ErrorMessageCreated += x,x => StatusTimelineModel.ErrorMessageCreated -= x)
                 .SubscribeOnUIDispatcher()
                 .Subscribe(x => ShowMessageCommand.Execute(x.EventArgs.EventData))
@@ -64,27 +66,33 @@ namespace Twichirp.Core.App.ViewModel {
                 .AddTo(Disposable);
         }
 
-        private void collectionChanged(object sender,NotifyCollectionChangedEventArgs e) {
+        private BaseViewModel toViewModel(BaseModel model) {
+            if(model is StatusModel) {
+                return new StatusViewModel(Application,model as StatusModel,account);
+            }
+            if(model is LoadingModel) {
+                return new LoadingViewModel(Application,model as LoadingModel);
+            }
+            return null;
+        }
+
+        private void collectionChanged(NotifyCollectionChangedEventArgs e) {
             if(e.Action == NotifyCollectionChangedAction.Add) {
                 foreach(var s in e.NewItems) {
                     if(s is LoadingViewModel) {
                         LoadingViewModel loadingViewModel = s as LoadingViewModel;
-                        loadingViewModel.LoadCommand.Subscribe(x => StatusTimelineModel.Load(loadingViewModel)).AddTo(Disposable);
+                        loadingViewModel.LoadCommand.Subscribe(x => StatusTimelineModel.Load(loadingViewModel.LoadingModel)).AddTo(Disposable);
                     }
                 }
             } else if(e.Action == NotifyCollectionChangedAction.Replace) {
                 foreach(var s in e.NewItems) {
                     if(s is LoadingViewModel) {
                         LoadingViewModel loadingViewModel = s as LoadingViewModel;
-                        loadingViewModel.LoadCommand.Subscribe(x => StatusTimelineModel.Load(loadingViewModel)).AddTo(Disposable);
+                        loadingViewModel.LoadCommand.Subscribe(x => StatusTimelineModel.Load(loadingViewModel.LoadingModel)).AddTo(Disposable);
                     }
                 }
             }
         }
 
-        public override void Dispose() {
-            base.Dispose();
-            Timeline.CollectionChanged -= collectionChanged;
-        }
     }
 }

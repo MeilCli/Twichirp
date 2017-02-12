@@ -53,6 +53,7 @@
     <Compile Include="App\Manager\IFileSystem.cs" />
     <Compile Include="App\Manager\UserContainerManager.cs" />
     <Compile Include="App\Model\BaseModel.cs" />
+    <Compile Include="App\Model\LoadingModel.cs" />
     <Compile Include="App\Model\LoginModel.cs" />
     <Compile Include="App\Model\SplashModel.cs" />
     <Compile Include="App\Model\StatusModel.cs" />

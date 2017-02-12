@@ -35,17 +35,18 @@ namespace Twichirp.Android.App.ViewController {
     public class LoadingViewController : BaseViewController<ILoadingView,LoadingViewModel> {
 
         public LoadingViewController(ILoadingView view,LoadingViewModel viewModel) : base(view,viewModel) {
+            AutoDisposeViewModel = false;
             view.OnCreateEventHandler += onCreate;
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
-            var loadingText = ViewModel.IsLoaing
+            var loadingText = ViewModel.IsLoading
                 .Select(x => x == true ? Android.Resource.String.Loading : Android.Resource.String.LoadingLoad)
                 .Select(x => View.ApplicationContext.GetString(x))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
             View.LoadingText.SetBinding(x => x.Text,loadingText).AddTo(Disposable);
-            var progressBarVisible = ViewModel.IsLoaing
+            var progressBarVisible = ViewModel.IsLoading
                 .Select(x => x == true ? ViewStates.Visible : ViewStates.Invisible)
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
