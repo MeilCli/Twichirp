@@ -49,6 +49,16 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
+        private bool _canLoadMore = true;
+        private bool canLoadMore {
+            get {
+                return _canLoadMore;
+            }
+            set {
+                _canLoadMore = value;
+            }
+        }
+
         public StatusTimelineModel(ITwichirpApplication application,Timeline<IEnumerable<Status>> timelineResource,Account account) : base(application) {
             this.timelineResource = timelineResource;
             this.account = account;
@@ -88,10 +98,18 @@ namespace Twichirp.Core.App.Model {
                         _timeline.Insert(0,s);
                         Timeline.InsertOnScheduler(0,s);
                     }
+                    if(response.Any()) {
+                        canLoadMore = true;
+                    }
                 } else {
                     foreach(var s in (await timelineResource.Load(account,count)).Where(x => x.IsValid()).Select(x => new StatusViewModel(Application,x,account)).Reverse()) {
                         _timeline.Insert(0,s);
                         Timeline.InsertOnScheduler(0,s);
+                    }
+                    if(_timeline.Count > 0) {
+                        canLoadMore = true;
+                    } else {
+                        canLoadMore = false;
                     }
                 }
             } catch(Exception e) {
@@ -168,6 +186,9 @@ namespace Twichirp.Core.App.Model {
             if(IsLoading) {
                 return;
             }
+            if(canLoadMore == false) {
+                return;
+            }
             await slim.WaitAsync();
             IsLoading = true;
             try {
@@ -176,6 +197,11 @@ namespace Twichirp.Core.App.Model {
                 foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusViewModel(Application,x,account))) {
                     _timeline.Add(s);
                     Timeline.AddOnScheduler(s);
+                }
+                if(response.Any()) {
+                    canLoadMore = true;
+                } else {
+                    canLoadMore = false;
                 }
             } catch(Exception e) {
                 ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
