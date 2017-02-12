@@ -160,6 +160,7 @@ namespace Twichirp.Core.App.Model {
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Statuses.RetweetAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+                status.CheckValid();
                 foreach(var s in status.DeploymentStatus()) {
                     Application.TwitterEvent.UpdateStatus(account,s);
                 }
@@ -174,6 +175,7 @@ namespace Twichirp.Core.App.Model {
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Statuses.UnretweetAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+                status.CheckValid();
                 if(status.IsRetweeted ?? false) {
                     //返り値に反映されてない
                     status.IsRetweeted = false;
@@ -193,6 +195,7 @@ namespace Twichirp.Core.App.Model {
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Favorites.CreateAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+                status.CheckValid();
                 foreach(var s in status.DeploymentStatus()) {
                     Application.TwitterEvent.UpdateStatus(account,s);
                 }
@@ -207,6 +210,7 @@ namespace Twichirp.Core.App.Model {
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Favorites.DestroyAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+                status.CheckValid();
                 foreach(var s in status.DeploymentStatus()) {
                     Application.TwitterEvent.UpdateStatus(account,s);
                 }

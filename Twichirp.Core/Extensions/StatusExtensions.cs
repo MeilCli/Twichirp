@@ -40,6 +40,12 @@ namespace Twichirp.Core.Extensions {
             return true;
         }
 
+        public static void CheckValid(this Status status) {
+            if(status.IsValid() == false) {
+                throw new Exception("invalid status");
+            }
+        }
+
         public static IEnumerable<Status> DeploymentStatus(this Status status) {
             yield return status;
             if(status.RetweetedStatus != null) {
