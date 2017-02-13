@@ -95,9 +95,11 @@ namespace Twichirp.Core.App.Model {
                         var loadingModel = new LoadingModel(Application);
                         Timeline.InsertOnScheduler(0,loadingModel);
                     }
-                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x)).Reverse()) {
-                        _timeline.Insert(0,s);
-                        Timeline.InsertOnScheduler(0,s);
+                    int index = 0;
+                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
+                        _timeline.Insert(index,s);
+                        Timeline.InsertOnScheduler(index,s);
+                        index++;
                     }
                     if(response.Any()) {
                         canLoadMore = true;
@@ -157,9 +159,11 @@ namespace Twichirp.Core.App.Model {
                     }
                     int _index = _timeline.IndexOf(previousStatus) + 1;
                     int index = Timeline.IndexOf(previousStatus) + 1;
-                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x)).Reverse()) {
+                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
                         _timeline.Insert(_index,s);
                         Timeline.InsertOnScheduler(index,s);
+                        _index++;
+                        index++;
                     }
                 } else if(previousStatus != null) {
                     IEnumerable<Status> response = await timelineResource.Load(account,count,maxId: previousStatus.Id - 1);
@@ -171,9 +175,11 @@ namespace Twichirp.Core.App.Model {
                 } else if(nextStatus != null) {
                     IEnumerable<Status> response = await timelineResource.Load(account,count,sinceId: nextStatus.Id);
                     Timeline.RemoveOnScheduler(target);
-                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x)).Reverse()) {
-                        _timeline.Insert(0,s);
-                        Timeline.InsertOnScheduler(0,s);
+                    int index = 0;
+                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
+                        _timeline.Insert(index,s);
+                        Timeline.InsertOnScheduler(index,s);
+                        index++;
                     }
                 }
             } catch(Exception e) {
