@@ -120,7 +120,7 @@ namespace Twichirp.Core.App.Model {
             }
 
             // TLのUIの更新中に読み込み可能になるのを防ぐ(暫定) 
-            await Task.Delay(300);
+            await Task.Delay(800);
             IsLoading = false;
         }
 
