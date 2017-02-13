@@ -53,8 +53,12 @@ namespace Twichirp.Android.App.ViewController {
 
         public StatusViewController(IStatusView view,StatusViewModel viewModel) : base(view,viewModel) {
             AutoDisposeViewModel = false;
-            view.OnCreateEventHandler += onCreate;
-            view.OnDestroyEventHandler += onDestory;
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnCreateEventHandler += x,x => view.OnCreateEventHandler -= x)
+                .Subscribe(x => onCreate(x.Sender,x.EventArgs))
+                .AddTo(Disposable);
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnDestroyEventHandler += x,x => view.OnDestroyEventHandler -= x)
+                .Subscribe(x => onDestory(x.Sender,x.EventArgs))
+                .AddTo(Disposable);
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {

@@ -36,7 +36,9 @@ namespace Twichirp.Android.App.ViewController {
 
         public LoadingViewController(ILoadingView view,LoadingViewModel viewModel) : base(view,viewModel) {
             AutoDisposeViewModel = false;
-            view.OnCreateEventHandler += onCreate;
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnCreateEventHandler += x,x => view.OnCreateEventHandler -= x)
+                .Subscribe(x => onCreate(x.Sender,x.EventArgs))
+                .AddTo(Disposable);
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {

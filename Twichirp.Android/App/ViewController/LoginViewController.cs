@@ -32,12 +32,16 @@ using Twichirp.Core.App.ViewModel;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View.Activity;
 using Twichirp.Android.App.View.Fragment.Dialog;
+using System.Reactive.Linq;
 
 namespace Twichirp.Android.App.ViewController {
+
     public class LoginViewController : BaseViewController<ILoginView,LoginViewModel> {
 
         public LoginViewController(ILoginView view,LoginViewModel viewModel) : base(view,viewModel) {
-            view.OnCreateEventHandler += onCreate;
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnCreateEventHandler += x,x => view.OnCreateEventHandler -= x)
+                .Subscribe(x => onCreate(x.Sender,x.EventArgs))
+                .AddTo(Disposable);
             viewModel.ShowMessageCommand.Subscribe(x => View.ApplicationContext.ShowToast(x)).AddTo(Disposable);
             viewModel.StartNextPageCommand.Subscribe(x => {
                 View.Activity.StartActivityCompat(typeof(MainActivity));
@@ -54,12 +58,12 @@ namespace Twichirp.Android.App.ViewController {
                     }
                     var fragment = ProgressDialogFragment.NewInstance(string.Empty,string.Empty);
                     fragment.Show(View.Activity.SupportFragmentManager,ProgressDialogFragment.FragmentTag);
-                }else {
+                } else {
                     var fragment = View.Activity.SupportFragmentManager.FindFragmentByTag(ProgressDialogFragment.FragmentTag);
-                    if(fragment==null||fragment is ProgressDialogFragment == false) {
+                    if(fragment == null || fragment is ProgressDialogFragment == false) {
                         return;
                     }
-                    (fragment as ProgressDialogFragment).Dialog.Dismiss();
+                     (fragment as ProgressDialogFragment).Dialog.Dismiss();
                 }
             }).AddTo(Disposable);
         }
@@ -67,7 +71,7 @@ namespace Twichirp.Android.App.ViewController {
         private void onCreate(object sender,LifeCycleEventArgs e) {
             View.GoToWeb.ClickAsObservable().SetCommand(ViewModel.AuthorizeCommand).AddTo(Disposable);
             View.Login.ClickAsObservable().SetCommand(ViewModel.LoginCommand).AddTo(Disposable);
-            View.Pin.SetBinding(x => x.Text,ViewModel.Pin,x=>x.TextChangedAsObservable().ToUnit()).AddTo(Disposable);
+            View.Pin.SetBinding(x => x.Text,ViewModel.Pin,x => x.TextChangedAsObservable().ToUnit()).AddTo(Disposable);
         }
     }
 }

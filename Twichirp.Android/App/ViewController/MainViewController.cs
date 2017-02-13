@@ -62,8 +62,12 @@ namespace Twichirp.Android.App.ViewController {
         private bool isTabInited;
 
         public MainViewController(IMainView view,MainViewModel viewModel) : base(view,viewModel) {
-            view.OnCreateEventHandler += onCreate;
-            view.OnResumeEventHandler += onResume;
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnCreateEventHandler += x,x => view.OnCreateEventHandler -= x)
+                .Subscribe(x => onCreate(x.Sender,x.EventArgs))
+                .AddTo(Disposable);
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnResumeEventHandler += x,x => view.OnResumeEventHandler -= x)
+                .Subscribe(x => onResume(x.Sender,x.EventArgs))
+                .AddTo(Disposable);
         }
 
         private void onCreate(object sender,LifeCycleEventArgs args) {
