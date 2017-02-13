@@ -233,7 +233,7 @@ namespace Twichirp.Core.App.Model {
             IsLoading = false;
         }
 
-        public async void Follow(Account account) {
+        public async Task Follow(Account account) {
             if(account.Id == userId) {
                 return;
             }
@@ -246,7 +246,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async void UnFollow(Account account) {
+        public async Task UnFollow(Account account) {
             if(account.Id == userId) {
                 return;
             }
@@ -259,7 +259,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async void Block(Account account) {
+        public async Task Block(Account account) {
             if(account.Id == userId) {
                 return;
             }
@@ -272,7 +272,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async void UnBlock(Account account) {
+        public async Task UnBlock(Account account) {
             if(account.Id == userId) {
                 return;
             }
@@ -285,7 +285,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async void Spam(Account account) {
+        public async Task Spam(Account account) {
             if(account.Id == userId) {
                 return;
             }
