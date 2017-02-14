@@ -138,7 +138,7 @@ namespace Twichirp.Core.App.ViewModel {
             FavoriteCommand
                 .Subscribe(async x => {
                     if(IsFavorited.Value) {
-                        await StatusModel.ToContentStatus().UnFavorite(account);
+                        await StatusModel.ToContentStatus().UnFavoriteAsync(account);
                     } else {
                         await StatusModel.ToContentStatus().FavoriteAsync(account);
                     }

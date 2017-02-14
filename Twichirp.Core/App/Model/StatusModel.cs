@@ -206,7 +206,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async Task UnFavorite(Account account) {
+        public async Task UnFavoriteAsync(Account account) {
             await slim.WaitAsync();
             try {
                 Status status = await account.Token.Favorites.DestroyAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
