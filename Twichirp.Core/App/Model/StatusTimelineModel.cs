@@ -242,5 +242,23 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
+        public async Task NotifyUserUpdatedAsync(Account account,User user) {
+            await slim.WaitAsync();
+            try {
+                IEnumerable<UserModel> changeUser = await Task.Run(() => {
+                    return _timeline
+                    .SelectMany(x => x.DeploymentStatus())
+                    .Select(x => x.User)
+                    .Where(x => x.Id == user.Id)
+                    .ToList();
+                });
+                foreach(var u in changeUser) {
+                    u.SetUser(user);
+                }
+            } finally {
+                slim.Release();
+            }
+        }
+
     }
 }

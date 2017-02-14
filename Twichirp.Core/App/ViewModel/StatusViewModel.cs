@@ -106,13 +106,22 @@ namespace Twichirp.Core.App.ViewModel {
             Observable.FromEventPattern<EventArgs>(x => StatusModel.StatusChanged += x,x => StatusModel.StatusChanged -= x)
                 .Subscribe(x => initStaticValue())
                 .AddTo(Disposable);
+            Observable.FromEventPattern<EventArgs>(x => StatusModel.User.UserChanged += x,x => StatusModel.User.UserChanged -= x)
+                .Subscribe(x => initStaticValue())
+                .AddTo(Disposable);
             if(StatusModel.RetweetedStatus != null) {
                 Observable.FromEventPattern<EventArgs>(x => StatusModel.RetweetedStatus.StatusChanged += x,x => StatusModel.RetweetedStatus.StatusChanged -= x)
+                    .Subscribe(x => initStaticValue())
+                    .AddTo(Disposable);
+                Observable.FromEventPattern<EventArgs>(x => StatusModel.RetweetedStatus.User.UserChanged += x,x => StatusModel.RetweetedStatus.User.UserChanged -= x)
                     .Subscribe(x => initStaticValue())
                     .AddTo(Disposable);
             }
             if(StatusModel.QuotedStatus != null) {
                 Observable.FromEventPattern<EventArgs>(x => StatusModel.QuotedStatus.StatusChanged += x,x => StatusModel.QuotedStatus.StatusChanged -= x)
+                    .Subscribe(x => initStaticValue())
+                    .AddTo(Disposable);
+                Observable.FromEventPattern<EventArgs>(x => StatusModel.QuotedStatus.User.UserChanged += x,x => StatusModel.QuotedStatus.User.UserChanged -= x)
                     .Subscribe(x => initStaticValue())
                     .AddTo(Disposable);
             }
@@ -129,7 +138,7 @@ namespace Twichirp.Core.App.ViewModel {
             FavoriteCommand
                 .Subscribe(async x => {
                     if(IsFavorited.Value) {
-                        await StatusModel.ToContentStatus().UnFavoriteAsync(account);
+                        await StatusModel.ToContentStatus().UnFavorite(account);
                     } else {
                         await StatusModel.ToContentStatus().FavoriteAsync(account);
                     }

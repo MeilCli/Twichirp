@@ -64,6 +64,10 @@ namespace Twichirp.Core.App.ViewModel {
                 .SubscribeOnUIDispatcher()
                 .Subscribe(async x => await StatusTimelineModel.NotifyStatusUpdatedAsync(x.EventArgs.Account,x.EventArgs.Status))
                 .AddTo(Disposable);
+            Observable.FromEventPattern<UserEventArgs>(x => Application.TwitterEvent.UserUpdated += x,x => Application.TwitterEvent.UserUpdated -= x)
+                .SubscribeOnUIDispatcher()
+                .Subscribe(async x => await StatusTimelineModel.NotifyUserUpdatedAsync(x.EventArgs.Account,x.EventArgs.User))
+                .AddTo(Disposable);
         }
 
         private BaseViewModel toViewModel(BaseModel model) {
