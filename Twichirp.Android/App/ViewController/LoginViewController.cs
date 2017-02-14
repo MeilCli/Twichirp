@@ -33,6 +33,7 @@ using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View.Activity;
 using Twichirp.Android.App.View.Fragment.Dialog;
 using System.Reactive.Linq;
+using Twichirp.Android.Extensions;
 
 namespace Twichirp.Android.App.ViewController {
 

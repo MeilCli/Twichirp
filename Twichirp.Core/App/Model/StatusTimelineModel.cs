@@ -79,7 +79,7 @@ namespace Twichirp.Core.App.Model {
             return JsonConvert.SerializeObject(list);
         }
 
-        public async void Load(Timeline<IEnumerable<Status>> timelineResource = null) {
+        public async Task LoadAsync(Timeline<IEnumerable<Status>> timelineResource = null) {
             timelineResource = timelineResource ?? this.timelineResource;
             if(IsLoading) {
                 return;
@@ -126,7 +126,7 @@ namespace Twichirp.Core.App.Model {
             IsLoading = false;
         }
 
-        public async void Load(LoadingModel target,Timeline<IEnumerable<Status>> timelineResource = null) {
+        public async Task LoadAsync(LoadingModel target,Timeline<IEnumerable<Status>> timelineResource = null) {
             timelineResource = timelineResource ?? this.timelineResource;
             if(IsLoading) {
                 return;
@@ -191,7 +191,7 @@ namespace Twichirp.Core.App.Model {
             target.StopLoading();
         }
 
-        public async void LoadMore(Timeline<IEnumerable<Status>> timelineResource = null) {
+        public async Task LoadMoreAsync(Timeline<IEnumerable<Status>> timelineResource = null) {
             timelineResource = timelineResource ?? this.timelineResource;
             if(IsLoading) {
                 return;
@@ -221,7 +221,7 @@ namespace Twichirp.Core.App.Model {
             IsLoading = false;
         }
 
-        public async void NotifyStatusUpdate(Account account,Status status) {
+        public async Task NotifyStatusUpdatedAsync(Account account,Status status) {
             if(this.account.Id != account.Id) {
                 return;
             }

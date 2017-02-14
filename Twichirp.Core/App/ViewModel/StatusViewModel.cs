@@ -120,18 +120,18 @@ namespace Twichirp.Core.App.ViewModel {
             RetweetCommand
                 .Subscribe(async x => {
                     if(IsRetweeted.Value) {
-                        await StatusModel.ToContentStatus().UnRetweet(account);
+                        await StatusModel.ToContentStatus().UnRetweetAsync(account);
                     } else {
-                        await StatusModel.ToContentStatus().Retweet(account);
+                        await StatusModel.ToContentStatus().RetweetAsync(account);
                     }
                 })
                 .AddTo(Disposable);
             FavoriteCommand
                 .Subscribe(async x => {
                     if(IsFavorited.Value) {
-                        await StatusModel.ToContentStatus().UnFavorite(account);
+                        await StatusModel.ToContentStatus().UnFavoriteAsync(account);
                     } else {
-                        await StatusModel.ToContentStatus().Favorite(account);
+                        await StatusModel.ToContentStatus().FavoriteAsync(account);
                     }
                 })
                 .AddTo(Disposable);

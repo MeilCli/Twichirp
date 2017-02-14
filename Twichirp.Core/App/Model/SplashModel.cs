@@ -60,7 +60,7 @@ namespace Twichirp.Core.App.Model {
         public SplashModel(ITwichirpApplication application) : base(application) {
         }
 
-        public async void ApplicationInit() {
+        public async Task ApplicationInitAsync() {
             IsRunning = true;
             Message = Application.Resource.SplashAccountLoading.Value;
             await Application.AccountManager.InitAsync();

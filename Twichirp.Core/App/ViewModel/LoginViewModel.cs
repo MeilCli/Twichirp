@@ -32,8 +32,8 @@ namespace Twichirp.Core.App.ViewModel {
 
         public ReactiveProperty<string> Pin { get; } = new ReactiveProperty<string>();
         public ReadOnlyReactiveProperty<bool> IsLoading { get; }
-        public ReactiveCommand AuthorizeCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand LoginCommand { get; } = new ReactiveCommand();
+        public AsyncReactiveCommand AuthorizeCommand { get; } = new AsyncReactiveCommand();
+        public AsyncReactiveCommand LoginCommand { get; } = new AsyncReactiveCommand();
         public ReactiveCommand<string> StartLoginWebPageCommand { get; } = new ReactiveCommand<string>();
         public ReactiveCommand StartNextPageCommand { get; } = new ReactiveCommand();
         public ReactiveCommand<string> ShowMessageCommand { get; } = new ReactiveCommand<string>();
@@ -54,8 +54,8 @@ namespace Twichirp.Core.App.ViewModel {
                 .ObserveOnUIDispatcher()
                 .Subscribe(x => ShowMessageCommand.Execute(x.EventArgs.EventData))
                 .AddTo(Disposable);
-            AuthorizeCommand.Subscribe(x => loginModel.Authorize(Application.ConsumerManager.DefaultConsumer));
-            LoginCommand.Subscribe(x => loginModel.Login(Pin.Value));
+            AuthorizeCommand.Subscribe(x => loginModel.AuthorizeAsync(Application.ConsumerManager.DefaultConsumer));
+            LoginCommand.Subscribe(x => loginModel.LoginAsync(Pin.Value));
         }
     }
 }

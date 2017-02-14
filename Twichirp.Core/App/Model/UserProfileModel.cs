@@ -183,17 +183,21 @@ namespace Twichirp.Core.App.Model {
         public UserProfileModel(ITwichirpApplication application,Account account,long userId,User user = null) : base(application) {
             this.account = account;
             this.userId = userId;
+            init(user);
+        }
+
+        private async void init(User user) {
             if(user != null) {
-                UserModel = new UserModel(application,user);
+                UserModel = new UserModel(Application,user);
             } else {
-                LoadUser();
+                await LoadUserAsync();
             }
             if(IsOwnerUser == false) {
-                LoadFriendship();
+                await LoadFriendshipAsync();
             }
         }
 
-        public async void LoadUser() {
+        public async Task LoadUserAsync() {
             await slim.WaitAsync();
             IsLoading = true;
             try {
@@ -208,7 +212,7 @@ namespace Twichirp.Core.App.Model {
             IsLoading = false;
         }
 
-        public async void LoadFriendship() {
+        public async Task LoadFriendshipAsync() {
             if(account.Id == userId) {
                 return;
             }
@@ -233,7 +237,7 @@ namespace Twichirp.Core.App.Model {
             IsLoading = false;
         }
 
-        public async Task Follow(Account account) {
+        public async Task FollowAsync(Account account) {
             if(account.Id == userId) {
                 return;
             }
@@ -259,7 +263,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async Task Block(Account account) {
+        public async Task BlockAsync(Account account) {
             if(account.Id == userId) {
                 return;
             }
@@ -272,7 +276,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async Task UnBlock(Account account) {
+        public async Task UnBlockAsync(Account account) {
             if(account.Id == userId) {
                 return;
             }
@@ -285,7 +289,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async Task Spam(Account account) {
+        public async Task ReportSpamAsync(Account account) {
             if(account.Id == userId) {
                 return;
             }

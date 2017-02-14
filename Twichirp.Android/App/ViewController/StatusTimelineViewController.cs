@@ -134,7 +134,9 @@ namespace Twichirp.Android.App.ViewController {
         }
 
         public void onRefresh(object sender,EventArgs args) {
-            ViewModel.LoadCommand.Execute(null);
+            if(ViewModel.LoadCommand.CanExecute()) {
+                ViewModel.LoadCommand.Execute(null);
+            }
         }
 
         private Func<Account,int,long?,long?,Task<IEnumerable<CStatus>>> makeTimelineDelegate(List<string> statuses) {

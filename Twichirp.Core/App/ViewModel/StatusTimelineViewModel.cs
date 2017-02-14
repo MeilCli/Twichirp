@@ -43,8 +43,8 @@ namespace Twichirp.Core.App.ViewModel {
         public ReadOnlyReactiveCollection<BaseViewModel> Timeline { get; }
         public ReadOnlyReactiveProperty<bool> IsLoading { get; }
         public ReactiveCommand<string> ShowMessageCommand { get; } = new ReactiveCommand<string>();
-        public ReactiveCommand<Timeline<IEnumerable<Status>>> LoadCommand { get; } = new ReactiveCommand<Timeline<IEnumerable<Status>>>();
-        public ReactiveCommand LoadMoreComannd { get; } = new ReactiveCommand();
+        public AsyncReactiveCommand<Timeline<IEnumerable<Status>>> LoadCommand { get; } = new AsyncReactiveCommand<Timeline<IEnumerable<Status>>>();
+        public AsyncReactiveCommand LoadMoreComannd { get; } = new AsyncReactiveCommand();
 
         public StatusTimelineViewModel(ITwichirpApplication application,Timeline<IEnumerable<Status>> timelineResource,Account account) : base(application) {
             this.account = account;
@@ -57,12 +57,12 @@ namespace Twichirp.Core.App.ViewModel {
                 .SubscribeOnUIDispatcher()
                 .Subscribe(x => ShowMessageCommand.Execute(x.EventArgs.EventData))
                 .AddTo(Disposable);
-            LoadCommand.Subscribe(x => StatusTimelineModel.Load(x));
-            LoadMoreComannd.Subscribe(x => StatusTimelineModel.LoadMore());
+            LoadCommand.Subscribe(x => StatusTimelineModel.LoadAsync(x));
+            LoadMoreComannd.Subscribe(x => StatusTimelineModel.LoadMoreAsync());
 
             Observable.FromEventPattern<StatusEventArgs>(x => Application.TwitterEvent.StatusUpdated += x,x => Application.TwitterEvent.StatusUpdated -= x)
                 .SubscribeOnUIDispatcher()
-                .Subscribe(x => StatusTimelineModel.NotifyStatusUpdate(x.EventArgs.Account,x.EventArgs.Status))
+                .Subscribe(async x => await StatusTimelineModel.NotifyStatusUpdatedAsync(x.EventArgs.Account,x.EventArgs.Status))
                 .AddTo(Disposable);
         }
 
@@ -81,14 +81,14 @@ namespace Twichirp.Core.App.ViewModel {
                 foreach(var s in e.NewItems) {
                     if(s is LoadingViewModel) {
                         LoadingViewModel loadingViewModel = s as LoadingViewModel;
-                        loadingViewModel.LoadCommand.Subscribe(x => StatusTimelineModel.Load(loadingViewModel.LoadingModel)).AddTo(Disposable);
+                        loadingViewModel.LoadCommand.Subscribe(async x => await StatusTimelineModel.LoadAsync(loadingViewModel.LoadingModel)).AddTo(Disposable);
                     }
                 }
             } else if(e.Action == NotifyCollectionChangedAction.Replace) {
                 foreach(var s in e.NewItems) {
                     if(s is LoadingViewModel) {
                         LoadingViewModel loadingViewModel = s as LoadingViewModel;
-                        loadingViewModel.LoadCommand.Subscribe(x => StatusTimelineModel.Load(loadingViewModel.LoadingModel)).AddTo(Disposable);
+                        loadingViewModel.LoadCommand.Subscribe(async x => await StatusTimelineModel.LoadAsync(loadingViewModel.LoadingModel)).AddTo(Disposable);
                     }
                 }
             }

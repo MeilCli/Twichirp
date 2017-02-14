@@ -45,7 +45,7 @@ namespace Twichirp.Core.App.ViewModel {
                 .ObserveOnUIDispatcher()
                 .Subscribe(x => startNextPage())
                 .AddTo(Disposable);
-            ApplicationInitCommand.Subscribe(x => splashModel.ApplicationInit());
+            ApplicationInitCommand.Subscribe(async x => await splashModel.ApplicationInitAsync());
         }
 
         private void startNextPage() {

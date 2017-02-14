@@ -46,7 +46,7 @@ namespace Twichirp.Core.App.Model {
         public LoginModel(ITwichirpApplication application) : base(application) {
         }
 
-        public async void Authorize(Consumer consumer) {
+        public async Task AuthorizeAsync(Consumer consumer) {
             this.consumer = consumer;
             try {
                 oAuthSession = await OAuth.AuthorizeAsync(consumer.ConsumerKey,consumer.ConsumerSecret);
@@ -56,7 +56,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async void Login(string pin) {
+        public async Task LoginAsync(string pin) {
             if(consumer == null) {
                 return;
             }
