@@ -47,6 +47,17 @@ namespace Twichirp.Android.App.Setting {
                 x.SetValueIndex(values.ToList().FindIndex(y => y == settingManager.Timeline.Count.ToString()));
                 x.PreferenceChange += (s,e) => settingManager.Timeline.Count = int.Parse((string)e.NewValue);
             });
+            new ListPreference(screen.Context).Apply(x => {
+                screen.AddPreference(x);
+                x.SetTitle(Android.Resource.String.SettingTimelineOwnedNumber);
+                x.SetDialogTitle(Android.Resource.String.SettingTimelineOwnedNumber);
+                x.Key = x.Title;
+                string[] values = new string[] { "400","600","800","1000",settingManager.Timeline.OwnedNumber.ToString() }.Distinct().ToArray();
+                x.SetEntries(values);
+                x.SetEntryValues(values);
+                x.SetValueIndex(values.ToList().FindIndex(y => y == settingManager.Timeline.OwnedNumber.ToString()));
+                x.PreferenceChange += (s,e) => settingManager.Timeline.OwnedNumber = int.Parse((string)e.NewValue);
+            });
             PreferenceScreen = screen;
         }
 

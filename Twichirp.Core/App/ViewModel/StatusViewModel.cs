@@ -283,8 +283,5 @@ namespace Twichirp.Core.App.ViewModel {
             return NormalTweet;
         }
 
-        public override void Dispose() {
-            base.Dispose();
-        }
     }
 }

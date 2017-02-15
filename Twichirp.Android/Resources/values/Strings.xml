@@ -39,6 +39,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
   <string name="SettingAccount">Account</string>
   <string name="SettingTimeline">Timeline</string>
   <string name="SettingTimelineDownloadCount">Download Count</string>
+  <string name="SettingTimelineOwnedNumber">Timeline retention number</string>
 
   <string name="License">License</string>
 

@@ -36,11 +36,23 @@ namespace Twichirp.Core.App.Setting {
             }
         }
 
+        [JsonProperty]
+        public int OwnedNumber {
+            get {
+                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(OwnedNumber)),600);
+            }
+            set {
+                SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(OwnedNumber)),value);
+                RaisePropertyChanged(nameof(OwnedNumber));
+            }
+        }
+
         public TimelineSetting(SettingManager settingManager) : base(settingManager,nameof(TimelineSetting)) {
         }
 
         public override void ImportJson(JObject jObject) {
             Count = (int)jObject[nameof(Count)];
+            OwnedNumber = (int)jObject[nameof(OwnedNumber)];
         }
     }
 }

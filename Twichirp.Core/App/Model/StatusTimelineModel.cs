@@ -115,6 +115,11 @@ namespace Twichirp.Core.App.Model {
                         canLoadMore = false;
                     }
                 }
+
+                if(_timeline.Count > Application.SettingManager.Timeline.OwnedNumber) {
+                    int removeCount = _timeline.Count - Application.SettingManager.Timeline.OwnedNumber;
+                    removeLast(removeCount);
+                }
             } catch(Exception e) {
                 ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             } finally {
@@ -219,6 +224,16 @@ namespace Twichirp.Core.App.Model {
                 slim.Release();
             }
             IsLoading = false;
+        }
+
+        private void removeLast(int count) {
+            var removes = Timeline.Reverse().Take(count).ToList();
+            foreach(var r in removes) {
+                Timeline.RemoveOnScheduler(r);
+                if(r is StatusModel) {
+                    _timeline.Remove(r as StatusModel);
+                }
+            }
         }
 
         public async Task NotifyStatusUpdatedAsync(Account account,Status status) {
