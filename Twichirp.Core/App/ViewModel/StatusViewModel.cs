@@ -28,6 +28,7 @@ using Twichirp.Core.Extensions;
 using Twichirp.Core.Model;
 using Plugin.CrossFormattedText.Abstractions;
 using Plugin.CrossFormattedText;
+using Twichirp.Core.Constant;
 
 namespace Twichirp.Core.App.ViewModel {
 
@@ -217,11 +218,9 @@ namespace Twichirp.Core.App.ViewModel {
         }
 
         private ISpannableString spannableText(IEnumerable<TextPart> text,IEnumerable<UserMentionEntity> hiddenPrefix,IEnumerable<UrlEntity> hiddenSuffix,bool containsSuffix) {
-            var blueColor = new SpanColor(60,90,170);
-
             var spans = new List<Span>();
             foreach(var mention in hiddenPrefix) {
-                spans.Add(new Span() { Text = $"@{mention.ScreenName} ",ForegroundColor = blueColor });
+                spans.Add(new Span() { Text = $"@{mention.ScreenName} ",ForegroundColor = SpanConstant.BlueColor });
             }
             foreach(var textPart in text) {
                 switch(textPart.Type) {
@@ -230,26 +229,26 @@ namespace Twichirp.Core.App.ViewModel {
                             break;
                         }
                     case TextPartType.Hashtag: {
-                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = blueColor });
+                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
                             break;
                         }
                     case TextPartType.Cashtag: {
-                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = blueColor });
+                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
                             break;
                         }
                     case TextPartType.Url: {
-                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = blueColor });
+                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
                             break;
                         }
                     case TextPartType.UserMention: {
-                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = blueColor });
+                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
                             break;
                         }
                 }
             }
             if(containsSuffix) {
                 foreach(var url in hiddenSuffix) {
-                    spans.Add(new Span { Text = $" {url.DisplayUrl}",ForegroundColor = blueColor });
+                    spans.Add(new Span { Text = $" {url.DisplayUrl}",ForegroundColor = SpanConstant.BlueColor });
                 }
             }
             return CrossCrossFormattedText.Current.Format(new FormattedString() { Spans = spans });
