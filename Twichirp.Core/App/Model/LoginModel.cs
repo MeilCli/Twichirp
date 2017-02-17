@@ -71,6 +71,7 @@ namespace Twichirp.Core.App.Model {
                 Tokens token = await oAuthSession.GetTokensAsync(pin);
                 var account = new Account(token,consumer);
                 account.User = await token.Users.ShowAsync(token.UserId);
+                Application.SettingManager.Accounts.DefaultAccountId = account.Id;
                 await Application.AccountManager.AddAsync(account);
                 await Application.UserContainerManager.AddAsync(account.User);
                 LoginSucceeded?.Invoke(this,new EventArgs());
