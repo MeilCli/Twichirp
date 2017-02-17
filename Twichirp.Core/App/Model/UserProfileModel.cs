@@ -250,7 +250,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async Task UnFollow(Account account) {
+        public async Task UnFollowAsync(Account account) {
             if(account.Id == userId) {
                 return;
             }
