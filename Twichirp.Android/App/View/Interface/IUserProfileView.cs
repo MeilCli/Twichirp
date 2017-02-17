@@ -30,12 +30,16 @@ using SToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Twichirp.Android.App.View {
 
-    public interface IUserProfileView : IUserView {
+    public interface IUserProfileView : IUserView, IExpandedTitleView {
 
         SToolbar Toolbar { get; }
 
         ImageViewAsync Banner { get; }
 
         TextView Relationship { get; }
+
+        Button Friendship { get; }
+
+        TextView Extraship { get; }
     }
 }

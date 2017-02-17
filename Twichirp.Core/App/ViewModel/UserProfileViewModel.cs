@@ -21,6 +21,7 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CoreTweet;
+using Plugin.CrossFormattedText.Abstractions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Core.App.Event;
@@ -43,8 +44,11 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveProperty<string> IconUrl { get; } = new ReactiveProperty<string>();
         public ReactiveProperty<string> Name { get; } = new ReactiveProperty<string>();
         public ReactiveProperty<string> ScreenName { get; } = new ReactiveProperty<string>();
-        public ReactiveProperty<bool> IsProtected { get; private set; } = new ReactiveProperty<bool>();
-        public ReactiveProperty<bool> IsVerified { get; private set; } = new ReactiveProperty<bool>();
+        public ReactiveProperty<bool> IsProtected { get; } = new ReactiveProperty<bool>();
+        public ReactiveProperty<bool> IsVerified { get; } = new ReactiveProperty<bool>();
+        public ReactiveProperty<ISpannableString> Description { get; } = new ReactiveProperty<ISpannableString>();
+        public ReactiveProperty<string> Location { get; } = new ReactiveProperty<string>();
+        public ReactiveProperty<ISpannableString> Url { get; } = new ReactiveProperty<ISpannableString>();
         public ReadOnlyReactiveProperty<string> Relationship { get; }
         public ReadOnlyReactiveProperty<string> Friendship { get; }
         public ReadOnlyReactiveProperty<string> Extraship { get; }
@@ -107,6 +111,9 @@ namespace Twichirp.Core.App.ViewModel {
             userViewModel.ScreenName.Subscribe(x => ScreenName.Value = x).AddTo(Disposable);
             userViewModel.IsProtected.Subscribe(x => IsProtected.Value = x).AddTo(Disposable);
             userViewModel.IsVerified.Subscribe(x => IsVerified.Value = x).AddTo(Disposable);
+            userViewModel.Description.Subscribe(x => Description.Value = x).AddTo(Disposable);
+            userViewModel.Location.Subscribe(x => Location.Value = x).AddTo(Disposable);
+            userViewModel.Url.Subscribe(x => Url.Value = x).AddTo(Disposable);
 
             Disposable.Add(userViewModel);
         }

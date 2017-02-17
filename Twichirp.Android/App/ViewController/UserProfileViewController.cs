@@ -30,12 +30,15 @@ using Android.Views;
 using Android.Widget;
 using FFImageLoading;
 using FFImageLoading.Transformations;
+using Plugin.CrossFormattedText;
+using Plugin.CrossFormattedText.Abstractions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View;
 using Twichirp.Android.App.View.Fragment;
 using Twichirp.Core.App.ViewModel;
+using AView = Android.Views.View;
 
 namespace Twichirp.Android.App.ViewController {
 
@@ -50,6 +53,9 @@ namespace Twichirp.Android.App.ViewController {
                 .AddTo(Disposable);
             Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnDestroyEventHandler += x,x => view.OnDestroyEventHandler -= x)
                 .Subscribe(x => onDestroy(x.Sender,x.EventArgs))
+                .AddTo(Disposable);
+            Observable.FromEventPattern<ExpandedTitleMarginEventArgs>(x => view.DecideExpandedTitleMarginEventHandler += x,x => view.DecideExpandedTitleMarginEventHandler -= x)
+                .Subscribe(x => decideExpandedTitleMargin(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
         }
 
@@ -66,6 +72,15 @@ namespace Twichirp.Android.App.ViewController {
             View.Relationship.SetBinding(x => x.Text,ViewModel.Relationship).AddTo(Disposable);
             View.Relationship.Visibility = ViewModel.IsOwnerAccount ? ViewStates.Gone : ViewStates.Visible;
 
+            View.Friendship.SetBinding(x => x.Text,ViewModel.Friendship).AddTo(Disposable);
+            View.Friendship.Visibility = ViewModel.IsOwnerAccount ? ViewStates.Gone : ViewStates.Visible;
+            View.Extraship.SetBinding(x => x.Text,ViewModel.Extraship).AddTo(Disposable);
+            View.Extraship.Visibility = ViewModel.IsOwnerAccount ? ViewStates.Gone : ViewStates.Visible;
+
+            ViewModel.Description.Subscribe(x => setDescription(x)).AddTo(Disposable);
+            ViewModel.Location.Subscribe(x => setLocation(x)).AddTo(Disposable);
+            ViewModel.Url.Subscribe(x => setUrl(x)).AddTo(Disposable);
+
             View.Activity.SupportFragmentManager.BeginTransaction().Replace(Android.Resource.Id.Content,StatusTimelineFragment.MakeUser(StatusTimelineFragmentType.User,ViewModel.Account,ViewModel.Account.Id)).Commit();
         }
 
@@ -80,6 +95,11 @@ namespace Twichirp.Android.App.ViewController {
             View.Banner.ReleaseImage();
         }
 
+        private void decideExpandedTitleMargin(object sender,ExpandedTitleMarginEventArgs args) {
+            args.MarginStart = View.Icon.Right + View.ApplicationContext.ConvertDensityIndependentPixelToPixel(16f);
+            args.MarginBottom = args.TotalHeight - View.ApplicationContext.ConvertDensityIndependentPixelToPixel(120f);
+        }
+
         private void setUserBanner(string banner,string linkColor) {
             if(banner != null) {
                 ImageService.Instance.LoadUrl($"{banner}/mobile_retina").IntoAsync(View.Banner);
@@ -92,6 +112,23 @@ namespace Twichirp.Android.App.ViewController {
             } else {
                 View.Banner.SetImageDrawable(new ColorDrawable((Color.Green)));
             }
+        }
+
+        private void setDescription(ISpannableString description) {
+            var span = description.Span();
+            View.Description.Visibility = span.Length() > 0 ? ViewStates.Visible : ViewStates.Gone;
+            View.Description.SetTextWithCommandableSpan(description);
+        }
+
+        private void setLocation(string location) {
+            View.Location.Visibility = location.Length > 0 ? ViewStates.Visible : ViewStates.Gone;
+            View.Location.Text = location;
+        }
+
+        private void setUrl(ISpannableString url) {
+            var span = url.Span();
+            View.Url.Visibility = span.Length() > 0 ? ViewStates.Visible : ViewStates.Gone;
+            View.Url.SetTextWithCommandableSpan(url);
         }
     }
 }

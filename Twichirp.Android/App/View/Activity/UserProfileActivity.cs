@@ -36,11 +36,12 @@ using CoreTweet;
 using Twichirp.Android.App.Extensions;
 using Newtonsoft.Json;
 using Twichirp.Android.App.ViewController;
+using Android.Support.Design.Widget;
 
 namespace Twichirp.Android.App.View.Activity {
 
     [Activity]
-    public class UserProfileActivity : BaseActivity, IUserProfileView {
+    public class UserProfileActivity : BaseActivity, IUserProfileView, ViewTreeObserver.IOnGlobalLayoutListener {
 
         private const string extraUser = "extra_user";
         private const string extraUserId = "extra_user_id";
@@ -62,7 +63,10 @@ namespace Twichirp.Android.App.View.Activity {
             activity.StartActivityCompat(intent,iconTransition);
         }
 
+        public event EventHandler<ExpandedTitleMarginEventArgs> DecideExpandedTitleMarginEventHandler;
+
         private UserProfileViewController userProfileViewController;
+        private CollapsingToolbarLayout collapsingToolbarLayout;
 
         public SToolbar Toolbar { get; private set; }
 
@@ -80,6 +84,16 @@ namespace Twichirp.Android.App.View.Activity {
 
         public ImageView VerifyIcon { get; private set; }
 
+        public Button Friendship { get; private set; }
+
+        public TextView Extraship { get; private set; }
+
+        public TextView Description { get; private set; }
+
+        public TextView Location { get; private set; }
+
+        public TextView Url { get; private set; }
+
         protected override void OnViewCreate(Bundle savedInstanceState) {
             long userId = Intent.GetLongExtra(extraUserId,0);
             string userJson = Intent.GetStringExtra(extraUser);
@@ -95,6 +109,9 @@ namespace Twichirp.Android.App.View.Activity {
 
             SetContentView(Android.Resource.Layout.UserProfileActivity);
 
+            collapsingToolbarLayout = FindViewById<CollapsingToolbarLayout>(Android.Resource.Id.CollapsingToolbar);
+            collapsingToolbarLayout.ViewTreeObserver.AddOnGlobalLayoutListener(this);
+
             Toolbar = FindViewById<SToolbar>(Android.Resource.Id.Toolbar);
             SetSupportActionBar(Toolbar);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
@@ -105,10 +122,33 @@ namespace Twichirp.Android.App.View.Activity {
             Relationship = FindViewById<TextView>(Android.Resource.Id.Relationship);
             LockIcon = FindViewById<ImageView>(Android.Resource.Id.LockIcon);
             VerifyIcon = FindViewById<ImageView>(Android.Resource.Id.VerifyIcon);
+            Friendship = FindViewById<Button>(Android.Resource.Id.Friendship);
+            Extraship = FindViewById<TextView>(Android.Resource.Id.Extraship);
+            Description = FindViewById<TextView>(Android.Resource.Id.Description);
+            Location = FindViewById<TextView>(Android.Resource.Id.Location);
+            Url = FindViewById<TextView>(Android.Resource.Id.Url);
+        }
+
+        public void OnGlobalLayout() {
+            var expandedTitleMarginEventArgs = new ExpandedTitleMarginEventArgs(collapsingToolbarLayout.Width,collapsingToolbarLayout.Height);
+            DecideExpandedTitleMarginEventHandler?.Invoke(this,expandedTitleMarginEventArgs);
+            if(expandedTitleMarginEventArgs.MarginBottom != null) {
+                collapsingToolbarLayout.ExpandedTitleMarginBottom = expandedTitleMarginEventArgs.MarginBottom.Value;
+            }
+            if(expandedTitleMarginEventArgs.MarginStart != null) {
+                collapsingToolbarLayout.ExpandedTitleMarginStart = expandedTitleMarginEventArgs.MarginStart.Value;
+            }
+            if(Build.VERSION.SdkInt >= BuildVersionCodes.JellyBean) {
+                collapsingToolbarLayout.ViewTreeObserver.RemoveOnGlobalLayoutListener(this);
+            }else {
+                collapsingToolbarLayout.ViewTreeObserver.RemoveGlobalOnLayoutListener(this);
+            }
         }
 
         protected override void OnDestroy() {
-            base.OnDestroy();
+            base.OnDestroy();          
+            collapsingToolbarLayout?.Dispose();
+
             Toolbar?.Dispose();
             Icon?.Dispose();
             Banner?.Dispose();
@@ -116,6 +156,12 @@ namespace Twichirp.Android.App.View.Activity {
             Relationship?.Dispose();
             LockIcon?.Dispose();
             VerifyIcon?.Dispose();
+            Friendship?.Dispose();
+            Extraship?.Dispose();
+            Description?.Dispose();
+            Location?.Dispose();
+            Url?.Dispose();
         }
+
     }
 }

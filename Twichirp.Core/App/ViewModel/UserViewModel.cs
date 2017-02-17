@@ -21,9 +21,12 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CoreTweet;
+using Plugin.CrossFormattedText;
+using Plugin.CrossFormattedText.Abstractions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Core.App.Model;
+using Twichirp.Core.Constant;
 using Twichirp.Core.Model;
 
 namespace Twichirp.Core.App.ViewModel {
@@ -36,8 +39,11 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveProperty<string> IconUrl { get; } = new ReactiveProperty<string>();
         public ReactiveProperty<string> Name { get; } = new ReactiveProperty<string>();
         public ReactiveProperty<string> ScreenName { get; } = new ReactiveProperty<string>();
-        public ReactiveProperty<bool> IsProtected { get; private set; } = new ReactiveProperty<bool>();
-        public ReactiveProperty<bool> IsVerified { get; private set; } = new ReactiveProperty<bool>();
+        public ReactiveProperty<bool> IsProtected { get; } = new ReactiveProperty<bool>();
+        public ReactiveProperty<bool> IsVerified { get; } = new ReactiveProperty<bool>();
+        public ReactiveProperty<ISpannableString> Description { get; } = new ReactiveProperty<ISpannableString>();
+        public ReactiveProperty<string> Location { get; } = new ReactiveProperty<string>();
+        public ReactiveProperty<ISpannableString> Url { get; } = new ReactiveProperty<ISpannableString>();
 
         public UserViewModel(ITwichirpApplication application,User user,Account account) : this(application,new UserModel(application,user),account) { }
 
@@ -57,6 +63,38 @@ namespace Twichirp.Core.App.ViewModel {
             ScreenName.Value = $"@{userModel.ScreenName}";
             IsProtected.Value = userModel.IsProtected;
             IsVerified.Value = userModel.IsVerified;
+            Description.Value = toSpannable(userModel.Description);
+            Location.Value = userModel.Location;
+            Url.Value = toSpannable(userModel.Url);
+        }
+
+        private ISpannableString toSpannable(IEnumerable<TextPart> text) {
+            var spans = new List<Span>();
+            foreach(var textPart in text) {
+                switch(textPart.Type) {
+                    case TextPartType.Plain: {
+                            spans.Add(new Span { Text = textPart.Text });
+                            break;
+                        }
+                    case TextPartType.Hashtag: {
+                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
+                            break;
+                        }
+                    case TextPartType.Cashtag: {
+                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
+                            break;
+                        }
+                    case TextPartType.Url: {
+                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
+                            break;
+                        }
+                    case TextPartType.UserMention: {
+                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
+                            break;
+                        }
+                }
+            }
+            return CrossCrossFormattedText.Current.Format(new FormattedString() { Spans = spans });
         }
     }
 }

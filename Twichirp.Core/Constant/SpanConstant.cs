@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2017 meil
+﻿// Copyright (c) 2016-2017 meil
 //
 // This file is part of Twichirp.
 // 
@@ -18,36 +18,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Plugin.CrossFormattedText.Abstractions;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using FFImageLoading.Views;
+namespace Twichirp.Core.Constant {
 
-namespace Twichirp.Android.App.View {
+    public static class SpanConstant {
 
-    public interface IUserView : IView, ILifeCycle {
-
-        ImageViewAsync Icon { get; }
-
-        /// <summary>
-        /// Nullable
-        /// </summary>
-        TextView Name { get; }
-
-        TextView ScreenName { get; }
-
-        ImageView LockIcon { get; }
-
-        ImageView VerifyIcon { get; }
-
-        TextView Description { get; }
-
-        TextView Location { get; }
-
-        TextView Url { get; }
+        public static readonly SpanColor BlueColor = new SpanColor(60,90,170);
     }
 }

@@ -25,29 +25,24 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FFImageLoading.Views;
 
 namespace Twichirp.Android.App.View {
 
-    public interface IUserView : IView, ILifeCycle {
+    public class ExpandedTitleMarginEventArgs : EventArgs {
 
-        ImageViewAsync Icon { get; }
+        public int? MarginBottom { get; set; }
+        public int? MarginStart { get; set; }
+        public int TotalWidth { get; }
+        public int TotalHeight { get; }
 
-        /// <summary>
-        /// Nullable
-        /// </summary>
-        TextView Name { get; }
+        public ExpandedTitleMarginEventArgs(int totalWidth,int totalHeight) {
+            TotalWidth = totalWidth;
+            TotalHeight = totalHeight;
+        }
+    }
 
-        TextView ScreenName { get; }
+    public interface IExpandedTitleView {
 
-        ImageView LockIcon { get; }
-
-        ImageView VerifyIcon { get; }
-
-        TextView Description { get; }
-
-        TextView Location { get; }
-
-        TextView Url { get; }
+        event EventHandler<ExpandedTitleMarginEventArgs> DecideExpandedTitleMarginEventHandler;
     }
 }

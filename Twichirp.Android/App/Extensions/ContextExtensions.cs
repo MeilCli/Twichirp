@@ -35,5 +35,10 @@ namespace Twichirp.Android.App.Extensions {
 
         public static void ShowToast(this Context context,string text) => Toast.MakeText(context.ApplicationContext,text,ToastLength.Short).Show();
 
+        public static int ConvertDensityIndependentPixelToPixel(this Context context,float dp) {
+            var metrics = context.Resources.DisplayMetrics;
+            return (int)(dp * ((int)metrics.DensityDpi / 160f));
+        }
+
     }
 }

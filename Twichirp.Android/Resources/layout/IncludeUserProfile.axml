@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme">
+        <FFImageLoading.Views.ImageViewAsync
+            android:id="@+id/Banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/Icon"
+            android:scaleType="centerCrop" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#7e7e7e7e">
+            <FFImageLoading.Views.ImageViewAsync
+                android:id="@+id/Icon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/Icon"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:layout_marginLeft="@dimen/LayoutMargin"
+                android:layout_marginRight="@dimen/LayoutMargin" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/NameSpace"
+                android:layout_toEndOf="@id/Icon"
+                android:layout_alignTop="@id/Icon" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/NameLinear"
+                android:layout_marginEnd="@dimen/LayoutMargin"
+                android:layout_toEndOf="@id/Icon"
+                android:layout_below="@id/NameSpace">
+                <ImageView
+                    android:src="@drawable/IconEnhancedEncryptionBlack36dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/LockIcon"
+                    android:tint="@color/Grey600"
+                    android:layout_marginTop="@dimen/ItemMargin" />
+                <ImageView
+                    android:src="@drawable/IconVerifiedUserGrey36dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:id="@+id/VerifyIcon"
+                    android:tint="@color/Grey600"
+                    android:layout_marginTop="@dimen/ItemMargin" />
+                <TextView
+                    android:text="ScreenName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ScreenName"
+                    android:textAppearance="@style/AppTheme.Text.Title"
+                    android:singleLine="true" />
+                <TextView
+                    android:text="Relationship"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Relationship"
+                    android:textAppearance="@style/AppTheme.Text.Caption"
+                    android:singleLine="true"
+                    android:layout_marginLeft="@dimen/ItemMargin" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ButtonLinear"
+                android:layout_below="@id/Icon"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="@dimen/LayoutMargin"
+                android:layout_marginRight="@dimen/LayoutMargin">
+                <TextView
+                    android:text="Extraship"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Extraship"
+                    android:textAppearance="@style/AppTheme.Text.Caption"
+                    android:singleLine="true"
+                    android:layout_marginRight="@dimen/ItemMargin" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Friendship"
+                    android:text="Friendship"
+                    style="@style/Widget.AppCompat.Button.Colored" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/BioLinear"
+                android:layout_marginLeft="@dimen/LayoutMargin"
+                android:layout_marginRight="@dimen/LayoutMargin"
+                android:layout_below="@id/ButtonLinear">
+                <TextView
+                    android:text="Description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Description"
+                    android:textAppearance="@style/AppTheme.Text.Body1"
+                    android:layout_marginTop="@dimen/ItemMargin" />
+                <TextView
+                    android:text="Location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Location"
+                    android:textAppearance="@style/AppTheme.Text.Body1"
+                    android:layout_marginTop="@dimen/ItemMargin" />
+                <TextView
+                    android:text="Url"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Url"
+                    android:textAppearance="@style/AppTheme.Text.Body1"
+                    android:layout_marginTop="@dimen/ItemMargin" />
+            </LinearLayout>
+            <Space
+                android:layout_height="32dp"
+                android:layout_width="match_parent"
+                android:layout_below="@id/BioLinear" />
+        </RelativeLayout>
+    </FrameLayout>
+</merge>

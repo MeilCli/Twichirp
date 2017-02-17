@@ -28,6 +28,8 @@ using Android.Views;
 using Android.Widget;
 using FFImageLoading;
 using FFImageLoading.Transformations;
+using Plugin.CrossFormattedText;
+using Plugin.CrossFormattedText.Abstractions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.Extensions;
@@ -55,10 +57,31 @@ namespace Twichirp.Android.App.ViewController {
             View.ScreenName.SetTextColor(global::Android.Graphics.Color.Green);
             ViewModel.IsProtected.Subscribe(x => View.LockIcon.Visibility = x ? ViewStates.Visible : ViewStates.Gone).AddTo(Disposable);
             ViewModel.IsVerified.Subscribe(x => View.VerifyIcon.Visibility = x ? ViewStates.Visible : ViewStates.Gone).AddTo(Disposable);
+
+            ViewModel.Description.Subscribe(x => setDescription(x)).AddTo(Disposable);
+            ViewModel.Location.Subscribe(x => setLocation(x)).AddTo(Disposable);
+            ViewModel.Url.Subscribe(x => setUrl(x)).AddTo(Disposable);
         }
 
         private void onDestroy(object sender,LifeCycleEventArgs args) {
             View.Icon.ReleaseImage();
+        }
+
+        private void setDescription(ISpannableString description) {
+            var span = description.Span();
+            View.Description.Visibility = span.Length() > 0 ? ViewStates.Visible : ViewStates.Gone;
+            View.Description.SetTextWithCommandableSpan(description);
+        }
+
+        private void setLocation(string location) {
+            View.Location.Visibility = location.Length > 0 ? ViewStates.Visible : ViewStates.Gone;
+            View.Location.Text = location;
+        }
+
+        private void setUrl(ISpannableString url) {
+            var span = url.Span();
+            View.Url.Visibility = span.Length() > 0 ? ViewStates.Visible : ViewStates.Gone;
+            View.Url.SetTextWithCommandableSpan(url);
         }
     }
 }

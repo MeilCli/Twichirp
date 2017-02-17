@@ -13,74 +13,13 @@
     <android.support.design.widget.CollapsingToolbarLayout
         android:id="@+id/CollapsingToolbar"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="wrap_content"
         app:contentScrim="?attr/colorPrimary"
         app:layout_scrollFlags="scroll|exitUntilCollapsed"
-        app:expandedTitleMarginBottom="200dp">
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:orientation="vertical">
-        <FrameLayout
-          android:layout_width="match_parent"
-          android:layout_height="250dp">
-          <FFImageLoading.Views.ImageViewAsync
-              android:id="@+id/Banner"
-              android:layout_width="match_parent"
-              android:layout_height="250dp"
-              android:src="@drawable/Icon"
-              android:scaleType="centerCrop" />
-          <FFImageLoading.Views.ImageViewAsync
-              android:id="@+id/Icon"
-              android:layout_width="100dp"
-              android:layout_height="100dp"
-              android:src="@drawable/Icon"
-              android:scaleType="centerCrop"
-              android:layout_gravity="center"/>
-        </FrameLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:theme="@style/AppTheme"
-            android:background="#fff">
-          <LinearLayout
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:id="@+id/NameLinear"
-              android:layout_margin="@dimen/LayoutMargin">
-            <ImageView
-                android:src="@drawable/IconEnhancedEncryptionBlack36dp"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:id="@+id/LockIcon"
-                android:tint="@color/Grey600"
-                android:layout_marginTop="@dimen/ItemMargin"/>
-            <ImageView
-                android:src="@drawable/IconVerifiedUserGrey36dp"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:id="@+id/VerifyIcon"
-                android:tint="@color/Grey600"
-                android:layout_marginTop="@dimen/ItemMargin"/>
-            <TextView
-                android:text="ScreenName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ScreenName"
-                android:textAppearance="@style/AppTheme.Text.Title"
-                android:singleLine="true" />
-            <TextView
-                android:text="Relationship"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Relationship"
-                android:textAppearance="@style/AppTheme.Text.Caption"
-                android:singleLine="true"
-                android:layout_marginLeft="@dimen/ItemMargin"/>
-          </LinearLayout>
-        </RelativeLayout>
-      </LinearLayout>
+        android:fitsSystemWindows="true">
+      <include
+        layout="@layout/IncludeUserProfile"
+        app:layout_collapseMode="parallax"/>
       <android.support.v7.widget.Toolbar
           android:id="@+id/Toolbar"
           android:layout_height="?attr/actionBarSize"
@@ -93,16 +32,16 @@
         android:layout_width="match_parent">
       <android.support.design.widget.TabItem
           android:text="@string/TabTweet"
-          android:id="@id/TabTweet"/>
+          android:id="@id/TabTweet" />
       <android.support.design.widget.TabItem
           android:text="@string/TabFavorite"
-          android:id="@id/TabFavorite"/>
+          android:id="@id/TabFavorite" />
       <android.support.design.widget.TabItem
           android:text="@string/TabFollowing"
-          android:id="@id/TabFollowing"/>
+          android:id="@id/TabFollowing" />
       <android.support.design.widget.TabItem
           android:text="@string/TabFollower"
-          android:id="@id/TabFollower"/>
+          android:id="@id/TabFollower" />
     </android.support.design.widget.TabLayout>
   </android.support.design.widget.AppBarLayout>
   <RelativeLayout
