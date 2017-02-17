@@ -281,9 +281,9 @@ namespace Twichirp.Android.App.ViewController {
         private SFragment createFragment(NavigationTab tab,Account account) {
             switch(tab.Id) {
                 case Android.Resource.Id.TabHome:
-                    return StatusTimelineFragment.Make(StatusTimelineFragmentType.Home,account);
+                    return StatusTimelineFragment.Make(new StatusTimelineFragment.HomeParameter(account));
                 case Android.Resource.Id.TabMention:
-                    return StatusTimelineFragment.Make(StatusTimelineFragmentType.Mention,account);
+                    return StatusTimelineFragment.Make(new StatusTimelineFragment.MentionParameter(account));
             }
             return null;
         }

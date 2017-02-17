@@ -39,7 +39,8 @@ namespace Twichirp.Android.App.View.Fragment {
     public enum StatusTimelineFragmentType {
         Home = 0,
         Mention = 1,
-        User = 2
+        User = 2,
+        Favorite = 3
     }
 
     public class StatusTimelineFragment : BaseFragment, IStatusTimelineView {
@@ -48,18 +49,65 @@ namespace Twichirp.Android.App.View.Fragment {
         private const string argumentAccount = "arg_account";
         private const string argumentUser = "arg_user";
 
-        public static StatusTimelineFragment Make(StatusTimelineFragmentType type,Account account) {
-            var fragment = new StatusTimelineFragment();
-            var bundle = new Bundle();
-            bundle.PutLong(argumentAccount,account.Id);
-            bundle.PutInt(argumentType,(int)type);
-            fragment.Arguments = bundle;
-            return fragment;
+        public class Parameter {
+
+            public StatusTimelineFragmentType Type { get; }
+            public Account Account { get; }
+
+            public Parameter(StatusTimelineFragmentType type,Account account) {
+                Type = type;
+                Account = account;
+            }
+
+            public virtual void Put(Bundle bundle) {
+                bundle.PutLong(argumentAccount,Account.Id);
+                bundle.PutInt(argumentType,(int)Type);
+            }
         }
 
-        public static StatusTimelineFragment MakeUser(StatusTimelineFragmentType type,Account account,long userId) {
-            var fragment = Make(type,account);
-            fragment.Arguments.PutLong(argumentUser,userId);
+        public class HomeParameter : Parameter {
+
+            public HomeParameter(Account account) : base(StatusTimelineFragmentType.Home,account) { }
+        }
+
+        public class MentionParameter : Parameter {
+
+            public MentionParameter(Account account) : base(StatusTimelineFragmentType.Mention,account) { }
+        }
+
+        public class UserParameter : Parameter {
+
+            public long UserId { get; }
+
+            public UserParameter(Account account,long userId) : base(StatusTimelineFragmentType.User,account) {
+                UserId = userId;
+            }
+
+            public override void Put(Bundle bundle) {
+                base.Put(bundle);
+                bundle.PutLong(argumentUser,UserId);
+            }
+        }
+
+        public class FavoriteParameter : Parameter {
+
+            public long UserId { get; }
+
+            public FavoriteParameter(Account account,long userId) : base(StatusTimelineFragmentType.Favorite,account) {
+                UserId = userId;
+            }
+
+            public override void Put(Bundle bundle) {
+                base.Put(bundle);
+                bundle.PutLong(argumentUser,UserId);
+            }
+        }
+
+        public static StatusTimelineFragment Make(Parameter parameter) {
+            var fragment = new StatusTimelineFragment();
+            var bundle = new Bundle();
+            parameter.Put(bundle);
+            fragment.Arguments = bundle;
             return fragment;
         }
 
@@ -87,6 +135,9 @@ namespace Twichirp.Android.App.View.Fragment {
                     break;
                 case StatusTimelineFragmentType.User:
                     timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.UserTimeline(userId);
+                    break;
+                case StatusTimelineFragmentType.Favorite:
+                    timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.FavoriteTimeline(userId);
                     break;
             }
             statusTimelineViewModel = new StatusTimelineViewModel(TwichirpApplication,timelineResource,account);
