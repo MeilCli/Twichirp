@@ -28,6 +28,7 @@ using Android.Views;
 using Android.Widget;
 using AndroidSlideLayout;
 using Reactive.Bindings.Extensions;
+using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View;
 using Twichirp.Core.App.ViewModel;
 
@@ -102,16 +103,12 @@ namespace Twichirp.Android.App.ViewController {
         private void viewReleased(object sender,ViewReleasedEventArgs args) {
             var slideLayout = sender as SlideLayout;
             int distance = Math.Abs(slideLayout.CurrentDragChildViewLayoutedTop - slideLayout.CurrentDragChildViewDraggedTop);
-            int finishDistance = convertDensityIndependentPixelToPixel(150);
+            int finishDistance = View.ApplicationContext.ConvertDensityIndependentPixelToPixel(150);
             if(distance > finishDistance) {
                 args.Handled = true;
                 View.Activity.Finish();
             }
         }
 
-        private int convertDensityIndependentPixelToPixel(float dp) {
-            var metrics = View.ApplicationContext.Resources.DisplayMetrics;
-            return (int)(dp * ((int)metrics.DensityDpi / 160f));
-        }
     }
 }

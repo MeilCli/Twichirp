@@ -92,7 +92,7 @@ namespace Twichirp.Android.App.ViewController {
         private void viewReleased(object sender,ViewReleasedEventArgs args) {
             var slideLayout = sender as SlideLayout;
             int distance = Math.Abs(slideLayout.CurrentDragChildViewLayoutedTop - slideLayout.CurrentDragChildViewDraggedTop);
-            int finishDistance = convertDensityIndependentPixelToPixel(150);
+            int finishDistance = View.ApplicationContext.ConvertDensityIndependentPixelToPixel(150);
             if(distance > finishDistance) {
                 args.Handled = true;
                 if(View.PageLayout.CurrentFirstVisiblePage == ViewModel.DefaultPage) {
@@ -101,11 +101,6 @@ namespace Twichirp.Android.App.ViewController {
                     View.Activity.Finish();
                 }
             }
-        }
-
-        private int convertDensityIndependentPixelToPixel(float dp) {
-            var metrics = View.ApplicationContext.Resources.DisplayMetrics;
-            return (int)(dp * ((int)metrics.DensityDpi / 160f));
         }
 
     }
