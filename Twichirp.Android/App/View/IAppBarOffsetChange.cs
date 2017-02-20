@@ -23,30 +23,31 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
 
 namespace Twichirp.Android.App.View {
 
-    public class ExpandedTitleMarginEventArgs : EventArgs {
+    public class AppBarOffsetChangedEventArgs : EventArgs {
 
-        public int? MarginBottom { get; set; }
-        public int? MarginStart { get; set; }
-        public int TotalWidth { get; }
-        public int TotalHeight { get; }
+        public AppBarLayout AppBar { get; }
 
-        public ExpandedTitleMarginEventArgs(int totalWidth,int totalHeight) {
-            TotalWidth = totalWidth;
-            TotalHeight = totalHeight;
+        public int Offset { get; }
+
+        public AppBarOffsetChangedEventArgs(AppBarLayout appBar,int offset) {
+            AppBar = appBar;
+            Offset = offset;
         }
     }
 
-    public interface IExpandedTitleView {
+    public interface IAppBarOffsetChange {
 
-        event EventHandler<ExpandedTitleMarginEventArgs> DecideExpandedTitleMarginEventHandler;
+        event EventHandler<AppBarOffsetChangedEventArgs> AppBarOffsetChanged;
+    }
 
-        void InvalidateExpandedTitle();
+    public interface IAppBarOffsetChangeEventRaise {
 
-        void SetTitle(string title);
+        void RaiseAppBarOffsetChanged(AppBarOffsetChangedEventArgs args);
     }
 }

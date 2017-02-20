@@ -100,11 +100,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Plugin.CrossFormattedText, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Plugin.CrossFormattedText.1.0.6\lib\MonoAndroid10\Plugin.CrossFormattedText.dll</HintPath>
+      <HintPath>..\packages\Plugin.CrossFormattedText.1.0.7\lib\MonoAndroid10\Plugin.CrossFormattedText.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Plugin.CrossFormattedText.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Plugin.CrossFormattedText.1.0.6\lib\MonoAndroid10\Plugin.CrossFormattedText.Abstractions.dll</HintPath>
+      <HintPath>..\packages\Plugin.CrossFormattedText.1.0.7\lib\MonoAndroid10\Plugin.CrossFormattedText.Abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Plugin.Settings, Version=2.5.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -266,6 +266,7 @@
     <Compile Include="App\View\Holder\BaseHolder.cs" />
     <Compile Include="App\View\Holder\LoadingHolder.cs" />
     <Compile Include="App\View\Holder\StatusHolder.cs" />
+    <Compile Include="App\View\IAppBarOffsetChange.cs" />
     <Compile Include="App\View\IExpandedTitleView.cs" />
     <Compile Include="App\View\Interface\IImageViewerView.cs" />
     <Compile Include="App\View\Interface\ILoadingView.cs" />

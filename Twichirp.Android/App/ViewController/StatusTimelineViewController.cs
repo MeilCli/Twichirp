@@ -63,6 +63,10 @@ namespace Twichirp.Android.App.ViewController {
             Observable.FromEventPattern<LifeCycleEventArgs>(x => View.OnSaveInstanceStateEventHandler += x,x => View.OnSaveInstanceStateEventHandler -= x)
                 .Subscribe(x => onSaveInstanceState(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
+            Observable.FromEventPattern<AppBarOffsetChangedEventArgs>(x => View.AppBarOffsetChanged += x,x => View.AppBarOffsetChanged -= x)
+                .Subscribe(x => appBarOffsetChanged(x.Sender,x.EventArgs))
+                .AddTo(Disposable);
+
             adapter = ViewModel.Timeline.ToAdapter(adapterViewSelect,adapterViewCreate);
             Observable.FromEventPattern<EventArgs>(x => adapter.LastItemShowed += x,x => adapter.LastItemShowed -= x)
                 .Subscribe(x => ViewModel.LoadMoreComannd.Execute())
@@ -101,6 +105,10 @@ namespace Twichirp.Android.App.ViewController {
 
         private void onDestroyView(object sender,LifeCycleEventArgs e) {
             onDestroyViewDisposable.Dispose();
+        }
+
+        private void appBarOffsetChanged(object sender,AppBarOffsetChangedEventArgs args) {
+            View.SwipeRefrech.Enabled = args.Offset == 0;
         }
 
         private ViewHolder adapterViewCreate(ViewGroup parent,int itemType) {

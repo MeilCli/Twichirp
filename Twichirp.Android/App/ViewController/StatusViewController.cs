@@ -66,7 +66,7 @@ namespace Twichirp.Android.App.ViewController {
 
             ViewModel.UpdateDateTimeCommand.Execute();
 
-            ViewModel.SpannableText.Subscribe(x => View.Text.TextFormatted = x.Span()).AddTo(Disposable);
+            ViewModel.SpannableText.Subscribe(x => View.Text.SetTextWithCommandableSpan(x)).AddTo(Disposable);
 
             ViewModel.RetweetingUser
                 .Subscribe(x => {
@@ -141,6 +141,8 @@ namespace Twichirp.Android.App.ViewController {
                 })
                 .AddTo(Disposable);
             View.FavoriteIconClickable.ClickAsObservable().SetCommand(ViewModel.FavoriteCommand).AddTo(Disposable);
+
+            ViewModel.StartUserProfilePageCommand.Subscribe(x => UserProfileActivity.Start(View.Activity,x,null,ViewModel.Account)).AddTo(Disposable);
         }
 
         private void setRetweetIcon(bool isRetweeted) {

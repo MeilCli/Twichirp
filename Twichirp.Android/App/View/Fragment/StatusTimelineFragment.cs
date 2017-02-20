@@ -43,7 +43,7 @@ namespace Twichirp.Android.App.View.Fragment {
         Favorite = 3
     }
 
-    public class StatusTimelineFragment : BaseFragment, IStatusTimelineView {
+    public class StatusTimelineFragment : BaseFragment, IStatusTimelineView, IAppBarOffsetChangeEventRaise {
 
         private const string argumentType = "arg_type";
         private const string argumentAccount = "arg_account";
@@ -111,6 +111,8 @@ namespace Twichirp.Android.App.View.Fragment {
             return fragment;
         }
 
+        public event EventHandler<AppBarOffsetChangedEventArgs> AppBarOffsetChanged;
+
         private StatusTimelineViewModel statusTimelineViewModel;
         private StatusTimelineViewController statusTimelineViewController;
 
@@ -171,6 +173,10 @@ namespace Twichirp.Android.App.View.Fragment {
                 return false;
             }
             return true;
+        }
+
+        public void RaiseAppBarOffsetChanged(AppBarOffsetChangedEventArgs args) {
+            AppBarOffsetChanged?.Invoke(this,args);
         }
     }
 }

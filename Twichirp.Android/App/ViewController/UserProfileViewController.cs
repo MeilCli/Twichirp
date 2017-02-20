@@ -38,7 +38,7 @@ using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View;
 using Twichirp.Android.App.View.Fragment;
 using Twichirp.Core.App.ViewModel;
-using AView = Android.Views.View;
+using Twichirp.Android.Extensions;
 
 namespace Twichirp.Android.App.ViewController {
 
@@ -47,9 +47,6 @@ namespace Twichirp.Android.App.ViewController {
         public UserProfileViewController(IUserProfileView view,UserProfileViewModel viewModel) : base(view,viewModel) {
             Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnCreateEventHandler += x,x => view.OnCreateEventHandler -= x)
                 .Subscribe(x => onCreate(x.Sender,x.EventArgs))
-                .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnResumeEventHandler += x,x => view.OnResumeEventHandler -= x)
-                .Subscribe(x => onResume(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
             Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnDestroyEventHandler += x,x => view.OnDestroyEventHandler -= x)
                 .Subscribe(x => onDestroy(x.Sender,x.EventArgs))
@@ -61,9 +58,12 @@ namespace Twichirp.Android.App.ViewController {
 
         private void onCreate(object sender,LifeCycleEventArgs args) {
             ViewModel.Banner.CombineLatest(ViewModel.LinkColor,(x,y) => Tuple.Create(x,y)).Subscribe(x => setUserBanner(x.Item1,x.Item2)).AddTo(Disposable);
-            ViewModel.IconUrl.Subscribe(x => ImageService.Instance.LoadUrl(x).Transform(new RoundedTransformation(60d)).FadeAnimation(true).Into(View.Icon)).AddTo(Disposable);
+            ViewModel.IconUrl
+                .Where(x => x != null)
+                .Subscribe(x => ImageService.Instance.LoadUrl(x).Transform(new RoundedTransformation(60d)).FadeAnimation(true).Into(View.Icon))
+                .AddTo(Disposable);
 
-            ViewModel.Name.Subscribe(x => View.Toolbar.Title = x).AddTo(Disposable);
+            ViewModel.Name.Where(x => x != null).Subscribe(x => setTitle(x)).AddTo(Disposable);
             View.Name?.SetBinding(x => x.Text,ViewModel.Name).AddTo(Disposable);
             View.ScreenName.SetBinding(x => x.Text,ViewModel.ScreenName).AddTo(Disposable);
             View.ScreenName.SetTextColor(Color.Green);
@@ -73,22 +73,21 @@ namespace Twichirp.Android.App.ViewController {
             View.Relationship.Visibility = ViewModel.IsOwnerAccount ? ViewStates.Gone : ViewStates.Visible;
 
             View.Friendship.SetBinding(x => x.Text,ViewModel.Friendship).AddTo(Disposable);
+            View.Friendship.ClickAsObservable().SetCommand(ViewModel.FriendshipCommand).AddTo(Disposable);
             View.Friendship.Visibility = ViewModel.IsOwnerAccount ? ViewStates.Gone : ViewStates.Visible;
             View.Extraship.SetBinding(x => x.Text,ViewModel.Extraship).AddTo(Disposable);
             View.Extraship.Visibility = ViewModel.IsOwnerAccount ? ViewStates.Gone : ViewStates.Visible;
 
-            ViewModel.Description.Subscribe(x => setDescription(x)).AddTo(Disposable);
-            ViewModel.Location.Subscribe(x => setLocation(x)).AddTo(Disposable);
-            ViewModel.Url.Subscribe(x => setUrl(x)).AddTo(Disposable);
+            ViewModel.Description.Where(x => x != null).Subscribe(x => setDescription(x)).AddTo(Disposable);
+            ViewModel.Location.Where(x => x != null).Subscribe(x => setLocation(x)).AddTo(Disposable);
+            ViewModel.Url.Where(x => x != null).Subscribe(x => setUrl(x)).AddTo(Disposable);
 
-            View.Activity.SupportFragmentManager.BeginTransaction().Replace(Android.Resource.Id.Content,StatusTimelineFragment.Make(new StatusTimelineFragment.UserParameter(ViewModel.Account,ViewModel.Account.Id))).Commit();
+            View.Activity.SupportFragmentManager.BeginTransaction().Replace(Android.Resource.Id.Content,StatusTimelineFragment.Make(new StatusTimelineFragment.UserParameter(ViewModel.Account,ViewModel.UserId))).Commit();
         }
 
-        private void onResume(object sender,LifeCycleEventArgs args) {
-            // Toolbarの描写タイミング合わないので調整
-            if(ViewModel.Name.Value != null) {
-                View.Toolbar.Title = ViewModel.Name.Value;
-            }
+        private void setTitle(string title) {
+            View.SetTitle(title);
+            View.InvalidateExpandedTitle();
         }
 
         private void onDestroy(object sender,LifeCycleEventArgs args) {
@@ -98,9 +97,14 @@ namespace Twichirp.Android.App.ViewController {
         private void decideExpandedTitleMargin(object sender,ExpandedTitleMarginEventArgs args) {
             args.MarginStart = View.Icon.Right + View.ApplicationContext.ConvertDensityIndependentPixelToPixel(16f);
             args.MarginBottom = args.TotalHeight - View.ApplicationContext.ConvertDensityIndependentPixelToPixel(120f);
+            View.ApplicationContext.ShowToast("margin");
         }
 
+
         private void setUserBanner(string banner,string linkColor) {
+            if(banner == null && linkColor == null) {
+                return;
+            }
             if(banner != null) {
                 ImageService.Instance.LoadUrl($"{banner}/mobile_retina").IntoAsync(View.Banner);
             } else if(banner != null) {

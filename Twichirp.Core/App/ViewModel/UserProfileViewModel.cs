@@ -35,9 +35,17 @@ namespace Twichirp.Core.App.ViewModel {
         public const string TransitionIconName = "transition_icon";
 
         private UserProfileModel userProfileModel;
+        private const int friendshipUnFollowing = 0;
+        private const int friendshipFollowing = 1;
+        private const int friendshipRequestingFollow = 2;
+        private const int frindshipBlocking = 3;
 
         public Account Account { get; }
+        public long UserId { get; }
         public bool IsOwnerAccount => userProfileModel.IsOwnerUser;
+        private int friendshipType = friendshipUnFollowing;
+
+        public ReadOnlyReactiveProperty<bool> IsLoading { get; }
 
         public ReadOnlyReactiveProperty<string> Banner { get; }
         public ReadOnlyReactiveProperty<string> LinkColor { get; }
@@ -53,9 +61,14 @@ namespace Twichirp.Core.App.ViewModel {
         public ReadOnlyReactiveProperty<string> Friendship { get; }
         public ReadOnlyReactiveProperty<string> Extraship { get; }
 
+        public AsyncReactiveCommand FriendshipCommand { get; }
+
         public UserProfileViewModel(ITwichirpApplication application,Account account,long userId,User user = null) : base(application) {
             Account = account;
+            UserId = userId;
             userProfileModel = new UserProfileModel(application,account,userId,user);
+
+            IsLoading = userProfileModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);
 
             Observable.FromEventPattern<EventArgs<UserModel>>(x => userProfileModel.UserModelLoaded += x,x => userProfileModel.UserModelLoaded -= x)
                 .Select(x => x.EventArgs.EventData)
@@ -66,6 +79,7 @@ namespace Twichirp.Core.App.ViewModel {
                 .AddTo(Disposable);
             Banner = userProfileModel.ObserveProperty(x => x.ProfileBannerUrl).ToReadOnlyReactiveProperty().AddTo(Disposable);
             LinkColor = userProfileModel.ObserveProperty(x => x.ProfileLinkColor).ToReadOnlyReactiveProperty().AddTo(Disposable);
+
             Relationship = userProfileModel.ObserveProperty(x => x.IsFollowedBy)
                 .CombineLatest(userProfileModel.ObserveProperty(x => x.IsFollowingReceived),userProfileModel.ObserveProperty(x => x.IsBlockedBy),(x,y,z) => relationship(x,y,z))
                 .ToReadOnlyReactiveProperty()
@@ -74,6 +88,8 @@ namespace Twichirp.Core.App.ViewModel {
                 .CombineLatest(userProfileModel.ObserveProperty(x => x.IsFollowingRequested),userProfileModel.ObserveProperty(x => x.IsBlocking),(x,y,z) => friendship(x,y,z))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
+            FriendshipCommand = IsLoading.Select(x => x == false).ToAsyncReactiveCommand().AddTo(Disposable);
+            FriendshipCommand.Subscribe(x => friendshipCommand()).AddTo(Disposable);
             Extraship = userProfileModel.ObserveProperty(x => x.IsMuting)
                 .CombineLatest(userProfileModel.ObserveProperty(x => x.IsMarkedSpam),(x,y) => extraship(x,y))
                 .ToReadOnlyReactiveProperty()
@@ -133,15 +149,36 @@ namespace Twichirp.Core.App.ViewModel {
 
         private string friendship(bool isFollowing,bool isFollowingRequested,bool isBlocking) {
             if(isFollowing) {
+                friendshipType = friendshipFollowing;
                 return Application.Resource.UserFollowing.Value;
             }
             if(isBlocking) {
+                friendshipType = frindshipBlocking;
                 return Application.Resource.UserBlocking.Value;
             }
             if(isFollowingRequested) {
+                friendshipType = friendshipRequestingFollow;
                 return Application.Resource.UserFollowingRequested.Value;
             }
+            friendshipType = friendshipUnFollowing;
             return Application.Resource.UserFollow.Value;
+        }
+
+        private async Task friendshipCommand() {
+            switch(friendshipType) {
+                case friendshipFollowing:
+                    await userProfileModel.UnFollowAsync(Account);
+                    break;
+                case friendshipUnFollowing:
+                    await userProfileModel.FollowAsync(Account);
+                    break;
+                case friendshipRequestingFollow:
+                    await userProfileModel.UnFollowAsync(Account);
+                    break;
+                case frindshipBlocking:
+                    await userProfileModel.UnBlockAsync(Account);
+                    break;
+            }
         }
 
         private string extraship(bool isMuting,bool isMarkedSpam) {

@@ -64,9 +64,11 @@ namespace Twichirp.Android.App.View.Activity {
         }
 
         public event EventHandler<ExpandedTitleMarginEventArgs> DecideExpandedTitleMarginEventHandler;
+        public event EventHandler<AppBarOffsetChangedEventArgs> AppBarOffsetChanged;
 
         private UserProfileViewController userProfileViewController;
         private CollapsingToolbarLayout collapsingToolbarLayout;
+        private AppBarLayout appBarLayout;
 
         public SToolbar Toolbar { get; private set; }
 
@@ -111,6 +113,8 @@ namespace Twichirp.Android.App.View.Activity {
 
             collapsingToolbarLayout = FindViewById<CollapsingToolbarLayout>(Android.Resource.Id.CollapsingToolbar);
             collapsingToolbarLayout.ViewTreeObserver.AddOnGlobalLayoutListener(this);
+            appBarLayout = FindViewById<AppBarLayout>(Android.Resource.Id.AppBar);
+            appBarLayout.OffsetChanged += offsetChanged;
 
             Toolbar = FindViewById<SToolbar>(Android.Resource.Id.Toolbar);
             SetSupportActionBar(Toolbar);
@@ -140,14 +144,29 @@ namespace Twichirp.Android.App.View.Activity {
             }
             if(Build.VERSION.SdkInt >= BuildVersionCodes.JellyBean) {
                 collapsingToolbarLayout.ViewTreeObserver.RemoveOnGlobalLayoutListener(this);
-            }else {
+            } else {
                 collapsingToolbarLayout.ViewTreeObserver.RemoveGlobalOnLayoutListener(this);
             }
         }
 
+        private void offsetChanged(object sender,AppBarLayout.OffsetChangedEventArgs args) {
+            var eventArgs = new AppBarOffsetChangedEventArgs(args.AppBarLayout,args.VerticalOffset);
+            AppBarOffsetChanged?.Invoke(this,eventArgs);
+            if(SupportFragmentManager.Fragments == null) {
+                return;
+            }
+            foreach(var fragment in SupportFragmentManager.Fragments) {
+                if(fragment is IAppBarOffsetChangeEventRaise) {
+                    (fragment as IAppBarOffsetChangeEventRaise).RaiseAppBarOffsetChanged(eventArgs);
+                }
+            }
+        }
+
         protected override void OnDestroy() {
-            base.OnDestroy();          
+            base.OnDestroy();
             collapsingToolbarLayout?.Dispose();
+            appBarLayout.OffsetChanged -= offsetChanged;
+            appBarLayout.Dispose();
 
             Toolbar?.Dispose();
             Icon?.Dispose();
@@ -163,5 +182,13 @@ namespace Twichirp.Android.App.View.Activity {
             Url?.Dispose();
         }
 
+        public void InvalidateExpandedTitle() {
+            collapsingToolbarLayout.ViewTreeObserver.AddOnGlobalLayoutListener(this);
+            collapsingToolbarLayout.Invalidate();
+        }
+
+        public void SetTitle(string title) {
+            collapsingToolbarLayout.SetTitle(title);
+        }
     }
 }

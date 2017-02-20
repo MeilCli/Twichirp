@@ -92,6 +92,8 @@ namespace Twichirp.Core.App.ViewModel {
         public AsyncReactiveCommand FavoriteCommand { get; } = new AsyncReactiveCommand();
         public ReactiveCommand<int> StartMediaViewerPageCommand { get; } = new ReactiveCommand<int>();
 
+        public ReactiveCommand<long> StartUserProfilePageCommand { get; } = new ReactiveCommand<long>();
+
         public StatusViewModel(ITwichirpApplication application,Status status,Account account) : this(application,new StatusModel(application,status),account) { }
 
         internal StatusViewModel(ITwichirpApplication application,StatusModel status,Account account) : base(application) {
@@ -220,7 +222,15 @@ namespace Twichirp.Core.App.ViewModel {
         private ISpannableString spannableText(IEnumerable<TextPart> text,IEnumerable<UserMentionEntity> hiddenPrefix,IEnumerable<UrlEntity> hiddenSuffix,bool containsSuffix) {
             var spans = new List<Span>();
             foreach(var mention in hiddenPrefix) {
-                spans.Add(new Span() { Text = $"@{mention.ScreenName} ",ForegroundColor = SpanConstant.BlueColor });
+                spans.Add(
+                    new Span() {
+                        Text = $"@{mention.ScreenName}",
+                        ForegroundColor = SpanConstant.BlueColor,
+                        Command = StartUserProfilePageCommand,
+                        CommandParameter = mention.Id
+                    }
+                );
+                spans.Add(new Span() { Text = " " });
             }
             foreach(var textPart in text) {
                 switch(textPart.Type) {
@@ -237,11 +247,23 @@ namespace Twichirp.Core.App.ViewModel {
                             break;
                         }
                     case TextPartType.Url: {
-                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
+                            spans.Add(
+                                new Span {
+                                    Text = textPart.Text,
+                                    ForegroundColor = SpanConstant.BlueColor
+                                }
+                            );
                             break;
                         }
                     case TextPartType.UserMention: {
-                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
+                            spans.Add(
+                                new Span {
+                                    Text = textPart.Text,
+                                    ForegroundColor = SpanConstant.BlueColor,
+                                    Command = StartUserProfilePageCommand,
+                                    CommandParameter = (textPart.Entity as UserMentionEntity).Id
+                                }
+                            );
                             break;
                         }
                 }
