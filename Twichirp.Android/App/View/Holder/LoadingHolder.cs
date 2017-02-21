@@ -31,7 +31,15 @@ using Twichirp.Core.App.ViewModel;
 using AView = Android.Views.View;
 
 namespace Twichirp.Android.App.View.Holder {
+
     public class LoadingHolder : BaseHolder<BaseViewModel>, ILoadingView {
+
+        public static LoadingHolder Make(IView view) {
+            var itemView = InflateView(view, Android.Resource.Layout.LoadingHolder);
+            var holder = new LoadingHolder(itemView, view);
+            holder.OnCreatedView();
+            return holder;
+        }
 
         private LoadingViewController loadingViewController;
 
@@ -41,7 +49,7 @@ namespace Twichirp.Android.App.View.Holder {
 
         public AView ClickableView { get; private set; }
 
-        public LoadingHolder(IView view,ILifeCycle lifeCycle,ViewGroup viewGroup) : base(view,lifeCycle,viewGroup,Android.Resource.Layout.LoadingHolder) {
+        private LoadingHolder(AView itemView, IView view) : base(itemView, view) {
         }
 
         protected override void OnDestroyView() {
@@ -56,8 +64,8 @@ namespace Twichirp.Android.App.View.Holder {
             ClickableView = ItemView;
         }
 
-        public override void OnPreBind(BaseViewModel item,int position) {
-            this.loadingViewController = new LoadingViewController(this,item as LoadingViewModel);
+        public override void OnPreBind(BaseViewModel item, int position) {
+            this.loadingViewController = new LoadingViewController(this, item as LoadingViewModel);
         }
     }
 }
