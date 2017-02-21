@@ -54,18 +54,18 @@ namespace Twichirp.Core.App.ViewModel {
             IsLoading = StatusTimelineModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);
 
             Observable.FromEventPattern<EventArgs<string>>(x => StatusTimelineModel.ErrorMessageCreated += x,x => StatusTimelineModel.ErrorMessageCreated -= x)
-                .SubscribeOnUIDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(x => ShowMessageCommand.Execute(x.EventArgs.EventData))
                 .AddTo(Disposable);
             LoadCommand.Subscribe(x => StatusTimelineModel.LoadAsync(x));
             LoadMoreComannd.Subscribe(x => StatusTimelineModel.LoadMoreAsync());
 
             Observable.FromEventPattern<StatusEventArgs>(x => Application.TwitterEvent.StatusUpdated += x,x => Application.TwitterEvent.StatusUpdated -= x)
-                .SubscribeOnUIDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(async x => await StatusTimelineModel.NotifyStatusUpdatedAsync(x.EventArgs.Account,x.EventArgs.Status))
                 .AddTo(Disposable);
             Observable.FromEventPattern<UserEventArgs>(x => Application.TwitterEvent.UserUpdated += x,x => Application.TwitterEvent.UserUpdated -= x)
-                .SubscribeOnUIDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(async x => await StatusTimelineModel.NotifyUserUpdatedAsync(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);
         }

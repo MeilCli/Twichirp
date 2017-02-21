@@ -96,27 +96,27 @@ namespace Twichirp.Core.App.ViewModel {
                 .AddTo(Disposable);
 
             Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.UserUpdated += x,x => application.TwitterEvent.UserUpdated -= x)
-                .SubscribeOnUIDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(x => userProfileModel.NotifyUserUpdated(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);
             Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.FollowingUserCreated += x,x => application.TwitterEvent.FollowingUserCreated -= x)
-                .SubscribeOnUIDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(x => userProfileModel.NotifyFollowingUserCreated(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);
             Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.FollowingUserDestroyed += x,x => application.TwitterEvent.FollowingUserDestroyed -= x)
-                .SubscribeOnUIDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(x => userProfileModel.NotifyFollowingUserDestroyed(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);
             Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.BlockingUserCreated += x,x => application.TwitterEvent.BlockingUserCreated -= x)
-                .SubscribeOnUIDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(x => userProfileModel.NotifyBlokingUserCreated(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);
             Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.BlockingUserDestroyed += x,x => application.TwitterEvent.BlockingUserDestroyed -= x)
-                .SubscribeOnUIDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(x => userProfileModel.NotifyBlockingUserDestroyed(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);
             Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.SpamUserMarked += x,x => application.TwitterEvent.SpamUserMarked -= x)
-                .SubscribeOnUIDispatcher()
+                .ObserveOnUIDispatcher()
                 .Subscribe(x => userProfileModel.NotifySpamUserMarked(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);
         }
