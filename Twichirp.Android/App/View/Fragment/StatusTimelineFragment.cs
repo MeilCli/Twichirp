@@ -34,6 +34,9 @@ using Twichirp.Core.Model;
 using AView = Android.Views.View;
 using SFragment = Android.Support.V4.App.Fragment;
 
+// 未使用フィールドの警告非表示
+#pragma warning disable 0414
+
 namespace Twichirp.Android.App.View.Fragment {
 
     public enum StatusTimelineFragmentType {

@@ -32,6 +32,9 @@ using Android.Util;
 using Android.Support.V4.View;
 using AView = Android.Views.View;
 
+// 未使用イベントの警告非表示
+#pragma warning disable 0067
+
 namespace Twichirp.Android.App.View.Holder {
     
     public abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView, ILifeCycle, IBindable<T>, IRecyclable {

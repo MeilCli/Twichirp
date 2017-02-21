@@ -29,6 +29,9 @@ using Twichirp.Core.App.ViewModel;
 using Twichirp.Android.App.ViewController;
 using SToolbar = Android.Support.V7.Widget.Toolbar;
 
+// 未使用フィールドの警告非表示
+#pragma warning disable 0414
+
 namespace Twichirp.Android.App.View.Activity {
     [Activity]
     public class LoginActivity : BaseActivity,ILoginView {

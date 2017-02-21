@@ -35,6 +35,9 @@ using AActivity = Android.App.Activity;
 using AView = Android.Views.View;
 using CStatus = CoreTweet.Status;
 
+// 未使用フィールドの警告非表示
+#pragma warning disable 0414
+
 namespace Twichirp.Android.App.View.Activity {
 
     [Activity]

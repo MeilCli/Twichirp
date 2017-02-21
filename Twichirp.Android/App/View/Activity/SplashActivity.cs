@@ -30,7 +30,11 @@ using SToolbar = Android.Support.V7.Widget.Toolbar;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Android.App.ViewController;
 
+// 未使用フィールドの警告非表示
+#pragma warning disable 0414
+
 namespace Twichirp.Android.App.View.Activity {
+    
     [Activity(MainLauncher =true)]
     public class SplashActivity : BaseActivity,ISplashView {
 

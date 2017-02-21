@@ -62,8 +62,6 @@ namespace Twichirp.Android.App.ViewController {
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
-            int statusType = ViewModel.ToStatusType();
-
             ViewModel.UpdateDateTimeCommand.Execute();
 
             ViewModel.SpannableText.Subscribe(x => View.Text.SetTextWithCommandableSpan(x)).AddTo(Disposable);

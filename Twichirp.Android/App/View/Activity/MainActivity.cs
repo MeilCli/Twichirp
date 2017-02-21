@@ -31,6 +31,9 @@ using FFImageLoading.Views;
 using Twichirp.Android.App.ViewModel;
 using BottomBarSharp;
 
+// 未使用フィールドの警告非表示
+#pragma warning disable 0414
+
 namespace Twichirp.Android.App.View.Activity {
 
     [Activity(LaunchMode = global::Android.Content.PM.LaunchMode.SingleTask)]

@@ -57,8 +57,6 @@ namespace Twichirp.Android.App {
 
     public class Resource : IResource {
 
-        private Resources resources;
-
         public IValue<string> SplashAccountLoading { get; }
         public IValue<string> SplashConsumerLoading { get; }
         public IValue<string> SplashAccountDownLoading { get; }
@@ -86,8 +84,6 @@ namespace Twichirp.Android.App {
         public IValue<string> UserMarkedSpam { get; }
 
         public Resource(Resources resources) {
-            this.resources = resources;
-
             SplashAccountLoading = new StringValue(resources,Android.Resource.String.SplashAccountLoading);
             SplashConsumerLoading = new StringValue(resources,Android.Resource.String.SplashConsumerLoading);
             SplashAccountDownLoading = new StringValue(resources,Android.Resource.String.SplashAccountDownLoading);

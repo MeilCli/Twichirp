@@ -38,6 +38,9 @@ using Newtonsoft.Json;
 using Twichirp.Android.App.ViewController;
 using Android.Support.Design.Widget;
 
+// 未使用フィールドの警告非表示
+#pragma warning disable 0414
+
 namespace Twichirp.Android.App.View.Activity {
 
     [Activity]
