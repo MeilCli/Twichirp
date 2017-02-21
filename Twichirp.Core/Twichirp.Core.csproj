@@ -93,6 +93,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TweetCount\CounterExtensions.cs" />
     <Compile Include="TweetCount\Regex.cs" />
+    <Compile Include="Resources\StringResources.Designer.cs">
+      <DependentUpon>StringResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\StringResources.ja_JP.Designer.cs">
+      <DependentUpon>StringResources.ja_JP.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CoreTweet, Version=0.7.2.352, Culture=neutral, processorArchitecture=MSIL">
@@ -158,6 +164,19 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Twichirp.Core.licenseheader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\StringResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\StringResources.ja_JP.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StringResources.ja_JP.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
