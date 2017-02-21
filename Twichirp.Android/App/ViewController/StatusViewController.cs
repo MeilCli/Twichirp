@@ -174,12 +174,12 @@ namespace Twichirp.Android.App.ViewController {
             var mediaViews = new[] { View.Media1,View.Media2,View.Media3,View.Media4 };
             for(int i = 0;i < count && i < mediaViews.Length;i++) {
                 var m = media.ElementAt(i);
-                var _imageTask = ImageService.Instance.LoadUrl(m.MediaUrl + ":small");
+                var imageTask = ImageService.Instance.LoadUrl(m.MediaUrl + ":small");
                 if((m.VideoInfo?.Variants.Length ?? 0) > 0) {
-                    _imageTask.Transform(new PlayCircleTransformation(View.ApplicationContext));
+                    imageTask.Transform(new PlayCircleTransformation(View.ApplicationContext));
                     isVideoMedia = true;
                 }
-                _imageTask.Into(mediaViews[i]);
+                imageTask.Into(mediaViews[i]);
             }
         }
 
@@ -214,11 +214,11 @@ namespace Twichirp.Android.App.ViewController {
             for(int i = 0;i < count && i < mediaViews.Length;i++) {
                 ImageService.Instance.LoadUrl(media.ElementAt(i).MediaUrl + ":small").FadeAnimation(true).Into(mediaViews[i]);
                 var m = media.ElementAt(i);
-                var _imageTask = ImageService.Instance.LoadUrl(m.MediaUrl + ":small");
+                var imageTask = ImageService.Instance.LoadUrl(m.MediaUrl + ":small");
                 if((m.VideoInfo?.Variants.Length ?? 0) > 0) {
-                    _imageTask.Transform(new PlayCircleTransformation(View.ApplicationContext));
+                    imageTask.Transform(new PlayCircleTransformation(View.ApplicationContext));
                 }
-                _imageTask.Into(mediaViews[i]);
+                imageTask.Into(mediaViews[i]);
             }
         }
 

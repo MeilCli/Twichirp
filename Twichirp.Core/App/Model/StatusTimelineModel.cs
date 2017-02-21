@@ -35,7 +35,7 @@ namespace Twichirp.Core.App.Model {
 
         private SemaphoreSlim slim = new SemaphoreSlim(1,1);
         public ReactiveCollection<BaseModel> Timeline { get; } = new ReactiveCollection<BaseModel>();
-        private List<StatusModel> _timeline { get; } = new List<StatusModel>();
+        private List<StatusModel> statusTimeline { get; } = new List<StatusModel>();
         private Timeline<IEnumerable<Status>> timelineResource;
         private Account account;
 
@@ -88,8 +88,8 @@ namespace Twichirp.Core.App.Model {
             IsLoading = true;
             try {
                 int count = Application.SettingManager.Timeline.Count;
-                if(_timeline.Count >= 1) {
-                    IEnumerable<Status> response = await timelineResource.Load(account,count,sinceId: _timeline[0].Id);
+                if(statusTimeline.Count >= 1) {
+                    IEnumerable<Status> response = await timelineResource.Load(account,count,sinceId: statusTimeline[0].Id);
                     if(response.Count() == count || response.Count() == count - 1) {
                         // 間にツイートがある場合でも(count-1)個しかないことがある
                         var loadingModel = new LoadingModel(Application);
@@ -97,7 +97,7 @@ namespace Twichirp.Core.App.Model {
                     }
                     int index = 0;
                     foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
-                        _timeline.Insert(index,s);
+                        statusTimeline.Insert(index,s);
                         Timeline.InsertOnScheduler(index,s);
                         index++;
                     }
@@ -106,18 +106,18 @@ namespace Twichirp.Core.App.Model {
                     }
                 } else {
                     foreach(var s in (await timelineResource.Load(account,count)).Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
-                        _timeline.Add(s);
+                        statusTimeline.Add(s);
                         Timeline.AddOnScheduler(s);
                     }
-                    if(_timeline.Count > 0) {
+                    if(statusTimeline.Count > 0) {
                         canLoadMore = true;
                     } else {
                         canLoadMore = false;
                     }
                 }
 
-                if(_timeline.Count > Application.SettingManager.Timeline.OwnedNumber) {
-                    int removeCount = _timeline.Count - Application.SettingManager.Timeline.OwnedNumber;
+                if(statusTimeline.Count > Application.SettingManager.Timeline.OwnedNumber) {
+                    int removeCount = statusTimeline.Count - Application.SettingManager.Timeline.OwnedNumber;
                     removeLast(removeCount);
                 }
             } catch(Exception e) {
@@ -162,19 +162,19 @@ namespace Twichirp.Core.App.Model {
                     if(response.Count() < count) {
                         Timeline.RemoveOnScheduler(target);
                     }
-                    int _index = _timeline.IndexOf(previousStatus) + 1;
+                    int statusIndex = statusTimeline.IndexOf(previousStatus) + 1;
                     int index = Timeline.IndexOf(previousStatus) + 1;
                     foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
-                        _timeline.Insert(_index,s);
+                        statusTimeline.Insert(statusIndex,s);
                         Timeline.InsertOnScheduler(index,s);
-                        _index++;
+                        statusIndex++;
                         index++;
                     }
                 } else if(previousStatus != null) {
                     IEnumerable<Status> response = await timelineResource.Load(account,count,maxId: previousStatus.Id - 1);
                     Timeline.RemoveOnScheduler(target);
                     foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
-                        _timeline.Add(s);
+                        statusTimeline.Add(s);
                         Timeline.AddOnScheduler(s);
                     }
                 } else if(nextStatus != null) {
@@ -182,7 +182,7 @@ namespace Twichirp.Core.App.Model {
                     Timeline.RemoveOnScheduler(target);
                     int index = 0;
                     foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
-                        _timeline.Insert(index,s);
+                        statusTimeline.Insert(index,s);
                         Timeline.InsertOnScheduler(index,s);
                         index++;
                     }
@@ -208,9 +208,9 @@ namespace Twichirp.Core.App.Model {
             IsLoading = true;
             try {
                 int count = Application.SettingManager.Timeline.Count;
-                IEnumerable<Status> response = await timelineResource.Load(account,count,maxId: _timeline[_timeline.Count - 1].Id - 1);
+                IEnumerable<Status> response = await timelineResource.Load(account,count,maxId: statusTimeline[statusTimeline.Count - 1].Id - 1);
                 foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
-                    _timeline.Add(s);
+                    statusTimeline.Add(s);
                     Timeline.AddOnScheduler(s);
                 }
                 if(response.Any()) {
@@ -231,7 +231,7 @@ namespace Twichirp.Core.App.Model {
             foreach(var r in removes) {
                 Timeline.RemoveOnScheduler(r);
                 if(r is StatusModel) {
-                    _timeline.Remove(r as StatusModel);
+                    statusTimeline.Remove(r as StatusModel);
                 }
             }
         }
@@ -243,7 +243,7 @@ namespace Twichirp.Core.App.Model {
             await slim.WaitAsync();
             try {
                 IEnumerable<StatusModel> changeStatus = await Task.Run(() => {
-                    return _timeline
+                    return statusTimeline
                     .Where(x => x.DeploymentStatus().Any(y => y.Id == status.Id))
                     .ToList();
                 });
@@ -261,7 +261,7 @@ namespace Twichirp.Core.App.Model {
             await slim.WaitAsync();
             try {
                 IEnumerable<UserModel> changeUser = await Task.Run(() => {
-                    return _timeline
+                    return statusTimeline
                     .SelectMany(x => x.DeploymentStatus())
                     .Select(x => x.User)
                     .Where(x => x.Id == user.Id)
