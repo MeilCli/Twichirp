@@ -52,7 +52,7 @@ namespace Twichirp.Android.App.ViewController {
                 var intent = new Intent(Intent.ActionView,global::Android.Net.Uri.Parse(x));
                 View.Activity.StartActivity(intent);
             }).AddTo(Disposable);
-            viewModel.IsLoading.ObserveOnUIDispatcher().Subscribe(x => {
+            viewModel.IsLoading.Subscribe(x => {
                 if(x == true) {
                     if(View.Activity.SupportFragmentManager.FindFragmentByTag(ProgressDialogFragment.FragmentTag) != null) {
                         return;

@@ -40,7 +40,7 @@ namespace Twichirp.Core.App.ViewModel {
 
         public LoginViewModel(ITwichirpApplication application) : base(application) {
             loginModel = new LoginModel(application);
-            IsLoading = loginModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);
+            IsLoading = loginModel.ObserveProperty(x => x.IsLoading).ObserveOnUIDispatcher().ToReadOnlyReactiveProperty().AddTo(Disposable);
 
             Observable.FromEventPattern<EventArgs<string>>(x => loginModel.AuthorizeUriCreated += x,x => loginModel.AuthorizeUriCreated -= x)
                 .ObserveOnUIDispatcher()
