@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-Copyright (c) 2016-2017 meil
-
-This file is part of Twichirp.
-
-Twichirp is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Twichirp is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
--->
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,7 +10,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
-            android:text="DateTime"
+            tools:text="DateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/DateTime"
@@ -56,7 +39,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
                 android:id="@+id/VerifyIcon"
                 android:tint="@color/Grey600" />
             <TextView
-                android:text="Name"
+                tools:text="Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/Name"
@@ -64,7 +47,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
                 android:singleLine="true" />
         </LinearLayout>
         <TextView
-            android:text="Text"
+            tools:text="Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/Text"
