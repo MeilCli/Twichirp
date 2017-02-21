@@ -20,7 +20,7 @@ along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 <resources>
   <color name="ColorPrimary">#2196F3</color>
   <color name="ColorPrimaryDark">#1976D2</color>
-  <color name="ColorAccent">#00E676</color>
+  <color name="ColorAccent">#673AB7</color>
   <color name="Snow">#F2F2F2</color>
   <color name="Grey300">#E0E0E0</color>
   <color name="Grey600">#757575</color>
