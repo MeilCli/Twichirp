@@ -11,7 +11,6 @@
 namespace Twichirp.Core.Resources {
     using System;
     using System.Reflection;
-    using System.Linq;
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
@@ -26,25 +25,12 @@ namespace Twichirp.Core.Resources {
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal StringResources() {
         }
-
-        public static System.Resources.ResourceManager LoadManager(string lang = "") {
-            var default_name = "Twichirp.Core.Resources.StringResources";
-            var asm = typeof(StringResources).GetTypeInfo().Assembly;
-            var reslist = asm.GetManifestResourceNames();
-            foreach (var ln in new string[] { $".{lang}", "" }.Select(x=>x.Replace("-","_"))) {
-                if (reslist.Contains($"{default_name}{ln}.resources")) {
-                    return new global::System.Resources.ResourceManager($"{default_name}{ln}", asm);
-                }
-            }
-            return null;
-        }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         public static System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.Equals(null, resourceMan)) {
-                    var ci = System.Globalization.CultureInfo.CurrentCulture;
-                    System.Resources.ResourceManager temp = LoadManager(ci.Name);
+                    System.Resources.ResourceManager temp = new System.Resources.ResourceManager("Twichirp.Core.Resources.StringResources", typeof(StringResources).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
