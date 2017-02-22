@@ -27,6 +27,7 @@ using Reactive.Bindings.Extensions;
 using Twichirp.Core.App.Event;
 using Twichirp.Core.App.Model;
 using Twichirp.Core.Model;
+using Twichirp.Core.Resources;
 
 namespace Twichirp.Core.App.ViewModel {
 
@@ -136,13 +137,13 @@ namespace Twichirp.Core.App.ViewModel {
 
         private string relationship(bool isFollowedBy,bool isFollowingReceived,bool isBlockedBy) {
             if(isFollowedBy) {
-                return Application.Resource.UserFollowedBy.Value;
+                return StringResources.UserFollowedBy;
             }
             if(isBlockedBy) {
-                return Application.Resource.UserBlockedBy.Value;
+                return StringResources.UserBlockedBy;
             }
             if(isFollowingReceived) {
-                return Application.Resource.UserFollowingReceived.Value;
+                return StringResources.UserFollowingReceived;
             }
             return string.Empty;
         }
@@ -150,18 +151,18 @@ namespace Twichirp.Core.App.ViewModel {
         private string friendship(bool isFollowing,bool isFollowingRequested,bool isBlocking) {
             if(isFollowing) {
                 friendshipType = friendshipFollowing;
-                return Application.Resource.UserFollowing.Value;
+                return StringResources.UserFollowing;
             }
             if(isBlocking) {
                 friendshipType = frindshipBlocking;
-                return Application.Resource.UserBlocking.Value;
+                return StringResources.UserBlocking;
             }
             if(isFollowingRequested) {
                 friendshipType = friendshipRequestingFollow;
-                return Application.Resource.UserFollowingRequested.Value;
+                return StringResources.UserFollowingRequested;
             }
             friendshipType = friendshipUnFollowing;
-            return Application.Resource.UserFollow.Value;
+            return StringResources.UserFollow;
         }
 
         private async Task friendshipCommand() {
@@ -183,10 +184,10 @@ namespace Twichirp.Core.App.ViewModel {
 
         private string extraship(bool isMuting,bool isMarkedSpam) {
             if(isMarkedSpam) {
-                return Application.Resource.UserMarkedSpam.Value;
+                return StringResources.UserMarkedSpam;
             }
             if(isMuting) {
-                return Application.Resource.UserMuting.Value;
+                return StringResources.UserMuting;
             }
             return string.Empty;
         }

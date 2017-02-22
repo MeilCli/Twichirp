@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Twichirp.Core.Resources;
 
 namespace Twichirp.Core.App.Model {
 
@@ -62,11 +63,11 @@ namespace Twichirp.Core.App.Model {
 
         public async Task ApplicationInitAsync() {
             IsRunning = true;
-            Message = Application.Resource.SplashAccountLoading.Value;
+            Message = StringResources.SplashAccountLoading;
             await Application.AccountManager.InitAsync();
-            Message = Application.Resource.SplashConsumerLoading.Value;
+            Message = StringResources.SplashConsumerLoading;
             await Application.ConsumerManager.InitAsync();
-            Message = Application.Resource.SplashAccountDownLoading.Value;
+            Message = StringResources.SplashAccountDownLoading;
             try {
                 await accountInitAsync();
             } catch(Exception) { }

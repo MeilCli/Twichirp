@@ -43,7 +43,6 @@
     <Compile Include="Aclog\Data\User.cs" />
     <Compile Include="Aclog\TokenExtension.cs" />
     <Compile Include="App\Event\EventArgs.cs" />
-    <Compile Include="App\IResource.cs" />
     <Compile Include="App\ITwichirpApplication.cs" />
     <Compile Include="App\Manager\AccountManager.cs" />
     <Compile Include="App\Manager\ConsumerManager.cs" />
@@ -96,8 +95,8 @@
     <Compile Include="Resources\StringResources.Designer.cs">
       <DependentUpon>StringResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\StringResources.ja_JP.Designer.cs">
-      <DependentUpon>StringResources.ja_JP.resx</DependentUpon>
+    <Compile Include="Resources\StringResources.ja-JP.Designer.cs">
+      <DependentUpon>StringResources.ja-JP.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -173,9 +172,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StringResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\StringResources.ja_JP.resx">
+    <EmbeddedResource Include="Resources\StringResources.ja-JP.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>StringResources.ja_JP.Designer.cs</LastGenOutput>
+      <LastGenOutput>StringResources.ja-JP.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

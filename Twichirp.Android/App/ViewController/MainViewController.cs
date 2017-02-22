@@ -229,7 +229,7 @@ namespace Twichirp.Android.App.ViewController {
             for(int i = 0;i < 5 && i < tabs.Count;i++) {
                 var tab = tabs[i];
 
-                tabList.Add(View.BottomBar.NewTab(getTabId(i),tab.Icon,View.ApplicationContext.GetString(tab.Text)));
+                tabList.Add(View.BottomBar.NewTab(getTabId(i),tab.Icon,tab.Text));
 
                 SFragment fragment = View.Activity.SupportFragmentManager.FindFragmentByTag(getFragmentTag(i));
                 if(fragment != null && wasAddedFragment(fragment,tab,account)) {

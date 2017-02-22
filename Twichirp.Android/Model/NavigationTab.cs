@@ -31,10 +31,10 @@ namespace Twichirp.Android.Model {
     public class NavigationTab {
 
         public int Id { get; private set; }
-        public int Text { get; private set; }
+        public string Text { get; private set; }
         public int Icon { get; private set; }
 
-        public NavigationTab(int id,int text,int icon) {
+        public NavigationTab(int id,string text,int icon) {
             Id = id;
             Text = text;
             Icon = icon;

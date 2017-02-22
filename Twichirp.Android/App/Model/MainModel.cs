@@ -30,6 +30,7 @@ using Twichirp.Android.Model;
 using Twichirp.Core.App;
 using Twichirp.Core.App.Model;
 using Twichirp.Core.Model;
+using Twichirp.Core.Resources;
 
 namespace Twichirp.Android.App.Model {
 
@@ -228,10 +229,10 @@ namespace Twichirp.Android.App.Model {
         private void makeNavigationTab() {
             var list = new List<NavigationTab>();
             {
-                list.Add(new NavigationTab(Android.Resource.Id.TabHome,Android.Resource.String.TabHome,Android.Resource.Drawable.IconHomeGrey24dp));
-                list.Add(new NavigationTab(Android.Resource.Id.TabMention,Android.Resource.String.TabMention,Android.Resource.Drawable.IconNotificationsGrey24dp));
-                list.Add(new NavigationTab(Android.Resource.Id.TabDM,Android.Resource.String.TabDM,Android.Resource.Drawable.IconMailGrey24dp));
-                list.Add(new NavigationTab(Android.Resource.Id.TabUser,Android.Resource.String.TabUser,Android.Resource.Drawable.IconPersonGrey24dp));
+                list.Add(new NavigationTab(Android.Resource.Id.TabHome,StringResources.TabHome,Android.Resource.Drawable.IconHomeGrey24dp));
+                list.Add(new NavigationTab(Android.Resource.Id.TabMention,StringResources.TabMention,Android.Resource.Drawable.IconNotificationsGrey24dp));
+                list.Add(new NavigationTab(Android.Resource.Id.TabDM,StringResources.TabDM,Android.Resource.Drawable.IconMailGrey24dp));
+                list.Add(new NavigationTab(Android.Resource.Id.TabUser,StringResources.TabUser,Android.Resource.Drawable.IconPersonGrey24dp));
             }
             NavigationTabs = list;
         }

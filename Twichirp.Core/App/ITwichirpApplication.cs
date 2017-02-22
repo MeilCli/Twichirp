@@ -37,8 +37,6 @@ namespace Twichirp.Core.App {
 
         UserContainerManager UserContainerManager { get; }
 
-        IResource Resource { get; }
-
         TwitterEvent TwitterEvent { get; }
 
     }
