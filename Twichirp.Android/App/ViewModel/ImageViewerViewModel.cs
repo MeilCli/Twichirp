@@ -26,19 +26,40 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using CoreTweet;
+using Microsoft.Practices.Unity;
 using Twichirp.Core.App;
+using Twichirp.Core.App.Service;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.Model;
 
 namespace Twichirp.Android.App.ViewModel {
 
+    /// <summary>
+    /// Recommend to use UnityContainer
+    /// </summary>
     public class ImageViewerViewModel : StatusViewModel {
 
         public const string TransitionName = "ImageViewer_transition";
+        private const string constructorStatus = "status";
+        private const string constructorAccount = "account";
+        private const string constructorDefaultPage = "defaultPage";
+
+        public new static void Register(UnityContainer unityContainer) {
+            unityContainer.RegisterType<ImageViewerViewModel>();
+        }
+
+        public static ImageViewerViewModel Resolve(UnityContainer unityContainer, Status status, Account account, int defaultPage) {
+            return unityContainer.Resolve<ImageViewerViewModel>(
+                new ParameterOverride(constructorStatus,status),
+                new ParameterOverride(constructorAccount,account),
+                new ParameterOverride(constructorDefaultPage,defaultPage)
+            );
+        }
 
         public int DefaultPage { get; }
 
-        public ImageViewerViewModel(ITwichirpApplication application,Status status,Account account,int defaultPage) : base(application,status,account) {
+        public ImageViewerViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,Status status,Account account,int defaultPage) 
+            : base(application,twitterEventService,status,account) {
             DefaultPage = defaultPage;
         }
     }

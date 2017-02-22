@@ -27,6 +27,7 @@ using Twichirp.Core.Model;
 using Twichirp.Core.Extensions;
 using Twichirp.Core.App.Event;
 using Newtonsoft.Json;
+using Twichirp.Core.App.Service;
 
 namespace Twichirp.Core.App.Model {
     public class StatusTimelineModel : BaseModel {
@@ -38,6 +39,7 @@ namespace Twichirp.Core.App.Model {
         private List<StatusModel> statusTimeline { get; } = new List<StatusModel>();
         private Timeline<IEnumerable<Status>> timelineResource;
         private Account account;
+        private ITwitterEventService twitterEventService;
 
         private bool _isLoading;
         public bool IsLoading {
@@ -59,7 +61,8 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public StatusTimelineModel(ITwichirpApplication application,Timeline<IEnumerable<Status>> timelineResource,Account account) : base(application) {
+        public StatusTimelineModel(ITwichirpApplication application,ITwitterEventService twitterEventService,Timeline<IEnumerable<Status>> timelineResource,Account account) : base(application) {
+            this.twitterEventService = twitterEventService;
             this.timelineResource = timelineResource;
             this.account = account;
         }
@@ -96,7 +99,7 @@ namespace Twichirp.Core.App.Model {
                         Timeline.InsertOnScheduler(0,loadingModel);
                     }
                     int index = 0;
-                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
+                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,twitterEventService,x))) {
                         statusTimeline.Insert(index,s);
                         Timeline.InsertOnScheduler(index,s);
                         index++;
@@ -105,7 +108,7 @@ namespace Twichirp.Core.App.Model {
                         canLoadMore = true;
                     }
                 } else {
-                    foreach(var s in (await timelineResource.Load(account,count)).Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
+                    foreach(var s in (await timelineResource.Load(account,count)).Where(x => x.IsValid()).Select(x => new StatusModel(Application,twitterEventService,x))) {
                         statusTimeline.Add(s);
                         Timeline.AddOnScheduler(s);
                     }
@@ -164,7 +167,7 @@ namespace Twichirp.Core.App.Model {
                     }
                     int statusIndex = statusTimeline.IndexOf(previousStatus) + 1;
                     int index = Timeline.IndexOf(previousStatus) + 1;
-                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
+                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,twitterEventService,x))) {
                         statusTimeline.Insert(statusIndex,s);
                         Timeline.InsertOnScheduler(index,s);
                         statusIndex++;
@@ -173,7 +176,7 @@ namespace Twichirp.Core.App.Model {
                 } else if(previousStatus != null) {
                     IEnumerable<Status> response = await timelineResource.Load(account,count,maxId: previousStatus.Id - 1);
                     Timeline.RemoveOnScheduler(target);
-                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
+                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,twitterEventService,x))) {
                         statusTimeline.Add(s);
                         Timeline.AddOnScheduler(s);
                     }
@@ -181,7 +184,7 @@ namespace Twichirp.Core.App.Model {
                     IEnumerable<Status> response = await timelineResource.Load(account,count,sinceId: nextStatus.Id);
                     Timeline.RemoveOnScheduler(target);
                     int index = 0;
-                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
+                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,twitterEventService,x))) {
                         statusTimeline.Insert(index,s);
                         Timeline.InsertOnScheduler(index,s);
                         index++;
@@ -209,7 +212,7 @@ namespace Twichirp.Core.App.Model {
             try {
                 int count = Application.SettingManager.Timeline.Count;
                 IEnumerable<Status> response = await timelineResource.Load(account,count,maxId: statusTimeline[statusTimeline.Count - 1].Id - 1);
-                foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,x))) {
+                foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(Application,twitterEventService,x))) {
                     statusTimeline.Add(s);
                     Timeline.AddOnScheduler(s);
                 }

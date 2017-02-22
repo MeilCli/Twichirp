@@ -62,7 +62,7 @@ namespace Twichirp.Android.App.View.Activity {
         protected override void OnViewCreate(Bundle savedInstanceState) {
             Account account = TwichirpApplication.AccountManager[Intent.GetLongExtra(extraAccount,TwichirpApplication.SettingManager.Accounts.DefaultAccountId)];
             var status = JsonConvert.DeserializeObject<CStatus>(Intent.GetStringExtra(extraStatus));
-            statusViewModel = new StatusViewModel(TwichirpApplication,status,account);
+            statusViewModel = StatusViewModel.Resolve(TwichirpApplication.UnityContainer,status,account);
             videoViewerViewController = new VideoViewerViewController(this,statusViewModel);
 
             SetContentView(Android.Resource.Layout.VideoViewerActivity);

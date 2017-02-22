@@ -66,7 +66,7 @@ namespace Twichirp.Android.App.View.Activity {
             Account account = TwichirpApplication.AccountManager[Intent.GetLongExtra(extraAccount,TwichirpApplication.SettingManager.Accounts.DefaultAccountId)];
             var status = JsonConvert.DeserializeObject<CStatus>(Intent.GetStringExtra(extraStatus));
             int defaultPage = Intent.GetIntExtra(extraDefaultPage,0);
-            imageViewerViewModel = new ImageViewerViewModel(TwichirpApplication,status,account,defaultPage);
+            imageViewerViewModel = ImageViewerViewModel.Resolve(TwichirpApplication.UnityContainer,status,account,defaultPage);
             imageViewerViewControll = new ImageViewerViewController(this,imageViewerViewModel);
 
             SetContentView(Android.Resource.Layout.ImageViewerActivity);

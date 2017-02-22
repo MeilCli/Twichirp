@@ -21,19 +21,39 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CoreTweet;
+using Microsoft.Practices.Unity;
 using Plugin.CrossFormattedText.Abstractions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Core.App.Event;
 using Twichirp.Core.App.Model;
+using Twichirp.Core.App.Service;
 using Twichirp.Core.Model;
 using Twichirp.Core.Resources;
 
 namespace Twichirp.Core.App.ViewModel {
 
+    /// <summary>
+    /// Recommend to use UnityContainer
+    /// </summary>
     public class UserProfileViewModel : BaseViewModel {
 
         public const string TransitionIconName = "transition_icon";
+        private const string constructorAccount = "account";
+        private const string constructorUserId = "userId";
+        private const string constructorUser = "user";
+
+        public static void Register(UnityContainer unityContainer) {
+            unityContainer.RegisterType<UserProfileViewModel>();
+        }
+
+        public static UserProfileViewModel Resolve(UnityContainer unityContainer, Account account, long userId, User user = null) {
+            return unityContainer.Resolve<UserProfileViewModel>(
+                new ParameterOverride(constructorAccount, account),
+                new ParameterOverride(constructorUserId,userId),
+                new ParameterOverride(constructorUser,user)
+            );
+        }
 
         private UserProfileModel userProfileModel;
         private const int friendshipUnFollowing = 0;
@@ -64,10 +84,10 @@ namespace Twichirp.Core.App.ViewModel {
 
         public AsyncReactiveCommand FriendshipCommand { get; }
 
-        public UserProfileViewModel(ITwichirpApplication application,Account account,long userId,User user = null) : base(application) {
+        public UserProfileViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,Account account,long userId,User user = null) : base(application) {
             Account = account;
             UserId = userId;
-            userProfileModel = new UserProfileModel(application,account,userId,user);
+            userProfileModel = new UserProfileModel(application,twitterEventService,account,userId,user);
 
             IsLoading = userProfileModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);
 
@@ -96,27 +116,27 @@ namespace Twichirp.Core.App.ViewModel {
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
 
-            Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.UserUpdated += x,x => application.TwitterEvent.UserUpdated -= x)
+            Observable.FromEventPattern<UserEventArgs>(x => twitterEventService.UserUpdated += x,x => twitterEventService.UserUpdated -= x)
                 .ObserveOnUIDispatcher()
                 .Subscribe(x => userProfileModel.NotifyUserUpdated(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.FollowingUserCreated += x,x => application.TwitterEvent.FollowingUserCreated -= x)
+            Observable.FromEventPattern<UserEventArgs>(x => twitterEventService.FollowingUserCreated += x,x => twitterEventService.FollowingUserCreated -= x)
                 .ObserveOnUIDispatcher()
                 .Subscribe(x => userProfileModel.NotifyFollowingUserCreated(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.FollowingUserDestroyed += x,x => application.TwitterEvent.FollowingUserDestroyed -= x)
+            Observable.FromEventPattern<UserEventArgs>(x => twitterEventService.FollowingUserDestroyed += x,x => twitterEventService.FollowingUserDestroyed -= x)
                 .ObserveOnUIDispatcher()
                 .Subscribe(x => userProfileModel.NotifyFollowingUserDestroyed(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.BlockingUserCreated += x,x => application.TwitterEvent.BlockingUserCreated -= x)
+            Observable.FromEventPattern<UserEventArgs>(x => twitterEventService.BlockingUserCreated += x,x => twitterEventService.BlockingUserCreated -= x)
                 .ObserveOnUIDispatcher()
                 .Subscribe(x => userProfileModel.NotifyBlokingUserCreated(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.BlockingUserDestroyed += x,x => application.TwitterEvent.BlockingUserDestroyed -= x)
+            Observable.FromEventPattern<UserEventArgs>(x => twitterEventService.BlockingUserDestroyed += x,x => twitterEventService.BlockingUserDestroyed -= x)
                 .ObserveOnUIDispatcher()
                 .Subscribe(x => userProfileModel.NotifyBlockingUserDestroyed(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.SpamUserMarked += x,x => application.TwitterEvent.SpamUserMarked -= x)
+            Observable.FromEventPattern<UserEventArgs>(x => twitterEventService.SpamUserMarked += x,x => twitterEventService.SpamUserMarked -= x)
                 .ObserveOnUIDispatcher()
                 .Subscribe(x => userProfileModel.NotifySpamUserMarked(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);

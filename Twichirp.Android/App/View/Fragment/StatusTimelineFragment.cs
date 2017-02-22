@@ -145,7 +145,7 @@ namespace Twichirp.Android.App.View.Fragment {
                     timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.FavoriteTimeline(userId);
                     break;
             }
-            statusTimelineViewModel = new StatusTimelineViewModel(TwichirpApplication,timelineResource,account);
+            statusTimelineViewModel = StatusTimelineViewModel.Resolve(TwichirpApplication.UnityContainer,timelineResource,account);
             statusTimelineViewController = new StatusTimelineViewController(this,statusTimelineViewModel);
         }
 

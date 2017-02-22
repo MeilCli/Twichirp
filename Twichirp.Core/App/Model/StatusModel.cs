@@ -25,6 +25,7 @@ using Twichirp.Core.Model;
 using System.Threading;
 using Twichirp.Core.Extensions;
 using Twichirp.Core.App.Event;
+using Twichirp.Core.App.Service;
 
 namespace Twichirp.Core.App.Model {
     class StatusModel : BaseModel {
@@ -32,8 +33,9 @@ namespace Twichirp.Core.App.Model {
         public event EventHandler<EventArgs> StatusChanged;
         public event EventHandler<EventArgs<string>> ErrorMessageCreated;
 
-        private SemaphoreSlim slim = new SemaphoreSlim(1,1);
+        private SemaphoreSlim slim = new SemaphoreSlim(1,1); 
         private Status status;
+        private ITwitterEventService twitterEventService;
 
         public UserModel User { get; private set; }
 
@@ -79,7 +81,8 @@ namespace Twichirp.Core.App.Model {
 
         public StatusModel RetweetedStatus { get; private set; }
 
-        public StatusModel(ITwichirpApplication application,Status status) : base(application) {
+        public StatusModel(ITwichirpApplication application,ITwitterEventService twitterEventService,Status status) : base(application) {
+            this.twitterEventService = twitterEventService;
             SetStatus(status);
         }
 
@@ -116,7 +119,7 @@ namespace Twichirp.Core.App.Model {
             SetProperty(this,x => x.InReplyToUserId,status.InReplyToUserId);
 
             if(status.QuotedStatus != null && QuotedStatus == null) {
-                QuotedStatus = new StatusModel(Application,status.QuotedStatus);
+                QuotedStatus = new StatusModel(Application,twitterEventService,status.QuotedStatus);
             } else if(status.QuotedStatus != null) {
                 QuotedStatus.SetStatus(status.QuotedStatus);
             } else {
@@ -128,7 +131,7 @@ namespace Twichirp.Core.App.Model {
             SetProperty(this,x => x.IsRetweeted,status.IsRetweeted ?? false);
 
             if(status.RetweetedStatus != null && RetweetedStatus == null) {
-                RetweetedStatus = new StatusModel(Application,status.RetweetedStatus);
+                RetweetedStatus = new StatusModel(Application,twitterEventService,status.RetweetedStatus);
             } else if(status.RetweetedStatus != null) {
                 RetweetedStatus.SetStatus(status.RetweetedStatus);
             } else {
@@ -162,7 +165,7 @@ namespace Twichirp.Core.App.Model {
                 Status status = await account.Token.Statuses.RetweetAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
                 status.CheckValid();
                 foreach(var s in status.DeploymentStatus()) {
-                    Application.TwitterEvent.UpdateStatus(account,s);
+                    twitterEventService.UpdateStatus(account,s);
                 }
             } catch(Exception e) {
                 ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
@@ -182,7 +185,7 @@ namespace Twichirp.Core.App.Model {
                     status.RetweetCount -= 1;
                 }
                 foreach(var s in status.DeploymentStatus()) {
-                    Application.TwitterEvent.UpdateStatus(account,s);
+                    twitterEventService.UpdateStatus(account,s);
                 }
             } catch(Exception e) {
                 ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
@@ -197,7 +200,7 @@ namespace Twichirp.Core.App.Model {
                 Status status = await account.Token.Favorites.CreateAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
                 status.CheckValid();
                 foreach(var s in status.DeploymentStatus()) {
-                    Application.TwitterEvent.UpdateStatus(account,s);
+                    twitterEventService.UpdateStatus(account,s);
                 }
             } catch(Exception e) {
                 ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
@@ -212,7 +215,7 @@ namespace Twichirp.Core.App.Model {
                 Status status = await account.Token.Favorites.DestroyAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
                 status.CheckValid();
                 foreach(var s in status.DeploymentStatus()) {
-                    Application.TwitterEvent.UpdateStatus(account,s);
+                    twitterEventService.UpdateStatus(account,s);
                 }
             } catch(Exception e) {
                 ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));

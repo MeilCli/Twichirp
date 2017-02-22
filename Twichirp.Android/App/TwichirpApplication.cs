@@ -30,11 +30,18 @@ using Twichirp.Core.App.Manager;
 using Twichirp.Core.App.Setting;
 using Twichirp.Android.App.Manager;
 using Twichirp.Core.Constant;
+using Microsoft.Practices.Unity;
+using Twichirp.Core.App.Service;
+using Twichirp.Core.App.ViewModel;
+using Twichirp.Android.App.ViewModel;
 
 namespace Twichirp.Android.App {
-    [Application(Icon = "@drawable/icon",Label ="Twichirp",Theme = "@style/AppTheme",LargeHeap = true)]
-    public class TwichirpApplication :Application,ITwichirpApplication{
 
+    [Application(Icon = "@drawable/icon", Label = "Twichirp", Theme = "@style/AppTheme", LargeHeap = true)]
+    public class TwichirpApplication : Application, ITwichirpApplication {
+        
+        public UnityContainer UnityContainer { get; private set;}
+      
         public SettingManager SettingManager { get; private set; }
 
         public FileManager FileManager { get; private set; }
@@ -47,25 +54,36 @@ namespace Twichirp.Android.App {
 
         public UserContainerManager UserContainerManager { get; private set; }
 
-        public TwitterEvent TwitterEvent { get; private set; }
-
-        public TwichirpApplication(IntPtr javaReference,JniHandleOwnership transfer) : base(javaReference,transfer) {
+        public TwichirpApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer) {
         }
 
         public override void OnCreate() {
             base.OnCreate();
+            UnityContainer = new UnityContainer();
+            initUnity();
             SettingManager = new SettingManager(this);
             SettingManager.Migrate();
             FileManager = new FileManager(new FileSystem());
-            DatabaseManager = new DatabaseManager(this,new DatabaseSystem());
+            DatabaseManager = new DatabaseManager(this, new DatabaseSystem());
             AccountManager = new AccountManager(this);
-            ConsumerManager = new ConsumerManager(this,ConsumerConstant.TwichirpForAndroid);
+            ConsumerManager = new ConsumerManager(this, ConsumerConstant.TwichirpForAndroid);
             UserContainerManager = new UserContainerManager(this);
-            TwitterEvent = new TwitterEvent();
+        }
+
+        private void initUnity() {
+            UnityContainer.RegisterInstance<ITwichirpApplication>(this);
+            UnityContainer.RegisterType<ITwitterEventService, TwitterEventService>(new ContainerControlledLifetimeManager());
+
+            StatusTimelineViewModel.Register(UnityContainer);
+            UserProfileViewModel.Register(UnityContainer);
+            StatusViewModel.Register(UnityContainer);
+            ImageViewerViewModel.Register(UnityContainer);
+            MainViewModel.Register(UnityContainer);
         }
 
         //気休め
         ~TwichirpApplication() {
+            UnityContainer.Dispose();
             DatabaseManager.Dispose();
         }
 

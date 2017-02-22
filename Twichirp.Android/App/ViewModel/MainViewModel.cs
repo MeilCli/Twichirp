@@ -26,17 +26,31 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Microsoft.Practices.Unity;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.Model;
 using Twichirp.Android.Model;
 using Twichirp.Core.App;
+using Twichirp.Core.App.Event;
 using Twichirp.Core.App.Model;
+using Twichirp.Core.App.Service;
 using Twichirp.Core.App.ViewModel;
 
 namespace Twichirp.Android.App.ViewModel {
 
+    /// <summary>
+    /// Recommend to use UnityContainer
+    /// </summary>
     public class MainViewModel : BaseViewModel {
+
+        public static void Register(UnityContainer unityContainer) {
+            unityContainer.RegisterType<MainViewModel>();
+        }
+
+        public static MainViewModel Resolve(UnityContainer unityContainer) {
+            return unityContainer.Resolve<MainViewModel>();
+        }
 
         private MainModel mainModel;
 
@@ -68,7 +82,7 @@ namespace Twichirp.Android.App.ViewModel {
         public ReactiveCommand StartLoginActivityCommand { get; } = new ReactiveCommand();
         public ReactiveCommand StartUserProfileActivityCommand { get; } = new ReactiveCommand();
 
-        public MainViewModel(ITwichirpApplication application) : base(application) {
+        public MainViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService) : base(application) {
             mainModel = new MainModel(application);
 
             NavigationMenus = mainModel.ObserveProperty(x => x.NavigationMenus).ToReadOnlyReactiveProperty().AddTo(Disposable);
@@ -97,7 +111,7 @@ namespace Twichirp.Android.App.ViewModel {
 
             UpdateDefaultAccountIfChangedCommand.Subscribe(x => mainModel.UpdateDefaultAccountIfChanged()).AddTo(Disposable);
 
-            Observable.FromEventPattern<UserEventArgs>(x => application.TwitterEvent.UserUpdated += x,x => application.TwitterEvent.UserUpdated -= x)
+            Observable.FromEventPattern<UserEventArgs>(x => twitterEventService.UserUpdated += x,x => twitterEventService.UserUpdated -= x)
                 .Subscribe(x => mainModel.NotifyUserUpdate(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);
         }

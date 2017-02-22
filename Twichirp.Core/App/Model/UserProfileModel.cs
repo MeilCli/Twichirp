@@ -22,6 +22,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using CoreTweet;
 using Twichirp.Core.App.Event;
+using Twichirp.Core.App.Service;
 using Twichirp.Core.Extensions;
 using Twichirp.Core.Model;
 
@@ -34,6 +35,7 @@ namespace Twichirp.Core.App.Model {
 
         private SemaphoreSlim slim = new SemaphoreSlim(1,1);
         private Account account;
+        private ITwitterEventService twitterEventService;
         private long userId;
         public bool IsOwnerUser => account.Id == userId;
 
@@ -180,7 +182,8 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public UserProfileModel(ITwichirpApplication application,Account account,long userId,User user = null) : base(application) {
+        public UserProfileModel(ITwichirpApplication application,ITwitterEventService twitterEventService,Account account,long userId,User user = null) : base(application) {
+            this.twitterEventService = twitterEventService;
             this.account = account;
             this.userId = userId;
             init(user);
@@ -244,7 +247,7 @@ namespace Twichirp.Core.App.Model {
             try {
                 var user = await account.Token.Friendships.CreateAsync(user_id: userId,follow: true);
                 user.CheckValid();
-                Application.TwitterEvent.CreateFollowingUser(account,user);
+                twitterEventService.CreateFollowingUser(account,user);
             } catch(Exception e) {
                 ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             }
@@ -257,7 +260,7 @@ namespace Twichirp.Core.App.Model {
             try {
                 var user = await account.Token.Friendships.DestroyAsync(user_id: userId);
                 user.CheckValid();
-                Application.TwitterEvent.DestroyFollowingUser(account,user);
+                twitterEventService.DestroyFollowingUser(account,user);
             } catch(Exception e) {
                 ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             }
@@ -270,7 +273,7 @@ namespace Twichirp.Core.App.Model {
             try {
                 var user = await account.Token.Blocks.CreateAsync(user_id: userId,include_entities: true);
                 user.CheckValid();
-                Application.TwitterEvent.CreateBlockingUser(account,user);
+                twitterEventService.CreateBlockingUser(account,user);
             } catch(Exception e) {
                 ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             }
@@ -283,7 +286,7 @@ namespace Twichirp.Core.App.Model {
             try {
                 var user = await account.Token.Blocks.DestroyAsync(user_id: userId,include_entities: true);
                 user.CheckValid();
-                Application.TwitterEvent.DestroyBlockingUser(account,user);
+                twitterEventService.DestroyBlockingUser(account,user);
             } catch(Exception e) {
                 ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             }
@@ -296,7 +299,7 @@ namespace Twichirp.Core.App.Model {
             try {
                 var user = await account.Token.Users.ReportSpamAsync(user_id: userId);
                 user.CheckValid();
-                Application.TwitterEvent.MarkSpamUser(account,user);
+                twitterEventService.MarkSpamUser(account,user);
             } catch(Exception e) {
                 ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             }

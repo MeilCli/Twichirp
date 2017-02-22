@@ -109,7 +109,7 @@ namespace Twichirp.Android.App.View.Activity {
             }
             var account = TwichirpApplication.AccountManager[accountId];
 
-            var viewModel = new UserProfileViewModel(TwichirpApplication,account,userId,user);
+            var viewModel = UserProfileViewModel.Resolve(TwichirpApplication.UnityContainer,account,userId,user);
             userProfileViewController = new UserProfileViewController(this,viewModel);
 
             SetContentView(Android.Resource.Layout.UserProfileActivity);

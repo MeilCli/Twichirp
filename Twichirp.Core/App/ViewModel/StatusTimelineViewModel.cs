@@ -27,9 +27,29 @@ using System.Threading.Tasks;
 using Twichirp.Core.App.Model;
 using Twichirp.Core.Model;
 using Twichirp.Core.App.Event;
+using Twichirp.Core.App.Service;
+using Microsoft.Practices.Unity;
 
 namespace Twichirp.Core.App.ViewModel {
+
+    /// <summary>
+    /// Recommend to use UnityContainer
+    /// </summary>
     public class StatusTimelineViewModel : BaseViewModel {
+
+        private const string constructorTimelineResource = "timelineResource";
+        private const string constructorAccount = "account";
+
+        public static void Register(UnityContainer unityContainer) {
+            unityContainer.RegisterType<StatusTimelineViewModel>();
+        }
+
+        public static StatusTimelineViewModel Resolve(UnityContainer unityContainer, Timeline<IEnumerable<Status>> timelineResource, Account account) {
+            return unityContainer.Resolve<StatusTimelineViewModel>(
+                new ParameterOverride(constructorTimelineResource, timelineResource),
+                new ParameterOverride(constructorAccount, account)
+            );
+        }
 
         private Account account;
         protected StatusTimelineModel StatusTimelineModel;
@@ -46,9 +66,9 @@ namespace Twichirp.Core.App.ViewModel {
         public AsyncReactiveCommand<Timeline<IEnumerable<Status>>> LoadCommand { get; } = new AsyncReactiveCommand<Timeline<IEnumerable<Status>>>();
         public AsyncReactiveCommand LoadMoreComannd { get; } = new AsyncReactiveCommand();
 
-        public StatusTimelineViewModel(ITwichirpApplication application,Timeline<IEnumerable<Status>> timelineResource,Account account) : base(application) {
+        public StatusTimelineViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,Timeline<IEnumerable<Status>> timelineResource,Account account) : base(application) {
             this.account = account;
-            StatusTimelineModel = new StatusTimelineModel(application,timelineResource,account);
+            StatusTimelineModel = new StatusTimelineModel(application,twitterEventService,timelineResource,account);
             Timeline = StatusTimelineModel.Timeline.ToReadOnlyReactiveCollection(toViewModel).AddTo(Disposable);
             Timeline.CollectionChangedAsObservable().Subscribe(x => collectionChanged(x)).AddTo(Disposable);
             IsLoading = StatusTimelineModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);
@@ -60,11 +80,11 @@ namespace Twichirp.Core.App.ViewModel {
             LoadCommand.Subscribe(x => StatusTimelineModel.LoadAsync(x));
             LoadMoreComannd.Subscribe(x => StatusTimelineModel.LoadMoreAsync());
 
-            Observable.FromEventPattern<StatusEventArgs>(x => Application.TwitterEvent.StatusUpdated += x,x => Application.TwitterEvent.StatusUpdated -= x)
+            Observable.FromEventPattern<StatusEventArgs>(x => twitterEventService.StatusUpdated += x,x => twitterEventService.StatusUpdated -= x)
                 .ObserveOnUIDispatcher()
                 .Subscribe(async x => await StatusTimelineModel.NotifyStatusUpdatedAsync(x.EventArgs.Account,x.EventArgs.Status))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<UserEventArgs>(x => Application.TwitterEvent.UserUpdated += x,x => Application.TwitterEvent.UserUpdated -= x)
+            Observable.FromEventPattern<UserEventArgs>(x => twitterEventService.UserUpdated += x,x => twitterEventService.UserUpdated -= x)
                 .ObserveOnUIDispatcher()
                 .Subscribe(async x => await StatusTimelineModel.NotifyUserUpdatedAsync(x.EventArgs.Account,x.EventArgs.User))
                 .AddTo(Disposable);

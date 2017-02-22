@@ -30,9 +30,14 @@ using Plugin.CrossFormattedText.Abstractions;
 using Plugin.CrossFormattedText;
 using Twichirp.Core.Constant;
 using Twichirp.Core.Resources;
+using Twichirp.Core.App.Service;
+using Microsoft.Practices.Unity;
 
 namespace Twichirp.Core.App.ViewModel {
 
+    /// <summary>
+    /// Reccomend to use UnityContainer
+    /// </summary>
     public class StatusViewModel : BaseViewModel {
 
         public const int NormalTweet = 1;
@@ -41,6 +46,19 @@ namespace Twichirp.Core.App.ViewModel {
         public const int QuotedInnerMediaTweet = 4;
         public const int QuotedOuterMediaTweet = 5;
         public const int QuotedInnerAndOuterMediaTweet = 6;
+        private const string constructorStatus = "status";
+        private const string constructorAccount = "account";
+
+        public static void Register(UnityContainer unityContainer) {
+            unityContainer.RegisterType<StatusViewModel>();
+        }
+
+        public static StatusViewModel Resolve(UnityContainer unityContainer,Status status, Account account) {
+            return unityContainer.Resolve<StatusViewModel>(
+                new ParameterOverride(constructorStatus, status),
+                new ParameterOverride(constructorAccount, account)
+            );
+        }
 
         public Account Account { get; }
 
@@ -95,7 +113,9 @@ namespace Twichirp.Core.App.ViewModel {
 
         public ReactiveCommand<long> StartUserProfilePageCommand { get; } = new ReactiveCommand<long>();
 
-        public StatusViewModel(ITwichirpApplication application,Status status,Account account) : this(application,new StatusModel(application,status),account) { }
+        [InjectionConstructor]
+        public StatusViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,Status status,Account account) 
+            : this(application,new StatusModel(application,twitterEventService,status),account) { }
 
         internal StatusViewModel(ITwichirpApplication application,StatusModel status,Account account) : base(application) {
             Account = account;

@@ -24,6 +24,7 @@ This application license is LGPL v3.0
 - [ReactiveProperty](https://github.com/runceel/ReactiveProperty)
 - [SettingsPlugin](https://github.com/jamesmontemagno/SettingsPlugin)
 - [SQLite.Net-PCL](https://github.com/oysteinkrog/SQLite.Net-PCL)
+- [Unity](http://unity.codeplex.com/)
 
 #### Android
 

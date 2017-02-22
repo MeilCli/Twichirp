@@ -75,7 +75,7 @@ namespace Twichirp.Android.App.View.Activity {
 
         protected override void OnViewCreate(Bundle savedInstanceState) {
 
-            mainViewController = new MainViewController(this,new MainViewModel(TwichirpApplication));
+            mainViewController = new MainViewController(this,MainViewModel.Resolve(TwichirpApplication.UnityContainer));
             base.SetContentView(Android.Resource.Layout.MainActivity);
             Toolbar = FindViewById<SToolbar>(Android.Resource.Id.Toolbar);
             SetSupportActionBar(Toolbar);
