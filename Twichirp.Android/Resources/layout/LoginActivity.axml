@@ -12,14 +12,14 @@
         <include
             layout="@layout/Toolbar" />
         <Button
-            tools:text="@string/LoginAuthenticate"
+            android:text="@string/LoginAuthenticate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/GoToWeb"
             style="@style/AppTheme.Button.Raised"
             android:layout_centerInParent="true" />
         <TextView
-            tools:text="@string/LoginDescription"
+            android:text="@string/LoginDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/Description"
@@ -29,7 +29,7 @@
             android:layout_marginLeft="@dimen/LayoutMargin"
             android:textAppearance="@style/AppTheme.Text.Body1" />
         <Button
-            tools:text="@string/LoginLoginButton"
+            android:text="@string/LoginLoginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/Login"
