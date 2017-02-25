@@ -75,3 +75,22 @@ Viewを抽象化し、ViewControllerによって操作することにより以�
 
 ## 考え中のところ
 Viewの推移などの動作において、ViewModelを介さずに行えるもの(つまりViewController内で完結可能な処理)をわざわざViewModelを経由するかどうかが悩む
+
+# 改良予定
+## 名前空間・名称を見直し、Unityを利用したDI
+
+名前空間を以下のように見直します
+- Constants
+- Events
+- Extensions
+- Repositories
+- DataObjects
+- UseCases
+- Services
+- Settings
+- Models
+- ViewModels
+- ViewControllers
+- Views
+
+View-ViewModel間はDIによって接続します
