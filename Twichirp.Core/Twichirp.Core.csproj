@@ -94,9 +94,6 @@
     <Compile Include="Resources\StringResources.Designer.cs">
       <DependentUpon>StringResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\StringResources.ja-JP.Designer.cs">
-      <DependentUpon>StringResources.ja-JP.resx</DependentUpon>
-    </Compile>
     <Compile Include="App\Service\ITwitterEventService.cs" />
     <Compile Include="App\Event\TwitterEventArgs.cs" />
     <Compile Include="App\Service\TwitterEventService.cs" />
@@ -172,10 +169,7 @@
     <None Include="packages.config" />
     <None Include="Twichirp.Core.licenseheader" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-    <Folder Include="App\Service\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\StringResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -205,7 +199,7 @@
           <XmlFormattingPolicy inheritsSet="null" scope="application/config+xml" />
           <TextStylePolicy inheritsSet="null" scope="application/xml" />
           <XmlFormattingPolicy inheritsSet="Mono" inheritsScope="application/xml" scope="application/xml">
-            <DefaultFormat OmitXmlDeclaration="False" NewLineChars="&#xA;" IndentContent="True" ContentIndentString="&#x9;" AttributesInNewLine="False" MaxAttributesPerLine="10" AttributesIndentString="&#x9;" WrapAttributes="False" AlignAttributes="False" AlignAttributeValues="False" QuoteChar="&quot;" SpacesBeforeAssignment="0" SpacesAfterAssignment="0" EmptyLinesBeforeStart="0" EmptyLinesAfterStart="0" EmptyLinesBeforeEnd="0" EmptyLinesAfterEnd="0" />
+            <DefaultFormat OmitXmlDeclaration="False" NewLineChars="&#xA;" IndentContent="True" ContentIndentString="	" AttributesInNewLine="False" MaxAttributesPerLine="10" AttributesIndentString="	" WrapAttributes="False" AlignAttributes="False" AlignAttributeValues="False" QuoteChar="&quot;" SpacesBeforeAssignment="0" SpacesAfterAssignment="0" EmptyLinesBeforeStart="0" EmptyLinesAfterStart="0" EmptyLinesBeforeEnd="0" EmptyLinesAfterEnd="0" />
           </XmlFormattingPolicy>
           <TextStylePolicy inheritsSet="null" scope="text/microsoft-resx" />
           <XmlFormattingPolicy inheritsSet="null" scope="text/microsoft-resx" />
