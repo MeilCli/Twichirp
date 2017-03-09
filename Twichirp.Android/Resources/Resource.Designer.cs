@@ -1822,8 +1822,6 @@ namespace Twichirp.Android
 			global::BottomBarSharp.Resource.Styleable.ViewStubCompat_android_layout = global::Twichirp.Android.Resource.Styleable.ViewStubCompat_android_layout;
 			global::Reactive.Bindings.Resource.String.ApplicationName = global::Twichirp.Android.Resource.String.ApplicationName;
 			global::Reactive.Bindings.Resource.String.Hello = global::Twichirp.Android.Resource.String.Hello;
-			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.ApplicationName = global::Twichirp.Android.Resource.String.ApplicationName;
-			global::SQLite.Net.Platform.XamarinAndroid.Resource.String.Hello = global::Twichirp.Android.Resource.String.Hello;
 		}
 		
 		public partial class Animation

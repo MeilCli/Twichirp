@@ -32,9 +32,8 @@ Copyright (c) 2013-2016 CoreTweet Development Team",LicenseConstant.MITLicense);
         public static readonly Library ReactiveProperty = new Library("ReactiveProperty","Copyright (c) 2016 neuecc, xin9le, okazuki",LicenseConstant.MITLicense);
         public static readonly Library Realm = new Library("Realm","Copyright 2016 Realm Inc",LicenseConstant.ApacheLicenseV2);
         public static readonly Library SettingsPlugin = new Library("Settings Plugin for Xamarin And Windows","Copyright (c) 2016 James Montemagno / Refractored LLC",LicenseConstant.MITLicense);
-        public static readonly Library SQLiteNetPCL = new Library("SQLite.Net-PCL","Copyright (c) 2012 Krueger Systems, Inc.\nCopyright (c) 2013 Øystein Krog (oystein.krog@gmail.com)",LicenseConstant.MITLicense);
         public static readonly Library Unity = new Library("Unity","Copyright (c) Microsoft.  All rights reserved.",LicenseConstant.ApacheLicenseV2);
 
-        public static readonly Library[] Libraries = { CoreTweet,CoreTweetSupplement,NewtonsoftJson,ReactiveProperty,Realm,SettingsPlugin,SQLiteNetPCL,Unity };
+        public static readonly Library[] Libraries = { CoreTweet,CoreTweetSupplement,NewtonsoftJson,ReactiveProperty,Realm,SettingsPlugin,Unity };
     }
 }

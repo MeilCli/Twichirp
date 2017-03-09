@@ -47,10 +47,6 @@ namespace Twichirp.Android.App {
 
         public FileManager FileManager { get; private set; }
 
-        public DatabaseManager DatabaseManager { get; private set; }
-
-        public UserContainerManager UserContainerManager { get; private set; }
-
         public TwichirpApplication(IntPtr javaReference,JniHandleOwnership transfer) : base(javaReference,transfer) {
         }
 
@@ -61,8 +57,6 @@ namespace Twichirp.Android.App {
             var settingManager = Resolve<SettingManager>();
             settingManager.Migrate();
             FileManager = new FileManager(new FileSystem());
-            DatabaseManager = new DatabaseManager(this,new DatabaseSystem());
-            UserContainerManager = new UserContainerManager(this);
         }
 
         private void initUnity() {
@@ -88,7 +82,6 @@ namespace Twichirp.Android.App {
         //気休め
         ~TwichirpApplication() {
             UnityContainer.Dispose();
-            DatabaseManager.Dispose();
         }
 
     }

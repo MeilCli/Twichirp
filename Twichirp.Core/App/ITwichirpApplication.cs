@@ -37,10 +37,6 @@ namespace Twichirp.Core.App {
 
         FileManager FileManager { get; }
 
-        DatabaseManager DatabaseManager { get; }
-
-        UserContainerManager UserContainerManager { get; }
-
         T Resolve<T>();
 
     }
