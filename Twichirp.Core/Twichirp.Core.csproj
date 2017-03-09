@@ -46,8 +46,6 @@
     <Compile Include="Aclog\TokenExtension.cs" />
     <Compile Include="App\Event\EventArgs.cs" />
     <Compile Include="App\ITwichirpApplication.cs" />
-    <Compile Include="App\Manager\FileManager.cs" />
-    <Compile Include="App\Manager\IFileSystem.cs" />
     <Compile Include="App\Model\BaseModel.cs" />
     <Compile Include="App\Model\LoadingModel.cs" />
     <Compile Include="App\Model\LoginModel.cs" />
@@ -133,6 +131,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StringResources.ja-JP.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\IFileService.cs" />
     <Compile Include="UnityExtensions\DataRepositoryRegister.cs" />
     <Compile Include="UnityExtensions\IRegister.cs" />
     <Compile Include="Services\IRealmService.cs" />
@@ -144,9 +143,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="App\Service\ITwitterEventService.cs" />
+    <Compile Include="Services\ITwitterEventService.cs" />
     <Compile Include="App\Event\TwitterEventArgs.cs" />
-    <Compile Include="App\Service\TwitterEventService.cs" />
+    <Compile Include="Services\TwitterEventService.cs" />
     <Compile Include="UnityExtensions\ServiceRegister.cs" />
     <Compile Include="UnityExtensions\SettingRegister.cs" />
     <Compile Include="UnityExtensions\ViewModelRegister.cs" />

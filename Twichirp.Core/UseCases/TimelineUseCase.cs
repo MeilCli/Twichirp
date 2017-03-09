@@ -19,9 +19,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Twichirp.Core.App.Service;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.Repositories;
+using Twichirp.Core.Services;
 
 namespace Twichirp.Core.UseCases {
 

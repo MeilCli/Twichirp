@@ -23,7 +23,7 @@ using Microsoft.Practices.Unity;
 
 namespace Twichirp.Core.UnityExtensions {
 
-    interface IRegister {
+    public interface IRegister {
 
         Type[] DependedTypes { get; }
 

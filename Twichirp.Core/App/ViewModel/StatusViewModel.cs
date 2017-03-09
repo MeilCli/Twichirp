@@ -29,10 +29,10 @@ using Plugin.CrossFormattedText.Abstractions;
 using Plugin.CrossFormattedText;
 using Twichirp.Core.Constants;
 using Twichirp.Core.Resources;
-using Twichirp.Core.App.Service;
 using Microsoft.Practices.Unity;
 using CStatus = CoreTweet.Status;
 using Twichirp.Core.DataObjects;
+using Twichirp.Core.Services;
 
 namespace Twichirp.Core.App.ViewModel {
 

@@ -34,10 +34,10 @@ using Twichirp.Android.Objects;
 using Twichirp.Core.App;
 using Twichirp.Core.App.Event;
 using Twichirp.Core.App.Model;
-using Twichirp.Core.App.Service;
 using Twichirp.Core.App.Setting;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.DataRepositories;
+using Twichirp.Core.Services;
 
 namespace Twichirp.Android.App.ViewModel {
 

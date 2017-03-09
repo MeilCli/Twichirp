@@ -26,17 +26,14 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Twichirp.Core.App;
-using Twichirp.Core.App.Manager;
 using Twichirp.Core.App.Setting;
-using Twichirp.Android.App.Manager;
 using Twichirp.Core.Constants;
 using Microsoft.Practices.Unity;
-using Twichirp.Core.App.Service;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Android.App.ViewModel;
 using Twichirp.Core.UnityExtensions;
 using Twichirp.Core.DataObjects;
-using Twichirp.Core.Constants;
+using Twichirp.Android.UnityExtensions;
 
 namespace Twichirp.Android.App {
 
@@ -44,8 +41,6 @@ namespace Twichirp.Android.App {
     public class TwichirpApplication : Application, ITwichirpApplication {
 
         public UnityContainer UnityContainer { get; private set; }
-
-        public FileManager FileManager { get; private set; }
 
         public TwichirpApplication(IntPtr javaReference,JniHandleOwnership transfer) : base(javaReference,transfer) {
         }
@@ -56,15 +51,14 @@ namespace Twichirp.Android.App {
             initUnity();
             var settingManager = Resolve<SettingManager>();
             settingManager.Migrate();
-            FileManager = new FileManager(new FileSystem());
         }
 
         private void initUnity() {
             UnityContainer.RegisterInstance<ITwichirpApplication>(this);
             UnityContainer.RegisterInstance(ClientKeyConstant.TwichirpForAndroid);
-            UnityContainer.RegisterType<ITwitterEventService,TwitterEventService>(new ContainerControlledLifetimeManager());
 
             UnityContainer.AddNewExtension<ServiceRegister>();
+            UnityContainer.AddNewExtension<AndroidServiceRegister>();
             UnityContainer.AddNewExtension<DataRepositoryRegister>();
             UnityContainer.AddNewExtension<SettingRegister>();
             UnityContainer.AddNewExtension<ViewModelRegister>();

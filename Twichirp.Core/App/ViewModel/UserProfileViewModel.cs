@@ -27,9 +27,9 @@ using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Core.App.Event;
 using Twichirp.Core.App.Model;
-using Twichirp.Core.App.Service;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.Resources;
+using Twichirp.Core.Services;
 using CUser = CoreTweet.User;
 
 namespace Twichirp.Core.App.ViewModel {

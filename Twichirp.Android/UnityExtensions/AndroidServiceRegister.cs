@@ -25,24 +25,29 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Twichirp.Core.App.Manager;
-using System.IO;
+using Microsoft.Practices.Unity;
+using Twichirp.Android.Services;
+using Twichirp.Core.Services;
+using Twichirp.Core.UnityExtensions;
 
-namespace Twichirp.Android.App.Manager {
-    public class FileSystem : IFileSystem {       
+namespace Twichirp.Android.UnityExtensions {
 
-        public string GetPersonalFolderPath() => System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+    public class AndroidServiceRegister : UnityContainerExtension, IRegister {
 
-        public string ReadFile(string fileName) => File.ReadAllText(fileName,Encoding.UTF8);
+        public Type[] DependedTypes { get; } = { };
 
-        public void WriteFile(string fileName,string text) => File.WriteAllText(fileName,text,Encoding.UTF8);
+        public Type[] ExcludeTypes { get; set; }
 
-        public string[] GetDirectories(string path) => Directory.GetDirectories(path);
+        public Type[] ManagedTypes { get; } = {
+            typeof(IFileService)
+        };
 
-        public string[] GetFiles(string path) => Directory.GetFiles(path);
+        public AndroidServiceRegister() { }
 
-        public void CreateDirectory(string path) => Directory.CreateDirectory(path);
-
-        public bool Exists(string path) => Directory.Exists(path);
+        protected override void Initialize() {
+            if(ExcludeTypes?.All(x => x != typeof(IFileService)) ?? true) {
+                Container.RegisterType<IFileService,FileService>(new ContainerControlledLifetimeManager());
+            }
+        }
     }
 }

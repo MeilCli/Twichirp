@@ -22,9 +22,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using CoreTweet;
 using Twichirp.Core.App.Event;
-using Twichirp.Core.App.Service;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.Extensions;
+using Twichirp.Core.Services;
 using CUser = CoreTweet.User;
 
 namespace Twichirp.Core.App.Model {

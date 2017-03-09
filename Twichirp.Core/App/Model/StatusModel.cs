@@ -24,9 +24,9 @@ using System.Threading.Tasks;
 using System.Threading;
 using Twichirp.Core.Extensions;
 using Twichirp.Core.App.Event;
-using Twichirp.Core.App.Service;
 using Twichirp.Core.DataObjects;
 using CStatus = CoreTweet.Status;
+using Twichirp.Core.Services;
 
 namespace Twichirp.Core.App.Model {
 

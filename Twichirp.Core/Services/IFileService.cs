@@ -20,8 +20,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Twichirp.Core.App.Manager {
-    public interface IFileSystem {
+namespace Twichirp.Core.Services {
+
+    public interface IFileService {
 
         string GetPersonalFolderPath();
 

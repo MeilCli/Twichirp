@@ -26,13 +26,13 @@ using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.Extensions;
 using Twichirp.Core.App.Event;
 using Newtonsoft.Json;
-using Twichirp.Core.App.Service;
 using Twichirp.Core.DataObjects;
 using CStatus = CoreTweet.Status;
 using CUser = CoreTweet.User;
 using Twichirp.Core.App.Setting;
 using Twichirp.Core.UseCases;
 using Twichirp.Core.Repositories;
+using Twichirp.Core.Services;
 
 namespace Twichirp.Core.App.Model {
 

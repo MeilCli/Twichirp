@@ -26,12 +26,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.App.Model;
 using Twichirp.Core.App.Event;
-using Twichirp.Core.App.Service;
 using Microsoft.Practices.Unity;
 using CStatus = CoreTweet.Status;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.App.Setting;
 using Twichirp.Core.Repositories;
+using Twichirp.Core.Services;
 
 namespace Twichirp.Core.App.ViewModel {
 

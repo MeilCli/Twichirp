@@ -28,9 +28,9 @@ using Android.Widget;
 using CoreTweet;
 using Microsoft.Practices.Unity;
 using Twichirp.Core.App;
-using Twichirp.Core.App.Service;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.DataObjects;
+using Twichirp.Core.Services;
 using CStatus = CoreTweet.Status;
 
 namespace Twichirp.Android.App.ViewModel {

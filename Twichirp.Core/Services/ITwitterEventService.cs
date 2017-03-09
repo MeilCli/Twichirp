@@ -27,7 +27,7 @@ using Twichirp.Core.DataObjects;
 using CStatus = CoreTweet.Status;
 using CUser = CoreTweet.User;
 
-namespace Twichirp.Core.App.Service {
+namespace Twichirp.Core.Services {
 
     public interface ITwitterEventService {
 

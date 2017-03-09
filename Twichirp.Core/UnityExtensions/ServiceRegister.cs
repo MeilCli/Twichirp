@@ -29,7 +29,7 @@ namespace Twichirp.Core.UnityExtensions {
         public Type[] ExcludeTypes { get; set; }
 
         public Type[] ManagedTypes { get; } = {
-            typeof(IRealmService)
+            typeof(IRealmService),typeof(ITwitterEventService)
         };
 
         public Type[] DependedTypes { get; } = { };
@@ -39,6 +39,9 @@ namespace Twichirp.Core.UnityExtensions {
         protected override void Initialize() {
             if(ExcludeTypes?.All(x => x != typeof(IRealmService)) ?? true) {
                 Container.RegisterType<IRealmService,RealmService>(new ContainerControlledLifetimeManager());
+            }
+            if(ExcludeTypes?.All(x => x != typeof(ITwitterEventService)) ?? true) {
+                Container.RegisterType<ITwitterEventService,TwitterEventService>(new ContainerControlledLifetimeManager());
             }
         }
     }
