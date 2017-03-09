@@ -37,6 +37,11 @@ using Twichirp.Android.App.Extensions;
 using Newtonsoft.Json;
 using Twichirp.Android.App.ViewController;
 using Android.Support.Design.Widget;
+using Twichirp.Core.DataObjects;
+using Microsoft.Practices.Unity;
+using CUser = CoreTweet.User;
+using Twichirp.Core.DataRepositories;
+using Twichirp.Core.App.Setting;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414
@@ -50,7 +55,7 @@ namespace Twichirp.Android.App.View.Activity {
         private const string extraUserId = "extra_user_id";
         private const string extraAccount = "extra_account";
 
-        public static void Start(AActivity activity,long userId,string userJson = null,Account account = null,ImageView icon = null) {
+        public static void Start(AActivity activity,long userId,string userJson = null,ImmutableAccount account = null,ImageView icon = null) {
             var intent = new Intent(activity,typeof(UserProfileActivity));
             intent.PutExtra(extraUserId,userId);
             if(userJson != null) {
@@ -100,40 +105,43 @@ namespace Twichirp.Android.App.View.Activity {
         public TextView Url { get; private set; }
 
         protected override void OnViewCreate(Bundle savedInstanceState) {
+            var accountRepository = TwichirpApplication.Resolve<IAccountRepository>();
+            var settingManager = TwichirpApplication.Resolve<SettingManager>();
+
             long userId = Intent.GetLongExtra(extraUserId,0);
             string userJson = Intent.GetStringExtra(extraUser);
-            User user = userJson != null ? JsonConvert.DeserializeObject<User>(userJson) : null;
+            CUser user = userJson != null ? JsonConvert.DeserializeObject<CUser>(userJson) : null;
             long accountId = Intent.GetLongExtra(extraAccount,-1);
             if(accountId == -1) {
-                accountId = TwichirpApplication.SettingManager.Accounts.DefaultAccountId;
+                accountId = settingManager.Accounts.DefaultAccountId;
             }
-            var account = TwichirpApplication.AccountManager[accountId];
+            var account = accountRepository[accountId];
 
             var viewModel = UserProfileViewModel.Resolve(TwichirpApplication.UnityContainer,account,userId,user);
             userProfileViewController = new UserProfileViewController(this,viewModel);
 
-            SetContentView(Android.Resource.Layout.UserProfileActivity);
+            SetContentView(Resource.Layout.UserProfileActivity);
 
-            collapsingToolbarLayout = FindViewById<CollapsingToolbarLayout>(Android.Resource.Id.CollapsingToolbar);
+            collapsingToolbarLayout = FindViewById<CollapsingToolbarLayout>(Resource.Id.CollapsingToolbar);
             collapsingToolbarLayout.ViewTreeObserver.AddOnGlobalLayoutListener(this);
-            appBarLayout = FindViewById<AppBarLayout>(Android.Resource.Id.AppBar);
+            appBarLayout = FindViewById<AppBarLayout>(Resource.Id.AppBar);
             appBarLayout.OffsetChanged += offsetChanged;
 
-            Toolbar = FindViewById<SToolbar>(Android.Resource.Id.Toolbar);
+            Toolbar = FindViewById<SToolbar>(Resource.Id.Toolbar);
             SetSupportActionBar(Toolbar);
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetDisplayShowHomeEnabled(true);
-            Icon = FindViewById<ImageViewAsync>(Android.Resource.Id.Icon);
-            Banner = FindViewById<ImageViewAsync>(Android.Resource.Id.Banner);
-            ScreenName = FindViewById<TextView>(Android.Resource.Id.ScreenName);
-            Relationship = FindViewById<TextView>(Android.Resource.Id.Relationship);
-            LockIcon = FindViewById<ImageView>(Android.Resource.Id.LockIcon);
-            VerifyIcon = FindViewById<ImageView>(Android.Resource.Id.VerifyIcon);
-            Friendship = FindViewById<Button>(Android.Resource.Id.Friendship);
-            Extraship = FindViewById<TextView>(Android.Resource.Id.Extraship);
-            Description = FindViewById<TextView>(Android.Resource.Id.Description);
-            Location = FindViewById<TextView>(Android.Resource.Id.Location);
-            Url = FindViewById<TextView>(Android.Resource.Id.Url);
+            Icon = FindViewById<ImageViewAsync>(Resource.Id.Icon);
+            Banner = FindViewById<ImageViewAsync>(Resource.Id.Banner);
+            ScreenName = FindViewById<TextView>(Resource.Id.ScreenName);
+            Relationship = FindViewById<TextView>(Resource.Id.Relationship);
+            LockIcon = FindViewById<ImageView>(Resource.Id.LockIcon);
+            VerifyIcon = FindViewById<ImageView>(Resource.Id.VerifyIcon);
+            Friendship = FindViewById<Button>(Resource.Id.Friendship);
+            Extraship = FindViewById<TextView>(Resource.Id.Extraship);
+            Description = FindViewById<TextView>(Resource.Id.Description);
+            Location = FindViewById<TextView>(Resource.Id.Location);
+            Url = FindViewById<TextView>(Resource.Id.Url);
         }
 
         public void OnGlobalLayout() {

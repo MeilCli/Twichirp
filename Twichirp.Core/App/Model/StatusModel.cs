@@ -26,15 +26,18 @@ using System.Threading;
 using Twichirp.Core.Extensions;
 using Twichirp.Core.App.Event;
 using Twichirp.Core.App.Service;
+using Twichirp.Core.DataObjects;
+using CStatus = CoreTweet.Status;
 
 namespace Twichirp.Core.App.Model {
+
     class StatusModel : BaseModel {
 
         public event EventHandler<EventArgs> StatusChanged;
         public event EventHandler<EventArgs<string>> ErrorMessageCreated;
 
-        private SemaphoreSlim slim = new SemaphoreSlim(1,1); 
-        private Status status;
+        private SemaphoreSlim slim = new SemaphoreSlim(1,1);
+        private CStatus status;
         private ITwitterEventService twitterEventService;
 
         public UserModel User { get; private set; }
@@ -81,12 +84,12 @@ namespace Twichirp.Core.App.Model {
 
         public StatusModel RetweetedStatus { get; private set; }
 
-        public StatusModel(ITwichirpApplication application,ITwitterEventService twitterEventService,Status status) : base(application) {
+        public StatusModel(ITwichirpApplication application,ITwitterEventService twitterEventService,CStatus status) : base(application) {
             this.twitterEventService = twitterEventService;
             SetStatus(status);
         }
 
-        public void SetStatus(Status status) {
+        public void SetStatus(CStatus status) {
             this.status = status;
 
             if(User == null) {
@@ -103,7 +106,7 @@ namespace Twichirp.Core.App.Model {
                 SetProperty(this,x => x.HiddenPrefix,extended.HiddenPrefix);
                 SetProperty(this,x => x.HiddenSuffix,extended.HiddenSuffix);
             }
-        
+
             SetProperty(this,x => x.Source,status.ParseSource().Name);
             SetProperty(this,x => x.CreatedAt,status.CreatedAt);
             SetProperty(this,x => x.CurrentUserRetweet,status.CurrentUserRetweet);
@@ -159,10 +162,10 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async Task RetweetAsync(Account account) {
+        public async Task RetweetAsync(ImmutableAccount account) {
             await slim.WaitAsync();
             try {
-                Status status = await account.Token.Statuses.RetweetAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+                CStatus status = await account.CoreTweetToken.Statuses.RetweetAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
                 status.CheckValid();
                 foreach(var s in status.DeploymentStatus()) {
                     twitterEventService.UpdateStatus(account,s);
@@ -174,10 +177,10 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async Task UnRetweetAsync(Account account) {
+        public async Task UnRetweetAsync(ImmutableAccount account) {
             await slim.WaitAsync();
             try {
-                Status status = await account.Token.Statuses.UnretweetAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+                CStatus status = await account.CoreTweetToken.Statuses.UnretweetAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
                 status.CheckValid();
                 if(status.IsRetweeted ?? false) {
                     //返り値に反映されてない
@@ -194,10 +197,10 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async Task FavoriteAsync(Account account) {
+        public async Task FavoriteAsync(ImmutableAccount account) {
             await slim.WaitAsync();
             try {
-                Status status = await account.Token.Favorites.CreateAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+                CStatus status = await account.CoreTweetToken.Favorites.CreateAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
                 status.CheckValid();
                 foreach(var s in status.DeploymentStatus()) {
                     twitterEventService.UpdateStatus(account,s);
@@ -209,10 +212,10 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async Task UnFavoriteAsync(Account account) {
+        public async Task UnFavoriteAsync(ImmutableAccount account) {
             await slim.WaitAsync();
             try {
-                Status status = await account.Token.Favorites.DestroyAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+                CStatus status = await account.CoreTweetToken.Favorites.DestroyAsync(id: Id,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
                 status.CheckValid();
                 foreach(var s in status.DeploymentStatus()) {
                     twitterEventService.UpdateStatus(account,s);

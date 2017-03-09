@@ -14,44 +14,36 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using Newtonsoft.Json;
-using SQLite.Net.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Realms;
+using Twichirp.Core.DataObjects;
+using Twichirp.Core.Services;
 
-namespace Twichirp.Core.Model {
-    [Table("Consumers")]
-    public class Consumer {
+namespace Twichirp.Core.DataRepositories {
 
-        [JsonProperty]
-        [Column("consumer_key"),PrimaryKey]
-        public string ConsumerKey { get; set; }
+    public class AccountRepository : BaseLongPrimaryKeyDataRepository<Account,ImmutableAccount>, IAccountRepository {
 
-        [JsonProperty]
-        [Column("consumer_secret")]
-        public string ConsumerSecret { get; set; }
+        public AccountRepository(IRealmService realmService) : base(realmService) {
+        }
 
-        [JsonProperty]
-        [Column("client_name")]
-        public string ClientName { get; set; }
-
-        [JsonIgnore]
-        [Ignore]
-        public bool IsValid {
+        public ImmutableAccount this[string screenName] {
             get {
-                return ConsumerKey != null && ConsumerSecret != null && ClientName != null;
+                return Get().Where(x => x.ScreenName == screenName).FirstOrDefault();
             }
         }
 
-        public Consumer(string consumerKey,string consumerSecret,string clientName = null) {
-            ConsumerKey = consumerKey;
-            ConsumerSecret = consumerSecret;
-            ClientName = clientName;
+        public ImmutableAccount this[long id] {
+            get {
+                return Find(id);
+            }
         }
 
-        public Consumer() { }
+        protected override ImmutableAccount ToImmutable(Account item) {
+            return new ImmutableAccount(item);
+        }
     }
 }

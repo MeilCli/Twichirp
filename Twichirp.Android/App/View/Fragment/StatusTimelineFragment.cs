@@ -30,7 +30,10 @@ using Android.Views;
 using Android.Widget;
 using Twichirp.Android.App.ViewController;
 using Twichirp.Core.App.ViewModel;
+using Twichirp.Core.DataObjects;
+using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Model;
+using Microsoft.Practices.Unity;
 using AView = Android.Views.View;
 using SFragment = Android.Support.V4.App.Fragment;
 
@@ -55,9 +58,9 @@ namespace Twichirp.Android.App.View.Fragment {
         public class Parameter {
 
             public StatusTimelineFragmentType Type { get; }
-            public Account Account { get; }
+            public ImmutableAccount Account { get; }
 
-            public Parameter(StatusTimelineFragmentType type,Account account) {
+            public Parameter(StatusTimelineFragmentType type,ImmutableAccount account) {
                 Type = type;
                 Account = account;
             }
@@ -70,19 +73,19 @@ namespace Twichirp.Android.App.View.Fragment {
 
         public class HomeParameter : Parameter {
 
-            public HomeParameter(Account account) : base(StatusTimelineFragmentType.Home,account) { }
+            public HomeParameter(ImmutableAccount account) : base(StatusTimelineFragmentType.Home,account) { }
         }
 
         public class MentionParameter : Parameter {
 
-            public MentionParameter(Account account) : base(StatusTimelineFragmentType.Mention,account) { }
+            public MentionParameter(ImmutableAccount account) : base(StatusTimelineFragmentType.Mention,account) { }
         }
 
         public class UserParameter : Parameter {
 
             public long UserId { get; }
 
-            public UserParameter(Account account,long userId) : base(StatusTimelineFragmentType.User,account) {
+            public UserParameter(ImmutableAccount account,long userId) : base(StatusTimelineFragmentType.User,account) {
                 UserId = userId;
             }
 
@@ -96,7 +99,7 @@ namespace Twichirp.Android.App.View.Fragment {
 
             public long UserId { get; }
 
-            public FavoriteParameter(Account account,long userId) : base(StatusTimelineFragmentType.Favorite,account) {
+            public FavoriteParameter(ImmutableAccount account,long userId) : base(StatusTimelineFragmentType.Favorite,account) {
                 UserId = userId;
             }
 
@@ -125,10 +128,13 @@ namespace Twichirp.Android.App.View.Fragment {
 
         public override void OnCreate(Bundle savedInstanceState) {
             base.OnCreate(savedInstanceState);
+
             long accountId = Arguments.GetLong(argumentAccount);
-            var account = TwichirpApplication.AccountManager[accountId];
+            IAccountRepository accountRepository = TwichirpApplication.Resolve<IAccountRepository>();
+            var account = accountRepository[accountId];
             var type = (StatusTimelineFragmentType)Enum.ToObject(typeof(StatusTimelineFragmentType),Arguments.GetInt(argumentType));
             long userId = Arguments.GetLong(argumentUser,-1);
+
             Timeline<IEnumerable<CoreTweet.Status>> timelineResource;
             switch(type) {
                 default:
@@ -150,9 +156,9 @@ namespace Twichirp.Android.App.View.Fragment {
         }
 
         public override AView OnCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-            AView view = inflater.Inflate(Android.Resource.Layout.StatusTimelineFragment,container,false);
-            RecyclerView = view.FindViewById<RecyclerView>(Android.Resource.Id.RecyclerView);
-            SwipeRefrech = view.FindViewById<SwipeRefreshLayout>(Android.Resource.Id.SwipeRefresh);
+            AView view = inflater.Inflate(Resource.Layout.StatusTimelineFragment,container,false);
+            RecyclerView = view.FindViewById<RecyclerView>(Resource.Id.RecyclerView);
+            SwipeRefrech = view.FindViewById<SwipeRefreshLayout>(Resource.Id.SwipeRefresh);
             return view;
         }
 
@@ -162,7 +168,7 @@ namespace Twichirp.Android.App.View.Fragment {
             SwipeRefrech?.Dispose();
         }
 
-        public bool Equals(StatusTimelineFragmentType type,Account account) {
+        public bool Equals(StatusTimelineFragmentType type,ImmutableAccount account) {
             var arg = Arguments;
             if(arg == null) {
                 return false;

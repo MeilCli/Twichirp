@@ -51,8 +51,13 @@ using Android.Animation;
 using SFragment = Android.Support.V4.App.Fragment;
 using Twichirp.Android.App.View.Fragment;
 using BottomBarSharp;
+using Twichirp.Core.DataObjects;
+using Twichirp.Core.DataRepositories;
+using Microsoft.Practices.Unity;
+using Twichirp.Core.App.Setting;
 
 namespace Twichirp.Android.App.ViewController {
+
     public class MainViewController : BaseViewController<IMainView,MainViewModel> {
 
         private static string getFragmentTag(int position) {
@@ -150,9 +155,9 @@ namespace Twichirp.Android.App.ViewController {
 
         private void setDrop(bool isHiding) {
             if(isHiding) {
-                View.Drop.SetImageResource(Android.Resource.Drawable.IconArrowDropUpGrey24dp);
+                View.Drop.SetImageResource(Resource.Drawable.IconArrowDropUpGrey24dp);
             } else {
-                View.Drop.SetImageResource(Android.Resource.Drawable.IconArrowDropDownGrey24dp);
+                View.Drop.SetImageResource(Resource.Drawable.IconArrowDropDownGrey24dp);
             }
             Drawable d = DrawableCompat.Wrap(View.Drop.Drawable);
             DrawableCompat.SetTint(d,Color.White);
@@ -220,7 +225,9 @@ namespace Twichirp.Android.App.ViewController {
         }
 
         private void setNavigationTabs(List<NavigationTab> tabs) {
-            var account = View.TwichirpApplication.AccountManager[View.TwichirpApplication.SettingManager.Accounts.DefaultAccountId];
+            var accountRepository = View.TwichirpApplication.Resolve<IAccountRepository>();
+            var settingManager = View.TwichirpApplication.Resolve<SettingManager>();
+            var account = accountRepository[settingManager.Accounts.DefaultAccountId];
             var trasaction = View.Activity.SupportFragmentManager.BeginTransaction();
             var tabList = new List<BottomBarTab>();
 
@@ -243,7 +250,7 @@ namespace Twichirp.Android.App.ViewController {
                 if(fragment == null) {
                     continue;
                 }
-                trasaction.Add(Android.Resource.Id.Content,fragment,getFragmentTag(i));
+                trasaction.Add(Resource.Id.Content,fragment,getFragmentTag(i));
 
                 if(i == 0) {
                     firstFragment = fragment;
@@ -268,21 +275,21 @@ namespace Twichirp.Android.App.ViewController {
 
         }
 
-        private bool wasAddedFragment(SFragment fragment,NavigationTab tab,Account account) {
+        private bool wasAddedFragment(SFragment fragment,NavigationTab tab,ImmutableAccount account) {
             switch(tab.Id) {
-                case Android.Resource.Id.TabHome:
+                case Resource.Id.TabHome:
                     return (fragment as StatusTimelineFragment)?.Equals(StatusTimelineFragmentType.Home,account) ?? false;
-                case Android.Resource.Id.TabMention:
+                case Resource.Id.TabMention:
                     return (fragment as StatusTimelineFragment)?.Equals(StatusTimelineFragmentType.Mention,account) ?? false;
             }
             return false;
         }
 
-        private SFragment createFragment(NavigationTab tab,Account account) {
+        private SFragment createFragment(NavigationTab tab,ImmutableAccount account) {
             switch(tab.Id) {
-                case Android.Resource.Id.TabHome:
+                case Resource.Id.TabHome:
                     return StatusTimelineFragment.Make(new StatusTimelineFragment.HomeParameter(account));
-                case Android.Resource.Id.TabMention:
+                case Resource.Id.TabMention:
                     return StatusTimelineFragment.Make(new StatusTimelineFragment.MentionParameter(account));
             }
             return null;
@@ -312,15 +319,15 @@ namespace Twichirp.Android.App.ViewController {
             switch(position) {
                 default:
                 case 0:
-                    return Android.Resource.Id.Tab1;
+                    return Resource.Id.Tab1;
                 case 1:
-                    return Android.Resource.Id.Tab2;
+                    return Resource.Id.Tab2;
                 case 2:
-                    return Android.Resource.Id.Tab3;
+                    return Resource.Id.Tab3;
                 case 3:
-                    return Android.Resource.Id.Tab4;
+                    return Resource.Id.Tab4;
                 case 4:
-                    return Android.Resource.Id.Tab5;
+                    return Resource.Id.Tab5;
             }
         }
     }

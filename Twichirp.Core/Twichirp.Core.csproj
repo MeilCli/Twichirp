@@ -46,8 +46,6 @@
     <Compile Include="Aclog\TokenExtension.cs" />
     <Compile Include="App\Event\EventArgs.cs" />
     <Compile Include="App\ITwichirpApplication.cs" />
-    <Compile Include="App\Manager\AccountManager.cs" />
-    <Compile Include="App\Manager\ConsumerManager.cs" />
     <Compile Include="App\Manager\DatabaseManager.cs" />
     <Compile Include="App\Manager\FileManager.cs" />
     <Compile Include="App\Manager\IDatabaseSystem.cs" />
@@ -74,31 +72,85 @@
     <Compile Include="App\ViewModel\StatusViewModel.cs" />
     <Compile Include="App\ViewModel\UserProfileViewModel.cs" />
     <Compile Include="App\ViewModel\UserViewModel.cs" />
-    <Compile Include="Constant\ConsumerConstant.cs" />
+    <Compile Include="Constants\ClientKeyConstant.cs" />
+    <Compile Include="Constants\RealmMigrationConstant.cs" />
     <Compile Include="Constant\LibraryConstant.cs" />
     <Compile Include="Constant\LicenseConstant.cs" />
     <Compile Include="App\Setting\IMigration.cs" />
     <Compile Include="App\Setting\SettingManager.cs" />
     <Compile Include="Constant\SpanConstant.cs" />
+    <Compile Include="DataObjects\Account.cs" />
+    <Compile Include="DataObjects\ClientKey.cs" />
+    <Compile Include="DataObjects\DirectMessage.cs" />
+    <Compile Include="DataObjects\Interfaces\IAccount.cs" />
+    <Compile Include="DataObjects\Interfaces\IClientKey.cs" />
+    <Compile Include="DataObjects\Interfaces\IDirectMessage.cs" />
+    <Compile Include="DataObjects\Interfaces\IList.cs" />
+    <Compile Include="DataObjects\Interfaces\IListCollectionCache.cs" />
+    <Compile Include="DataObjects\Interfaces\IStatus.cs" />
+    <Compile Include="DataObjects\Interfaces\IStatusTimelineCache.cs" />
+    <Compile Include="DataObjects\Interfaces\IToken.cs" />
+    <Compile Include="DataObjects\Interfaces\IUser.cs" />
+    <Compile Include="DataObjects\List.cs" />
+    <Compile Include="DataObjects\ListCollectionCache.cs" />
+    <Compile Include="DataObjects\Migrations\IRealmMigration.cs" />
+    <Compile Include="DataObjects\Status.cs" />
+    <Compile Include="DataObjects\StatusTimelineCache.cs" />
+    <Compile Include="DataObjects\Token.cs" />
+    <Compile Include="DataObjects\User.cs" />
+    <Compile Include="DataRepositories\AccountRepository.cs" />
+    <Compile Include="DataRepositories\BaseDataRepository.cs" />
+    <Compile Include="DataRepositories\BaseLongPrimaryKeyDataRepository.cs" />
+    <Compile Include="DataRepositories\BaseStringPrimaryKeyDataRepository.cs" />
+    <Compile Include="DataRepositories\ClientKeyRepository.cs" />
+    <Compile Include="DataRepositories\DirectMessageRepository.cs" />
+    <Compile Include="DataRepositories\IAccountRepository.cs" />
+    <Compile Include="DataRepositories\IClientKeyRepository.cs" />
+    <Compile Include="DataRepositories\IDataRepository.cs" />
+    <Compile Include="DataRepositories\IDirectMessageRepository.cs" />
+    <Compile Include="DataRepositories\IListCollectionCacheRepository.cs" />
+    <Compile Include="DataRepositories\IListRepository.cs" />
+    <Compile Include="DataRepositories\IStatusRepository.cs" />
+    <Compile Include="DataRepositories\IStatusTimelineCacheRepository.cs" />
+    <Compile Include="DataRepositories\ITokenRepository.cs" />
+    <Compile Include="DataRepositories\IUserRepository.cs" />
+    <Compile Include="DataRepositories\ListCollectionCacheRepository.cs" />
+    <Compile Include="DataRepositories\ListRepository.cs" />
+    <Compile Include="DataRepositories\StatusRepository.cs" />
+    <Compile Include="DataRepositories\StatusTimelineCacheRepository.cs" />
+    <Compile Include="DataRepositories\TokenRepository.cs" />
+    <Compile Include="DataRepositories\UserRepository.cs" />
     <Compile Include="Extensions\StatusExtensions.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
     <Compile Include="Helpers\Settings.cs" />
-    <Compile Include="Model\Account.cs" />
-    <Compile Include="Model\Consumer.cs" />
     <Compile Include="Model\License.cs" />
     <Compile Include="Model\Library.cs" />
     <Compile Include="Model\StatusContainer.cs" />
     <Compile Include="Model\Timeline.cs" />
     <Compile Include="Model\UserContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\StringResources.ja-JP.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StringResources.ja-JP.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UnityExtensions\DataRepositoryRegister.cs" />
+    <Compile Include="UnityExtensions\IRegister.cs" />
+    <Compile Include="Services\IRealmService.cs" />
+    <Compile Include="Services\RealmService.cs" />
     <Compile Include="TweetCount\CounterExtensions.cs" />
     <Compile Include="TweetCount\Regex.cs" />
     <Compile Include="Resources\StringResources.Designer.cs">
       <DependentUpon>StringResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="App\Service\ITwitterEventService.cs" />
     <Compile Include="App\Event\TwitterEventArgs.cs" />
     <Compile Include="App\Service\TwitterEventService.cs" />
+    <Compile Include="UnityExtensions\ServiceRegister.cs" />
+    <Compile Include="UnityExtensions\SettingRegister.cs" />
+    <Compile Include="UnityExtensions\ViewModelRegister.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CoreTweet, Version=0.7.2.352, Culture=neutral, processorArchitecture=MSIL">
@@ -160,6 +212,10 @@
       <HintPath>..\packages\SQLite.Net.Async-PCL.3.1.1\lib\portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1\SQLite.Net.Async.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.2.0\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Reactive.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reactive.Core.3.0.0\lib\netstandard1.1\System.Reactive.Core.dll</HintPath>
       <Private>True</Private>
@@ -200,9 +256,7 @@
       <LastGenOutput>StringResources.ja-JP.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataObjects\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

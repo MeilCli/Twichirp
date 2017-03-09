@@ -28,6 +28,8 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Preferences;
 using Twichirp.Android.App.Extensions;
+using Twichirp.Core.App.Setting;
+using Twichirp.Core.DataRepositories;
 
 namespace Twichirp.Android.App.Setting {
 
@@ -36,22 +38,24 @@ namespace Twichirp.Android.App.Setting {
         public override void OnCreatePreferences(Bundle savedInstanceState,string rootKey) {
             var screen = PreferenceManager.CreatePreferenceScreen(PreferenceManager.Context);
             var application = Context.ToTwichirpApplication();
-            var settingManager = application.SettingManager;
+            var settingManager = application.Resolve<SettingManager>();
+            var accountRepository = application.Resolve<IAccountRepository>();
+            var accounts = accountRepository.Get();
             new ListPreference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Android.Resource.String.SettingUseAccount);
-                x.SetDialogTitle(Android.Resource.String.SettingUseAccount);
+                x.SetTitle(Resource.String.SettingUseAccount);
+                x.SetDialogTitle(Resource.String.SettingUseAccount);
                 x.Key = x.Title;
-                x.SetEntries(application.AccountManager.Select(y => y.ScreenName).ToArray());
-                x.SetEntryValues(application.AccountManager.Select(y => y.ScreenName).ToArray());
-                x.SetValueIndex(application.AccountManager.ToList().FindIndex(y => y.Id == settingManager.Accounts.DefaultAccountId));
-                x.PreferenceChange += (s,e) => settingManager.Accounts.DefaultAccountId = application.AccountManager.First(y => y.ScreenName == (string)e.NewValue).Id;
+                x.SetEntries(accounts.Select(y => y.ScreenName).ToArray());
+                x.SetEntryValues(accounts.Select(y => y.ScreenName).ToArray());
+                x.SetValueIndex(accounts.ToList().FindIndex(y => y.Id == settingManager.Accounts.DefaultAccountId));
+                x.PreferenceChange += (s,e) => settingManager.Accounts.DefaultAccountId = accounts.First(y => y.ScreenName == (string)e.NewValue).Id;
             });
-            foreach(var account in application.AccountManager) {
+            foreach(var account in accounts) {
                 new Preference(screen.Context).Apply(x => {
                     screen.AddPreference(x);
                     x.Title = account.ScreenName;
-                    x.SetIcon(Android.Resource.Drawable.IconPersonGrey36dp);
+                    x.SetIcon(Resource.Drawable.IconPersonGrey36dp);
                     if(account.User != null) {
                         x.Summary = account.User.Name;
                     }

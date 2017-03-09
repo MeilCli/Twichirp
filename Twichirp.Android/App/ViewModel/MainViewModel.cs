@@ -35,21 +35,16 @@ using Twichirp.Core.App;
 using Twichirp.Core.App.Event;
 using Twichirp.Core.App.Model;
 using Twichirp.Core.App.Service;
+using Twichirp.Core.App.Setting;
 using Twichirp.Core.App.ViewModel;
+using Twichirp.Core.DataRepositories;
 
 namespace Twichirp.Android.App.ViewModel {
 
-    /// <summary>
-    /// Recommend to use UnityContainer
-    /// </summary>
     public class MainViewModel : BaseViewModel {
 
         public static void Register(UnityContainer unityContainer) {
             unityContainer.RegisterType<MainViewModel>();
-        }
-
-        public static MainViewModel Resolve(UnityContainer unityContainer) {
-            return unityContainer.Resolve<MainViewModel>();
         }
 
         private MainModel mainModel;
@@ -82,8 +77,8 @@ namespace Twichirp.Android.App.ViewModel {
         public ReactiveCommand StartLoginActivityCommand { get; } = new ReactiveCommand();
         public ReactiveCommand StartUserProfileActivityCommand { get; } = new ReactiveCommand();
 
-        public MainViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService) : base(application) {
-            mainModel = new MainModel(application);
+        public MainViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,IAccountRepository accountRepository,SettingManager settingManager) : base(application) {
+            mainModel = new MainModel(application,accountRepository,settingManager);
 
             NavigationMenus = mainModel.ObserveProperty(x => x.NavigationMenus).ToReadOnlyReactiveProperty().AddTo(Disposable);
             NavigationTabs = mainModel.ObserveProperty(x => x.NavigationTabs).ToReadOnlyReactiveProperty().AddTo(Disposable);

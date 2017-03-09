@@ -20,6 +20,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Twichirp.Core.App.Setting;
+using Twichirp.Core.DataObjects;
+using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Resources;
 
 namespace Twichirp.Core.App.Model {
@@ -27,6 +30,9 @@ namespace Twichirp.Core.App.Model {
     class SplashModel : BaseModel {
 
         public event EventHandler<EventArgs> ApplicationInitialized;
+
+        private IAccountRepository accountRepository;
+        private SettingManager settingManager;
 
         private bool _isRunning;
         public bool IsRunning {
@@ -58,38 +64,35 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public SplashModel(ITwichirpApplication application) : base(application) {
+        public SplashModel(ITwichirpApplication application,IAccountRepository accountRepository,SettingManager settingManager) : base(application) {
+            this.accountRepository = accountRepository;
+            this.settingManager = settingManager;
         }
 
         public async Task ApplicationInitAsync() {
             IsRunning = true;
-            Message = StringResources.SplashAccountLoading;
-            await Application.AccountManager.InitAsync();
-            Message = StringResources.SplashConsumerLoading;
-            await Application.ConsumerManager.InitAsync();
             Message = StringResources.SplashAccountDownLoading;
             try {
                 await accountInitAsync();
             } catch(Exception) { }
+            if(accountRepository[settingManager.Accounts.DefaultAccountId] == null) {
+                settingManager.Accounts.DefaultAccountId = accountRepository.FirstOrDefault()?.Id ?? -1;
+            }
             Message = string.Empty;
-            IsAccountExist = Application.AccountManager.Count() > 0;
+            IsAccountExist = accountRepository.Count() > 0;
             IsRunning = false;
             ApplicationInitialized?.Invoke(this,new EventArgs());
         }
 
         private async Task accountInitAsync() {
-            foreach(var account in Application.AccountManager) {
-                account.User = (await Application.UserContainerManager.FindAsync(account.Id))?.User;
-                if(account.User != null && Application.SettingManager.Applications.IsCleanLaunch == false) {
+            var accounts = await Task.Run(() => accountRepository.Get());
+            foreach(var account in accounts) {
+                if(account.User != null && settingManager.Applications.IsCleanLaunch == false) {
                     continue;
                 }
-                var user = await account.Token.Users.ShowAsync(account.Id);
-                await Application.UserContainerManager.AddAsync(user);
-                account.User = user;
-                if(account.ScreenName != user.ScreenName) {
-                    account.ScreenName = user.ScreenName;
-                    await Application.AccountManager.AddAsync(account);
-                }
+                var coreTweetUser = await account.CoreTweetToken.Users.ShowAsync(account.Id);
+                var mutableAccount = new Account(new User(coreTweetUser),new Token(account.Token));
+                await Task.Run(() => accountRepository.AddOrUpdate(mutableAccount));
             }
         }
     }

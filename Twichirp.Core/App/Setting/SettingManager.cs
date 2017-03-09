@@ -20,6 +20,7 @@ using Plugin.Settings.Abstractions;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using Twichirp.Core.DataRepositories;
 
 namespace Twichirp.Core.App.Setting {
 
@@ -59,12 +60,8 @@ namespace Twichirp.Core.App.Setting {
         [JsonIgnore]
         public bool NeedMigrate => SettingVersion < CurrentVersion;
 
-        [JsonIgnore]
-        public ITwichirpApplication Application { get; }
-
-        public SettingManager(ITwichirpApplication application) {
-            Application = application;
-            Accounts = new AccountsSetting(this);
+        public SettingManager(IAccountRepository accountRepository) {
+            Accounts = new AccountsSetting(this,accountRepository);
             Applications = new ApplicationSetting(this);
             Timeline = new TimelineSetting(this);
         }

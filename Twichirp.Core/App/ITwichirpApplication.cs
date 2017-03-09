@@ -35,17 +35,13 @@ namespace Twichirp.Core.App {
         /// <value>The unity container.</value>
         UnityContainer UnityContainer { get; }
 
-        SettingManager SettingManager { get; }
-
         FileManager FileManager { get; }
 
         DatabaseManager DatabaseManager { get; }
 
-        AccountManager AccountManager { get; }
-
-        ConsumerManager ConsumerManager { get; }
-
         UserContainerManager UserContainerManager { get; }
+
+        T Resolve<T>();
 
     }
 }

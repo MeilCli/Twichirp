@@ -23,6 +23,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Twichirp.Core.App.Model {
+
     public class UserModel : BaseModel {
 
         public event EventHandler<EventArgs> UserChanged;
@@ -44,8 +45,6 @@ namespace Twichirp.Core.App.Model {
         public DateTimeOffset CreatedAt { get; private set; }
 
         public int FavouritesCount { get; private set; }
-
-        public bool IsFollowRequestSent { get; private set; }
 
         public int FollowersCount { get; private set; }
 
@@ -90,7 +89,6 @@ namespace Twichirp.Core.App.Model {
 
             SetProperty(this,x => x.CreatedAt,user.CreatedAt);
             SetProperty(this,x => x.FavouritesCount,user.FavouritesCount);
-            SetProperty(this,x => x.IsFollowRequestSent,user.IsFollowRequestSent ?? false);
             SetProperty(this,x => x.FollowersCount,user.FollowersCount);
             SetProperty(this,x => x.FriendsCount,user.FriendsCount);
             SetProperty(this,x => x.ListedCount,user.ListedCount ?? 0);

@@ -43,7 +43,7 @@ namespace Twichirp.Android.App.ViewController {
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
             var loadingText = ViewModel.IsLoading
-                .Select(x => x == true ? Android.Resource.String.Loading : Android.Resource.String.LoadingLoad)
+                .Select(x => x == true ? Resource.String.Loading : Resource.String.LoadingLoad)
                 .Select(x => View.ApplicationContext.GetString(x))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);

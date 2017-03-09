@@ -23,7 +23,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Twichirp.Core.App.Setting {
+
     public abstract class BaseSetting : INotifyPropertyChanged {
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private string prefix;

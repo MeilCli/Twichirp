@@ -27,13 +27,15 @@ using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Core.App.Model;
 using Twichirp.Core.Constant;
+using Twichirp.Core.DataObjects;
 using Twichirp.Core.Model;
+using CUser = CoreTweet.User;
 
 namespace Twichirp.Core.App.ViewModel {
 
     public class UserViewModel : BaseViewModel {
 
-        public Account Account { get; }
+        public ImmutableAccount Account { get; }
         private UserModel userModel;
 
         public ReactiveProperty<string> IconUrl { get; } = new ReactiveProperty<string>();
@@ -45,9 +47,9 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveProperty<string> Location { get; } = new ReactiveProperty<string>();
         public ReactiveProperty<ISpannableString> Url { get; } = new ReactiveProperty<ISpannableString>();
 
-        public UserViewModel(ITwichirpApplication application,User user,Account account) : this(application,new UserModel(application,user),account) { }
+        public UserViewModel(ITwichirpApplication application,CUser user,ImmutableAccount account) : this(application,new UserModel(application,user),account) { }
 
-        public UserViewModel(ITwichirpApplication application,UserModel userModel,Account account) : base(application) {
+        public UserViewModel(ITwichirpApplication application,UserModel userModel,ImmutableAccount account) : base(application) {
             Account = account;
             this.userModel = userModel;
 

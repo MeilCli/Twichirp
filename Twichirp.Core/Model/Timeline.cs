@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Twichirp.Core.DataObjects;
+using CStatus = CoreTweet.Status;
 
 namespace Twichirp.Core.Model {
     public class Timeline<TResult> {
@@ -30,43 +32,43 @@ namespace Twichirp.Core.Model {
         public const int User = 3;
         public const int Favorite = 4;
 
-        private Func<Account,int,long?,long?,Task<TResult>> load;
+        private Func<ImmutableAccount,int,long?,long?,Task<TResult>> load;
         public int Type { get; }
-        public Account Account { get; }
+        public ImmutableAccount Account { get; }
 
-        public Timeline(Func<Account,int,long?,long?,Task<TResult>> load,int type) {
+        public Timeline(Func<ImmutableAccount,int,long?,long?,Task<TResult>> load,int type) {
             this.load = load;
             this.Type = type;
         }
 
-        public async Task<TResult> Load(Account account,int count,long? sinceId = null,long? maxId = null) => await load(account,count,sinceId,maxId);
+        public async Task<TResult> Load(ImmutableAccount account,int count,long? sinceId = null,long? maxId = null) => await load(account,count,sinceId,maxId);
 
-        public static Timeline<IEnumerable<Status>> HomeTimeline() {
-            Func<Account,int,long?,long?,Task<IEnumerable<Status>>> load = async (account,x,y,z) => {
-                return await account.Token.Statuses.HomeTimelineAsync(count: x,since_id: y,max_id: z,include_entities: true,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+        public static Timeline<IEnumerable<CStatus>> HomeTimeline() {
+            Func<ImmutableAccount,int,long?,long?,Task<IEnumerable<CStatus>>> load = async (account,x,y,z) => {
+                return await account.CoreTweetToken.Statuses.HomeTimelineAsync(count: x,since_id: y,max_id: z,include_entities: true,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
             };
-            return new Timeline<IEnumerable<Status>>(load,Home);
+            return new Timeline<IEnumerable<CStatus>>(load,Home);
         }
 
-        public static Timeline<IEnumerable<Status>> MentionTimeline() {
-            Func<Account,int,long?,long?,Task<IEnumerable<Status>>> load = async (account,x,y,z) => {
-                return await account.Token.Statuses.MentionsTimelineAsync(count: x,since_id: y,max_id: z,include_entities: true,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+        public static Timeline<IEnumerable<CStatus>> MentionTimeline() {
+            Func<ImmutableAccount,int,long?,long?,Task<IEnumerable<CStatus>>> load = async (account,x,y,z) => {
+                return await account.CoreTweetToken.Statuses.MentionsTimelineAsync(count: x,since_id: y,max_id: z,include_entities: true,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
             };
-            return new Timeline<IEnumerable<Status>>(load,Mention);
+            return new Timeline<IEnumerable<CStatus>>(load,Mention);
         }
 
-        public static Timeline<IEnumerable<Status>> UserTimeline(long userId) {
-            Func<Account,int,long?,long?,Task<IEnumerable<Status>>> load = async (account,x,y,z) => {
-                return await account.Token.Statuses.UserTimelineAsync(count: x,since_id: y,max_id: z,user_id: userId,include_rts: true,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+        public static Timeline<IEnumerable<CStatus>> UserTimeline(long userId) {
+            Func<ImmutableAccount,int,long?,long?,Task<IEnumerable<CStatus>>> load = async (account,x,y,z) => {
+                return await account.CoreTweetToken.Statuses.UserTimelineAsync(count: x,since_id: y,max_id: z,user_id: userId,include_rts: true,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
             };
-            return new Timeline<IEnumerable<Status>>(load,Mention);
+            return new Timeline<IEnumerable<CStatus>>(load,Mention);
         }
 
-        public static Timeline<IEnumerable<Status>> FavoriteTimeline(long userId) {
-            Func<Account,int,long?,long?,Task<IEnumerable<Status>>> load = async (account,x,y,z) => {
-                return await account.Token.Favorites.ListAsync(count: x,since_id: y,max_id: z,id: userId,include_entities: true,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
+        public static Timeline<IEnumerable<CStatus>> FavoriteTimeline(long userId) {
+            Func<ImmutableAccount,int,long?,long?,Task<IEnumerable<CStatus>>> load = async (account,x,y,z) => {
+                return await account.CoreTweetToken.Favorites.ListAsync(count: x,since_id: y,max_id: z,id: userId,include_entities: true,include_ext_alt_text: true,tweet_mode: TweetMode.extended);
             };
-            return new Timeline<IEnumerable<Status>>(load,Mention);
+            return new Timeline<IEnumerable<CStatus>>(load,Mention);
         }
     }
 }

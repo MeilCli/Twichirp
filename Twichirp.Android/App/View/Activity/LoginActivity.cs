@@ -33,6 +33,7 @@ using SToolbar = Android.Support.V7.Widget.Toolbar;
 #pragma warning disable 0414
 
 namespace Twichirp.Android.App.View.Activity {
+
     [Activity]
     public class LoginActivity : BaseActivity,ILoginView {
 
@@ -46,14 +47,14 @@ namespace Twichirp.Android.App.View.Activity {
         public EditText Pin { get; private set; }
 
         protected override void OnViewCreate(Bundle savedInstanceState) {
-            loginViewModel = new LoginViewModel(TwichirpApplication);
+            loginViewModel = TwichirpApplication.Resolve<LoginViewModel>();
             loginViewController = new LoginViewController(this,loginViewModel);
-            base.SetContentView(Android.Resource.Layout.LoginActivity);
-            var toolbar = FindViewById<SToolbar>(Android.Resource.Id.Toolbar);
+            base.SetContentView(Resource.Layout.LoginActivity);
+            var toolbar = FindViewById<SToolbar>(Resource.Id.Toolbar);
             SetSupportActionBar(toolbar);
-            GoToWeb = FindViewById<Button>(Android.Resource.Id.GoToWeb);
-            Login = FindViewById<Button>(Android.Resource.Id.Login);
-            Pin = FindViewById<EditText>(Android.Resource.Id.Pin);
+            GoToWeb = FindViewById<Button>(Resource.Id.GoToWeb);
+            Login = FindViewById<Button>(Resource.Id.Login);
+            Pin = FindViewById<EditText>(Resource.Id.Pin);
         }
 
         protected override void OnDestroy() {

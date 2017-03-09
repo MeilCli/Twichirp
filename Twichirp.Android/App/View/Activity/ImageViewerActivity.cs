@@ -30,10 +30,13 @@ using Newtonsoft.Json;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.ViewController;
 using Twichirp.Android.App.ViewModel;
+using Twichirp.Core.DataObjects;
+using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Model;
 using AActivity = Android.App.Activity;
 using AView = Android.Views.View;
 using CStatus = CoreTweet.Status;
+using Twichirp.Core.App.Setting;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414
@@ -47,7 +50,7 @@ namespace Twichirp.Android.App.View.Activity {
         private const string extraStatus = "extra_status";
         private const string extraAccount = "extra_account";
 
-        public static void Start(AActivity activity,Account account,string statusJson,ImageView imageView,int defaultPage) {
+        public static void Start(AActivity activity,ImmutableAccount account,string statusJson,ImageView imageView,int defaultPage) {
             var intent = new Intent(activity,typeof(ImageViewerActivity));
             intent.PutExtra(extraDefaultPage,defaultPage);
             intent.PutExtra(extraStatus,statusJson);
@@ -63,16 +66,18 @@ namespace Twichirp.Android.App.View.Activity {
         public SlideLayout SlideLayout { get; private set; }
 
         protected override void OnViewCreate(Bundle savedInstanceState) {
-            Account account = TwichirpApplication.AccountManager[Intent.GetLongExtra(extraAccount,TwichirpApplication.SettingManager.Accounts.DefaultAccountId)];
+            var accountRepository = TwichirpApplication.Resolve<IAccountRepository>();
+            var settingManager = TwichirpApplication.Resolve<SettingManager>();
+            ImmutableAccount account = accountRepository[Intent.GetLongExtra(extraAccount,settingManager.Accounts.DefaultAccountId)];
             var status = JsonConvert.DeserializeObject<CStatus>(Intent.GetStringExtra(extraStatus));
             int defaultPage = Intent.GetIntExtra(extraDefaultPage,0);
             imageViewerViewModel = ImageViewerViewModel.Resolve(TwichirpApplication.UnityContainer,status,account,defaultPage);
             imageViewerViewControll = new ImageViewerViewController(this,imageViewerViewModel);
 
-            SetContentView(Android.Resource.Layout.ImageViewerActivity);
+            SetContentView(Resource.Layout.ImageViewerActivity);
 
-            PageLayout = FindViewById<PageLayout>(Android.Resource.Id.PageLayout);
-            SlideLayout=FindViewById<SlideLayout>(Android.Resource.Id.SlideLayout);
+            PageLayout = FindViewById<PageLayout>(Resource.Id.PageLayout);
+            SlideLayout=FindViewById<SlideLayout>(Resource.Id.SlideLayout);
         }
 
         protected override void OnDestroy() {

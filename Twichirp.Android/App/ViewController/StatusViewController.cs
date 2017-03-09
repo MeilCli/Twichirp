@@ -144,24 +144,24 @@ namespace Twichirp.Android.App.ViewController {
         }
 
         private void setRetweetIcon(bool isRetweeted) {
-            var drawable = DrawableCompat.Wrap(ResourcesCompat.GetDrawable(View.ApplicationContext.Resources,Android.Resource.Drawable.IconRepeatGrey36dp,null));
+            var drawable = DrawableCompat.Wrap(ResourcesCompat.GetDrawable(View.ApplicationContext.Resources,Resource.Drawable.IconRepeatGrey36dp,null));
             View.RetweetIcon.SetImageDrawable(drawable);
             if(ViewModel.IsProtected.Value) {
-                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Android.Resource.Color.Grey300,null));
+                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Resource.Color.Grey300,null));
             } else if(isRetweeted) {
-                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Android.Resource.Color.Retweet,null));
+                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Resource.Color.Retweet,null));
             } else {
-                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Android.Resource.Color.Grey600,null));
+                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Resource.Color.Grey600,null));
             }
         }
 
         private void setFavoriteIcon(bool isFavorited) {
-            var drawable = DrawableCompat.Wrap(ResourcesCompat.GetDrawable(View.ApplicationContext.Resources,Android.Resource.Drawable.IconStarGrey36dp,null));
+            var drawable = DrawableCompat.Wrap(ResourcesCompat.GetDrawable(View.ApplicationContext.Resources,Resource.Drawable.IconStarGrey36dp,null));
             View.FavoriteIcon.SetImageDrawable(drawable);
             if(isFavorited) {
-                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Android.Resource.Color.Favorite,null));
+                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Resource.Color.Favorite,null));
             } else {
-                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Android.Resource.Color.Grey600,null));
+                DrawableCompat.SetTint(drawable,ResourcesCompat.GetColor(View.ApplicationContext.Resources,Resource.Color.Grey600,null));
             }
         }
 

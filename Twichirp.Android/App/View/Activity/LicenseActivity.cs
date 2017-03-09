@@ -39,12 +39,12 @@ namespace Twichirp.Android.App.View.Activity {
 
         protected override void OnCreate(Bundle savedInstanceState) {
             base.OnCreate(savedInstanceState);
-            base.SetContentView(Android.Resource.Layout.LicenseActivity);
-            base.SetSupportActionBar(FindViewById<SToolbar>(Android.Resource.Id.Toolbar));
+            base.SetContentView(Resource.Layout.LicenseActivity);
+            base.SetSupportActionBar(FindViewById<SToolbar>(Resource.Id.Toolbar));
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetDisplayShowHomeEnabled(true);
 
-            web = FindViewById<WebView>(Android.Resource.Id.Web);
+            web = FindViewById<WebView>(Resource.Id.Web);
             
             var license = LibraryConstant.Libraries.Concat(AndroidLibraryConstant.Libraries).OrderBy(x => x.LibraryName).ToList();
             var liceseText = license.Select(x => $"<ul><li>{x.LibraryName}</li></ul><pre>{x.ToNoticeText()}</pre>");

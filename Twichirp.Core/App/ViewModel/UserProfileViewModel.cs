@@ -28,8 +28,10 @@ using Reactive.Bindings.Extensions;
 using Twichirp.Core.App.Event;
 using Twichirp.Core.App.Model;
 using Twichirp.Core.App.Service;
+using Twichirp.Core.DataObjects;
 using Twichirp.Core.Model;
 using Twichirp.Core.Resources;
+using CUser = CoreTweet.User;
 
 namespace Twichirp.Core.App.ViewModel {
 
@@ -47,9 +49,9 @@ namespace Twichirp.Core.App.ViewModel {
             unityContainer.RegisterType<UserProfileViewModel>();
         }
 
-        public static UserProfileViewModel Resolve(UnityContainer unityContainer, Account account, long userId, User user = null) {
+        public static UserProfileViewModel Resolve(UnityContainer unityContainer,ImmutableAccount account,long userId,CUser user = null) {
             return unityContainer.Resolve<UserProfileViewModel>(
-                new ParameterOverride(constructorAccount, account),
+                new ParameterOverride(constructorAccount,account),
                 new ParameterOverride(constructorUserId,userId),
                 new ParameterOverride(constructorUser,user)
             );
@@ -61,7 +63,7 @@ namespace Twichirp.Core.App.ViewModel {
         private const int friendshipRequestingFollow = 2;
         private const int frindshipBlocking = 3;
 
-        public Account Account { get; }
+        public ImmutableAccount Account { get; }
         public long UserId { get; }
         public bool IsOwnerAccount => userProfileModel.IsOwnerUser;
         private int friendshipType = friendshipUnFollowing;
@@ -84,7 +86,7 @@ namespace Twichirp.Core.App.ViewModel {
 
         public AsyncReactiveCommand FriendshipCommand { get; }
 
-        public UserProfileViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,Account account,long userId,User user = null) : base(application) {
+        public UserProfileViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,ImmutableAccount account,long userId,CUser user = null) : base(application) {
             Account = account;
             UserId = userId;
             userProfileModel = new UserProfileModel(application,twitterEventService,account,userId,user);

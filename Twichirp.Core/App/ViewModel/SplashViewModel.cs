@@ -23,8 +23,11 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.App.Model;
+using Twichirp.Core.DataRepositories;
+using Twichirp.Core.App.Setting;
 
 namespace Twichirp.Core.App.ViewModel {
+
     public class SplashViewModel : BaseViewModel {
 
         private SplashModel splashModel;
@@ -35,8 +38,8 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveCommand StartMainPageCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ApplicationInitCommand { get; } = new ReactiveCommand();
 
-        public SplashViewModel(ITwichirpApplication application) : base(application) {
-            this.splashModel = new SplashModel(application);
+        public SplashViewModel(ITwichirpApplication application,IAccountRepository accountRepository,SettingManager settingManager) : base(application) {
+            this.splashModel = new SplashModel(application,accountRepository,settingManager);
             IsRunning = splashModel.ObserveProperty(x => x.IsRunning).ToReadOnlyReactiveProperty().AddTo(Disposable);
             IsAccountExist = splashModel.ObserveProperty(x => x.IsAccountExist).ToReadOnlyReactiveProperty().AddTo(Disposable);
             Message = splashModel.ObserveProperty(x => x.Message).ToReadOnlyReactiveProperty().AddTo(Disposable);

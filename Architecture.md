@@ -94,3 +94,20 @@ Viewの推移などの動作において、ViewModelを介さずに行えるも�
 - Views
 
 View-ViewModel間はDIによって接続します
+
+## 改良中のフォルダ・ファイル構造
+### Core
+- [Other]
+- Constants
+  - 定数またはCoreライブラリで値を一定に保つオブジェクトを入れる場所
+- DataObjects
+  - データベースに保存するデータを表すオブジェクト
+  - Interfaces
+    - DataObjectsのオブジェクト(Muttable-Immutable)の共通化のためのインターフェース群
+    - DataObjects名前空間にそのままインターフェースを置いてもよかったがIListインターフェースが競合するため隔離しています
+  - Migrations
+    - DataObjectに変更があった際のデータベースマイグレーション
+- DataRepositories
+  - データベースからデータ(DataObjectsのオブジェクト)を取得・操作するリポジトリ
+- UnityExtensions
+  - UnityContainerに対する各オブジェクトを登録をする動作をまとめる拡張クラス群

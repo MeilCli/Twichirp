@@ -1,209 +1,297 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-    <resheader name="resmimetype">
-        <value>text/microsoft-resx</value>
-    </resheader>
-    <resheader name="version">
-        <value>2.0</value>
-    </resheader>
-    <resheader name="reader">
-        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-    <resheader name="writer">
-        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    </resheader>
-	
-    <data name="SplashAccountLoading" xml:space="preserve">
-        <value>アカウント情報を読み込み中</value>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
     </data>
-    <data name="SplashConsumerLoading" xml:space="preserve">
-        <value>コンシュマー情報を読み込み中</value>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
     </data>
-    <data name="SplashAccountDownLoading" xml:space="preserve">
-        <value>アカウント情報を取得中</value>
-    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-    <data name="LoginLoginButton" xml:space="preserve">
-        <value>ログイン</value>
-    </data>
-    <data name="LoginPinCode" xml:space="preserve">
-        <value>PINコード</value>
-    </data>
-    <data name="LoginAuthenticate" xml:space="preserve">
-        <value>認証</value>
-    </data>
-    <data name="LoginDescription" xml:space="preserve">
-        <value>このアプリを利用するにはTwitterのサイトで認証する必要があります。\n認証後に表示されるPINコードを画面下部に入力してください。</value>
-    </data>
-
-    <data name="MainAddAccount" xml:space="preserve">
-        <value>アカウントを追加</value>
-    </data> 
-
-    <data name="Setting" xml:space="preserve">
-        <value>設定</value>
-    </data> 
-    <data name="SettingGeneral" xml:space="preserve">
-        <value>一般</value>
-    </data> 
-    <data name="SettingApplication" xml:space="preserve">
-        <value>アプリケーション</value>
-    </data> 
-    <data name="SettingOther" xml:space="preserve">
-        <value>その他</value>
-    </data> 
-    <data name="SettingCleanUp" xml:space="preserve">
-        <value>クリーン起動</value>
-    </data> 
-    <data name="SettingCleanUpSummary" xml:space="preserve">
-        <value>オフにすると起動が早くなるかもしれません</value>
-    </data> 
-    <data name="SettingUseAccount" xml:space="preserve">
-        <value>使用中アカウント</value>
-    </data> 
-    <data name="SettingAccount" xml:space="preserve">
-        <value>アカウント</value>
-    </data> 
-    <data name="SettingTimeline" xml:space="preserve">
-        <value>タイムライン</value>
-    </data> 
-    <data name="SettingTimelineDownloadCount" xml:space="preserve">
-        <value>取得数</value>
-    </data> 
-    <data name="SettingTimelineOwnedNumber" xml:space="preserve">
-        <value>保持数</value>
-    </data>	
-    
-    <data name="License" xml:space="preserve">
-        <value>ライセンス</value>
-    </data> 
-    
-    <data name="OpenSource" xml:space="preserve">
-        <value>オープンソース</value>
-    </data> 
-    <data name="OpenSourceLicense" xml:space="preserve">
-        <value>ライセンス</value>
-    </data> 
-    <data name="OpenSourceCopying" xml:space="preserve">
-        <value>Copying</value>
-    </data> 
-    <data name="OpenSourceCopyingLesser" xml:space="preserve">
-        <value>Copying.Lesser</value>
-    </data> 
-    <data name="OpenSourceCode" xml:space="preserve">
-        <value>ソースコード</value>
-    </data> 
-    
-    <data name="Loading" xml:space="preserve">
-        <value>読み込み中</value>
-    </data> 
-    <data name="LoadingLoad" xml:space="preserve">
-        <value>読み込む</value>
-    </data>     
-    
-    <data name="StatusRetweetingUser" xml:space="preserve">
-        <value>{0} がリツイート</value>
-    </data>
-    <data name="StatusReplyToUser" xml:space="preserve">
-        <value>{0} への返信</value>
-    </data>
-    
-    <data name="TimeSecoundAgo" xml:space="preserve">
-        <value>{0}秒前</value>
-    </data>
-    <data name="TimeSecoundsAgo" xml:space="preserve">
-        <value>{0}秒前</value>
-    </data> 
-    <data name="TimeMinuteAgo" xml:space="preserve">
-        <value>{0}分前</value>
-    </data> 
-    <data name="TimeMinutesAgo" xml:space="preserve">
-        <value>{0}分前</value>
-    </data> 
-    <data name="TimeHourAgo" xml:space="preserve">
-        <value>{0}時間前</value>
-    </data> 
-    <data name="TimeHoursAgo" xml:space="preserve">
-        <value>{0}時間前</value>
-    </data> 
-    <data name="TimeDayAgo" xml:space="preserve">
-        <value>{0}日前</value>
-    </data> 
-    <data name="TimeDaysAgo" xml:space="preserve">
-        <value>{0}日前</value>
-    </data> 
-
-    <data name="TabHome" xml:space="preserve">
-        <value>ホーム</value>
-    </data> 
-    <data name="TabMention" xml:space="preserve">
-        <value>メンション</value>
-    </data> 
-    <data name="TabDM" xml:space="preserve">
-        <value>メッセージ</value>
-    </data> 
-    <data name="TabUser" xml:space="preserve">
-        <value>ユーザー</value>
-    </data> 
-    <data name="TabTweet" xml:space="preserve">
-        <value>ツイート</value>
-    </data> 
-    <data name="TabFavorite" xml:space="preserve">
-        <value>お気に入り</value>
-    </data> 
-    <data name="TabFollowing" xml:space="preserve">
-        <value>フォロー</value>
-    </data> 
-    <data name="TabFollower" xml:space="preserve">
-        <value>フォロワー</value>
-    </data>     
-    
-    <data name="UserFollowedBy" xml:space="preserve">
-        <value>フォローされています</value>
-    </data>
-    <data name="UserFollowingReceived" xml:space="preserve">
-        <value>フォローリクエストを受けています</value>
-    </data> 
-    <data name="UserBlockedBy" xml:space="preserve">
-        <value>ブロックされています</value>
-    </data> 
-    <data name="UserFollowing" xml:space="preserve">
-        <value>フォロー中</value>
-    </data> 
-    <data name="UserFollowingRequested" xml:space="preserve">
-        <value>フォローリクエスト中</value>
-    </data> 
-    <data name="UserBlocking" xml:space="preserve">
-        <value>ブロック中</value>
-    </data> 
-    <data name="UserFollow" xml:space="preserve">
-        <value>フォロー</value>
-    </data> 
-    <data name="UserMuting" xml:space="preserve">
-        <value>ミュートしています</value>
-    </data> 
-    <data name="UserMarkedSpam" xml:space="preserve">
-        <value>スパム報告をしています</value>
-    </data> 
-    <data name="UserDoFollow" xml:space="preserve">
-        <value>フォローする</value>
-    </data> 
-    <data name="UserDoUnfollow" xml:space="preserve">
-        <value>フォロー解除する</value>
-    </data> 
-    <data name="UserDoBlock" xml:space="preserve">
-        <value>ブロックする</value>
-    </data> 
-    <data name="UserDoUnblock" xml:space="preserve">
-        <value>ブロック解除する</value>
-    </data> 
-    <data name="UserDoMute" xml:space="preserve">
-        <value>ミュートする</value>
-    </data> 
-    <data name="UserDoUnmute" xml:space="preserve">
-        <value>ミュート解除する</value>
-    </data> 
-    <data name="UserDoSpam" xml:space="preserve">
-        <value>スパム報告する</value>
-    </data> 
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SplashAccountDownLoading" xml:space="preserve">
+    <value>アカウント情報を取得中</value>
+  </data>
+  <data name="LoginLoginButton" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
+  <data name="LoginPinCode" xml:space="preserve">
+    <value>PINコード</value>
+  </data>
+  <data name="LoginAuthenticate" xml:space="preserve">
+    <value>認証</value>
+  </data>
+  <data name="LoginDescription" xml:space="preserve">
+    <value>このアプリを利用するにはTwitterのサイトで認証する必要があります。\n認証後に表示されるPINコードを画面下部に入力してください。</value>
+  </data>
+  <data name="MainAddAccount" xml:space="preserve">
+    <value>アカウントを追加</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="SettingGeneral" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="SettingApplication" xml:space="preserve">
+    <value>アプリケーション</value>
+  </data>
+  <data name="SettingOther" xml:space="preserve">
+    <value>その他</value>
+  </data>
+  <data name="SettingCleanUp" xml:space="preserve">
+    <value>クリーン起動</value>
+  </data>
+  <data name="SettingCleanUpSummary" xml:space="preserve">
+    <value>オフにすると起動が早くなるかもしれません</value>
+  </data>
+  <data name="SettingUseAccount" xml:space="preserve">
+    <value>使用中アカウント</value>
+  </data>
+  <data name="SettingAccount" xml:space="preserve">
+    <value>アカウント</value>
+  </data>
+  <data name="SettingTimeline" xml:space="preserve">
+    <value>タイムライン</value>
+  </data>
+  <data name="SettingTimelineDownloadCount" xml:space="preserve">
+    <value>取得数</value>
+  </data>
+  <data name="SettingTimelineOwnedNumber" xml:space="preserve">
+    <value>保持数</value>
+  </data>
+  <data name="License" xml:space="preserve">
+    <value>ライセンス</value>
+  </data>
+  <data name="OpenSource" xml:space="preserve">
+    <value>オープンソース</value>
+  </data>
+  <data name="OpenSourceLicense" xml:space="preserve">
+    <value>ライセンス</value>
+  </data>
+  <data name="OpenSourceCopying" xml:space="preserve">
+    <value>Copying</value>
+  </data>
+  <data name="OpenSourceCopyingLesser" xml:space="preserve">
+    <value>Copying.Lesser</value>
+  </data>
+  <data name="OpenSourceCode" xml:space="preserve">
+    <value>ソースコード</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>読み込み中</value>
+  </data>
+  <data name="LoadingLoad" xml:space="preserve">
+    <value>読み込む</value>
+  </data>
+  <data name="StatusRetweetingUser" xml:space="preserve">
+    <value>{0} がリツイート</value>
+  </data>
+  <data name="StatusReplyToUser" xml:space="preserve">
+    <value>{0} への返信</value>
+  </data>
+  <data name="TimeSecoundAgo" xml:space="preserve">
+    <value>{0}秒前</value>
+  </data>
+  <data name="TimeSecoundsAgo" xml:space="preserve">
+    <value>{0}秒前</value>
+  </data>
+  <data name="TimeMinuteAgo" xml:space="preserve">
+    <value>{0}分前</value>
+  </data>
+  <data name="TimeMinutesAgo" xml:space="preserve">
+    <value>{0}分前</value>
+  </data>
+  <data name="TimeHourAgo" xml:space="preserve">
+    <value>{0}時間前</value>
+  </data>
+  <data name="TimeHoursAgo" xml:space="preserve">
+    <value>{0}時間前</value>
+  </data>
+  <data name="TimeDayAgo" xml:space="preserve">
+    <value>{0}日前</value>
+  </data>
+  <data name="TimeDaysAgo" xml:space="preserve">
+    <value>{0}日前</value>
+  </data>
+  <data name="TabHome" xml:space="preserve">
+    <value>ホーム</value>
+  </data>
+  <data name="TabMention" xml:space="preserve">
+    <value>メンション</value>
+  </data>
+  <data name="TabDM" xml:space="preserve">
+    <value>メッセージ</value>
+  </data>
+  <data name="TabUser" xml:space="preserve">
+    <value>ユーザー</value>
+  </data>
+  <data name="TabTweet" xml:space="preserve">
+    <value>ツイート</value>
+  </data>
+  <data name="TabFavorite" xml:space="preserve">
+    <value>お気に入り</value>
+  </data>
+  <data name="TabFollowing" xml:space="preserve">
+    <value>フォロー</value>
+  </data>
+  <data name="TabFollower" xml:space="preserve">
+    <value>フォロワー</value>
+  </data>
+  <data name="UserFollowedBy" xml:space="preserve">
+    <value>フォローされています</value>
+  </data>
+  <data name="UserFollowingReceived" xml:space="preserve">
+    <value>フォローリクエストを受けています</value>
+  </data>
+  <data name="UserBlockedBy" xml:space="preserve">
+    <value>ブロックされています</value>
+  </data>
+  <data name="UserFollowing" xml:space="preserve">
+    <value>フォロー中</value>
+  </data>
+  <data name="UserFollowingRequested" xml:space="preserve">
+    <value>フォローリクエスト中</value>
+  </data>
+  <data name="UserBlocking" xml:space="preserve">
+    <value>ブロック中</value>
+  </data>
+  <data name="UserFollow" xml:space="preserve">
+    <value>フォロー</value>
+  </data>
+  <data name="UserMuting" xml:space="preserve">
+    <value>ミュートしています</value>
+  </data>
+  <data name="UserMarkedSpam" xml:space="preserve">
+    <value>スパム報告をしています</value>
+  </data>
+  <data name="UserDoFollow" xml:space="preserve">
+    <value>フォローする</value>
+  </data>
+  <data name="UserDoUnfollow" xml:space="preserve">
+    <value>フォロー解除する</value>
+  </data>
+  <data name="UserDoBlock" xml:space="preserve">
+    <value>ブロックする</value>
+  </data>
+  <data name="UserDoUnblock" xml:space="preserve">
+    <value>ブロック解除する</value>
+  </data>
+  <data name="UserDoMute" xml:space="preserve">
+    <value>ミュートする</value>
+  </data>
+  <data name="UserDoUnmute" xml:space="preserve">
+    <value>ミュート解除する</value>
+  </data>
+  <data name="UserDoSpam" xml:space="preserve">
+    <value>スパム報告する</value>
+  </data>
 </root>

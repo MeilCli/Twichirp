@@ -36,6 +36,7 @@ using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.View;
 using Twichirp.Android.App.View.Holder;
 using Twichirp.Core.App.ViewModel;
+using Twichirp.Core.DataObjects;
 using Twichirp.Core.Model;
 using static Android.Support.V7.Widget.RecyclerView;
 using CStatus = CoreTweet.Status;
@@ -147,7 +148,7 @@ namespace Twichirp.Android.App.ViewController {
             }
         }
 
-        private Func<Account,int,long?,long?,Task<IEnumerable<CStatus>>> makeTimelineDelegate(List<string> statuses) {
+        private Func<ImmutableAccount,int,long?,long?,Task<IEnumerable<CStatus>>> makeTimelineDelegate(List<string> statuses) {
             return async (account,count,sinceId,maxId) => {
                 return await Task.Run<IEnumerable<CStatus>>(() => {
                     var temp = new List<CStatus>();

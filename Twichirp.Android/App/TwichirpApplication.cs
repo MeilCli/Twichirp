@@ -34,51 +34,55 @@ using Microsoft.Practices.Unity;
 using Twichirp.Core.App.Service;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Android.App.ViewModel;
+using Twichirp.Core.UnityExtensions;
+using Twichirp.Core.DataObjects;
+using Twichirp.Core.Constants;
 
 namespace Twichirp.Android.App {
 
-    [Application(Icon = "@drawable/icon", Label = "Twichirp", Theme = "@style/AppTheme", LargeHeap = true)]
+    [Application(Icon = "@drawable/icon",Label = "Twichirp",Theme = "@style/AppTheme",LargeHeap = true)]
     public class TwichirpApplication : Application, ITwichirpApplication {
-        
-        public UnityContainer UnityContainer { get; private set;}
-      
-        public SettingManager SettingManager { get; private set; }
+
+        public UnityContainer UnityContainer { get; private set; }
 
         public FileManager FileManager { get; private set; }
 
         public DatabaseManager DatabaseManager { get; private set; }
 
-        public AccountManager AccountManager { get; private set; }
-
-        public ConsumerManager ConsumerManager { get; private set; }
-
         public UserContainerManager UserContainerManager { get; private set; }
 
-        public TwichirpApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer) {
+        public TwichirpApplication(IntPtr javaReference,JniHandleOwnership transfer) : base(javaReference,transfer) {
         }
 
         public override void OnCreate() {
             base.OnCreate();
             UnityContainer = new UnityContainer();
             initUnity();
-            SettingManager = new SettingManager(this);
-            SettingManager.Migrate();
+            var settingManager = Resolve<SettingManager>();
+            settingManager.Migrate();
             FileManager = new FileManager(new FileSystem());
-            DatabaseManager = new DatabaseManager(this, new DatabaseSystem());
-            AccountManager = new AccountManager(this);
-            ConsumerManager = new ConsumerManager(this, ConsumerConstant.TwichirpForAndroid);
+            DatabaseManager = new DatabaseManager(this,new DatabaseSystem());
             UserContainerManager = new UserContainerManager(this);
         }
 
         private void initUnity() {
             UnityContainer.RegisterInstance<ITwichirpApplication>(this);
-            UnityContainer.RegisterType<ITwitterEventService, TwitterEventService>(new ContainerControlledLifetimeManager());
+            UnityContainer.RegisterInstance(ClientKeyConstant.TwichirpForAndroid);
+            UnityContainer.RegisterType<ITwitterEventService,TwitterEventService>(new ContainerControlledLifetimeManager());
 
-            StatusTimelineViewModel.Register(UnityContainer);
+            UnityContainer.AddNewExtension<ServiceRegister>();
+            UnityContainer.AddNewExtension<DataRepositoryRegister>();
+            UnityContainer.AddNewExtension<SettingRegister>();
+            UnityContainer.AddNewExtension<ViewModelRegister>();
+
             UserProfileViewModel.Register(UnityContainer);
             StatusViewModel.Register(UnityContainer);
             ImageViewerViewModel.Register(UnityContainer);
             MainViewModel.Register(UnityContainer);
+        }
+
+        public T Resolve<T>() {
+            return UnityContainer.Resolve<T>();
         }
 
         //気休め

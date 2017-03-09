@@ -38,7 +38,7 @@ namespace Twichirp.Android.App.View.Holder {
     public class StatusHolder : BaseHolder<BaseViewModel>, IStatusView {
 
         public static StatusHolder Make(IView view) {
-            var itemView = InflateView(view, Android.Resource.Layout.StatusHolder);
+            var itemView = InflateView(view, Resource.Layout.StatusHolder);
             var holder = new StatusHolder(itemView, view);
             holder.OnCreatedView();
             return holder;
@@ -160,22 +160,22 @@ namespace Twichirp.Android.App.View.Holder {
 
         public override void OnCreatedView() {
             ClickableView = ItemView;
-            Text = ItemView.FindViewById<TextView>(Android.Resource.Id.Text);
-            RetweetingUser = ItemView.FindViewById<TextView>(Android.Resource.Id.RetweeingUser);
-            ReplyToUser = ItemView.FindViewById<TextView>(Android.Resource.Id.ReplyToUser);
-            Name = ItemView.FindViewById<TextView>(Android.Resource.Id.Name);
-            Icon = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.Icon);
-            LockIcon = ItemView.FindViewById<ImageView>(Android.Resource.Id.LockIcon);
-            VerifyIcon = ItemView.FindViewById<ImageView>(Android.Resource.Id.VerifyIcon);
-            DateTime = ItemView.FindViewById<TextView>(Android.Resource.Id.DateTime);
-            ReplyIconClickable = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.ReplyIconClickable);
-            ReplyIcon = ItemView.FindViewById<ImageView>(Android.Resource.Id.ReplyIcon);
-            RetweetIconClickable = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.RetweetIconClickable);
-            RetweetIcon = ItemView.FindViewById<ImageView>(Android.Resource.Id.RetweetIcon);
-            RetweetCount = ItemView.FindViewById<TextView>(Android.Resource.Id.RetweetCount);
-            FavoriteIconClickable = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.FavoriteIconClickable);
-            FavoriteIcon = ItemView.FindViewById<ImageView>(Android.Resource.Id.FavoriteIcon);
-            FavoriteCount = ItemView.FindViewById<TextView>(Android.Resource.Id.FavoriteCount);
+            Text = ItemView.FindViewById<TextView>(Resource.Id.Text);
+            RetweetingUser = ItemView.FindViewById<TextView>(Resource.Id.RetweeingUser);
+            ReplyToUser = ItemView.FindViewById<TextView>(Resource.Id.ReplyToUser);
+            Name = ItemView.FindViewById<TextView>(Resource.Id.Name);
+            Icon = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Icon);
+            LockIcon = ItemView.FindViewById<ImageView>(Resource.Id.LockIcon);
+            VerifyIcon = ItemView.FindViewById<ImageView>(Resource.Id.VerifyIcon);
+            DateTime = ItemView.FindViewById<TextView>(Resource.Id.DateTime);
+            ReplyIconClickable = ItemView.FindViewById<FrameLayout>(Resource.Id.ReplyIconClickable);
+            ReplyIcon = ItemView.FindViewById<ImageView>(Resource.Id.ReplyIcon);
+            RetweetIconClickable = ItemView.FindViewById<FrameLayout>(Resource.Id.RetweetIconClickable);
+            RetweetIcon = ItemView.FindViewById<ImageView>(Resource.Id.RetweetIcon);
+            RetweetCount = ItemView.FindViewById<TextView>(Resource.Id.RetweetCount);
+            FavoriteIconClickable = ItemView.FindViewById<FrameLayout>(Resource.Id.FavoriteIconClickable);
+            FavoriteIcon = ItemView.FindViewById<ImageView>(Resource.Id.FavoriteIcon);
+            FavoriteCount = ItemView.FindViewById<TextView>(Resource.Id.FavoriteCount);
         }
 
         public override void OnPreBind(BaseViewModel item,int position) {
@@ -186,7 +186,7 @@ namespace Twichirp.Android.App.View.Holder {
     public class StatusMediaHolder : StatusHolder {
 
         public new static StatusMediaHolder Make(IView view) {
-            var itemView = InflateView(view,Android.Resource.Layout.StatusMediaHolder);
+            var itemView = InflateView(view,Resource.Layout.StatusMediaHolder);
             var holder = new StatusMediaHolder(itemView, view);
             holder.OnCreatedView();
             return holder;
@@ -198,22 +198,22 @@ namespace Twichirp.Android.App.View.Holder {
 
         public override void OnCreatedView() {
             base.OnCreatedView();
-            MediaParent2 = ItemView.FindViewById<LinearLayout>(Android.Resource.Id.MediaParent2);
-            MediaFrame1 = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.MediaFrame1);
-            MediaFrame2 = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.MediaFrame2);
-            MediaFrame3 = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.MediaFrame3);
-            MediaFrame4 = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.MediaFrame4);
-            Media1 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.Media1);
-            Media2 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.Media2);
-            Media3 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.Media3);
-            Media4 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.Media4);
+            MediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.MediaParent2);
+            MediaFrame1 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame1);
+            MediaFrame2 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame2);
+            MediaFrame3 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame3);
+            MediaFrame4 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame4);
+            Media1 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media1);
+            Media2 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media2);
+            Media3 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media3);
+            Media4 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media4);
         }
     }
 
     public class StatusQuotingHolder : StatusHolder {
 
         public new static StatusQuotingHolder Make(IView view) {
-            var itemView = InflateView(view, Android.Resource.Layout.StatusQuotingHolder);
+            var itemView = InflateView(view, Resource.Layout.StatusQuotingHolder);
             var holder = new StatusQuotingHolder(itemView, view);
             holder.OnCreatedView();
             return holder;
@@ -225,16 +225,16 @@ namespace Twichirp.Android.App.View.Holder {
 
         public override void OnCreatedView() {
             base.OnCreatedView();
-            QuotingClickable = ItemView.FindViewById<AView>(Android.Resource.Id.QuotingClickable);
-            QuotingName = ItemView.FindViewById<TextView>(Android.Resource.Id.QuotingName);
-            QuotingText = ItemView.FindViewById<TextView>(Android.Resource.Id.QuotingText);
+            QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
+            QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
+            QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
         }
     }
 
     public class StatusQuotingInnerMediaHolder : StatusHolder {
 
         public new static StatusQuotingInnerMediaHolder Make(IView view) {
-            var itemView = InflateView(view, Android.Resource.Layout.StatusQuotingInnerMediaHolder);
+            var itemView = InflateView(view, Resource.Layout.StatusQuotingInnerMediaHolder);
             var holder = new StatusQuotingInnerMediaHolder(itemView, view);
             holder.OnCreatedView();
             return holder;
@@ -246,22 +246,22 @@ namespace Twichirp.Android.App.View.Holder {
 
         public override void OnCreatedView() {
             base.OnCreatedView();
-            QuotingClickable = ItemView.FindViewById<AView>(Android.Resource.Id.QuotingClickable);
-            QuotingName = ItemView.FindViewById<TextView>(Android.Resource.Id.QuotingName);
-            QuotingText = ItemView.FindViewById<TextView>(Android.Resource.Id.QuotingText);
+            QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
+            QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
+            QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
 
-            QuotingMediaParent2 = ItemView.FindViewById<LinearLayout>(Android.Resource.Id.QuotingMediaParent2);
-            QuotingMedia1 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.QuotingMedia1);
-            QuotingMedia2 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.QuotingMedia2);
-            QuotingMedia3 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.QuotingMedia3);
-            QuotingMedia4 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.QuotingMedia4);
+            QuotingMediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.QuotingMediaParent2);
+            QuotingMedia1 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia1);
+            QuotingMedia2 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia2);
+            QuotingMedia3 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia3);
+            QuotingMedia4 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia4);
         }
     }
 
     public class StatusQuotingOuterMediaHolder : StatusHolder {
 
         public new static StatusQuotingOuterMediaHolder Make(IView view) {
-            var itemView = InflateView(view, Android.Resource.Layout.StatusQuotingOuterMediaHolder);
+            var itemView = InflateView(view, Resource.Layout.StatusQuotingOuterMediaHolder);
             var holder = new StatusQuotingOuterMediaHolder(itemView, view);
             holder.OnCreatedView();
             return holder;
@@ -273,26 +273,26 @@ namespace Twichirp.Android.App.View.Holder {
 
         public override void OnCreatedView() {
             base.OnCreatedView();
-            QuotingClickable = ItemView.FindViewById<AView>(Android.Resource.Id.QuotingClickable);
-            QuotingName = ItemView.FindViewById<TextView>(Android.Resource.Id.QuotingName);
-            QuotingText = ItemView.FindViewById<TextView>(Android.Resource.Id.QuotingText);
+            QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
+            QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
+            QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
 
-            MediaParent2 = ItemView.FindViewById<LinearLayout>(Android.Resource.Id.MediaParent2);
-            MediaFrame1 = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.MediaFrame1);
-            MediaFrame2 = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.MediaFrame2);
-            MediaFrame3 = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.MediaFrame3);
-            MediaFrame4 = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.MediaFrame4);
-            Media1 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.Media1);
-            Media2 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.Media2);
-            Media3 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.Media3);
-            Media4 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.Media4);
+            MediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.MediaParent2);
+            MediaFrame1 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame1);
+            MediaFrame2 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame2);
+            MediaFrame3 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame3);
+            MediaFrame4 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame4);
+            Media1 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media1);
+            Media2 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media2);
+            Media3 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media3);
+            Media4 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media4);
         }
     }
 
     public class StatusQuotingInnerAndOuterMediaHolder : StatusHolder {
 
         public new static StatusQuotingInnerAndOuterMediaHolder Make(IView view) {
-            var itemView = InflateView(view, Android.Resource.Layout.StatusQuotingInnerAndOuterMediaHolder);
+            var itemView = InflateView(view, Resource.Layout.StatusQuotingInnerAndOuterMediaHolder);
             var holder = new StatusQuotingInnerAndOuterMediaHolder(itemView, view);
             holder.OnCreatedView();
             return holder;
@@ -304,25 +304,25 @@ namespace Twichirp.Android.App.View.Holder {
 
         public override void OnCreatedView() {
             base.OnCreatedView();
-            MediaParent2 = ItemView.FindViewById<LinearLayout>(Android.Resource.Id.MediaParent2);
-            MediaFrame1 = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.MediaFrame1);
-            MediaFrame2 = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.MediaFrame2);
-            MediaFrame3 = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.MediaFrame3);
-            MediaFrame4 = ItemView.FindViewById<FrameLayout>(Android.Resource.Id.MediaFrame4);
-            Media1 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.Media1);
-            Media2 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.Media2);
-            Media3 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.Media3);
-            Media4 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.Media4);
+            MediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.MediaParent2);
+            MediaFrame1 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame1);
+            MediaFrame2 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame2);
+            MediaFrame3 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame3);
+            MediaFrame4 = ItemView.FindViewById<FrameLayout>(Resource.Id.MediaFrame4);
+            Media1 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media1);
+            Media2 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media2);
+            Media3 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media3);
+            Media4 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.Media4);
 
-            QuotingClickable = ItemView.FindViewById<AView>(Android.Resource.Id.QuotingClickable);
-            QuotingName = ItemView.FindViewById<TextView>(Android.Resource.Id.QuotingName);
-            QuotingText = ItemView.FindViewById<TextView>(Android.Resource.Id.QuotingText);
+            QuotingClickable = ItemView.FindViewById<AView>(Resource.Id.QuotingClickable);
+            QuotingName = ItemView.FindViewById<TextView>(Resource.Id.QuotingName);
+            QuotingText = ItemView.FindViewById<TextView>(Resource.Id.QuotingText);
 
-            QuotingMediaParent2 = ItemView.FindViewById<LinearLayout>(Android.Resource.Id.QuotingMediaParent2);
-            QuotingMedia1 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.QuotingMedia1);
-            QuotingMedia2 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.QuotingMedia2);
-            QuotingMedia3 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.QuotingMedia3);
-            QuotingMedia4 = ItemView.FindViewById<ImageViewAsync>(Android.Resource.Id.QuotingMedia4);
+            QuotingMediaParent2 = ItemView.FindViewById<LinearLayout>(Resource.Id.QuotingMediaParent2);
+            QuotingMedia1 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia1);
+            QuotingMedia2 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia2);
+            QuotingMedia3 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia3);
+            QuotingMedia4 = ItemView.FindViewById<ImageViewAsync>(Resource.Id.QuotingMedia4);
         }
     }
 }

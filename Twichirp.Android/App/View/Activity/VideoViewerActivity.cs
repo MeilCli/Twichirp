@@ -30,9 +30,13 @@ using Newtonsoft.Json;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.ViewController;
 using Twichirp.Core.App.ViewModel;
+using Twichirp.Core.DataObjects;
 using Twichirp.Core.Model;
+using Microsoft.Practices.Unity;
 using AActivity = Android.App.Activity;
 using CStatus = CoreTweet.Status;
+using Twichirp.Core.DataRepositories;
+using Twichirp.Core.App.Setting;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414
@@ -45,7 +49,7 @@ namespace Twichirp.Android.App.View.Activity {
         private const string extraStatus = "extra_status";
         private const string extraAccount = "extra_account";
 
-        public static void Start(AActivity activity,Account account,string statusJson) {
+        public static void Start(AActivity activity,ImmutableAccount account,string statusJson) {
             var intent = new Intent(activity,typeof(VideoViewerActivity));
             intent.PutExtra(extraStatus,statusJson);
             intent.PutExtra(extraAccount,account.Id);
@@ -60,14 +64,17 @@ namespace Twichirp.Android.App.View.Activity {
         public VideoView VideoView { get; private set; }
 
         protected override void OnViewCreate(Bundle savedInstanceState) {
-            Account account = TwichirpApplication.AccountManager[Intent.GetLongExtra(extraAccount,TwichirpApplication.SettingManager.Accounts.DefaultAccountId)];
+            var accountRepository = TwichirpApplication.Resolve<IAccountRepository>();
+            var settingManager = TwichirpApplication.Resolve<SettingManager>();
+
+            ImmutableAccount account = accountRepository[Intent.GetLongExtra(extraAccount,settingManager.Accounts.DefaultAccountId)];
             var status = JsonConvert.DeserializeObject<CStatus>(Intent.GetStringExtra(extraStatus));
             statusViewModel = StatusViewModel.Resolve(TwichirpApplication.UnityContainer,status,account);
             videoViewerViewController = new VideoViewerViewController(this,statusViewModel);
 
-            SetContentView(Android.Resource.Layout.VideoViewerActivity);
-            SlideLayout = FindViewById<SlideLayout>(Android.Resource.Id.SlideLayout);
-            VideoView = FindViewById<VideoView>(Android.Resource.Id.VideoView);
+            SetContentView(Resource.Layout.VideoViewerActivity);
+            SlideLayout = FindViewById<SlideLayout>(Resource.Id.SlideLayout);
+            VideoView = FindViewById<VideoView>(Resource.Id.VideoView);
         }
 
         protected override void OnDestroy() {

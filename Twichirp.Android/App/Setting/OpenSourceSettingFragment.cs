@@ -29,32 +29,34 @@ using Android.Widget;
 using Android.Support.V7.Preferences;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View.Activity;
+using Twichirp.Core.App.Setting;
 
 namespace Twichirp.Android.App.Setting {
+
     public class OpenSourceSettingFragment : PreferenceFragmentCompat {
 
         public override void OnCreatePreferences(Bundle savedInstanceState,string rootKey) {
             var screen = PreferenceManager.CreatePreferenceScreen(PreferenceManager.Context);
             var application = Context.ToTwichirpApplication();
-            var settingManager = application.SettingManager;
+            var settingManager = application.Resolve<SettingManager>();
             new Preference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Android.Resource.String.OpenSourceCode);
+                x.SetTitle(Resource.String.OpenSourceCode);
                 x.PreferenceClick += (s,e) => Activity.StartActivity(new Intent(Intent.ActionView,global::Android.Net.Uri.Parse("https://github.com/MeilCli/Twichirp")));
             });
             new Preference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Android.Resource.String.OpenSourceLicense);
+                x.SetTitle(Resource.String.OpenSourceLicense);
                 x.PreferenceClick += (s,e) => Activity.StartActivityCompat(typeof(OpenSourceLicenseActivity));
             });
             new Preference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Android.Resource.String.OpenSourceCopyingLesser);
+                x.SetTitle(Resource.String.OpenSourceCopyingLesser);
                 x.PreferenceClick += (s,e) => Activity.StartActivityCompat(typeof(OpenSourceCopyingLesserActivity));
             });
             new Preference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Android.Resource.String.OpenSourceCopying);
+                x.SetTitle(Resource.String.OpenSourceCopying);
                 x.PreferenceClick += (s,e) => Activity.StartActivityCompat(typeof(OpenSourceCopyingActivity));
             });
 

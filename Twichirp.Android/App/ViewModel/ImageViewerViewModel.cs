@@ -30,7 +30,9 @@ using Microsoft.Practices.Unity;
 using Twichirp.Core.App;
 using Twichirp.Core.App.Service;
 using Twichirp.Core.App.ViewModel;
+using Twichirp.Core.DataObjects;
 using Twichirp.Core.Model;
+using CStatus = CoreTweet.Status;
 
 namespace Twichirp.Android.App.ViewModel {
 
@@ -48,7 +50,7 @@ namespace Twichirp.Android.App.ViewModel {
             unityContainer.RegisterType<ImageViewerViewModel>();
         }
 
-        public static ImageViewerViewModel Resolve(UnityContainer unityContainer, Status status, Account account, int defaultPage) {
+        public static ImageViewerViewModel Resolve(UnityContainer unityContainer, CStatus status, ImmutableAccount account, int defaultPage) {
             return unityContainer.Resolve<ImageViewerViewModel>(
                 new ParameterOverride(constructorStatus,status),
                 new ParameterOverride(constructorAccount,account),
@@ -58,7 +60,7 @@ namespace Twichirp.Android.App.ViewModel {
 
         public int DefaultPage { get; }
 
-        public ImageViewerViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,Status status,Account account,int defaultPage) 
+        public ImageViewerViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,CStatus status,ImmutableAccount account,int defaultPage) 
             : base(application,twitterEventService,status,account) {
             DefaultPage = defaultPage;
         }

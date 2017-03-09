@@ -82,7 +82,7 @@ namespace Twichirp.Android.App.ViewController {
             ViewModel.Location.Where(x => x != null).Subscribe(x => setLocation(x)).AddTo(Disposable);
             ViewModel.Url.Where(x => x != null).Subscribe(x => setUrl(x)).AddTo(Disposable);
 
-            View.Activity.SupportFragmentManager.BeginTransaction().Replace(Android.Resource.Id.Content,StatusTimelineFragment.Make(new StatusTimelineFragment.UserParameter(ViewModel.Account,ViewModel.UserId))).Commit();
+            View.Activity.SupportFragmentManager.BeginTransaction().Replace(Resource.Id.Content,StatusTimelineFragment.Make(new StatusTimelineFragment.UserParameter(ViewModel.Account,ViewModel.UserId))).Commit();
         }
 
         private void setTitle(string title) {

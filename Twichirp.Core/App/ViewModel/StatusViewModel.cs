@@ -32,6 +32,8 @@ using Twichirp.Core.Constant;
 using Twichirp.Core.Resources;
 using Twichirp.Core.App.Service;
 using Microsoft.Practices.Unity;
+using CStatus = CoreTweet.Status;
+using Twichirp.Core.DataObjects;
 
 namespace Twichirp.Core.App.ViewModel {
 
@@ -53,14 +55,14 @@ namespace Twichirp.Core.App.ViewModel {
             unityContainer.RegisterType<StatusViewModel>();
         }
 
-        public static StatusViewModel Resolve(UnityContainer unityContainer,Status status, Account account) {
+        public static StatusViewModel Resolve(UnityContainer unityContainer,CStatus status,ImmutableAccount account) {
             return unityContainer.Resolve<StatusViewModel>(
-                new ParameterOverride(constructorStatus, status),
-                new ParameterOverride(constructorAccount, account)
+                new ParameterOverride(constructorStatus,status),
+                new ParameterOverride(constructorAccount,account)
             );
         }
 
-        public Account Account { get; }
+        public ImmutableAccount Account { get; }
 
         internal StatusModel StatusModel { get; }
         public long Id { get; private set; }
@@ -114,10 +116,10 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveCommand<long> StartUserProfilePageCommand { get; } = new ReactiveCommand<long>();
 
         [InjectionConstructor]
-        public StatusViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,Status status,Account account) 
+        public StatusViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,CStatus status,ImmutableAccount account)
             : this(application,new StatusModel(application,twitterEventService,status),account) { }
 
-        internal StatusViewModel(ITwichirpApplication application,StatusModel status,Account account) : base(application) {
+        internal StatusViewModel(ITwichirpApplication application,StatusModel status,ImmutableAccount account) : base(application) {
             Account = account;
             StatusModel = status;
 

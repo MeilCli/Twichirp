@@ -21,10 +21,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Twichirp.Core.DataRepositories;
 
 namespace Twichirp.Core.App.Setting {
 
     public class AccountsSetting : BaseSetting {
+
+        [JsonIgnore]
+        private IAccountRepository accountRepository;
 
         [JsonProperty]
         public Dictionary<long,AccountSetting> Accounts { get; set; } = new Dictionary<long,AccountSetting>();
@@ -32,7 +36,12 @@ namespace Twichirp.Core.App.Setting {
         [JsonProperty]
         public long DefaultAccountId {
             get {
-                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(DefaultAccountId)),SettingManager.Application.AccountManager.First().Id);
+                long result = SettingManager.AppSettings.GetValueOrDefault<long>(MakeSettingName(nameof(DefaultAccountId)),-1);
+                if(result == -1) {
+                    result = accountRepository.Get(x => x.Take(1)).First().Id;
+                    DefaultAccountId = result;
+                }
+                return result;
             }
             set {
                 SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(DefaultAccountId)),value);
@@ -54,7 +63,8 @@ namespace Twichirp.Core.App.Setting {
         [JsonIgnore]
         public SettingList<long> AccountUsedOrder { get; private set; }
 
-        public AccountsSetting(SettingManager settingManager) : base(settingManager,nameof(AccountSetting)) {
+        public AccountsSetting(SettingManager settingManager,IAccountRepository accountRepository) : base(settingManager,nameof(AccountSetting)) {
+            this.accountRepository = accountRepository;
             AccountUsedOrder = new SettingList<long>(settingManager,MakeSettingName(nameof(AccountUsedOrder)));
         }
 

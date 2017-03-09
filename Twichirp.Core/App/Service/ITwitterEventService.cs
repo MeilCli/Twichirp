@@ -20,11 +20,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CoreTweet;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Core.Model;
 using Twichirp.Core.App.Event;
+using Twichirp.Core.DataObjects;
+using CStatus = CoreTweet.Status;
+using CUser = CoreTweet.User;
 
 namespace Twichirp.Core.App.Service {
 
@@ -38,19 +40,19 @@ namespace Twichirp.Core.App.Service {
         event EventHandler<UserEventArgs> BlockingUserDestroyed;
         event EventHandler<UserEventArgs> SpamUserMarked;
 
-        void UpdateStatus(Account account, Status status);
+        void UpdateStatus(ImmutableAccount account,CStatus status);
 
-        void UpdateUser(Account account, User user);
+        void UpdateUser(ImmutableAccount account,CUser user);
 
-        void CreateFollowingUser(Account account, User user);
+        void CreateFollowingUser(ImmutableAccount account,CUser user);
 
-        void DestroyFollowingUser(Account account, User user);
+        void DestroyFollowingUser(ImmutableAccount account,CUser user);
 
-        void CreateBlockingUser(Account account, User user);
+        void CreateBlockingUser(ImmutableAccount account,CUser user);
 
-        void DestroyBlockingUser(Account account, User user);
+        void DestroyBlockingUser(ImmutableAccount account,CUser user);
 
-        void MarkSpamUser(Account account, User user);
+        void MarkSpamUser(ImmutableAccount account,CUser user);
 
     }
 }

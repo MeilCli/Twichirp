@@ -22,6 +22,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CoreTweet;
 using Twichirp.Core.Constant;
+using Twichirp.Core.Constants;
 using Twichirp.Core.TweetCount;
 using static System.Console;
 
@@ -32,7 +33,7 @@ namespace Twichirp.Test.Console {
         static readonly string t2 = $"sffs"+t1;
 
         static void Main(string[] args) {
-            var session = OAuth.Authorize(ConsumerConstant.Twichirp.ConsumerKey,ConsumerConstant.Twichirp.ConsumerSecret);
+            var session = OAuth.Authorize(ClientKeyConstant.Twichirp.ConsumerKey,ClientKeyConstant.Twichirp.ConsumerSecret);
             WriteLine(session.AuthorizeUri);
             var tokens = OAuth.GetTokens(session,ReadLine());
             

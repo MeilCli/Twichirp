@@ -38,12 +38,12 @@ namespace Twichirp.Android.App.View.Activity {
 
         protected override void OnCreate(Bundle savedInstanceState) {
             base.OnCreate(savedInstanceState);
-            base.SetContentView(Android.Resource.Layout.OpenSourceActivity);
-            base.SetSupportActionBar(FindViewById<SToolbar>(Android.Resource.Id.Toolbar));
+            base.SetContentView(Resource.Layout.OpenSourceActivity);
+            base.SetSupportActionBar(FindViewById<SToolbar>(Resource.Id.Toolbar));
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetDisplayShowHomeEnabled(true);
 
-            web = FindViewById<WebView>(Android.Resource.Id.Web);
+            web = FindViewById<WebView>(Resource.Id.Web);
 
             using(var stream = Assets.Open("LICENSE.txt"))
             using(var reader = new StreamReader(stream)) {
@@ -82,12 +82,12 @@ namespace Twichirp.Android.App.View.Activity {
 
         protected override void OnCreate(Bundle savedInstanceState) {
             base.OnCreate(savedInstanceState);
-            base.SetContentView(Android.Resource.Layout.OpenSourceActivity);
-            base.SetSupportActionBar(FindViewById<SToolbar>(Android.Resource.Id.Toolbar));
+            base.SetContentView(Resource.Layout.OpenSourceActivity);
+            base.SetSupportActionBar(FindViewById<SToolbar>(Resource.Id.Toolbar));
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetDisplayShowHomeEnabled(true);
 
-            web = FindViewById<WebView>(Android.Resource.Id.Web);
+            web = FindViewById<WebView>(Resource.Id.Web);
 
             using(var stream = Assets.Open("COPYING.txt"))
             using(var reader = new StreamReader(stream)) {
@@ -126,12 +126,12 @@ namespace Twichirp.Android.App.View.Activity {
 
         protected override void OnCreate(Bundle savedInstanceState) {
             base.OnCreate(savedInstanceState);
-            base.SetContentView(Android.Resource.Layout.OpenSourceActivity);
-            base.SetSupportActionBar(FindViewById<SToolbar>(Android.Resource.Id.Toolbar));
+            base.SetContentView(Resource.Layout.OpenSourceActivity);
+            base.SetSupportActionBar(FindViewById<SToolbar>(Resource.Id.Toolbar));
             SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             SupportActionBar.SetDisplayShowHomeEnabled(true);
 
-            web = FindViewById<WebView>(Android.Resource.Id.Web);
+            web = FindViewById<WebView>(Resource.Id.Web);
 
             using(var stream = Assets.Open("COPYING.LESSER.txt"))
             using(var reader = new StreamReader(stream)) {

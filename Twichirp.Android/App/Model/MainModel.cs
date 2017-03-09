@@ -25,12 +25,15 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using CoreTweet;
 using Twichirp.Android.Model;
 using Twichirp.Core.App;
 using Twichirp.Core.App.Model;
+using Twichirp.Core.App.Setting;
+using Twichirp.Core.DataObjects;
+using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Model;
 using Twichirp.Core.Resources;
+using CUser = CoreTweet.User;
 
 namespace Twichirp.Android.App.Model {
 
@@ -41,8 +44,11 @@ namespace Twichirp.Android.App.Model {
         public const int NavigationMenuHidingFirstGroup = 3;
         public const int NavigationMenuHidingSecondGroup = 4;
 
-        public const int NavigationMenuAddAccount = Android.Resource.Id.NavigationMenuAddAccount;
-        public const int NavigationMenuSetting = Android.Resource.Id.NavigationMenuSetting;
+        public const int NavigationMenuAddAccount = Resource.Id.NavigationMenuAddAccount;
+        public const int NavigationMenuSetting = Resource.Id.NavigationMenuSetting;
+
+        private IAccountRepository accountRepository;
+        private SettingManager settingManager;
 
         private List<NavigationMenu> _navigationMenus;
         public List<NavigationMenu> NavigationMenus {
@@ -106,7 +112,9 @@ namespace Twichirp.Android.App.Model {
         }
 
 
-        public MainModel(ITwichirpApplication application) : base(application) {
+        public MainModel(ITwichirpApplication application,IAccountRepository accountRepository,SettingManager settingManager) : base(application) {
+            this.accountRepository = accountRepository;
+            this.settingManager = settingManager;
             makeNavigationMenu();
             makeNavigationTab();
             setUsers();
@@ -116,7 +124,7 @@ namespace Twichirp.Android.App.Model {
             IsHiding = IsHiding == false;
         }
 
-        public void NotifyUserUpdate(Account account,User user) {
+        public void NotifyUserUpdate(ImmutableAccount account,CUser user) {
             // account情報は無視する
             // UserModel内のプロパティ変更イベントを(設計上)捕捉できないのでこちら側のプロパティ変更イベントを発生させる
             if(User.Id == user.Id) {
@@ -134,14 +142,14 @@ namespace Twichirp.Android.App.Model {
         }
 
         public void UpdateDefaultAccountIfChanged() {
-            long defaultAccountId = Application.SettingManager.Accounts.DefaultAccountId;
+            long defaultAccountId = settingManager.Accounts.DefaultAccountId;
             if(User.Id != defaultAccountId) {
                 SetDefaultUser(defaultAccountId);
             }
         }
 
         public void SetDefaultUser(string screenName) {
-            var account = Application.AccountManager[screenName];
+            var account = accountRepository[screenName];
             if(account == null) {
                 return;
             }
@@ -149,16 +157,16 @@ namespace Twichirp.Android.App.Model {
         }
 
         public void SetDefaultUser(long userId) {
-            var account = Application.AccountManager[userId];
+            var account = accountRepository[userId];
             if(account == null) {
                 return;
             }
             SetDefaultUser(account);
         }
 
-        public void SetDefaultUser(Account account) {
-            Application.SettingManager.Accounts.DefaultAccountId = account.Id;
-            var orderdUserList = Application.SettingManager.Accounts.AccountUsedOrder;
+        public void SetDefaultUser(ImmutableAccount account) {
+            settingManager.Accounts.DefaultAccountId = account.Id;
+            var orderdUserList = settingManager.Accounts.AccountUsedOrder;
             if(orderdUserList.Contains(account.Id)) {
                 orderdUserList.Remove(account.Id);
             }
@@ -185,42 +193,43 @@ namespace Twichirp.Android.App.Model {
             }
         }
 
-        private async Task<UserModel> toUserModel(Account account) {
+        private async Task<UserModel> toUserModel(ImmutableAccount account) {
             if(account.User == null) {
                 try {
-                    account.User = await account.Token.Users.ShowAsync(account.Id);
-                    await Application.UserContainerManager.AddAsync(account.User);
+                    var coreTweetUser = await account.CoreTweetToken.Users.ShowAsync(account.Id);
+                    var mutableAccount = new Account(new User(coreTweetUser),new Token(account.Token));
+                    await Task.Run(() => accountRepository.AddOrUpdate(mutableAccount));
                 } catch(Exception) {
                     return null;
                 }
+                account = await Task.Run(() => accountRepository.Find(account.Id));
             }
-            return new UserModel(Application,account.User);
+            return new UserModel(Application,account.User.CoreTweetUser);
         }
 
         private void makeNavigationMenu() {
-            var accountManager = Application.AccountManager;
-            var nowAccount = accountManager[Application.SettingManager.Accounts.DefaultAccountId];
+            var nowAccount = accountRepository[settingManager.Accounts.DefaultAccountId];
 
             var list = new List<NavigationMenu>();
             if(IsHiding) {
                 foreach(var account in getOrderdAccount()) {
                     string title = account.ScreenName;
-                    var menu = new NavigationMenu(NavigationMenuHidingFirstGroup,title.GetHashCode(),title,Android.Resource.Drawable.IconPersonGrey48dp);
+                    var menu = new NavigationMenu(NavigationMenuHidingFirstGroup,title.GetHashCode(),title,Resource.Drawable.IconPersonGrey48dp);
                     if(account.Id == nowAccount.Id) {
                         menu.IsChecked = true;
                     }
                     list.Add(menu);
                 }
                 {
-                    list.Add(new NavigationMenu(NavigationMenuHidingSecondGroup,NavigationMenuAddAccount,Android.Resource.String.MainAddAccount,Android.Resource.Drawable.IconPersonAddGrey48dp));
+                    list.Add(new NavigationMenu(NavigationMenuHidingSecondGroup,NavigationMenuAddAccount,Resource.String.MainAddAccount,Resource.Drawable.IconPersonAddGrey48dp));
                 }
             } else {
                 {
                     int id = 0;
-                    list.Add(new NavigationMenu(NavigationMenuStandardFirstGroup,id++,$"@{nowAccount.ScreenName}",Android.Resource.Drawable.IconPersonOutlineGrey48dp));
+                    list.Add(new NavigationMenu(NavigationMenuStandardFirstGroup,id++,$"@{nowAccount.ScreenName}",Resource.Drawable.IconPersonOutlineGrey48dp));
                 }
                 {
-                    list.Add(new NavigationMenu(NavigationMenuStandardSecondGroup,NavigationMenuSetting,Android.Resource.String.Setting,Android.Resource.Drawable.IconSettingsApplicationsGrey48dp));
+                    list.Add(new NavigationMenu(NavigationMenuStandardSecondGroup,NavigationMenuSetting,Resource.String.Setting,Resource.Drawable.IconSettingsApplicationsGrey48dp));
                 }
             }
             NavigationMenus = list;
@@ -229,27 +238,27 @@ namespace Twichirp.Android.App.Model {
         private void makeNavigationTab() {
             var list = new List<NavigationTab>();
             {
-                list.Add(new NavigationTab(Android.Resource.Id.TabHome,StringResources.TabHome,Android.Resource.Drawable.IconHomeGrey24dp));
-                list.Add(new NavigationTab(Android.Resource.Id.TabMention,StringResources.TabMention,Android.Resource.Drawable.IconNotificationsGrey24dp));
-                list.Add(new NavigationTab(Android.Resource.Id.TabDM,StringResources.TabDM,Android.Resource.Drawable.IconMailGrey24dp));
-                list.Add(new NavigationTab(Android.Resource.Id.TabUser,StringResources.TabUser,Android.Resource.Drawable.IconPersonGrey24dp));
+                list.Add(new NavigationTab(Resource.Id.TabHome,StringResources.TabHome,Resource.Drawable.IconHomeGrey24dp));
+                list.Add(new NavigationTab(Resource.Id.TabMention,StringResources.TabMention,Resource.Drawable.IconNotificationsGrey24dp));
+                list.Add(new NavigationTab(Resource.Id.TabDM,StringResources.TabDM,Resource.Drawable.IconMailGrey24dp));
+                list.Add(new NavigationTab(Resource.Id.TabUser,StringResources.TabUser,Resource.Drawable.IconPersonGrey24dp));
             }
             NavigationTabs = list;
         }
 
-        private List<Account> getOrderdAccount() {
-            var result = new List<Account>();
-            Action<Account> addAccount = x => {
-                if(result.Contains(x) == false) {
+        private List<ImmutableAccount> getOrderdAccount() {
+            var result = new List<ImmutableAccount>();
+            Action<ImmutableAccount> addAccount = x => {
+                if(result.All(y => y.Id != x.Id)) {
                     result.Add(x);
                 }
             };
 
-            addAccount(Application.AccountManager[Application.SettingManager.Accounts.DefaultAccountId]);
+            addAccount(accountRepository[settingManager.Accounts.DefaultAccountId]);
             {
                 var notContainUserId = new List<long>();
-                foreach(var orderdUserId in Application.SettingManager.Accounts.AccountUsedOrder) {
-                    var account = Application.AccountManager[orderdUserId];
+                foreach(var orderdUserId in settingManager.Accounts.AccountUsedOrder) {
+                    var account = accountRepository[orderdUserId];
                     if(account == null) {
                         notContainUserId.Add(orderdUserId);
                         continue;
@@ -257,10 +266,10 @@ namespace Twichirp.Android.App.Model {
                     addAccount(account);
                 }
                 foreach(var userId in notContainUserId) {
-                    Application.SettingManager.Accounts.AccountUsedOrder.Remove(userId);
+                    settingManager.Accounts.AccountUsedOrder.Remove(userId);
                 }
             }
-            foreach(var a in Application.AccountManager) {
+            foreach(var a in accountRepository.Get()) {
                 addAccount(a);
             }
             return result;

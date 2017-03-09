@@ -1,32 +1,35 @@
 ﻿using System;
 using CoreTweet;
+using Twichirp.Core.DataObjects;
 using Twichirp.Core.Model;
+using CStatus = CoreTweet.Status;
+using CUser = CoreTweet.User;
 
 namespace Twichirp.Core.App.Event {
 
     public class TwitterEventArgs : EventArgs {
 
-        public Account Account { get; }
+        public ImmutableAccount Account { get; }
 
-        public TwitterEventArgs(Account account) {
+        public TwitterEventArgs(ImmutableAccount account) {
             Account = account;
         }
     }
 
     public class StatusEventArgs : TwitterEventArgs {
 
-        public Status Status { get; }
+        public CStatus Status { get; }
 
-        public StatusEventArgs(Account account, Status status) : base(account) {
+        public StatusEventArgs(ImmutableAccount account,CStatus status) : base(account) {
             Status = status;
         }
     }
 
     public class UserEventArgs : TwitterEventArgs {
 
-        public User User { get; }
+        public CUser User { get; }
 
-        public UserEventArgs(Account account, User user) : base(account) {
+        public UserEventArgs(ImmutableAccount account,CUser user) : base(account) {
             User = user;
         }
 

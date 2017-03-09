@@ -44,12 +44,12 @@ namespace Twichirp.Android.App.View.Activity {
         public TextView Message { get; private set; }
 
         protected override void OnViewCreate(Bundle savedInstanceState) {
-            splashViewModel = new SplashViewModel(TwichirpApplication);
+            splashViewModel = TwichirpApplication.Resolve<SplashViewModel>();
             splashViewController = new SplashViewController(this,splashViewModel);
-            base.SetContentView(Android.Resource.Layout.SplashActivity);
-            var toolbar = FindViewById<SToolbar>(Android.Resource.Id.Toolbar);
+            base.SetContentView(Resource.Layout.SplashActivity);
+            var toolbar = FindViewById<SToolbar>(Resource.Id.Toolbar);
             SetSupportActionBar(toolbar);
-            Message = FindViewById<TextView>(Android.Resource.Id.Message);
+            Message = FindViewById<TextView>(Resource.Id.Message);
         }
 
         protected override void OnDestroy() {

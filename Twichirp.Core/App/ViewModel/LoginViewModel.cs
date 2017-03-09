@@ -24,8 +24,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.App.Model;
 using Twichirp.Core.App.Event;
+using Twichirp.Core.DataRepositories;
+using Twichirp.Core.DataObjects;
+using Twichirp.Core.App.Setting;
 
 namespace Twichirp.Core.App.ViewModel {
+
     public class LoginViewModel : BaseViewModel {
 
         private LoginModel loginModel;
@@ -38,8 +42,8 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveCommand StartNextPageCommand { get; } = new ReactiveCommand();
         public ReactiveCommand<string> ShowMessageCommand { get; } = new ReactiveCommand<string>();
 
-        public LoginViewModel(ITwichirpApplication application) : base(application) {
-            loginModel = new LoginModel(application);
+        public LoginViewModel(ITwichirpApplication application,IAccountRepository accountRepository,SettingManager settingManager,ImmutableClientKey clientKey) : base(application) {
+            loginModel = new LoginModel(application,accountRepository,settingManager);
             IsLoading = loginModel.ObserveProperty(x => x.IsLoading).ObserveOnUIDispatcher().ToReadOnlyReactiveProperty().AddTo(Disposable);
 
             Observable.FromEventPattern<EventArgs<string>>(x => loginModel.AuthorizeUriCreated += x,x => loginModel.AuthorizeUriCreated -= x)
@@ -54,7 +58,7 @@ namespace Twichirp.Core.App.ViewModel {
                 .ObserveOnUIDispatcher()
                 .Subscribe(x => ShowMessageCommand.Execute(x.EventArgs.EventData))
                 .AddTo(Disposable);
-            AuthorizeCommand.Subscribe(x => loginModel.AuthorizeAsync(Application.ConsumerManager.DefaultConsumer));
+            AuthorizeCommand.Subscribe(x => loginModel.AuthorizeAsync(clientKey));
             LoginCommand.Subscribe(x => loginModel.LoginAsync(Pin.Value));
         }
     }

@@ -28,20 +28,22 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Preferences;
 using Twichirp.Android.App.Extensions;
+using Twichirp.Core.App.Setting;
 
 namespace Twichirp.Android.App.Setting {
+
     public class ApplicationSettingFragment : PreferenceFragmentCompat {
 
         public override void OnCreatePreferences(Bundle savedInstanceState,string rootKey) {
             var screen = PreferenceManager.CreatePreferenceScreen(PreferenceManager.Context);
             var application = Context.ToTwichirpApplication();
-            var settingManager = application.SettingManager;
+            var settingManager = application.Resolve<SettingManager>();
             new CheckBoxPreference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
                 x.Checked = settingManager.Applications.IsCleanLaunch;
                 x.PreferenceChange += (s,e) => settingManager.Applications.IsCleanLaunch = (bool)e.NewValue;
-                x.SetTitle(Android.Resource.String.SettingCleanUp);
-                x.SetSummary(Android.Resource.String.SettingCleanUpSummary);
+                x.SetTitle(Resource.String.SettingCleanUp);
+                x.SetSummary(Resource.String.SettingCleanUpSummary);
             });
             PreferenceScreen = screen;
         }

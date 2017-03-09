@@ -28,18 +28,20 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Preferences;
 using Twichirp.Android.App.Extensions;
+using Twichirp.Core.App.Setting;
 
 namespace Twichirp.Android.App.Setting {
+
     public class TimelineSettingFragment : PreferenceFragmentCompat {
 
         public override void OnCreatePreferences(Bundle savedInstanceState,string rootKey) {
             var screen = PreferenceManager.CreatePreferenceScreen(PreferenceManager.Context);
             var application = Context.ToTwichirpApplication();
-            var settingManager = application.SettingManager;
+            var settingManager = application.Resolve<SettingManager>();
             new ListPreference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Android.Resource.String.SettingTimelineDownloadCount);
-                x.SetDialogTitle(Android.Resource.String.SettingTimelineDownloadCount);
+                x.SetTitle(Resource.String.SettingTimelineDownloadCount);
+                x.SetDialogTitle(Resource.String.SettingTimelineDownloadCount);
                 x.Key = x.Title;
                 string[] values = new string[] { "20","30","50","100","150","200",settingManager.Timeline.Count.ToString() }.Distinct().ToArray();
                 x.SetEntries(values);
@@ -49,8 +51,8 @@ namespace Twichirp.Android.App.Setting {
             });
             new ListPreference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Android.Resource.String.SettingTimelineOwnedNumber);
-                x.SetDialogTitle(Android.Resource.String.SettingTimelineOwnedNumber);
+                x.SetTitle(Resource.String.SettingTimelineOwnedNumber);
+                x.SetDialogTitle(Resource.String.SettingTimelineOwnedNumber);
                 x.Key = x.Title;
                 string[] values = new string[] { "400","600","800","1000",settingManager.Timeline.OwnedNumber.ToString() }.Distinct().ToArray();
                 x.SetEntries(values);

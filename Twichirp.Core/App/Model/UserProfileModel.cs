@@ -23,8 +23,10 @@ using System.Threading.Tasks;
 using CoreTweet;
 using Twichirp.Core.App.Event;
 using Twichirp.Core.App.Service;
+using Twichirp.Core.DataObjects;
 using Twichirp.Core.Extensions;
 using Twichirp.Core.Model;
+using CUser = CoreTweet.User;
 
 namespace Twichirp.Core.App.Model {
 
@@ -34,7 +36,7 @@ namespace Twichirp.Core.App.Model {
         public event EventHandler<EventArgs<string>> ErrorMessageCreated;
 
         private SemaphoreSlim slim = new SemaphoreSlim(1,1);
-        private Account account;
+        private ImmutableAccount account;
         private ITwitterEventService twitterEventService;
         private long userId;
         public bool IsOwnerUser => account.Id == userId;
@@ -182,14 +184,14 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public UserProfileModel(ITwichirpApplication application,ITwitterEventService twitterEventService,Account account,long userId,User user = null) : base(application) {
+        public UserProfileModel(ITwichirpApplication application,ITwitterEventService twitterEventService,ImmutableAccount account,long userId,CUser user = null) : base(application) {
             this.twitterEventService = twitterEventService;
             this.account = account;
             this.userId = userId;
             init(user);
         }
 
-        private async void init(User user) {
+        private async void init(CUser user) {
             if(user != null) {
                 UserModel = new UserModel(Application,user);
             } else {
@@ -204,7 +206,7 @@ namespace Twichirp.Core.App.Model {
             await slim.WaitAsync();
             IsLoading = true;
             try {
-                var user = await account.Token.Users.ShowAsync(user_id: userId,include_entities: true);
+                var user = await account.CoreTweetToken.Users.ShowAsync(user_id: userId,include_entities: true);
                 user.CheckValid();
                 UserModel = new UserModel(Application,user);
             } catch(Exception e) {
@@ -222,7 +224,7 @@ namespace Twichirp.Core.App.Model {
             await slim.WaitAsync();
             IsLoading = true;
             try {
-                var friendship = await account.Token.Friendships.ShowAsync(source_id: account.Id,target_id: userId);
+                var friendship = await account.CoreTweetToken.Friendships.ShowAsync(source_id: account.Id,target_id: userId);
                 IsFollowing = friendship.Source.IsFollowing;
                 IsFollowingRequested = friendship.Source.IsFollowingRequested ?? false;
                 IsFollowedBy = friendship.Source.IsFollowedBy;
@@ -240,12 +242,12 @@ namespace Twichirp.Core.App.Model {
             IsLoading = false;
         }
 
-        public async Task FollowAsync(Account account) {
+        public async Task FollowAsync(ImmutableAccount account) {
             if(account.Id == userId) {
                 return;
             }
             try {
-                var user = await account.Token.Friendships.CreateAsync(user_id: userId,follow: true);
+                var user = await account.CoreTweetToken.Friendships.CreateAsync(user_id: userId,follow: true);
                 user.CheckValid();
                 twitterEventService.CreateFollowingUser(account,user);
             } catch(Exception e) {
@@ -253,12 +255,12 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async Task UnFollowAsync(Account account) {
+        public async Task UnFollowAsync(ImmutableAccount account) {
             if(account.Id == userId) {
                 return;
             }
             try {
-                var user = await account.Token.Friendships.DestroyAsync(user_id: userId);
+                var user = await account.CoreTweetToken.Friendships.DestroyAsync(user_id: userId);
                 user.CheckValid();
                 twitterEventService.DestroyFollowingUser(account,user);
             } catch(Exception e) {
@@ -266,12 +268,12 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async Task BlockAsync(Account account) {
+        public async Task BlockAsync(ImmutableAccount account) {
             if(account.Id == userId) {
                 return;
             }
             try {
-                var user = await account.Token.Blocks.CreateAsync(user_id: userId,include_entities: true);
+                var user = await account.CoreTweetToken.Blocks.CreateAsync(user_id: userId,include_entities: true);
                 user.CheckValid();
                 twitterEventService.CreateBlockingUser(account,user);
             } catch(Exception e) {
@@ -279,12 +281,12 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async Task UnBlockAsync(Account account) {
+        public async Task UnBlockAsync(ImmutableAccount account) {
             if(account.Id == userId) {
                 return;
             }
             try {
-                var user = await account.Token.Blocks.DestroyAsync(user_id: userId,include_entities: true);
+                var user = await account.CoreTweetToken.Blocks.DestroyAsync(user_id: userId,include_entities: true);
                 user.CheckValid();
                 twitterEventService.DestroyBlockingUser(account,user);
             } catch(Exception e) {
@@ -292,12 +294,12 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public async Task ReportSpamAsync(Account account) {
+        public async Task ReportSpamAsync(ImmutableAccount account) {
             if(account.Id == userId) {
                 return;
             }
             try {
-                var user = await account.Token.Users.ReportSpamAsync(user_id: userId);
+                var user = await account.CoreTweetToken.Users.ReportSpamAsync(user_id: userId);
                 user.CheckValid();
                 twitterEventService.MarkSpamUser(account,user);
             } catch(Exception e) {
@@ -305,11 +307,11 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public void NotifyUserUpdated(Account account,User user) {
+        public void NotifyUserUpdated(ImmutableAccount account,CUser user) {
             UserModel?.SetUser(user);
         }
 
-        public void NotifyFollowingUserCreated(Account account,User user) {
+        public void NotifyFollowingUserCreated(ImmutableAccount account,CUser user) {
             UserModel?.SetUser(user);
             if(this.account.Id != account.Id) {
                 return;
@@ -321,7 +323,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public void NotifyFollowingUserDestroyed(Account account,User user) {
+        public void NotifyFollowingUserDestroyed(ImmutableAccount account,CUser user) {
             UserModel?.SetUser(user);
             if(this.account.Id != account.Id) {
                 return;
@@ -329,7 +331,7 @@ namespace Twichirp.Core.App.Model {
             IsFollowing = false;
         }
 
-        public void NotifyBlokingUserCreated(Account account,User user) {
+        public void NotifyBlokingUserCreated(ImmutableAccount account,CUser user) {
             UserModel?.SetUser(user);
             if(this.account.Id != account.Id) {
                 return;
@@ -337,7 +339,7 @@ namespace Twichirp.Core.App.Model {
             IsBlocking = true;
         }
 
-        public void NotifyBlockingUserDestroyed(Account account,User user) {
+        public void NotifyBlockingUserDestroyed(ImmutableAccount account,CUser user) {
             UserModel?.SetUser(user);
             if(this.account.Id != account.Id) {
                 return;
@@ -346,7 +348,7 @@ namespace Twichirp.Core.App.Model {
             IsMarkedSpam = false;
         }
 
-        public void NotifySpamUserMarked(Account account,User user) {
+        public void NotifySpamUserMarked(ImmutableAccount account,CUser user) {
             UserModel?.SetUser(user);
             if(this.account.Id != account.Id) {
                 return;
