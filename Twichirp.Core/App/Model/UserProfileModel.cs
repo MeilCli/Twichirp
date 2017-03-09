@@ -25,7 +25,6 @@ using Twichirp.Core.App.Event;
 using Twichirp.Core.App.Service;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.Extensions;
-using Twichirp.Core.Model;
 using CUser = CoreTweet.User;
 
 namespace Twichirp.Core.App.Model {

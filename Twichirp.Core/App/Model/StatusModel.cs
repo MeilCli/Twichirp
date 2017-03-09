@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Twichirp.Core.Model;
 using System.Threading;
 using Twichirp.Core.Extensions;
 using Twichirp.Core.App.Event;

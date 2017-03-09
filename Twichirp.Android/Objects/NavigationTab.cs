@@ -26,28 +26,18 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Twichirp.Android.Model {
-    public class NavigationMenu {
+namespace Twichirp.Android.Objects {
 
-        public int GroupId { get; private set; }
+    public class NavigationTab {
+
         public int Id { get; private set; }
-        public int Icon { get; private set; }
         public string Text { get; private set; }
-        public int? TextId { get; private set; }
-        public bool IsChecked { get; set; }
+        public int Icon { get; private set; }
 
-        public NavigationMenu(int groupId,int id,string text,int icon) {
-            GroupId = groupId;
+        public NavigationTab(int id,string text,int icon) {
             Id = id;
-            Icon = icon;
             Text = text;
-        }
-
-        public NavigationMenu(int groupId,int id,int text,int icon) {
-            GroupId = groupId;
-            Id = id;
             Icon = icon;
-            TextId = text;
         }
     }
 }

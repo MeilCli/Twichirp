@@ -19,21 +19,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CoreTweet;
+using Twichirp.Core.DataObjects;
 
-namespace Twichirp.Core.Model {
-    public class Library {
-        public string LibraryName { get; private set; }
-        public string Copyright { get; private set; }
-        public License LibraryLicense { get; private set; }
+namespace Twichirp.Core.Repositories {
 
-        public Library(string libraryName,string copyright,License libraryLicense) {
-            LibraryName = libraryName;
-            Copyright = copyright;
-            LibraryLicense = libraryLicense;
+    public class UserTimelineRepository : ITimelineRepository {
+
+        private long userId;
+
+        public UserTimelineRepository(long userId) {
+            this.userId = userId;
         }
 
-        public string ToNoticeText() {
-            return $"{Copyright}\n\n{LibraryLicense.LicenseText}";
+        public async Task<IEnumerable<CoreTweet.Status>> Load(ImmutableAccount account,int count,long? sinceId = null,long? maxId = null) {
+            return await account.CoreTweetToken.Statuses.UserTimelineAsync(
+                    count: count,
+                    since_id: sinceId,
+                    max_id: maxId,
+                    user_id: userId,
+                    include_rts: true,
+                    include_ext_alt_text: true,
+                    tweet_mode: TweetMode.extended
+                );
         }
     }
 }

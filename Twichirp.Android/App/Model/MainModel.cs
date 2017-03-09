@@ -25,13 +25,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Twichirp.Android.Model;
+using Twichirp.Android.Objects;
 using Twichirp.Core.App;
 using Twichirp.Core.App.Model;
 using Twichirp.Core.App.Setting;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
-using Twichirp.Core.Model;
 using Twichirp.Core.Resources;
 using CUser = CoreTweet.User;
 

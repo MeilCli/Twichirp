@@ -18,24 +18,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using CoreTweet;
-using Twichirp.Core.Constants;
-using Twichirp.Core.TweetCount;
-using static System.Console;
 
-namespace Twichirp.Test.Console {
-    class Program {
+namespace Twichirp.Core.Objects {
 
-        static readonly string t1 = $"asa";
-        static readonly string t2 = $"sffs"+t1;
+    public class License {
 
-        static void Main(string[] args) {
-            var session = OAuth.Authorize(ClientKeyConstant.Twichirp.ConsumerKey,ClientKeyConstant.Twichirp.ConsumerSecret);
-            WriteLine(session.AuthorizeUri);
-            var tokens = OAuth.GetTokens(session,ReadLine());
-            
+        public string LicenseName { get; private set; }
+        public string LicenseText { get; private set; }
+
+        public License(string licenseName,string licenseText) {
+            LicenseName = licenseName;
+            LicenseText = licenseText;
         }
     }
 }

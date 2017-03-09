@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2017 meil
+﻿// Copyright (c) 2016-2017 meil
 //
 // This file is part of Twichirp.
 // 
@@ -18,26 +18,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+namespace Twichirp.Core.Objects {
 
-namespace Twichirp.Android.Model {
+    public class Library {
 
-    public class NavigationTab {
+        public string LibraryName { get; private set; }
+        public string Copyright { get; private set; }
+        public License LibraryLicense { get; private set; }
 
-        public int Id { get; private set; }
-        public string Text { get; private set; }
-        public int Icon { get; private set; }
+        public Library(string libraryName,string copyright,License libraryLicense) {
+            LibraryName = libraryName;
+            Copyright = copyright;
+            LibraryLicense = libraryLicense;
+        }
 
-        public NavigationTab(int id,string text,int icon) {
-            Id = id;
-            Text = text;
-            Icon = icon;
+        public string ToNoticeText() {
+            return $"{Copyright}\n\n{LibraryLicense.LicenseText}";
         }
     }
 }

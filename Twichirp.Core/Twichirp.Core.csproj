@@ -71,11 +71,11 @@
     <Compile Include="App\ViewModel\UserViewModel.cs" />
     <Compile Include="Constants\ClientKeyConstant.cs" />
     <Compile Include="Constants\RealmMigrationConstant.cs" />
-    <Compile Include="Constant\LibraryConstant.cs" />
-    <Compile Include="Constant\LicenseConstant.cs" />
+    <Compile Include="Constants\LibraryConstant.cs" />
+    <Compile Include="Constants\LicenseConstant.cs" />
     <Compile Include="App\Setting\IMigration.cs" />
     <Compile Include="App\Setting\SettingManager.cs" />
-    <Compile Include="Constant\SpanConstant.cs" />
+    <Compile Include="Constants\SpanConstant.cs" />
     <Compile Include="DataObjects\Account.cs" />
     <Compile Include="DataObjects\ClientKey.cs" />
     <Compile Include="DataObjects\DirectMessage.cs" />
@@ -120,10 +120,14 @@
     <Compile Include="Extensions\StatusExtensions.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
     <Compile Include="Helpers\Settings.cs" />
-    <Compile Include="Model\License.cs" />
-    <Compile Include="Model\Library.cs" />
-    <Compile Include="Model\Timeline.cs" />
+    <Compile Include="Objects\License.cs" />
+    <Compile Include="Objects\Library.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\FavoriteTimelineRepository.cs" />
+    <Compile Include="Repositories\HomeTimelineRepository.cs" />
+    <Compile Include="Repositories\ITimelineRepository.cs" />
+    <Compile Include="Repositories\MentionTimelineRepository.cs" />
+    <Compile Include="Repositories\UserTimelineRepository.cs" />
     <Compile Include="Resources\StringResources.ja-JP.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -146,6 +150,7 @@
     <Compile Include="UnityExtensions\ServiceRegister.cs" />
     <Compile Include="UnityExtensions\SettingRegister.cs" />
     <Compile Include="UnityExtensions\ViewModelRegister.cs" />
+    <Compile Include="UseCases\TimelineUseCase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CoreTweet, Version=0.7.2.352, Culture=neutral, processorArchitecture=MSIL">

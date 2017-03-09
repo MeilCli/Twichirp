@@ -31,7 +31,6 @@ using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.ViewController;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.DataObjects;
-using Twichirp.Core.Model;
 using Microsoft.Practices.Unity;
 using AActivity = Android.App.Activity;
 using CStatus = CoreTweet.Status;

@@ -28,10 +28,11 @@ using Android.Widget;
 using Android.Support.V7.App;
 using SToolbar = Android.Support.V7.Widget.Toolbar;
 using Android.Webkit;
-using Twichirp.Core.Constant;
-using Twichirp.Android.Constant;
+using Twichirp.Core.Constants;
+using Twichirp.Android.Constants;
 
 namespace Twichirp.Android.App.View.Activity {
+
     [Activity(Label = "@string/License")]
     public class LicenseActivity : AppCompatActivity {
 

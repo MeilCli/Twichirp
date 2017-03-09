@@ -28,7 +28,6 @@ using Android.Views;
 using Android.Widget;
 using FFImageLoading.Views;
 using Twichirp.Core.App.ViewModel;
-using Twichirp.Core.Model;
 using SToolbar = Android.Support.V7.Widget.Toolbar;
 using AActivity = Android.App.Activity;
 using AView = Android.Views.View;

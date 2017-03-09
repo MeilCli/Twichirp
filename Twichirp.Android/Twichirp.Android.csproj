@@ -285,13 +285,14 @@
     <Compile Include="App\View\Fragment\BaseFragment.cs" />
     <Compile Include="App\View\ILifeCycle.cs" />
     <Compile Include="App\View\PlayCircleTransformation.cs" />
-    <Compile Include="Constant\AndroidLibraryConstant.cs" />
+    <Compile Include="Constants\AndroidLibraryConstant.cs" />
     <Compile Include="App\View\Activity\MainActivity.cs" />
     <Compile Include="App\View\ReactiveCollectionAdapter.cs" />
     <Compile Include="Extensions\ReactivePropertyExtension.cs" />
     <Compile Include="Helpers\Settings.cs" />
-    <Compile Include="Model\NavigationMenu.cs" />
-    <Compile Include="Model\NavigationTab.cs" />
+    <Compile Include="Objects\NavigationMenu.cs" />
+    <Compile Include="Objects\NavigationTab.cs" />
+    <Compile Include="Repositories\JsonConvertedTimelineRepository.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -29,7 +29,7 @@ using Twichirp.Core.App;
 using Twichirp.Core.App.Manager;
 using Twichirp.Core.App.Setting;
 using Twichirp.Android.App.Manager;
-using Twichirp.Core.Constant;
+using Twichirp.Core.Constants;
 using Microsoft.Practices.Unity;
 using Twichirp.Core.App.Service;
 using Twichirp.Core.App.ViewModel;

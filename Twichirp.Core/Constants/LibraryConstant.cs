@@ -19,9 +19,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Twichirp.Core.Model;
+using Twichirp.Core.Objects;
 
-namespace Twichirp.Core.Constant {
+namespace Twichirp.Core.Constants {
 
     public class LibraryConstant {
         public static readonly Library CoreTweet = new Library("CoreTweet",@"CoreTweet - A .NET Twitter Library supporting Twitter API 1.1

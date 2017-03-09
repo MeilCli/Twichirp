@@ -25,13 +25,13 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.App.Model;
-using Twichirp.Core.Model;
 using Twichirp.Core.App.Event;
 using Twichirp.Core.App.Service;
 using Microsoft.Practices.Unity;
 using CStatus = CoreTweet.Status;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.App.Setting;
+using Twichirp.Core.Repositories;
 
 namespace Twichirp.Core.App.ViewModel {
 
@@ -40,12 +40,12 @@ namespace Twichirp.Core.App.ViewModel {
     /// </summary>
     public class StatusTimelineViewModel : BaseViewModel {
 
-        private const string constructorTimelineResource = "timelineResource";
+        private const string constructorTimelineRepository = "timelineRepository";
         private const string constructorAccount = "account";
 
-        public static StatusTimelineViewModel Resolve(UnityContainer unityContainer,Timeline<IEnumerable<CStatus>> timelineResource,ImmutableAccount account) {
+        public static StatusTimelineViewModel Resolve(UnityContainer unityContainer,ITimelineRepository timelineRepository,ImmutableAccount account) {
             return unityContainer.Resolve<StatusTimelineViewModel>(
-                new ParameterOverride(constructorTimelineResource,timelineResource),
+                new ParameterOverride(constructorTimelineRepository,timelineRepository),
                 new ParameterOverride(constructorAccount,account)
             );
         }
@@ -62,13 +62,13 @@ namespace Twichirp.Core.App.ViewModel {
         public ReadOnlyReactiveCollection<BaseViewModel> Timeline { get; }
         public ReadOnlyReactiveProperty<bool> IsLoading { get; }
         public ReactiveCommand<string> ShowMessageCommand { get; } = new ReactiveCommand<string>();
-        public AsyncReactiveCommand<Timeline<IEnumerable<CStatus>>> LoadCommand { get; } = new AsyncReactiveCommand<Timeline<IEnumerable<CStatus>>>();
+        public AsyncReactiveCommand<ITimelineRepository> LoadCommand { get; } = new AsyncReactiveCommand<ITimelineRepository>();
         public AsyncReactiveCommand LoadMoreComannd { get; } = new AsyncReactiveCommand();
 
-        public StatusTimelineViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,Timeline<IEnumerable<CStatus>> timelineResource,SettingManager settingManager,ImmutableAccount account) 
+        public StatusTimelineViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,SettingManager settingManager,ImmutableAccount account,ITimelineRepository timelineRepository) 
             : base(application) {
             this.account = account;
-            StatusTimelineModel = new StatusTimelineModel(application,twitterEventService,timelineResource,settingManager,account);
+            StatusTimelineModel = new StatusTimelineModel(application,twitterEventService,settingManager,account,timelineRepository);
             Timeline = StatusTimelineModel.Timeline.ToReadOnlyReactiveCollection(toViewModel).AddTo(Disposable);
             Timeline.CollectionChangedAsObservable().Subscribe(x => collectionChanged(x)).AddTo(Disposable);
             IsLoading = StatusTimelineModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);

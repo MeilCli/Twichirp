@@ -19,12 +19,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Plugin.CrossFormattedText.Abstractions;
+using Twichirp.Core.DataObjects;
+using CStatus = CoreTweet.Status;
 
-namespace Twichirp.Core.Constant {
+namespace Twichirp.Core.Repositories {
 
-    public static class SpanConstant {
+    public interface ITimelineRepository {
 
-        public static readonly SpanColor BlueColor = new SpanColor(60,90,170);
+        Task<IEnumerable<CStatus>> Load(ImmutableAccount account,int count,long? sinceId = null,long? maxId = null);
     }
 }

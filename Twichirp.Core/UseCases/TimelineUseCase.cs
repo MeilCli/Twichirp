@@ -19,15 +19,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Twichirp.Core.App.Service;
+using Twichirp.Core.DataObjects;
+using Twichirp.Core.Repositories;
 
-namespace Twichirp.Core.Model {
-    public class License {
-        public string LicenseName { get; private set; }
-        public string LicenseText { get; private set; }
+namespace Twichirp.Core.UseCases {
 
-        public License(string licenseName,string licenseText) {
-            LicenseName = licenseName;
-            LicenseText = licenseText;
+    public class TimelineUseCase {
+
+        private ITwitterEventService twitterEventService;
+        private ITimelineRepository defaultRepository;
+
+        public TimelineUseCase(ITwitterEventService twitterEventService,ITimelineRepository defaultRepository) {
+            this.twitterEventService = twitterEventService;
+            this.defaultRepository = defaultRepository;
+        }
+
+        public async Task<IEnumerable<CoreTweet.Status>> Load(ImmutableAccount account,int count,long? sinceId = null,long? maxId = null,ITimelineRepository repository=null) {
+            repository = repository ?? defaultRepository;
+            return await repository.Load(account,count,sinceId,maxId);
         }
     }
 }

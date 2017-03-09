@@ -1,5 +1,4 @@
 ﻿using System;
-using Twichirp.Core.Model;
 using CoreTweet;
 using Twichirp.Core.App.Event;
 using CStatus = CoreTweet.Status;

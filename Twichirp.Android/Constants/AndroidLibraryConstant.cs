@@ -18,10 +18,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Twichirp.Core.Model;
-using Twichirp.Core.Constant;
+using Twichirp.Core.Constants;
+using Twichirp.Core.Objects;
 
-namespace Twichirp.Android.Constant {
+namespace Twichirp.Android.Constants {
 
     public class AndroidLibraryConstant {
 

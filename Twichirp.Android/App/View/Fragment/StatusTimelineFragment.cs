@@ -32,10 +32,10 @@ using Twichirp.Android.App.ViewController;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
-using Twichirp.Core.Model;
 using Microsoft.Practices.Unity;
 using AView = Android.Views.View;
 using SFragment = Android.Support.V4.App.Fragment;
+using Twichirp.Core.Repositories;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414
@@ -135,23 +135,23 @@ namespace Twichirp.Android.App.View.Fragment {
             var type = (StatusTimelineFragmentType)Enum.ToObject(typeof(StatusTimelineFragmentType),Arguments.GetInt(argumentType));
             long userId = Arguments.GetLong(argumentUser,-1);
 
-            Timeline<IEnumerable<CoreTweet.Status>> timelineResource;
+            ITimelineRepository timelineRepository;
             switch(type) {
                 default:
                 case StatusTimelineFragmentType.Home:
-                    timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.HomeTimeline();
+                    timelineRepository = new HomeTimelineRepository();
                     break;
                 case StatusTimelineFragmentType.Mention:
-                    timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.MentionTimeline();
+                    timelineRepository = new MentionTimelineRepository();
                     break;
                 case StatusTimelineFragmentType.User:
-                    timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.UserTimeline(userId);
+                    timelineRepository = new UserTimelineRepository(userId);
                     break;
                 case StatusTimelineFragmentType.Favorite:
-                    timelineResource = Timeline<IEnumerable<CoreTweet.Status>>.FavoriteTimeline(userId);
+                    timelineRepository = new FavoriteTimelineRepository(userId);
                     break;
             }
-            statusTimelineViewModel = StatusTimelineViewModel.Resolve(TwichirpApplication.UnityContainer,timelineResource,account);
+            statusTimelineViewModel = StatusTimelineViewModel.Resolve(TwichirpApplication.UnityContainer,timelineRepository,account);
             statusTimelineViewController = new StatusTimelineViewController(this,statusTimelineViewModel);
         }
 

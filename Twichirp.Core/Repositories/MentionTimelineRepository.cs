@@ -18,24 +18,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CoreTweet;
-using Twichirp.Core.Constants;
-using Twichirp.Core.TweetCount;
-using static System.Console;
+using Twichirp.Core.DataObjects;
 
-namespace Twichirp.Test.Console {
-    class Program {
+namespace Twichirp.Core.Repositories {
 
-        static readonly string t1 = $"asa";
-        static readonly string t2 = $"sffs"+t1;
+    public class MentionTimelineRepository : ITimelineRepository {
 
-        static void Main(string[] args) {
-            var session = OAuth.Authorize(ClientKeyConstant.Twichirp.ConsumerKey,ClientKeyConstant.Twichirp.ConsumerSecret);
-            WriteLine(session.AuthorizeUri);
-            var tokens = OAuth.GetTokens(session,ReadLine());
-            
+        public MentionTimelineRepository() { }
+
+        public async Task<IEnumerable<CoreTweet.Status>> Load(ImmutableAccount account,int count,long? sinceId = null,long? maxId = null) {
+            return await account.CoreTweetToken.Statuses.MentionsTimelineAsync(
+                    count: count,
+                    since_id: sinceId,
+                    max_id: maxId,
+                    include_entities: true,
+                    include_ext_alt_text: true,
+                    tweet_mode: TweetMode.extended
+                );
         }
     }
 }

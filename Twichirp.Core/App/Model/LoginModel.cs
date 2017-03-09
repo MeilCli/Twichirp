@@ -19,7 +19,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Twichirp.Core.Model;
 using Twichirp.Core.App.Event;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;

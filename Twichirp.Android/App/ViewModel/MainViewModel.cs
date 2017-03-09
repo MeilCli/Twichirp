@@ -30,7 +30,7 @@ using Microsoft.Practices.Unity;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.Model;
-using Twichirp.Android.Model;
+using Twichirp.Android.Objects;
 using Twichirp.Core.App;
 using Twichirp.Core.App.Event;
 using Twichirp.Core.App.Model;

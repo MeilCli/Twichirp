@@ -31,7 +31,6 @@ using Twichirp.Core.App;
 using Twichirp.Core.App.Service;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.DataObjects;
-using Twichirp.Core.Model;
 using CStatus = CoreTweet.Status;
 
 namespace Twichirp.Android.App.ViewModel {

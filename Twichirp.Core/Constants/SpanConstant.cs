@@ -18,24 +18,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using CoreTweet;
-using Twichirp.Core.Constants;
-using Twichirp.Core.TweetCount;
-using static System.Console;
+using Plugin.CrossFormattedText.Abstractions;
 
-namespace Twichirp.Test.Console {
-    class Program {
+namespace Twichirp.Core.Constants {
 
-        static readonly string t1 = $"asa";
-        static readonly string t2 = $"sffs"+t1;
+    public static class SpanConstant {
 
-        static void Main(string[] args) {
-            var session = OAuth.Authorize(ClientKeyConstant.Twichirp.ConsumerKey,ClientKeyConstant.Twichirp.ConsumerSecret);
-            WriteLine(session.AuthorizeUri);
-            var tokens = OAuth.GetTokens(session,ReadLine());
-            
-        }
+        public static readonly SpanColor BlueColor = new SpanColor(60,90,170);
     }
 }

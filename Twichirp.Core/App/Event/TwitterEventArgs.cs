@@ -1,7 +1,6 @@
 ﻿using System;
 using CoreTweet;
 using Twichirp.Core.DataObjects;
-using Twichirp.Core.Model;
 using CStatus = CoreTweet.Status;
 using CUser = CoreTweet.User;
 

@@ -35,9 +35,9 @@ using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.View;
 using Twichirp.Android.App.View.Holder;
+using Twichirp.Android.Repositories;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.DataObjects;
-using Twichirp.Core.Model;
 using static Android.Support.V7.Widget.RecyclerView;
 using CStatus = CoreTweet.Status;
 
@@ -88,7 +88,7 @@ namespace Twichirp.Android.App.ViewController {
                 if(e.State != null) {
                     // ソース書いたはいいもののFragmentの設定上ここは呼ばれることない気がする
                     var statuses = JsonConvert.DeserializeObject<List<string>>(e.State.GetString(stateTimeline));
-                    var timeline = new Timeline<IEnumerable<CStatus>>(makeTimelineDelegate(statuses),Timeline<IEnumerable<CStatus>>.Undefined);
+                    var timeline = new JsonConvertedTimelineRepository(statuses);
                     ViewModel.LoadCommand.Execute(timeline);
                 } else {
                     ViewModel.LoadCommand.Execute(null);
@@ -146,20 +146,6 @@ namespace Twichirp.Android.App.ViewController {
             if(ViewModel.LoadCommand.CanExecute()) {
                 ViewModel.LoadCommand.Execute(null);
             }
-        }
-
-        private Func<ImmutableAccount,int,long?,long?,Task<IEnumerable<CStatus>>> makeTimelineDelegate(List<string> statuses) {
-            return async (account,count,sinceId,maxId) => {
-                return await Task.Run<IEnumerable<CStatus>>(() => {
-                    var temp = new List<CStatus>();
-                    foreach(var s in statuses.Take(count)) {
-                        temp.Add(JsonConvert.DeserializeObject<CStatus>(s));
-                    }
-                    // maxId以下かつsinceIdより上のを取ってくる
-                    var list = temp.TakeWhile(x => x.Id <= (maxId ?? long.MaxValue)).SkipWhile(x => x.Id <= (sinceId ?? long.MinValue)).ToList();
-                    return list;
-                });
-            };
         }
 
     }

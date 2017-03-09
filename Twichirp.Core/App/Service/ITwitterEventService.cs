@@ -22,7 +22,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using Twichirp.Core.Model;
 using Twichirp.Core.App.Event;
 using Twichirp.Core.DataObjects;
 using CStatus = CoreTweet.Status;
