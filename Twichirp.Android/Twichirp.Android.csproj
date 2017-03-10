@@ -266,7 +266,7 @@
     <Compile Include="App\View\Holder\BaseHolder.cs" />
     <Compile Include="App\View\Holder\LoadingHolder.cs" />
     <Compile Include="App\View\Holder\StatusHolder.cs" />
-    <Compile Include="App\View\IAppBarOffsetChange.cs" />
+    <Compile Include="App\View\IAppBarView.cs" />
     <Compile Include="App\View\IExpandedTitleView.cs" />
     <Compile Include="App\View\Interface\IImageViewerView.cs" />
     <Compile Include="App\View\Interface\ILoadingView.cs" />
@@ -282,11 +282,14 @@
     <Compile Include="App\TwichirpApplication.cs" />
     <Compile Include="App\View\Activity\BaseActivity.cs" />
     <Compile Include="App\View\Fragment\BaseFragment.cs" />
-    <Compile Include="App\View\ILifeCycle.cs" />
+    <Compile Include="App\View\ILifeCycleView.cs" />
     <Compile Include="App\View\PlayCircleTransformation.cs" />
     <Compile Include="Constants\AndroidLibraryConstant.cs" />
     <Compile Include="App\View\Activity\MainActivity.cs" />
     <Compile Include="App\View\ReactiveCollectionAdapter.cs" />
+    <Compile Include="Events\AppBarOffsetChangedEventArgs.cs" />
+    <Compile Include="Events\ExpandedTitleMarginEventArgs.cs" />
+    <Compile Include="Events\LifeCycleEventArgs.cs" />
     <Compile Include="Extensions\ReactivePropertyExtension.cs" />
     <Compile Include="Helpers\Settings.cs" />
     <Compile Include="Objects\NavigationMenu.cs" />

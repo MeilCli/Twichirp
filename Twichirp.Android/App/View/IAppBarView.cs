@@ -23,17 +23,20 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
-using AView = Android.Views.View;
+using Twichirp.Android.Events;
 
 namespace Twichirp.Android.App.View {
-    public interface ILoadingView :IView,ILifeCycleView {
 
-        ProgressBar ProgressBar { get; }
+    public interface IAppBarView {
 
-        TextView LoadingText { get; }
+        event EventHandler<AppBarOffsetChangedEventArgs> AppBarOffsetChanged;
+    }
 
-        AView ClickableView { get; }
+    public interface IAppBarViewContainer {
+
+        void RaiseAppBarOffsetChanged(AppBarOffsetChangedEventArgs args);
     }
 }

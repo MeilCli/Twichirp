@@ -4,7 +4,7 @@ using Twichirp.Core.DataObjects;
 using CStatus = CoreTweet.Status;
 using CUser = CoreTweet.User;
 
-namespace Twichirp.Core.App.Event {
+namespace Twichirp.Core.Events {
 
     public class TwitterEventArgs : EventArgs {
 

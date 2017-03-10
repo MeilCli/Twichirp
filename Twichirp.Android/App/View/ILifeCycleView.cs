@@ -25,15 +25,26 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using AView = Android.Views.View;
+using Twichirp.Android.Events;
 
 namespace Twichirp.Android.App.View {
-    public interface ILoadingView :IView,ILifeCycleView {
 
-        ProgressBar ProgressBar { get; }
+    public interface ILifeCycleView {
 
-        TextView LoadingText { get; }
+        event EventHandler<LifeCycleEventArgs> Created;
 
-        AView ClickableView { get; }
+        event EventHandler<LifeCycleEventArgs> Destroyed;
+
+        event EventHandler<LifeCycleEventArgs> ViewDestroyed;
+
+        event EventHandler<LifeCycleEventArgs> Resumed;
+
+        event EventHandler<LifeCycleEventArgs> Paused;
+
+        event EventHandler<LifeCycleEventArgs> InstanceStateSaved;
+
+        event EventHandler<LifeCycleEventArgs> InstanceStateRestored;
+
+        event EventHandler<LifeCycleEventArgs> NewIntentRecieved;
     }
 }

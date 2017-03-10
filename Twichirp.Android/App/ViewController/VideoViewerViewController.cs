@@ -30,6 +30,7 @@ using AndroidSlideLayout;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View;
+using Twichirp.Android.Events;
 using Twichirp.Core.App.ViewModel;
 
 namespace Twichirp.Android.App.ViewController {
@@ -39,16 +40,16 @@ namespace Twichirp.Android.App.ViewController {
         private bool isAnimatedGif;
 
         public VideoViewerViewController(IVideoViewerView view,StatusViewModel viewModel) : base(view,viewModel) {
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnCreateEventHandler += x,x => view.OnCreateEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x,x => view.Created -= x)
                 .Subscribe(x => onCreate(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnResumeEventHandler += x,x => view.OnResumeEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Resumed += x,x => view.Resumed -= x)
                 .Subscribe(x => onResume(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnPauseEventHandler += x,x => view.OnPauseEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Paused += x,x => view.Paused -= x)
                 .Subscribe(x => onPause(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnDestroyEventHandler += x,x => view.OnDestroyEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Destroyed += x,x => view.Destroyed -= x)
                 .Subscribe(x => onDestroy(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
         }

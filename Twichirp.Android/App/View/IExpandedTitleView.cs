@@ -25,25 +25,13 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Twichirp.Android.Events;
 
 namespace Twichirp.Android.App.View {
 
-    public class ExpandedTitleMarginEventArgs : EventArgs {
-
-        public int? MarginBottom { get; set; }
-        public int? MarginStart { get; set; }
-        public int TotalWidth { get; }
-        public int TotalHeight { get; }
-
-        public ExpandedTitleMarginEventArgs(int totalWidth,int totalHeight) {
-            TotalWidth = totalWidth;
-            TotalHeight = totalHeight;
-        }
-    }
-
     public interface IExpandedTitleView {
 
-        event EventHandler<ExpandedTitleMarginEventArgs> DecideExpandedTitleMarginEventHandler;
+        event EventHandler<ExpandedTitleMarginEventArgs> ExpandedTitleMarginMeasuring;
 
         void InvalidateExpandedTitle();
 

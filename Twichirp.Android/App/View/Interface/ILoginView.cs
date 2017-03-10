@@ -27,7 +27,7 @@ using Android.Views;
 using Android.Widget;
 
 namespace Twichirp.Android.App.View {
-    public interface ILoginView :IView,ILifeCycle{
+    public interface ILoginView :IView,ILifeCycleView{
 
         Button GoToWeb { get; }
 

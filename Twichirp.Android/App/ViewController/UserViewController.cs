@@ -34,6 +34,7 @@ using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View;
+using Twichirp.Android.Events;
 using Twichirp.Core.App.ViewModel;
 
 namespace Twichirp.Android.App.ViewController {
@@ -42,10 +43,10 @@ namespace Twichirp.Android.App.ViewController {
 
         public UserViewController(IUserView view,UserViewModel viewModel) : base(view,viewModel) {
             AutoDisposeViewModel = false;
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnCreateEventHandler += x,x => view.OnCreateEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x,x => view.Created -= x)
                 .Subscribe(x => onCreate(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnDestroyEventHandler += x,x => view.OnDestroyEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Destroyed += x,x => view.Destroyed -= x)
                 .Subscribe(x => onDestroy(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
         }

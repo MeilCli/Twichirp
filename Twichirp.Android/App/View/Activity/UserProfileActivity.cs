@@ -41,6 +41,7 @@ using Microsoft.Practices.Unity;
 using CUser = CoreTweet.User;
 using Twichirp.Core.DataRepositories;
 using Twichirp.Core.App.Setting;
+using Twichirp.Android.Events;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414
@@ -70,7 +71,7 @@ namespace Twichirp.Android.App.View.Activity {
             activity.StartActivityCompat(intent,iconTransition);
         }
 
-        public event EventHandler<ExpandedTitleMarginEventArgs> DecideExpandedTitleMarginEventHandler;
+        public event EventHandler<ExpandedTitleMarginEventArgs> ExpandedTitleMarginMeasuring;
         public event EventHandler<AppBarOffsetChangedEventArgs> AppBarOffsetChanged;
 
         private UserProfileViewController userProfileViewController;
@@ -145,7 +146,7 @@ namespace Twichirp.Android.App.View.Activity {
 
         public void OnGlobalLayout() {
             var expandedTitleMarginEventArgs = new ExpandedTitleMarginEventArgs(collapsingToolbarLayout.Width,collapsingToolbarLayout.Height);
-            DecideExpandedTitleMarginEventHandler?.Invoke(this,expandedTitleMarginEventArgs);
+            ExpandedTitleMarginMeasuring?.Invoke(this,expandedTitleMarginEventArgs);
             if(expandedTitleMarginEventArgs.MarginBottom != null) {
                 collapsingToolbarLayout.ExpandedTitleMarginBottom = expandedTitleMarginEventArgs.MarginBottom.Value;
             }
@@ -166,8 +167,8 @@ namespace Twichirp.Android.App.View.Activity {
                 return;
             }
             foreach(var fragment in SupportFragmentManager.Fragments) {
-                if(fragment is IAppBarOffsetChangeEventRaise) {
-                    (fragment as IAppBarOffsetChangeEventRaise).RaiseAppBarOffsetChanged(eventArgs);
+                if(fragment is IAppBarViewContainer) {
+                    (fragment as IAppBarViewContainer).RaiseAppBarOffsetChanged(eventArgs);
                 }
             }
         }

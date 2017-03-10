@@ -1,9 +1,9 @@
 ﻿using System;
 using CoreTweet;
-using Twichirp.Core.App.Event;
 using CStatus = CoreTweet.Status;
 using CUser = CoreTweet.User;
 using Twichirp.Core.DataObjects;
+using Twichirp.Core.Events;
 
 namespace Twichirp.Core.Services {
 

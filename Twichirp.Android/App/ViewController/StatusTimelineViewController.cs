@@ -35,6 +35,7 @@ using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.View;
 using Twichirp.Android.App.View.Holder;
+using Twichirp.Android.Events;
 using Twichirp.Android.Repositories;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.DataObjects;
@@ -52,16 +53,16 @@ namespace Twichirp.Android.App.ViewController {
         private CompositeDisposable onDestroyViewDisposable;
 
         public StatusTimelineViewController(IStatusTimelineView view,StatusTimelineViewModel viewModel) : base(view,viewModel) {
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.OnCreateEventHandler += x,x => View.OnCreateEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.Created += x,x => View.Created -= x)
                 .Subscribe(x => onCreate(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.OnDestroyEventHandler += x,x => View.OnDestroyEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.Destroyed += x,x => View.Destroyed -= x)
                 .Subscribe(x => onDestroy(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.OnDestroyViewEventHandler += x,x => View.OnDestroyViewEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.ViewDestroyed += x,x => View.ViewDestroyed -= x)
                 .Subscribe(x => onDestroyView(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.OnSaveInstanceStateEventHandler += x,x => View.OnSaveInstanceStateEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.InstanceStateSaved += x,x => View.InstanceStateSaved -= x)
                 .Subscribe(x => onSaveInstanceState(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
             Observable.FromEventPattern<AppBarOffsetChangedEventArgs>(x => View.AppBarOffsetChanged += x,x => View.AppBarOffsetChanged -= x)

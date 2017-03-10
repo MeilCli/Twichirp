@@ -31,7 +31,7 @@ using FFImageLoading.Views;
 
 namespace Twichirp.Android.App.View {
 
-    public interface IImageViewerView : IView, ILifeCycle {
+    public interface IImageViewerView : IView, ILifeCycleView {
 
         SlideLayout SlideLayout { get; }
 

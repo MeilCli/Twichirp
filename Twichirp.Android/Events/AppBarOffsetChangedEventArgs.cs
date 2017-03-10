@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2016-2017 meil
+// Copyright (c) 2016-2017 meil
 //
 // This file is part of Twichirp.
 // 
@@ -18,15 +18,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Twichirp.Core.App.Event {
-    public class EventArgs<T> : EventArgs {
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Runtime;
+using Android.Support.Design.Widget;
+using Android.Views;
+using Android.Widget;
 
-        public T EventData { get; private set; }
+namespace Twichirp.Android.Events {
 
-        public EventArgs(T eventData) {
-            EventData = eventData;
+    public class AppBarOffsetChangedEventArgs : EventArgs {
+
+        public AppBarLayout AppBar { get; }
+
+        public int Offset { get; }
+
+        public AppBarOffsetChangedEventArgs(AppBarLayout appBar,int offset) {
+            AppBar = appBar;
+            Offset = offset;
         }
     }
 }

@@ -29,7 +29,7 @@ using FFImageLoading.Views;
 using AView = Android.Views.View;
 
 namespace Twichirp.Android.App.View {
-    public interface IStatusView :IView,ILifeCycle{
+    public interface IStatusView :IView,ILifeCycleView{
 
         int StatusType { get; }
 

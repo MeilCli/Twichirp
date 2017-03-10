@@ -26,9 +26,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Twichirp.Android.App.View {
+namespace Twichirp.Android.Events {
 
-    public class LifeCycleEventArgs :EventArgs{
+    public class LifeCycleEventArgs : EventArgs {
 
         public string EventName { get; }
 
@@ -40,24 +40,5 @@ namespace Twichirp.Android.App.View {
             EventName = eventName;
             State = state;
         }
-    }
-
-    public interface ILifeCycle {
-
-        event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
-
-        event EventHandler<LifeCycleEventArgs> OnDestroyEventHandler;
-
-        event EventHandler<LifeCycleEventArgs> OnDestroyViewEventHandler;
-
-        event EventHandler<LifeCycleEventArgs> OnResumeEventHandler;
-
-        event EventHandler<LifeCycleEventArgs> OnPauseEventHandler;
-
-        event EventHandler<LifeCycleEventArgs> OnSaveInstanceStateEventHandler;
-
-        event EventHandler<LifeCycleEventArgs> OnRestoreInstanceStateEventHandler;
-
-        event EventHandler<LifeCycleEventArgs> OnNewIntentEventHandler;
     }
 }

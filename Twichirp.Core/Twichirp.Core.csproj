@@ -44,7 +44,7 @@
     <Compile Include="Aclog\Data\Status.cs" />
     <Compile Include="Aclog\Data\User.cs" />
     <Compile Include="Aclog\TokenExtension.cs" />
-    <Compile Include="App\Event\EventArgs.cs" />
+    <Compile Include="Events\EventArgs.cs" />
     <Compile Include="App\ITwichirpApplication.cs" />
     <Compile Include="App\Model\BaseModel.cs" />
     <Compile Include="App\Model\LoadingModel.cs" />
@@ -144,7 +144,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Services\ITwitterEventService.cs" />
-    <Compile Include="App\Event\TwitterEventArgs.cs" />
+    <Compile Include="Events\TwitterEventArgs.cs" />
     <Compile Include="Services\TwitterEventService.cs" />
     <Compile Include="UnityExtensions\ServiceRegister.cs" />
     <Compile Include="UnityExtensions\SettingRegister.cs" />

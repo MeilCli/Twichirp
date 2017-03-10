@@ -27,20 +27,21 @@ using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using Twichirp.Android.Events;
 using Twichirp.Core.App;
 using SFragment = Android.Support.V4.App.Fragment;
 
 namespace Twichirp.Android.App.View.Fragment {
-    public abstract class BaseFragment : SFragment ,ILifeCycle,IView{
+    public abstract class BaseFragment : SFragment ,ILifeCycleView,IView{
         
-        public event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnDestroyEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnDestroyViewEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnPauseEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnRestoreInstanceStateEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnResumeEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnSaveInstanceStateEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnNewIntentEventHandler;
+        public event EventHandler<LifeCycleEventArgs> Created;
+        public event EventHandler<LifeCycleEventArgs> Destroyed;
+        public event EventHandler<LifeCycleEventArgs> ViewDestroyed;
+        public event EventHandler<LifeCycleEventArgs> Paused;
+        public event EventHandler<LifeCycleEventArgs> InstanceStateRestored;
+        public event EventHandler<LifeCycleEventArgs> Resumed;
+        public event EventHandler<LifeCycleEventArgs> InstanceStateSaved;
+        public event EventHandler<LifeCycleEventArgs> NewIntentRecieved;
 
         public Context ApplicationContext => Context.ApplicationContext;
 
@@ -61,39 +62,39 @@ namespace Twichirp.Android.App.View.Fragment {
 
         public override void OnActivityCreated(Bundle savedInstanceState) {
             base.OnActivityCreated(savedInstanceState);
-            OnCreateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnActivityCreated),savedInstanceState));
+            Created?.Invoke(this,new LifeCycleEventArgs(nameof(OnActivityCreated),savedInstanceState));
             if(savedInstanceState != null) {
-                OnRestoreInstanceStateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnActivityCreated),savedInstanceState));
+                InstanceStateRestored?.Invoke(this,new LifeCycleEventArgs(nameof(OnActivityCreated),savedInstanceState));
             }
         }
 
         public override void OnDestroyView() {
             base.OnDestroyView();
-            OnDestroyViewEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnDestroyView)));
+            ViewDestroyed?.Invoke(this,new LifeCycleEventArgs(nameof(OnDestroyView)));
         }
 
         public override void OnDestroy() {
             base.OnDestroy();
-            OnDestroyEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnDestroy)));
+            Destroyed?.Invoke(this,new LifeCycleEventArgs(nameof(OnDestroy)));
         }
 
         public override void OnResume() {
             base.OnResume();
-            OnResumeEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnResume)));
+            Resumed?.Invoke(this,new LifeCycleEventArgs(nameof(OnResume)));
         }
 
         public override void OnPause() {
             base.OnPause();
-            OnPauseEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnPause)));
+            Paused?.Invoke(this,new LifeCycleEventArgs(nameof(OnPause)));
         }
 
         public override void OnSaveInstanceState(Bundle outState) {
             base.OnSaveInstanceState(outState);
-            OnSaveInstanceStateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnSaveInstanceState),outState));
+            InstanceStateSaved?.Invoke(this,new LifeCycleEventArgs(nameof(OnSaveInstanceState),outState));
         }
 
         public void OnNewIntent(Intent intent) {
-            OnNewIntentEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnNewIntent),intent: intent));
+            NewIntentRecieved?.Invoke(this,new LifeCycleEventArgs(nameof(OnNewIntent),intent: intent));
         }
 
     }

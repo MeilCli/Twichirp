@@ -23,10 +23,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Twichirp.Core.Extensions;
-using Twichirp.Core.App.Event;
 using Twichirp.Core.DataObjects;
 using CStatus = CoreTweet.Status;
 using Twichirp.Core.Services;
+using Twichirp.Core.Events;
 
 namespace Twichirp.Core.App.Model {
 

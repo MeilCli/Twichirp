@@ -27,7 +27,7 @@ using Android.Views;
 using Android.Widget;
 
 namespace Twichirp.Android.App.View {
-    public interface ISplashView : IView,ILifeCycle {
+    public interface ISplashView : IView,ILifeCycleView {
 
         TextView Message { get; }
     }

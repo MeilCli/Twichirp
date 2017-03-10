@@ -39,19 +39,20 @@ using Twichirp.Android.App.View;
 using Twichirp.Android.App.View.Fragment;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Android.Extensions;
+using Twichirp.Android.Events;
 
 namespace Twichirp.Android.App.ViewController {
 
     public class UserProfileViewController : BaseViewController<IUserProfileView,UserProfileViewModel> {
 
         public UserProfileViewController(IUserProfileView view,UserProfileViewModel viewModel) : base(view,viewModel) {
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnCreateEventHandler += x,x => view.OnCreateEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x,x => view.Created -= x)
                 .Subscribe(x => onCreate(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnDestroyEventHandler += x,x => view.OnDestroyEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Destroyed += x,x => view.Destroyed -= x)
                 .Subscribe(x => onDestroy(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<ExpandedTitleMarginEventArgs>(x => view.DecideExpandedTitleMarginEventHandler += x,x => view.DecideExpandedTitleMarginEventHandler -= x)
+            Observable.FromEventPattern<ExpandedTitleMarginEventArgs>(x => view.ExpandedTitleMarginMeasuring += x,x => view.ExpandedTitleMarginMeasuring -= x)
                 .Subscribe(x => decideExpandedTitleMargin(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
         }

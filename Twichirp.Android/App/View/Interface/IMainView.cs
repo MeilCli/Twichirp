@@ -32,7 +32,7 @@ using FFImageLoading.Views;
 using BottomBarSharp;
 
 namespace Twichirp.Android.App.View {
-    public interface IMainView : IView, ILifeCycle {
+    public interface IMainView : IView, ILifeCycleView {
 
         SToolbar Toolbar { get; }
 

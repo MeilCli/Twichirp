@@ -24,7 +24,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.Extensions;
-using Twichirp.Core.App.Event;
 using Newtonsoft.Json;
 using Twichirp.Core.DataObjects;
 using CStatus = CoreTweet.Status;
@@ -33,6 +32,7 @@ using Twichirp.Core.App.Setting;
 using Twichirp.Core.UseCases;
 using Twichirp.Core.Repositories;
 using Twichirp.Core.Services;
+using Twichirp.Core.Events;
 
 namespace Twichirp.Core.App.Model {
 

@@ -23,10 +23,10 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.App.Model;
-using Twichirp.Core.App.Event;
 using Twichirp.Core.DataRepositories;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.App.Setting;
+using Twichirp.Core.Events;
 
 namespace Twichirp.Core.App.ViewModel {
 

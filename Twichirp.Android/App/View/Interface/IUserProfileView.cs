@@ -30,7 +30,7 @@ using SToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Twichirp.Android.App.View {
 
-    public interface IUserProfileView : IUserView, IExpandedTitleView, IAppBarOffsetChange {
+    public interface IUserProfileView : IUserView, IExpandedTitleView, IAppBarView {
 
         SToolbar Toolbar { get; }
 

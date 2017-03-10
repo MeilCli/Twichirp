@@ -29,19 +29,20 @@ using Android.Support.V7.App;
 using Twichirp.Core.App;
 using SFragment = Android.Support.V4.App.Fragment;
 using Twichirp.Android.App.View.Fragment;
+using Twichirp.Android.Events;
 
 namespace Twichirp.Android.App.View.Activity {
 
-    public abstract class BaseActivity : AppCompatActivity ,ILifeCycle,IView{ 
+    public abstract class BaseActivity : AppCompatActivity ,ILifeCycleView,IView{ 
 
-        public event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnDestroyEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnDestroyViewEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnPauseEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnRestoreInstanceStateEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnResumeEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnSaveInstanceStateEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnNewIntentEventHandler;
+        public event EventHandler<LifeCycleEventArgs> Created;
+        public event EventHandler<LifeCycleEventArgs> Destroyed;
+        public event EventHandler<LifeCycleEventArgs> ViewDestroyed;
+        public event EventHandler<LifeCycleEventArgs> Paused;
+        public event EventHandler<LifeCycleEventArgs> InstanceStateRestored;
+        public event EventHandler<LifeCycleEventArgs> Resumed;
+        public event EventHandler<LifeCycleEventArgs> InstanceStateSaved;
+        public event EventHandler<LifeCycleEventArgs> NewIntentRecieved;
 
         public ITwichirpApplication TwichirpApplication => this.Application as ITwichirpApplication;
 
@@ -50,9 +51,9 @@ namespace Twichirp.Android.App.View.Activity {
         protected override void OnCreate(Bundle savedInstanceState) {
             base.OnCreate(savedInstanceState);
             OnViewCreate(savedInstanceState);
-            OnCreateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnCreate),savedInstanceState));
+            Created?.Invoke(this,new LifeCycleEventArgs(nameof(OnCreate),savedInstanceState));
             if(savedInstanceState != null) {
-                OnRestoreInstanceStateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnCreate),savedInstanceState));
+                InstanceStateRestored?.Invoke(this,new LifeCycleEventArgs(nameof(OnCreate),savedInstanceState));
             }
         }
 
@@ -60,28 +61,28 @@ namespace Twichirp.Android.App.View.Activity {
 
         protected override void OnDestroy() {
             base.OnDestroy();
-            OnDestroyViewEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnDestroy)));
-            OnDestroyEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnDestroy)));
+            ViewDestroyed?.Invoke(this,new LifeCycleEventArgs(nameof(OnDestroy)));
+            Destroyed?.Invoke(this,new LifeCycleEventArgs(nameof(OnDestroy)));
         }
 
         protected override void OnResume() {
             base.OnResume();
-            OnResumeEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnResume)));
+            Resumed?.Invoke(this,new LifeCycleEventArgs(nameof(OnResume)));
         }
 
         protected override void OnPause() {
             base.OnPause();
-            OnPauseEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnPause)));
+            Paused?.Invoke(this,new LifeCycleEventArgs(nameof(OnPause)));
         }
 
         protected override void OnSaveInstanceState(Bundle outState) {
             base.OnSaveInstanceState(outState);
-            OnSaveInstanceStateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnSaveInstanceState),outState));
+            InstanceStateSaved?.Invoke(this,new LifeCycleEventArgs(nameof(OnSaveInstanceState),outState));
         }
 
         protected override void OnNewIntent(Intent intent) {
             base.OnNewIntent(intent);
-            OnNewIntentEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnNewIntent),intent: intent));
+            NewIntentRecieved?.Invoke(this,new LifeCycleEventArgs(nameof(OnNewIntent),intent: intent));
             if(SupportFragmentManager.Fragments == null) {
                 return;
             }

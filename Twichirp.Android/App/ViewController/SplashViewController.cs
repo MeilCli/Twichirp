@@ -32,13 +32,14 @@ using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View.Activity;
 using Reactive.Bindings.Extensions;
 using System.Reactive.Linq;
+using Twichirp.Android.Events;
 
 namespace Twichirp.Android.App.ViewController {
 
     public class SplashViewController : BaseViewController<ISplashView,SplashViewModel> {
 
         public SplashViewController(ISplashView view,SplashViewModel viewModel) : base(view,viewModel) {
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnCreateEventHandler += x,x => view.OnCreateEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x,x => view.Created -= x)
                 .Subscribe(x => onCreate(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
             viewModel.StartMainPageCommand.Subscribe(x => {

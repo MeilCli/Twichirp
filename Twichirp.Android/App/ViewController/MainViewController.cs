@@ -54,6 +54,7 @@ using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
 using Microsoft.Practices.Unity;
 using Twichirp.Core.App.Setting;
+using Twichirp.Android.Events;
 
 namespace Twichirp.Android.App.ViewController {
 
@@ -66,10 +67,10 @@ namespace Twichirp.Android.App.ViewController {
         private bool isTabInited;
 
         public MainViewController(IMainView view,MainViewModel viewModel) : base(view,viewModel) {
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnCreateEventHandler += x,x => view.OnCreateEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x,x => view.Created -= x)
                 .Subscribe(x => onCreate(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnResumeEventHandler += x,x => view.OnResumeEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Resumed += x,x => view.Resumed -= x)
                 .Subscribe(x => onResume(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
         }

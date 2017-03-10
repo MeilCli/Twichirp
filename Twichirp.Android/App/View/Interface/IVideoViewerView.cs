@@ -29,7 +29,7 @@ using AndroidSlideLayout;
 
 namespace Twichirp.Android.App.View {
 
-    public interface IVideoViewerView :IView,ILifeCycle {
+    public interface IVideoViewerView :IView,ILifeCycleView {
 
         SlideLayout SlideLayout { get; }
 

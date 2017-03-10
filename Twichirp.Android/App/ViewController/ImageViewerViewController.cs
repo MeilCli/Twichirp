@@ -36,16 +36,17 @@ using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.Extensions;
 using Twichirp.Android.App.View;
 using Twichirp.Android.App.ViewModel;
+using Twichirp.Android.Events;
 
 namespace Twichirp.Android.App.ViewController {
 
     public class ImageViewerViewController : BaseViewController<IImageViewerView,ImageViewerViewModel> {
 
         public ImageViewerViewController(IImageViewerView view,ImageViewerViewModel viewModel) : base(view,viewModel) {
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnCreateEventHandler += x,x => view.OnCreateEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x,x => view.Created -= x)
                 .Subscribe(x => onCreate(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnDestroyEventHandler += x,x => view.OnDestroyEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Destroyed += x,x => view.Destroyed -= x)
                 .Subscribe(x => onDestroy(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
         }

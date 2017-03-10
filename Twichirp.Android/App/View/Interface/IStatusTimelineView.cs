@@ -29,7 +29,7 @@ using Android.Views;
 using Android.Widget;
 
 namespace Twichirp.Android.App.View {
-    public interface IStatusTimelineView : IView, ILifeCycle, IAppBarOffsetChange {
+    public interface IStatusTimelineView : IView, ILifeCycleView, IAppBarView {
 
         SwipeRefreshLayout SwipeRefrech { get; }
 

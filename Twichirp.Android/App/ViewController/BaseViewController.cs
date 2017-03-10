@@ -31,7 +31,7 @@ using Twichirp.Android.App.View;
 using Twichirp.Core.App;
 
 namespace Twichirp.Android.App.ViewController {
-    public class BaseViewController<TView,TViewModel>:IDisposable where TView : IView,ILifeCycle {
+    public class BaseViewController<TView,TViewModel>:IDisposable where TView : IView,ILifeCycleView {
 
         public TView View { get; }
         public TViewModel ViewModel { get; }
@@ -43,9 +43,9 @@ namespace Twichirp.Android.App.ViewController {
             View = view;
             ViewModel = viewModel;
             if(viewModel is IDisposable) {
-                view.OnDestroyEventHandler += (x,y) => { if(AutoDisposeViewModel) (viewModel as IDisposable).Dispose(); };
+                view.Destroyed += (x,y) => { if(AutoDisposeViewModel) (viewModel as IDisposable).Dispose(); };
             }
-            view.OnDestroyEventHandler += (x,y) => { if(Disposable.IsDisposed == false) Disposable.Dispose(); };
+            view.Destroyed += (x,y) => { if(Disposable.IsDisposed == false) Disposable.Dispose(); };
         }
 
         public void Dispose() {
@@ -53,7 +53,7 @@ namespace Twichirp.Android.App.ViewController {
         }
     }
 
-    public class BaseViewController<TView>:IDisposable where TView : IView, ILifeCycle {
+    public class BaseViewController<TView>:IDisposable where TView : IView, ILifeCycleView {
 
         public TView View { get; }
         public ITwichirpApplication Application => View.TwichirpApplication;
@@ -61,7 +61,7 @@ namespace Twichirp.Android.App.ViewController {
 
         public BaseViewController(TView view) {
             View = view;
-            view.OnDestroyEventHandler += (x,y) => { if(Disposable.IsDisposed == false) Disposable.Dispose(); };
+            view.Destroyed += (x,y) => { if(Disposable.IsDisposed == false) Disposable.Dispose(); };
         }
 
         public void Dispose() {

@@ -29,7 +29,7 @@ using FFImageLoading.Views;
 
 namespace Twichirp.Android.App.View {
 
-    public interface IUserView : IView, ILifeCycle {
+    public interface IUserView : IView, ILifeCycleView {
 
         ImageViewAsync Icon { get; }
 

@@ -25,15 +25,19 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using AView = Android.Views.View;
 
-namespace Twichirp.Android.App.View {
-    public interface ILoadingView :IView,ILifeCycleView {
+namespace Twichirp.Android.Events {
 
-        ProgressBar ProgressBar { get; }
+    public class ExpandedTitleMarginEventArgs : EventArgs {
 
-        TextView LoadingText { get; }
+        public int? MarginBottom { get; set; }
+        public int? MarginStart { get; set; }
+        public int TotalWidth { get; }
+        public int TotalHeight { get; }
 
-        AView ClickableView { get; }
+        public ExpandedTitleMarginEventArgs(int totalWidth,int totalHeight) {
+            TotalWidth = totalWidth;
+            TotalHeight = totalHeight;
+        }
     }
 }

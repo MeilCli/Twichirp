@@ -36,6 +36,7 @@ using Microsoft.Practices.Unity;
 using AView = Android.Views.View;
 using SFragment = Android.Support.V4.App.Fragment;
 using Twichirp.Core.Repositories;
+using Twichirp.Android.Events;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414
@@ -49,7 +50,7 @@ namespace Twichirp.Android.App.View.Fragment {
         Favorite = 3
     }
 
-    public class StatusTimelineFragment : BaseFragment, IStatusTimelineView, IAppBarOffsetChangeEventRaise {
+    public class StatusTimelineFragment : BaseFragment, IStatusTimelineView, IAppBarViewContainer {
 
         private const string argumentType = "arg_type";
         private const string argumentAccount = "arg_account";

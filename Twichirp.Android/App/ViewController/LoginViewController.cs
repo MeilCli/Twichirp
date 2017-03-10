@@ -34,13 +34,14 @@ using Twichirp.Android.App.View.Activity;
 using Twichirp.Android.App.View.Fragment.Dialog;
 using System.Reactive.Linq;
 using Twichirp.Android.Extensions;
+using Twichirp.Android.Events;
 
 namespace Twichirp.Android.App.ViewController {
 
     public class LoginViewController : BaseViewController<ILoginView,LoginViewModel> {
 
         public LoginViewController(ILoginView view,LoginViewModel viewModel) : base(view,viewModel) {
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.OnCreateEventHandler += x,x => view.OnCreateEventHandler -= x)
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x,x => view.Created -= x)
                 .Subscribe(x => onCreate(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
             viewModel.ShowMessageCommand.Subscribe(x => View.ApplicationContext.ShowToast(x)).AddTo(Disposable);

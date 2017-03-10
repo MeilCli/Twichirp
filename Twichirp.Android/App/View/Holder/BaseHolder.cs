@@ -31,26 +31,27 @@ using Android.Support.V7.Widget;
 using Android.Util;
 using Android.Support.V4.View;
 using AView = Android.Views.View;
+using Twichirp.Android.Events;
 
 // 未使用イベントの警告非表示
 #pragma warning disable 0067
 
 namespace Twichirp.Android.App.View.Holder {
     
-    public abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView, ILifeCycle, IBindable<T>, IRecyclable {
+    public abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView, ILifeCycleView, IBindable<T>, IRecyclable {
 
         protected static AView InflateView(IView view, int layoutResource) {
             return LayoutInflater.From(view.Activity).Inflate(layoutResource, null);
         }
 
-        public event EventHandler<LifeCycleEventArgs> OnCreateEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnDestroyEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnDestroyViewEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnResumeEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnPauseEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnSaveInstanceStateEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnRestoreInstanceStateEventHandler;
-        public event EventHandler<LifeCycleEventArgs> OnNewIntentEventHandler;
+        public event EventHandler<LifeCycleEventArgs> Created;
+        public event EventHandler<LifeCycleEventArgs> Destroyed;
+        public event EventHandler<LifeCycleEventArgs> ViewDestroyed;
+        public event EventHandler<LifeCycleEventArgs> Resumed;
+        public event EventHandler<LifeCycleEventArgs> Paused;
+        public event EventHandler<LifeCycleEventArgs> InstanceStateSaved;
+        public event EventHandler<LifeCycleEventArgs> InstanceStateRestored;
+        public event EventHandler<LifeCycleEventArgs> NewIntentRecieved;
 
         private IView view;
 
@@ -77,15 +78,15 @@ namespace Twichirp.Android.App.View.Holder {
 
         public void OnBind(T item,int position) {
             OnPreBind(item,position);
-            OnCreateEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(OnBind)));
+            Created?.Invoke(this,new LifeCycleEventArgs(nameof(OnBind)));
         }
 
         public abstract void OnPreBind(T item,int position);
 
         private void onDetatchViewFromWindow(object sender,EventArgs e) {
             ItemView.ViewDetachedFromWindow -= onDetatchViewFromWindow;
-            OnDestroyViewEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
-            OnDestroyEventHandler?.Invoke(this,new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
+            ViewDestroyed?.Invoke(this,new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
+            Destroyed?.Invoke(this,new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
             OnDestroyView();
         }
 
