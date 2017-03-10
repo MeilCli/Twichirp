@@ -32,7 +32,7 @@ using SToolbar = Android.Support.V7.Widget.Toolbar;
 using AActivity = Android.App.Activity;
 using AView = Android.Views.View;
 using CoreTweet;
-using Twichirp.Android.App.Extensions;
+using Twichirp.Android.Extensions;
 using Newtonsoft.Json;
 using Twichirp.Android.App.ViewController;
 using Android.Support.Design.Widget;

@@ -33,7 +33,7 @@ using CoreTweet;
 using FFImageLoading;
 using FFImageLoading.Views;
 using Reactive.Bindings.Extensions;
-using Twichirp.Android.App.Extensions;
+using Twichirp.Android.Extensions;
 using Twichirp.Android.App.View;
 using Twichirp.Android.App.ViewModel;
 using Twichirp.Android.Events;

@@ -29,11 +29,10 @@ using Android.Views;
 using Android.Widget;
 using Twichirp.Android.App.View;
 using Twichirp.Core.App.ViewModel;
-using Twichirp.Android.App.Extensions;
+using Twichirp.Android.Extensions;
 using Twichirp.Android.App.View.Activity;
 using Twichirp.Android.App.View.Fragment.Dialog;
 using System.Reactive.Linq;
-using Twichirp.Android.Extensions;
 using Twichirp.Android.Events;
 
 namespace Twichirp.Android.App.ViewController {

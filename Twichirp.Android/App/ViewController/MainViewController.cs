@@ -30,7 +30,7 @@ using static Android.Support.Design.Widget.NavigationView;
 using Android.Graphics;
 using System.Threading.Tasks;
 using Android.Graphics.Drawables;
-using Twichirp.Android.App.Extensions;
+using Twichirp.Android.Extensions;
 using Android.Support.V7.Graphics;
 using Android.Support.V4.Graphics.Drawable;
 using Android.Support.V4.Content;

@@ -27,7 +27,7 @@ using Android.Views;
 using Android.Widget;
 using AndroidSlideLayout;
 using Newtonsoft.Json;
-using Twichirp.Android.App.Extensions;
+using Twichirp.Android.Extensions;
 using Twichirp.Android.App.ViewController;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.DataObjects;

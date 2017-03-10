@@ -39,11 +39,10 @@ using FFImageLoading.Transformations;
 using Plugin.CrossFormattedText;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using Twichirp.Android.App.Extensions;
+using Twichirp.Android.Extensions;
 using Twichirp.Android.App.View;
 using Twichirp.Android.App.View.Activity;
 using Twichirp.Android.Events;
-using Twichirp.Android.Extensions;
 using Twichirp.Core.App.ViewModel;
 
 namespace Twichirp.Android.App.ViewController {

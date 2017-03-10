@@ -228,10 +228,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App\Extensions\ActivityExtensions.cs" />
-    <Compile Include="App\Extensions\ContextExtensions.cs" />
-    <Compile Include="App\Extensions\UtilExtensions.cs" />
-    <Compile Include="App\Extensions\ViewExtensions.cs" />
+    <Compile Include="Extensions\ActivityExtensions.cs" />
+    <Compile Include="Extensions\ContextExtensions.cs" />
+    <Compile Include="Extensions\UtilExtensions.cs" />
+    <Compile Include="Extensions\ViewExtensions.cs" />
     <Compile Include="App\Model\MainModel.cs" />
     <Compile Include="App\Setting\AccountSettingFragment.cs" />
     <Compile Include="App\Setting\ApplicationSettingFragment.cs" />

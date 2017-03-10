@@ -28,7 +28,7 @@ using Android.Widget;
 using Android.Support.V7.App;
 using SFragment = Android.Support.V4.App.Fragment;
 using SToolbar = Android.Support.V7.Widget.Toolbar;
-using Twichirp.Android.App.Extensions;
+using Twichirp.Android.Extensions;
 
 namespace Twichirp.Android.App.Setting {
     [Activity(Label = "@string/Setting",Theme ="@style/AppTheme.Setting")]

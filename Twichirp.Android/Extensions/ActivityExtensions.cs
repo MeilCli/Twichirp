@@ -25,20 +25,24 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using AView = Android.Views.View;
 
-namespace Twichirp.Android.App.Extensions {
-    public static class ContextExtensions {
+namespace Twichirp.Android.Extensions {
 
-        public static TwichirpApplication ToTwichirpApplication(this Context context) => ((TwichirpApplication)context.ApplicationContext);
+    public static class ActivityExtensions {
 
-        public static void ShowToast(this Context context,int resource) => Toast.MakeText(context.ApplicationContext,resource,ToastLength.Short).Show();
-
-        public static void ShowToast(this Context context,string text) => Toast.MakeText(context.ApplicationContext,text,ToastLength.Short).Show();
-
-        public static int ConvertDensityIndependentPixelToPixel(this Context context,float dp) {
-            var metrics = context.Resources.DisplayMetrics;
-            return (int)(dp * ((int)metrics.DensityDpi / 160f));
+        public static void StartActivityCompat(this Activity activity,Type type,Tuple<AView,string> element = null) {
+            var intent = new Intent(activity.ApplicationContext,type);
+            StartActivityCompat(activity,intent,element);
         }
 
+        public static void StartActivityCompat(this Activity activity,Intent intent,Tuple<AView,string> element = null) {
+            if(Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop && element != null) {
+                ActivityOptions options = ActivityOptions.MakeSceneTransitionAnimation(activity,element.Item1,element.Item2);
+                activity.StartActivity(intent,options.ToBundle());
+            } else {
+                activity.StartActivity(intent);
+            }
+        }
     }
 }

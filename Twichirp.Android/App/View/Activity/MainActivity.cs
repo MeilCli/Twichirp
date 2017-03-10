@@ -25,7 +25,7 @@ using SToolbar = Android.Support.V7.Widget.Toolbar;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
 using Twichirp.Android.App.ViewController;
-using Twichirp.Android.App.Extensions;
+using Twichirp.Android.Extensions;
 using Twichirp.Android.App.View.Fragment;
 using FFImageLoading.Views;
 using Twichirp.Android.App.ViewModel;

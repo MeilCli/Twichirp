@@ -18,29 +18,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
+using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AView = Android.Views.View;
 
-namespace Twichirp.Android.App.Extensions {
-    public static class ActivityExtensions {
+namespace Twichirp.Android.Extensions {
 
-        public static void StartActivityCompat(this Activity activity,Type type,Tuple<AView,string> element = null) {
-            var intent = new Intent(activity.ApplicationContext,type);
-            StartActivityCompat(activity,intent,element);
+    public static class ViewExtensions {
+
+        public static void SetTransitionNameCompat(this AView view,string name) {
+            if(Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop) {
+                view.TransitionName = name;
+            }
         }
 
-        public static void StartActivityCompat(this Activity activity,Intent intent,Tuple<AView,string> element = null) {
-            if(Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop && element != null) {
-                ActivityOptions options = ActivityOptions.MakeSceneTransitionAnimation(activity,element.Item1,element.Item2);
-                activity.StartActivity(intent,options.ToBundle());
-            } else {
-                activity.StartActivity(intent);
+        public static void ReleaseImage(this ImageView imageView) {
+            var drawable = imageView.Drawable;
+            imageView.SetImageDrawable(null);
+            imageView.Tag = null;
+            if(drawable is BitmapDrawable) {
+                //(drawable as BitmapDrawable)?.Bitmap?.Recycle();
             }
         }
     }

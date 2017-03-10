@@ -26,8 +26,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Twichirp.Android.App.Extensions {
+namespace Twichirp.Android.Extensions {
+
     public static class UtilExtensions {
+
         public static T Apply<T>(this T obj,Action<T> reciever) {
             reciever(obj);
             return obj;

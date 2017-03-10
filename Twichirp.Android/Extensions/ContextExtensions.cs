@@ -18,34 +18,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 using Android.App;
 using Android.Content;
-using Android.Graphics;
-using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
-using AView = Android.Views.View;
+using Twichirp.Android.App;
 
-namespace Twichirp.Android.App.Extensions {
-    public static class ViewExtensions {
+namespace Twichirp.Android.Extensions {
 
-        public static void SetTransitionNameCompat(this AView view,string name) {
-            if(Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop) {
-                view.TransitionName = name;
-            }
+    public static class ContextExtensions {
+
+        public static TwichirpApplication ToTwichirpApplication(this Context context) => ((TwichirpApplication)context.ApplicationContext);
+
+        public static void ShowToast(this Context context,int resource) => Toast.MakeText(context.ApplicationContext,resource,ToastLength.Short).Show();
+
+        public static void ShowToast(this Context context,string text) => Toast.MakeText(context.ApplicationContext,text,ToastLength.Short).Show();
+
+        public static int ConvertDensityIndependentPixelToPixel(this Context context,float dp) {
+            var metrics = context.Resources.DisplayMetrics;
+            return (int)(dp * ((int)metrics.DensityDpi / 160f));
         }
 
-        public static void ReleaseImage(this ImageView imageView) {
-            var drawable = imageView.Drawable;
-            imageView.SetImageDrawable(null);
-            imageView.Tag = null;
-            if(drawable is BitmapDrawable) {
-                //(drawable as BitmapDrawable)?.Bitmap?.Recycle();
-            }
-        }
     }
 }
