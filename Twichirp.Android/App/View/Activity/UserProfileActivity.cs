@@ -40,8 +40,8 @@ using Twichirp.Core.DataObjects;
 using Microsoft.Practices.Unity;
 using CUser = CoreTweet.User;
 using Twichirp.Core.DataRepositories;
-using Twichirp.Core.App.Setting;
 using Twichirp.Android.Events;
+using Twichirp.Core.Settings;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414

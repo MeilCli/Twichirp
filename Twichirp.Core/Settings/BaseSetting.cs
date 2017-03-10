@@ -14,33 +14,36 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 
-namespace Twichirp.Core.App.Setting {
-    public class ApplicationSetting : BaseSetting {
+namespace Twichirp.Core.Settings {
 
-        [JsonProperty]
-        public bool IsCleanLaunch {
-            get {
-                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(IsCleanLaunch)),true);
-            }
-            set {
-                SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(IsCleanLaunch)),value);
-                RaisePropertyChanged(nameof(IsCleanLaunch));
-            }
+    public abstract class BaseSetting : INotifyPropertyChanged {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private string prefix;
+        protected SettingManager SettingManager { get; }
+
+        public BaseSetting(SettingManager settingManager,string prefix) {
+            SettingManager = settingManager;
+            this.prefix = prefix;
         }
 
-        public ApplicationSetting(SettingManager settingManager) : base(settingManager,nameof(ApplicationSetting)) {
+        public abstract void ImportJson(JObject jObject);
+
+        protected void RaisePropertyChanged(string name) {
+            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(name));
         }
 
-        public override void ImportJson(JObject jObject) {
-            IsCleanLaunch = (bool)jObject[nameof(IsCleanLaunch)];
+        protected string MakeSettingName(string name) {
+            return $"{prefix}_{name}";
         }
     }
 }

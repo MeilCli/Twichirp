@@ -20,8 +20,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
-using Twichirp.Core.App.Setting;
 using Twichirp.Core.DataRepositories;
+using Twichirp.Core.Settings;
 
 namespace Twichirp.Core.UnityExtensions {
 

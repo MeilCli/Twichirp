@@ -30,7 +30,8 @@ using SFragment = Android.Support.V4.App.Fragment;
 using SToolbar = Android.Support.V7.Widget.Toolbar;
 using Twichirp.Android.Extensions;
 
-namespace Twichirp.Android.App.Setting {
+namespace Twichirp.Android.Settings {
+
     [Activity(Label = "@string/Setting",Theme ="@style/AppTheme.Setting")]
     public class SettingActivity : AppCompatActivity {
 

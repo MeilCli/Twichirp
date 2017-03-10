@@ -28,39 +28,38 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Preferences;
 using Twichirp.Android.Extensions;
-using Twichirp.Core.App.Setting;
-using Twichirp.Core.DataRepositories;
+using Twichirp.Core.Settings;
 
-namespace Twichirp.Android.App.Setting {
+namespace Twichirp.Android.Settings {
 
-    public class AccountsSettingFragment : PreferenceFragmentCompat {
+    public class TimelineSettingFragment : PreferenceFragmentCompat {
 
         public override void OnCreatePreferences(Bundle savedInstanceState,string rootKey) {
             var screen = PreferenceManager.CreatePreferenceScreen(PreferenceManager.Context);
             var application = Context.ToTwichirpApplication();
             var settingManager = application.Resolve<SettingManager>();
-            var accountRepository = application.Resolve<IAccountRepository>();
-            var accounts = accountRepository.Get();
             new ListPreference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.SetTitle(Resource.String.SettingUseAccount);
-                x.SetDialogTitle(Resource.String.SettingUseAccount);
+                x.SetTitle(Resource.String.SettingTimelineDownloadCount);
+                x.SetDialogTitle(Resource.String.SettingTimelineDownloadCount);
                 x.Key = x.Title;
-                x.SetEntries(accounts.Select(y => y.ScreenName).ToArray());
-                x.SetEntryValues(accounts.Select(y => y.ScreenName).ToArray());
-                x.SetValueIndex(accounts.ToList().FindIndex(y => y.Id == settingManager.Accounts.DefaultAccountId));
-                x.PreferenceChange += (s,e) => settingManager.Accounts.DefaultAccountId = accounts.First(y => y.ScreenName == (string)e.NewValue).Id;
+                string[] values = new string[] { "20","30","50","100","150","200",settingManager.Timeline.Count.ToString() }.Distinct().ToArray();
+                x.SetEntries(values);
+                x.SetEntryValues(values);
+                x.SetValueIndex(values.ToList().FindIndex(y => y == settingManager.Timeline.Count.ToString()));
+                x.PreferenceChange += (s,e) => settingManager.Timeline.Count = int.Parse((string)e.NewValue);
             });
-            foreach(var account in accounts) {
-                new Preference(screen.Context).Apply(x => {
-                    screen.AddPreference(x);
-                    x.Title = account.ScreenName;
-                    x.SetIcon(Resource.Drawable.IconPersonGrey36dp);
-                    if(account.User != null) {
-                        x.Summary = account.User.Name;
-                    }
-                });
-            }
+            new ListPreference(screen.Context).Apply(x => {
+                screen.AddPreference(x);
+                x.SetTitle(Resource.String.SettingTimelineOwnedNumber);
+                x.SetDialogTitle(Resource.String.SettingTimelineOwnedNumber);
+                x.Key = x.Title;
+                string[] values = new string[] { "400","600","800","1000",settingManager.Timeline.OwnedNumber.ToString() }.Distinct().ToArray();
+                x.SetEntries(values);
+                x.SetEntryValues(values);
+                x.SetValueIndex(values.ToList().FindIndex(y => y == settingManager.Timeline.OwnedNumber.ToString()));
+                x.PreferenceChange += (s,e) => settingManager.Timeline.OwnedNumber = int.Parse((string)e.NewValue);
+            });
             PreferenceScreen = screen;
         }
 

@@ -35,7 +35,7 @@ using Microsoft.Practices.Unity;
 using AActivity = Android.App.Activity;
 using CStatus = CoreTweet.Status;
 using Twichirp.Core.DataRepositories;
-using Twichirp.Core.App.Setting;
+using Twichirp.Core.Settings;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414

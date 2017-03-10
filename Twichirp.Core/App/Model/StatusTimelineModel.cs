@@ -28,11 +28,11 @@ using Newtonsoft.Json;
 using Twichirp.Core.DataObjects;
 using CStatus = CoreTweet.Status;
 using CUser = CoreTweet.User;
-using Twichirp.Core.App.Setting;
 using Twichirp.Core.UseCases;
 using Twichirp.Core.Repositories;
 using Twichirp.Core.Services;
 using Twichirp.Core.Events;
+using Twichirp.Core.Settings;
 
 namespace Twichirp.Core.App.Model {
 

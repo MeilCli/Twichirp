@@ -29,9 +29,9 @@ using Android.Widget;
 using Android.Support.V7.Preferences;
 using Twichirp.Android.Extensions;
 using Twichirp.Android.App.View.Activity;
-using Twichirp.Core.App.Setting;
+using Twichirp.Core.Settings;
 
-namespace Twichirp.Android.App.Setting {
+namespace Twichirp.Android.Settings {
 
     public class OpenSourceSettingFragment : PreferenceFragmentCompat {
 

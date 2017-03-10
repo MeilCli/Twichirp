@@ -22,7 +22,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
-namespace Twichirp.Core.App.Setting {
+namespace Twichirp.Core.Settings {
+
     public class TimelineSetting : BaseSetting {
 
         [JsonProperty]

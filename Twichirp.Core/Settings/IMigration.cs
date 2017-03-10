@@ -20,7 +20,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Twichirp.Core.App.Setting {
+namespace Twichirp.Core.Settings {
+
     internal interface IMigration {
 
         int MigrateVersion { get; }

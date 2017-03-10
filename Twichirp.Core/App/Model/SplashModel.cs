@@ -20,10 +20,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Twichirp.Core.App.Setting;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Resources;
+using Twichirp.Core.Settings;
 
 namespace Twichirp.Core.App.Model {
 

@@ -23,8 +23,8 @@ using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
 using CoreTweet;
 using DUser = Twichirp.Core.DataObjects.User;
-using Twichirp.Core.App.Setting;
 using Twichirp.Core.Events;
+using Twichirp.Core.Settings;
 
 namespace Twichirp.Core.App.Model {
 

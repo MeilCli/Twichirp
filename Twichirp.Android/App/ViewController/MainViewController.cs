@@ -35,7 +35,6 @@ using Android.Support.V7.Graphics;
 using Android.Support.V4.Graphics.Drawable;
 using Android.Support.V4.Content;
 using Twichirp.Android.App.View.Activity;
-using Twichirp.Android.App.Setting;
 using CoreTweet;
 using Android.Util;
 using FFImageLoading;
@@ -53,8 +52,9 @@ using BottomBarSharp;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
 using Microsoft.Practices.Unity;
-using Twichirp.Core.App.Setting;
 using Twichirp.Android.Events;
+using Twichirp.Core.Settings;
+using Twichirp.Android.Settings;
 
 namespace Twichirp.Android.App.ViewController {
 

@@ -28,23 +28,39 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Preferences;
 using Twichirp.Android.Extensions;
-using Twichirp.Core.App.Setting;
+using Twichirp.Core.DataRepositories;
+using Twichirp.Core.Settings;
 
-namespace Twichirp.Android.App.Setting {
+namespace Twichirp.Android.Settings {
 
-    public class ApplicationSettingFragment : PreferenceFragmentCompat {
+    public class AccountsSettingFragment : PreferenceFragmentCompat {
 
         public override void OnCreatePreferences(Bundle savedInstanceState,string rootKey) {
             var screen = PreferenceManager.CreatePreferenceScreen(PreferenceManager.Context);
             var application = Context.ToTwichirpApplication();
             var settingManager = application.Resolve<SettingManager>();
-            new CheckBoxPreference(screen.Context).Apply(x => {
+            var accountRepository = application.Resolve<IAccountRepository>();
+            var accounts = accountRepository.Get();
+            new ListPreference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
-                x.Checked = settingManager.Applications.IsCleanLaunch;
-                x.PreferenceChange += (s,e) => settingManager.Applications.IsCleanLaunch = (bool)e.NewValue;
-                x.SetTitle(Resource.String.SettingCleanUp);
-                x.SetSummary(Resource.String.SettingCleanUpSummary);
+                x.SetTitle(Resource.String.SettingUseAccount);
+                x.SetDialogTitle(Resource.String.SettingUseAccount);
+                x.Key = x.Title;
+                x.SetEntries(accounts.Select(y => y.ScreenName).ToArray());
+                x.SetEntryValues(accounts.Select(y => y.ScreenName).ToArray());
+                x.SetValueIndex(accounts.ToList().FindIndex(y => y.Id == settingManager.Accounts.DefaultAccountId));
+                x.PreferenceChange += (s,e) => settingManager.Accounts.DefaultAccountId = accounts.First(y => y.ScreenName == (string)e.NewValue).Id;
             });
+            foreach(var account in accounts) {
+                new Preference(screen.Context).Apply(x => {
+                    screen.AddPreference(x);
+                    x.Title = account.ScreenName;
+                    x.SetIcon(Resource.Drawable.IconPersonGrey36dp);
+                    if(account.User != null) {
+                        x.Summary = account.User.Name;
+                    }
+                });
+            }
             PreferenceScreen = screen;
         }
 

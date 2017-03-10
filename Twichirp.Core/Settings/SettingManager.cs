@@ -22,7 +22,7 @@ using Newtonsoft.Json;
 using System.ComponentModel;
 using Twichirp.Core.DataRepositories;
 
-namespace Twichirp.Core.App.Setting {
+namespace Twichirp.Core.Settings {
 
     public class SettingManager : INotifyPropertyChanged {
 

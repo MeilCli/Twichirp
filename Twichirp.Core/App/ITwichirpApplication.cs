@@ -20,7 +20,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
-using Twichirp.Core.App.Setting;
 
 namespace Twichirp.Core.App {
     

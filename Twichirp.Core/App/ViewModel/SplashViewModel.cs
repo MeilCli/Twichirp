@@ -24,7 +24,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.App.Model;
 using Twichirp.Core.DataRepositories;
-using Twichirp.Core.App.Setting;
+using Twichirp.Core.Settings;
 
 namespace Twichirp.Core.App.ViewModel {
 

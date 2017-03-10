@@ -54,11 +54,11 @@
     <Compile Include="App\Model\StatusTimelineModel.cs" />
     <Compile Include="App\Model\UserModel.cs" />
     <Compile Include="App\Model\UserProfileModel.cs" />
-    <Compile Include="App\Setting\AccountSetting.cs" />
-    <Compile Include="App\Setting\ApplicationSetting.cs" />
-    <Compile Include="App\Setting\BaseSetting.cs" />
-    <Compile Include="App\Setting\SettingList.cs" />
-    <Compile Include="App\Setting\TimelineSetting.cs" />
+    <Compile Include="Settings\AccountSetting.cs" />
+    <Compile Include="Settings\ApplicationSetting.cs" />
+    <Compile Include="Settings\BaseSetting.cs" />
+    <Compile Include="Settings\SettingList.cs" />
+    <Compile Include="Settings\TimelineSetting.cs" />
     <Compile Include="App\ViewModel\BaseViewModel.cs" />
     <Compile Include="App\ViewModel\LoadingViewModel.cs" />
     <Compile Include="App\ViewModel\LoginViewModel.cs" />
@@ -71,8 +71,8 @@
     <Compile Include="Constants\RealmMigrationConstant.cs" />
     <Compile Include="Constants\LibraryConstant.cs" />
     <Compile Include="Constants\LicenseConstant.cs" />
-    <Compile Include="App\Setting\IMigration.cs" />
-    <Compile Include="App\Setting\SettingManager.cs" />
+    <Compile Include="Settings\IMigration.cs" />
+    <Compile Include="Settings\SettingManager.cs" />
     <Compile Include="Constants\SpanConstant.cs" />
     <Compile Include="DataObjects\Account.cs" />
     <Compile Include="DataObjects\ClientKey.cs" />

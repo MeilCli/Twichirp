@@ -28,10 +28,10 @@ using Android.Widget;
 using Twichirp.Android.Objects;
 using Twichirp.Core.App;
 using Twichirp.Core.App.Model;
-using Twichirp.Core.App.Setting;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Resources;
+using Twichirp.Core.Settings;
 using CUser = CoreTweet.User;
 
 namespace Twichirp.Android.App.Model {

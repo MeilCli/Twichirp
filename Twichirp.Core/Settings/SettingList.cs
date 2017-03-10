@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Twichirp.Core.App.Setting {
+namespace Twichirp.Core.Settings {
 
     // バックアップの対象外としておく
     public class SettingList<T> : IEnumerable<T> {

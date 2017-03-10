@@ -23,7 +23,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using Twichirp.Core.DataRepositories;
 
-namespace Twichirp.Core.App.Setting {
+namespace Twichirp.Core.Settings {
 
     public class AccountsSetting : BaseSetting {
 

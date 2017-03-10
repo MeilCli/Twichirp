@@ -35,7 +35,7 @@ using Twichirp.Core.DataRepositories;
 using AActivity = Android.App.Activity;
 using AView = Android.Views.View;
 using CStatus = CoreTweet.Status;
-using Twichirp.Core.App.Setting;
+using Twichirp.Core.Settings;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414
