@@ -25,14 +25,14 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Twichirp.Android.App.View;
 using Reactive.Bindings;
 using Twichirp.Android.Extensions;
-using Twichirp.Android.App.View.Activity;
 using Reactive.Bindings.Extensions;
 using System.Reactive.Linq;
 using Twichirp.Android.Events;
 using Twichirp.Core.ViewModels;
+using Twichirp.Android.Views.Interfaces;
+using Twichirp.Android.Views.Activities;
 
 namespace Twichirp.Android.ViewControllers {
 

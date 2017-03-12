@@ -25,7 +25,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Twichirp.Android.App.View;
 using static Android.Support.Design.Widget.NavigationView;
 using Android.Graphics;
 using System.Threading.Tasks;
@@ -34,7 +33,6 @@ using Twichirp.Android.Extensions;
 using Android.Support.V7.Graphics;
 using Android.Support.V4.Graphics.Drawable;
 using Android.Support.V4.Content;
-using Twichirp.Android.App.View.Activity;
 using CoreTweet;
 using Android.Util;
 using FFImageLoading;
@@ -46,7 +44,6 @@ using Reactive.Bindings;
 using FFImageLoading.Views;
 using Android.Animation;
 using SFragment = Android.Support.V4.App.Fragment;
-using Twichirp.Android.App.View.Fragment;
 using BottomBarSharp;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
@@ -55,6 +52,9 @@ using Twichirp.Android.Events;
 using Twichirp.Core.Settings;
 using Twichirp.Android.Settings;
 using Twichirp.Android.ViewModels;
+using Twichirp.Android.Views.Interfaces;
+using Twichirp.Android.Views.Activities;
+using Twichirp.Android.Views.Fragments;
 
 namespace Twichirp.Android.ViewControllers {
 

@@ -28,9 +28,9 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Preferences;
 using Twichirp.Android.Extensions;
-using Twichirp.Android.App.View.Activity;
 using Android.Support.V7.Widget;
 using Twichirp.Core.Settings;
+using Twichirp.Android.Views.Activities;
 
 namespace Twichirp.Android.Settings {
 

@@ -27,7 +27,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using Twichirp.Android.App.View;
+using Twichirp.Android.Views;
 using Twichirp.Core.App;
 
 namespace Twichirp.Android.ViewControllers {

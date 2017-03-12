@@ -34,9 +34,9 @@ using FFImageLoading;
 using FFImageLoading.Views;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.Extensions;
-using Twichirp.Android.App.View;
 using Twichirp.Android.Events;
 using Twichirp.Android.ViewModels;
+using Twichirp.Android.Views.Interfaces;
 
 namespace Twichirp.Android.ViewControllers {
 

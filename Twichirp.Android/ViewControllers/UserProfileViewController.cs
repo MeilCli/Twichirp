@@ -35,10 +35,10 @@ using Plugin.CrossFormattedText.Abstractions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.Extensions;
-using Twichirp.Android.App.View;
-using Twichirp.Android.App.View.Fragment;
 using Twichirp.Android.Events;
 using Twichirp.Core.ViewModels;
+using Twichirp.Android.Views.Interfaces;
+using Twichirp.Android.Views.Fragments;
 
 namespace Twichirp.Android.ViewControllers {
 

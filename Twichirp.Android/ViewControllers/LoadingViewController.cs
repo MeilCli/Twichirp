@@ -28,8 +28,8 @@ using Android.Views;
 using Android.Widget;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using Twichirp.Android.App.View;
 using Twichirp.Android.Events;
+using Twichirp.Android.Views.Interfaces;
 using Twichirp.Core.ViewModels;
 
 namespace Twichirp.Android.ViewControllers {

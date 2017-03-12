@@ -27,13 +27,13 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Twichirp.Android.App.View;
 using Twichirp.Android.Extensions;
-using Twichirp.Android.App.View.Activity;
-using Twichirp.Android.App.View.Fragment.Dialog;
 using System.Reactive.Linq;
 using Twichirp.Android.Events;
 using Twichirp.Core.ViewModels;
+using Twichirp.Android.Views.Interfaces;
+using Twichirp.Android.Views.Activities;
+using Twichirp.Android.Views.Fragments.Dialogs;
 
 namespace Twichirp.Android.ViewControllers {
 
