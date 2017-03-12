@@ -56,7 +56,7 @@ using Twichirp.Core.Settings;
 using Twichirp.Android.Settings;
 using Twichirp.Android.ViewModels;
 
-namespace Twichirp.Android.App.ViewController {
+namespace Twichirp.Android.ViewControllers {
 
     public class MainViewController : BaseViewController<IMainView,MainViewModel> {
 

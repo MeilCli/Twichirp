@@ -45,7 +45,7 @@ using Twichirp.Android.App.View.Activity;
 using Twichirp.Android.Events;
 using Twichirp.Core.ViewModels;
 
-namespace Twichirp.Android.App.ViewController {
+namespace Twichirp.Android.ViewControllers {
 
     public class StatusViewController : BaseViewController<IStatusView,StatusViewModel> {
 

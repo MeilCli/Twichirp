@@ -33,7 +33,6 @@ using AView = Android.Views.View;
 using CoreTweet;
 using Twichirp.Android.Extensions;
 using Newtonsoft.Json;
-using Twichirp.Android.App.ViewController;
 using Android.Support.Design.Widget;
 using Twichirp.Core.DataObjects;
 using Microsoft.Practices.Unity;
@@ -42,6 +41,7 @@ using Twichirp.Core.DataRepositories;
 using Twichirp.Android.Events;
 using Twichirp.Core.Settings;
 using Twichirp.Core.ViewModels;
+using Twichirp.Android.ViewControllers;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414

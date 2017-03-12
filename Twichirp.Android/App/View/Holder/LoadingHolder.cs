@@ -26,7 +26,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using Twichirp.Android.App.ViewController;
+using Twichirp.Android.ViewControllers;
 using Twichirp.Core.ViewModels;
 using AView = Android.Views.View;
 

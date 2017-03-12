@@ -27,8 +27,8 @@ using Android.Views;
 using Android.Widget;
 using Android.Util;
 using SToolbar = Android.Support.V7.Widget.Toolbar;
-using Twichirp.Android.App.ViewController;
 using Twichirp.Core.ViewModels;
+using Twichirp.Android.ViewControllers;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414

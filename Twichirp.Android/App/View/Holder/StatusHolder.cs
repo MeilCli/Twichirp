@@ -26,7 +26,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using FFImageLoading.Views;
-using Twichirp.Android.App.ViewController;
+using Twichirp.Android.ViewControllers;
 using Twichirp.Core.ViewModels;
 using AView = Android.Views.View;
 

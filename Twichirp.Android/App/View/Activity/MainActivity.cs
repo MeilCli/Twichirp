@@ -24,12 +24,12 @@ using Android.OS;
 using SToolbar = Android.Support.V7.Widget.Toolbar;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
-using Twichirp.Android.App.ViewController;
 using Twichirp.Android.Extensions;
 using Twichirp.Android.App.View.Fragment;
 using FFImageLoading.Views;
 using BottomBarSharp;
 using Twichirp.Android.ViewModels;
+using Twichirp.Android.ViewControllers;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414

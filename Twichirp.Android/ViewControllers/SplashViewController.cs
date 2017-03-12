@@ -17,7 +17,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Text;
 
 using Android.App;
@@ -26,35 +25,36 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Reactive.Bindings;
-using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.View;
+using Reactive.Bindings;
+using Twichirp.Android.Extensions;
+using Twichirp.Android.App.View.Activity;
+using Reactive.Bindings.Extensions;
+using System.Reactive.Linq;
 using Twichirp.Android.Events;
 using Twichirp.Core.ViewModels;
 
-namespace Twichirp.Android.App.ViewController {
-    public class LoadingViewController : BaseViewController<ILoadingView,LoadingViewModel> {
+namespace Twichirp.Android.ViewControllers {
 
-        public LoadingViewController(ILoadingView view,LoadingViewModel viewModel) : base(view,viewModel) {
-            AutoDisposeViewModel = false;
+    public class SplashViewController : BaseViewController<ISplashView,SplashViewModel> {
+
+        public SplashViewController(ISplashView view,SplashViewModel viewModel) : base(view,viewModel) {
             Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x,x => view.Created -= x)
                 .Subscribe(x => onCreate(x.Sender,x.EventArgs))
                 .AddTo(Disposable);
+            viewModel.StartMainPageCommand.Subscribe(x => {
+                View.Activity.StartActivityCompat(typeof(MainActivity));
+                View.Activity.Finish();
+            }).AddTo(Disposable);
+            viewModel.StartLoginPageCommand.Subscribe(x => {
+                View.Activity.StartActivityCompat(typeof(LoginActivity));
+                View.Activity.Finish();
+            }).AddTo(Disposable);
         }
 
         private void onCreate(object sender,LifeCycleEventArgs e) {
-            var loadingText = ViewModel.IsLoading
-                .Select(x => x == true ? Resource.String.Loading : Resource.String.LoadingLoad)
-                .Select(x => View.ApplicationContext.GetString(x))
-                .ToReadOnlyReactiveProperty()
-                .AddTo(Disposable);
-            View.LoadingText.SetBinding(x => x.Text,loadingText).AddTo(Disposable);
-            var progressBarVisible = ViewModel.IsLoading
-                .Select(x => x == true ? ViewStates.Visible : ViewStates.Invisible)
-                .ToReadOnlyReactiveProperty()
-                .AddTo(Disposable);
-            View.ProgressBar.SetBinding(x => x.Visibility,progressBarVisible).AddTo(Disposable);
-            View.ClickableView.ClickAsObservable().SetCommand(ViewModel.LoadCommand).AddTo(Disposable);
+            View.Message.SetBinding(x => x.Text,ViewModel.Message).AddTo(Disposable);
+            ViewModel.ApplicationInitCommand.Execute();
         }
     }
 }

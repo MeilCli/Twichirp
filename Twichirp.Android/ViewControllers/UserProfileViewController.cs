@@ -40,7 +40,7 @@ using Twichirp.Android.App.View.Fragment;
 using Twichirp.Android.Events;
 using Twichirp.Core.ViewModels;
 
-namespace Twichirp.Android.App.ViewController {
+namespace Twichirp.Android.ViewControllers {
 
     public class UserProfileViewController : BaseViewController<IUserProfileView,UserProfileViewModel> {
 

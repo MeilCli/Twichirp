@@ -37,7 +37,7 @@ using Twichirp.Android.App.View;
 using Twichirp.Android.Events;
 using Twichirp.Core.ViewModels;
 
-namespace Twichirp.Android.App.ViewController {
+namespace Twichirp.Android.ViewControllers {
 
     public class UserViewController : BaseViewController<IUserView,UserViewModel> {
 

@@ -30,8 +30,9 @@ using Android.Widget;
 using Twichirp.Android.App.View;
 using Twichirp.Core.App;
 
-namespace Twichirp.Android.App.ViewController {
-    public class BaseViewController<TView,TViewModel>:IDisposable where TView : IView,ILifeCycleView {
+namespace Twichirp.Android.ViewControllers {
+
+    public class BaseViewController<TView, TViewModel> : IDisposable where TView : IView, ILifeCycleView {
 
         public TView View { get; }
         public TViewModel ViewModel { get; }
@@ -53,7 +54,7 @@ namespace Twichirp.Android.App.ViewController {
         }
     }
 
-    public class BaseViewController<TView>:IDisposable where TView : IView, ILifeCycleView {
+    public class BaseViewController<TView> : IDisposable where TView : IView, ILifeCycleView {
 
         public TView View { get; }
         public ITwichirpApplication Application => View.TwichirpApplication;

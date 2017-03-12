@@ -25,7 +25,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Twichirp.Android.App.ViewController;
+using Twichirp.Android.ViewControllers;
 using Twichirp.Core.ViewModels;
 using SToolbar = Android.Support.V7.Widget.Toolbar;
 

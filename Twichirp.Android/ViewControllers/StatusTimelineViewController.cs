@@ -42,7 +42,8 @@ using Twichirp.Core.ViewModels;
 using static Android.Support.V7.Widget.RecyclerView;
 using CStatus = CoreTweet.Status;
 
-namespace Twichirp.Android.App.ViewController {
+namespace Twichirp.Android.ViewControllers {
+
     public class StatusTimelineViewController : BaseViewController<IStatusTimelineView,StatusTimelineViewModel> {
 
         private const string stateTimeline = "state_timeline";

@@ -35,7 +35,7 @@ using System.Reactive.Linq;
 using Twichirp.Android.Events;
 using Twichirp.Core.ViewModels;
 
-namespace Twichirp.Android.App.ViewController {
+namespace Twichirp.Android.ViewControllers {
 
     public class LoginViewController : BaseViewController<ILoginView,LoginViewModel> {
 
