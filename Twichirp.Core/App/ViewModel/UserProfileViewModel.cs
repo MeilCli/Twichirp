@@ -44,10 +44,6 @@ namespace Twichirp.Core.App.ViewModel {
         private const string constructorUserId = "userId";
         private const string constructorUser = "user";
 
-        public static void Register(UnityContainer unityContainer) {
-            unityContainer.RegisterType<UserProfileViewModel>();
-        }
-
         public static UserProfileViewModel Resolve(UnityContainer unityContainer,ImmutableAccount account,long userId,CUser user = null) {
             return unityContainer.Resolve<UserProfileViewModel>(
                 new ParameterOverride(constructorAccount,account),

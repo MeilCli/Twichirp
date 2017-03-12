@@ -45,10 +45,6 @@ namespace Twichirp.Android.App.ViewModel {
         private const string constructorAccount = "account";
         private const string constructorDefaultPage = "defaultPage";
 
-        public new static void Register(UnityContainer unityContainer) {
-            unityContainer.RegisterType<ImageViewerViewModel>();
-        }
-
         public static ImageViewerViewModel Resolve(UnityContainer unityContainer, CStatus status, ImmutableAccount account, int defaultPage) {
             return unityContainer.Resolve<ImageViewerViewModel>(
                 new ParameterOverride(constructorStatus,status),

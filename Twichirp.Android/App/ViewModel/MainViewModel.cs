@@ -43,10 +43,6 @@ namespace Twichirp.Android.App.ViewModel {
 
     public class MainViewModel : BaseViewModel {
 
-        public static void Register(UnityContainer unityContainer) {
-            unityContainer.RegisterType<MainViewModel>();
-        }
-
         private MainModel mainModel;
 
         public string UserJson {

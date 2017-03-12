@@ -37,7 +37,7 @@ namespace Twichirp.Core.UnityExtensions {
         public Type[] ExcludeTypes { get; set; }
 
         public Type[] ManagedTypes { get; } = {
-            typeof(LoginViewModel),typeof(SplashViewModel),typeof(StatusTimelineViewModel)
+            typeof(LoginViewModel),typeof(SplashViewModel),typeof(StatusTimelineViewModel),typeof(StatusViewModel),typeof(UserProfileViewModel)
         };
 
         public ViewModelRegister() { }
@@ -51,6 +51,12 @@ namespace Twichirp.Core.UnityExtensions {
             }
             if(ExcludeTypes?.All(x => x != typeof(StatusTimelineViewModel)) ?? true) {
                 Container.RegisterType<StatusTimelineViewModel>();
+            }
+            if(ExcludeTypes?.All(x => x != typeof(StatusViewModel)) ?? true) {
+                Container.RegisterType<StatusViewModel>();
+            }
+            if(ExcludeTypes?.All(x => x != typeof(UserProfileViewModel)) ?? true) {
+                Container.RegisterType<UserProfileViewModel>();
             }
         }
     }

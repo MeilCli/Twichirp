@@ -50,10 +50,6 @@ namespace Twichirp.Core.App.ViewModel {
         private const string constructorStatus = "status";
         private const string constructorAccount = "account";
 
-        public static void Register(UnityContainer unityContainer) {
-            unityContainer.RegisterType<StatusViewModel>();
-        }
-
         public static StatusViewModel Resolve(UnityContainer unityContainer,CStatus status,ImmutableAccount account) {
             return unityContainer.Resolve<StatusViewModel>(
                 new ParameterOverride(constructorStatus,status),

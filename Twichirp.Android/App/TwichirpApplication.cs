@@ -54,7 +54,6 @@ namespace Twichirp.Android.App {
         }
 
         private void initUnity() {
-            UnityContainer.RegisterInstance<ITwichirpApplication>(this);
             UnityContainer.RegisterInstance(ClientKeyConstant.TwichirpForAndroid);
 
             UnityContainer.AddNewExtension<ServiceRegister>();
@@ -62,11 +61,7 @@ namespace Twichirp.Android.App {
             UnityContainer.AddNewExtension<DataRepositoryRegister>();
             UnityContainer.AddNewExtension<SettingRegister>();
             UnityContainer.AddNewExtension<ViewModelRegister>();
-
-            UserProfileViewModel.Register(UnityContainer);
-            StatusViewModel.Register(UnityContainer);
-            ImageViewerViewModel.Register(UnityContainer);
-            MainViewModel.Register(UnityContainer);
+            UnityContainer.AddNewExtension<AndroidViewModelRegister>();
         }
 
         public T Resolve<T>() {
