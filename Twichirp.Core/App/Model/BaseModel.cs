@@ -38,11 +38,11 @@ namespace Twichirp.Core.App.Model {
             PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(name));
         }
 
-        protected bool SetValue<T>(ref T property,T value,string propertyName = null) {
-            if(Equals(property,value)) {
+        protected bool SetValue<T>(ref T backingField,T value,string propertyName = null) {
+            if(Equals(backingField,value)) {
                 return false;
             }
-            property = value;
+            backingField = value;
             if(propertyName != null) {
                 RaisePropertyChanged(propertyName);
             }
