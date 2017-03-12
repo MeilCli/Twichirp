@@ -30,7 +30,7 @@ using Twichirp.Core.DataObjects;
 using Twichirp.Core.Models;
 using CUser = CoreTweet.User;
 
-namespace Twichirp.Core.App.ViewModel {
+namespace Twichirp.Core.ViewModels {
 
     public class UserViewModel : BaseViewModel {
 

@@ -29,13 +29,13 @@ using AndroidSlideLayout;
 using Newtonsoft.Json;
 using Twichirp.Android.Extensions;
 using Twichirp.Android.App.ViewController;
-using Twichirp.Android.App.ViewModel;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
 using AActivity = Android.App.Activity;
 using AView = Android.Views.View;
 using CStatus = CoreTweet.Status;
 using Twichirp.Core.Settings;
+using Twichirp.Android.ViewModels;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414

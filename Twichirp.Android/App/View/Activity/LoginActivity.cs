@@ -25,8 +25,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Twichirp.Core.App.ViewModel;
 using Twichirp.Android.App.ViewController;
+using Twichirp.Core.ViewModels;
 using SToolbar = Android.Support.V7.Widget.Toolbar;
 
 // 未使用フィールドの警告非表示

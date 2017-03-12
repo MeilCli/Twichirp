@@ -14,24 +14,31 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
+using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Reactive.Disposables;
+using Reactive.Bindings.Extensions;
+using Twichirp.Core.Models;
 
-namespace Twichirp.Core.App.ViewModel {
+namespace Twichirp.Core.ViewModels {
 
-    public class BaseViewModel : IDisposable {
+    public class LoadingViewModel : BaseViewModel {
 
-        protected internal CompositeDisposable Disposable { get; } = new CompositeDisposable();
+        public ReadOnlyReactiveProperty<bool> IsLoading { get; }
+        public ReactiveCommand LoadCommand { get; } = new ReactiveCommand();
+        internal LoadingModel LoadingModel { get; }
 
-        public BaseViewModel() { }
+        public LoadingViewModel(LoadingModel model) {
+            LoadingModel = model;
+            IsLoading = LoadingModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);
+        }
 
-        public virtual void Dispose() {
-            Disposable.Dispose();
+        public override void Dispose() {
+            base.Dispose();
+            LoadCommand.Dispose();
         }
     }
-
 }

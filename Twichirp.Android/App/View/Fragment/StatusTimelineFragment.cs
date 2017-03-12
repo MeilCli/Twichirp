@@ -29,7 +29,6 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Twichirp.Android.App.ViewController;
-using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
 using Microsoft.Practices.Unity;
@@ -37,6 +36,7 @@ using AView = Android.Views.View;
 using SFragment = Android.Support.V4.App.Fragment;
 using Twichirp.Core.Repositories;
 using Twichirp.Android.Events;
+using Twichirp.Core.ViewModels;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414

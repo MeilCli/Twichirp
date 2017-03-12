@@ -27,7 +27,6 @@ using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using FFImageLoading.Views;
-using Twichirp.Core.App.ViewModel;
 using SToolbar = Android.Support.V7.Widget.Toolbar;
 using AActivity = Android.App.Activity;
 using AView = Android.Views.View;
@@ -42,6 +41,7 @@ using CUser = CoreTweet.User;
 using Twichirp.Core.DataRepositories;
 using Twichirp.Android.Events;
 using Twichirp.Core.Settings;
+using Twichirp.Core.ViewModels;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414

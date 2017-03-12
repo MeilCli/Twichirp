@@ -28,7 +28,7 @@ using Twichirp.Core.Events;
 using Twichirp.Core.Settings;
 using Twichirp.Core.Models;
 
-namespace Twichirp.Core.App.ViewModel {
+namespace Twichirp.Core.ViewModels {
 
     public class LoginViewModel : BaseViewModel {
 

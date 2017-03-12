@@ -27,7 +27,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Twichirp.Android.App.ViewController;
-using Twichirp.Core.App.ViewModel;
+using Twichirp.Core.ViewModels;
 using AView = Android.Views.View;
 
 // 未使用フィールドの警告非表示

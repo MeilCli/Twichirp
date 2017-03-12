@@ -39,7 +39,6 @@ using CoreTweet;
 using Android.Util;
 using FFImageLoading;
 using FFImageLoading.Transformations;
-using Twichirp.Android.App.ViewModel;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.Objects;
 using System.Reactive.Linq;
@@ -55,6 +54,7 @@ using Microsoft.Practices.Unity;
 using Twichirp.Android.Events;
 using Twichirp.Core.Settings;
 using Twichirp.Android.Settings;
+using Twichirp.Android.ViewModels;
 
 namespace Twichirp.Android.App.ViewController {
 

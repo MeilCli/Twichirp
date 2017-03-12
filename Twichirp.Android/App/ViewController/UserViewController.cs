@@ -35,7 +35,7 @@ using Reactive.Bindings.Extensions;
 using Twichirp.Android.Extensions;
 using Twichirp.Android.App.View;
 using Twichirp.Android.Events;
-using Twichirp.Core.App.ViewModel;
+using Twichirp.Core.ViewModels;
 
 namespace Twichirp.Android.App.ViewController {
 

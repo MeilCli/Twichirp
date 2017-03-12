@@ -250,8 +250,8 @@
     <Compile Include="App\ViewController\UserProfileViewController.cs" />
     <Compile Include="App\ViewController\UserViewController.cs" />
     <Compile Include="App\ViewController\VideoViewerViewController.cs" />
-    <Compile Include="App\ViewModel\ImageViewerViewModel.cs" />
-    <Compile Include="App\ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModels\ImageViewerViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="App\View\Activity\ImageViewerActivity.cs" />
     <Compile Include="App\View\Activity\LicenseActivity.cs" />
     <Compile Include="App\View\Activity\LoginActivity.cs" />

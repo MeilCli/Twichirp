@@ -37,8 +37,8 @@ using Twichirp.Android.App.View;
 using Twichirp.Android.App.View.Holder;
 using Twichirp.Android.Events;
 using Twichirp.Android.Repositories;
-using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.DataObjects;
+using Twichirp.Core.ViewModels;
 using static Android.Support.V7.Widget.RecyclerView;
 using CStatus = CoreTweet.Status;
 

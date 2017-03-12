@@ -26,7 +26,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Microsoft.Practices.Unity;
-using Twichirp.Android.App.ViewModel;
+using Twichirp.Android.ViewModels;
 using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Services;
 using Twichirp.Core.Settings;

@@ -32,14 +32,14 @@ using Reactive.Bindings.Extensions;
 using Twichirp.Android.Models;
 using Twichirp.Android.Objects;
 using Twichirp.Core.App;
-using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Events;
 using Twichirp.Core.Models;
 using Twichirp.Core.Services;
 using Twichirp.Core.Settings;
+using Twichirp.Core.ViewModels;
 
-namespace Twichirp.Android.App.ViewModel {
+namespace Twichirp.Android.ViewModels {
 
     public class MainViewModel : BaseViewModel {
 

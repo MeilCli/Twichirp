@@ -34,7 +34,7 @@ using Twichirp.Core.DataObjects;
 using Twichirp.Core.Services;
 using Twichirp.Core.Models;
 
-namespace Twichirp.Core.App.ViewModel {
+namespace Twichirp.Core.ViewModels {
 
     /// <summary>
     /// Reccomend to use UnityContainer

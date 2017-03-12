@@ -32,7 +32,7 @@ using Twichirp.Core.Resources;
 using Twichirp.Core.Services;
 using CUser = CoreTweet.User;
 
-namespace Twichirp.Core.App.ViewModel {
+namespace Twichirp.Core.ViewModels {
 
     /// <summary>
     /// Recommend to use UnityContainer

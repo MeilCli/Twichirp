@@ -28,8 +28,8 @@ using Twichirp.Android.App.ViewController;
 using Twichirp.Android.Extensions;
 using Twichirp.Android.App.View.Fragment;
 using FFImageLoading.Views;
-using Twichirp.Android.App.ViewModel;
 using BottomBarSharp;
+using Twichirp.Android.ViewModels;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414

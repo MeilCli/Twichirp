@@ -30,7 +30,7 @@ using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.App.View;
 using Twichirp.Android.Events;
-using Twichirp.Core.App.ViewModel;
+using Twichirp.Core.ViewModels;
 
 namespace Twichirp.Android.App.ViewController {
     public class LoadingViewController : BaseViewController<ILoadingView,LoadingViewModel> {

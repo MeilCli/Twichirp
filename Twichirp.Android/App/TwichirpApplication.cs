@@ -28,8 +28,6 @@ using Android.Widget;
 using Twichirp.Core.App;
 using Twichirp.Core.Constants;
 using Microsoft.Practices.Unity;
-using Twichirp.Core.App.ViewModel;
-using Twichirp.Android.App.ViewModel;
 using Twichirp.Core.UnityExtensions;
 using Twichirp.Core.DataObjects;
 using Twichirp.Android.UnityExtensions;
