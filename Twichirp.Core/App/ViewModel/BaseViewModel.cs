@@ -22,14 +22,12 @@ using System.Threading.Tasks;
 using System.Reactive.Disposables;
 
 namespace Twichirp.Core.App.ViewModel {
-    public class BaseViewModel :IDisposable{
 
-        protected ITwichirpApplication Application{ get; }
+    public class BaseViewModel : IDisposable {
+
         protected internal CompositeDisposable Disposable { get; } = new CompositeDisposable();
 
-        public BaseViewModel(ITwichirpApplication application) {
-            Application = application;
-        }
+        public BaseViewModel() { }
 
         public virtual void Dispose() {
             Disposable.Dispose();

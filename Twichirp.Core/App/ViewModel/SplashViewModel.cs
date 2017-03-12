@@ -38,7 +38,7 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveCommand StartMainPageCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ApplicationInitCommand { get; } = new ReactiveCommand();
 
-        public SplashViewModel(ITwichirpApplication application,IAccountRepository accountRepository,SettingManager settingManager) : base(application) {
+        public SplashViewModel(IAccountRepository accountRepository,SettingManager settingManager) {
             this.splashModel = new SplashModel(accountRepository,settingManager);
             IsRunning = splashModel.ObserveProperty(x => x.IsRunning).ToReadOnlyReactiveProperty().AddTo(Disposable);
             IsAccountExist = splashModel.ObserveProperty(x => x.IsAccountExist).ToReadOnlyReactiveProperty().AddTo(Disposable);

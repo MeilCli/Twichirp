@@ -85,7 +85,7 @@ namespace Twichirp.Core.App.ViewModel {
 
         public AsyncReactiveCommand FriendshipCommand { get; }
 
-        public UserProfileViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,ImmutableAccount account,long userId,CUser user = null) : base(application) {
+        public UserProfileViewModel(ITwitterEventService twitterEventService,ImmutableAccount account,long userId,CUser user = null) {
             Account = account;
             UserId = userId;
             userProfileModel = new UserProfileModel(twitterEventService,account,userId,user);
@@ -96,7 +96,7 @@ namespace Twichirp.Core.App.ViewModel {
                 .Select(x => x.EventArgs.EventData)
                 .ToReadOnlyReactiveProperty(userProfileModel.UserModel)
                 .Where(x => x != null)
-                .Select(x => new UserViewModel(Application,x,Account))
+                .Select(x => new UserViewModel(x,Account))
                 .Subscribe(x => initValue(x))
                 .AddTo(Disposable);
             Banner = userProfileModel.ObserveProperty(x => x.ProfileBannerUrl).ToReadOnlyReactiveProperty().AddTo(Disposable);

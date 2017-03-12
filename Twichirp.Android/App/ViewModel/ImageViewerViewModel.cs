@@ -59,8 +59,8 @@ namespace Twichirp.Android.App.ViewModel {
 
         public int DefaultPage { get; }
 
-        public ImageViewerViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,CStatus status,ImmutableAccount account,int defaultPage) 
-            : base(application,twitterEventService,status,account) {
+        public ImageViewerViewModel(ITwitterEventService twitterEventService,CStatus status,ImmutableAccount account,int defaultPage) 
+            : base(twitterEventService,status,account) {
             DefaultPage = defaultPage;
         }
     }

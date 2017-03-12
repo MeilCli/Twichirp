@@ -30,7 +30,7 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveCommand LoadCommand { get; } = new ReactiveCommand();
         internal LoadingModel LoadingModel { get; }
 
-        public LoadingViewModel(ITwichirpApplication application,LoadingModel model) : base(application) {
+        public LoadingViewModel(LoadingModel model) {
             LoadingModel = model;
             IsLoading = LoadingModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);
         }

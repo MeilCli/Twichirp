@@ -65,8 +65,7 @@ namespace Twichirp.Core.App.ViewModel {
         public AsyncReactiveCommand<ITimelineRepository> LoadCommand { get; } = new AsyncReactiveCommand<ITimelineRepository>();
         public AsyncReactiveCommand LoadMoreComannd { get; } = new AsyncReactiveCommand();
 
-        public StatusTimelineViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,SettingManager settingManager,ImmutableAccount account,ITimelineRepository timelineRepository) 
-            : base(application) {
+        public StatusTimelineViewModel(ITwitterEventService twitterEventService,SettingManager settingManager,ImmutableAccount account,ITimelineRepository timelineRepository) {
             this.account = account;
             StatusTimelineModel = new StatusTimelineModel(twitterEventService,settingManager,account,timelineRepository);
             Timeline = StatusTimelineModel.Timeline.ToReadOnlyReactiveCollection(toViewModel).AddTo(Disposable);
@@ -92,10 +91,10 @@ namespace Twichirp.Core.App.ViewModel {
 
         private BaseViewModel toViewModel(BaseModel model) {
             if(model is StatusModel) {
-                return new StatusViewModel(Application,model as StatusModel,account);
+                return new StatusViewModel(model as StatusModel,account);
             }
             if(model is LoadingModel) {
-                return new LoadingViewModel(Application,model as LoadingModel);
+                return new LoadingViewModel(model as LoadingModel);
             }
             return null;
         }

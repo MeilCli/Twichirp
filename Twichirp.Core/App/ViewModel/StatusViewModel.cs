@@ -115,10 +115,10 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveCommand<long> StartUserProfilePageCommand { get; } = new ReactiveCommand<long>();
 
         [InjectionConstructor]
-        public StatusViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,CStatus status,ImmutableAccount account)
-            : this(application,new StatusModel(twitterEventService,status),account) { }
+        public StatusViewModel(ITwitterEventService twitterEventService,CStatus status,ImmutableAccount account)
+            : this(new StatusModel(twitterEventService,status),account) { }
 
-        internal StatusViewModel(ITwichirpApplication application,StatusModel status,ImmutableAccount account) : base(application) {
+        internal StatusViewModel(StatusModel status,ImmutableAccount account) {
             Account = account;
             StatusModel = status;
 

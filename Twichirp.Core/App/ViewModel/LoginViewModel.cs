@@ -42,7 +42,7 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveCommand StartNextPageCommand { get; } = new ReactiveCommand();
         public ReactiveCommand<string> ShowMessageCommand { get; } = new ReactiveCommand<string>();
 
-        public LoginViewModel(ITwichirpApplication application,IAccountRepository accountRepository,SettingManager settingManager,ImmutableClientKey clientKey) : base(application) {
+        public LoginViewModel(IAccountRepository accountRepository,SettingManager settingManager,ImmutableClientKey clientKey) {
             loginModel = new LoginModel(accountRepository,settingManager);
             IsLoading = loginModel.ObserveProperty(x => x.IsLoading).ObserveOnUIDispatcher().ToReadOnlyReactiveProperty().AddTo(Disposable);
 
