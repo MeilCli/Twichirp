@@ -16,20 +16,10 @@
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Android.Support.V7.Widget;
-using Reactive.Bindings;
 using System.Collections.Specialized;
-using Android.Util;
-using Java.Lang;
+using Android.Support.V7.Widget;
+using Android.Views;
+using Reactive.Bindings;
 
 namespace Twichirp.Android.Views {
 
@@ -40,20 +30,20 @@ namespace Twichirp.Android.Views {
         private List<RecyclerView> recyclerViews = new List<RecyclerView>();
         private INotifyCollectionChanged notify;
         private IList<T> list;
-        private Func<T,int,int> viewTypeSelector;
-        private Func<ViewGroup,int,RecyclerView.ViewHolder> viewCreator;
+        private Func<T, int, int> viewTypeSelector;
+        private Func<ViewGroup, int, RecyclerView.ViewHolder> viewCreator;
 
         public ReactiveCollectionAdapter(
             INotifyCollectionChanged list,
-            Func<T,int,int> viewTypeSelector,
-            Func<ViewGroup,int,RecyclerView.ViewHolder> viewCreator) : base() {
-            if(list == null)
+            Func<T, int, int> viewTypeSelector,
+            Func<ViewGroup, int, RecyclerView.ViewHolder> viewCreator) : base() {
+            if (list == null)
                 throw new ArgumentNullException(nameof(list));
-            if(list is IList<T> == false)
+            if (list is IList<T> == false)
                 throw new ArgumentException(nameof(list));
-            if(viewTypeSelector == null)
+            if (viewTypeSelector == null)
                 throw new ArgumentNullException(nameof(viewTypeSelector));
-            if(viewCreator == null)
+            if (viewCreator == null)
                 throw new ArgumentNullException(nameof(viewCreator));
             this.notify = list;
             list.CollectionChanged += collectionChanged;
@@ -64,22 +54,22 @@ namespace Twichirp.Android.Views {
 
         public override int ItemCount => list.Count;
 
-        public override void OnBindViewHolder(RecyclerView.ViewHolder holder,int position) {
-            if(holder is IBindable<T>) {
-                (holder as IBindable<T>).OnBind(list[position],position);
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            if (holder is IBindable<T>) {
+                (holder as IBindable<T>).OnBind(list[position], position);
             }
-            if(position == list.Count - 1) {
-                LastItemShowed?.Invoke(this,new EventArgs());
+            if (position == list.Count - 1) {
+                LastItemShowed?.Invoke(this, new EventArgs());
             }
         }
 
-        public override int GetItemViewType(int position) => viewTypeSelector(list[position],position);
+        public override int GetItemViewType(int position) => viewTypeSelector(list[position], position);
 
-        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent,int viewType) => viewCreator(parent,viewType);
+        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) => viewCreator(parent, viewType);
 
         protected override void Dispose(bool disposing) {
             base.Dispose(disposing);
-            if(disposing) {
+            if (disposing) {
                 notify.CollectionChanged -= collectionChanged;
             }
         }
@@ -94,12 +84,12 @@ namespace Twichirp.Android.Views {
             recyclerViews.Remove(recyclerView);
         }
 
-        private bool isHolderRecyclable(int startIndex,int count) {
+        private bool isHolderRecyclable(int startIndex, int count) {
             bool isRecyclable = false;
-            foreach(var recyclerView in recyclerViews) {
-                for(int i = startIndex;i < startIndex + count;i++) {
+            foreach (var recyclerView in recyclerViews) {
+                for (int i = startIndex; i < startIndex + count; i++) {
                     isRecyclable |= recyclerView.FindViewHolderForAdapterPosition(i)?.IsRecyclable ?? false;
-                    if(isRecyclable) {
+                    if (isRecyclable) {
                         return isRecyclable;
                     }
                 }
@@ -107,35 +97,35 @@ namespace Twichirp.Android.Views {
             return isRecyclable;
         }
 
-        private void collectionChanged(object sender,NotifyCollectionChangedEventArgs e) {
+        private void collectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
             // うーーんこの https://code.google.com/p/android/issues/detail?id=193069
-            if(e.Action == NotifyCollectionChangedAction.Add) {
-                if(e.NewItems.Count == 1) {
+            if (e.Action == NotifyCollectionChangedAction.Add) {
+                if (e.NewItems.Count == 1) {
                     this.NotifyItemInserted(e.NewStartingIndex);
                 } else {
-                    this.NotifyItemRangeInserted(e.NewStartingIndex,e.NewItems.Count);
+                    this.NotifyItemRangeInserted(e.NewStartingIndex, e.NewItems.Count);
                 }
-            } else if(e.Action == NotifyCollectionChangedAction.Move) {
-                this.NotifyItemMoved(e.OldStartingIndex,e.NewStartingIndex);
-            } else if(e.Action == NotifyCollectionChangedAction.Remove) {
-                if(e.OldItems.Count == 1) {
+            } else if (e.Action == NotifyCollectionChangedAction.Move) {
+                this.NotifyItemMoved(e.OldStartingIndex, e.NewStartingIndex);
+            } else if (e.Action == NotifyCollectionChangedAction.Remove) {
+                if (e.OldItems.Count == 1) {
                     this.NotifyItemRemoved(e.OldStartingIndex);
                 } else {
-                    this.NotifyItemRangeRemoved(e.OldStartingIndex,e.OldItems.Count);
+                    this.NotifyItemRangeRemoved(e.OldStartingIndex, e.OldItems.Count);
                 }
                 this.NotifyDataSetChanged();
-            } else if(e.Action == NotifyCollectionChangedAction.Replace) {
-                bool isRecylable = isHolderRecyclable(e.NewStartingIndex,e.NewItems.Count);
-                if(isRecylable) {
-                    if(e.NewItems.Count == 1) {
+            } else if (e.Action == NotifyCollectionChangedAction.Replace) {
+                bool isRecylable = isHolderRecyclable(e.NewStartingIndex, e.NewItems.Count);
+                if (isRecylable) {
+                    if (e.NewItems.Count == 1) {
                         this.NotifyItemChanged(e.NewStartingIndex);
                     } else {
-                        this.NotifyItemRangeChanged(e.NewStartingIndex,e.NewItems.Count);
+                        this.NotifyItemRangeChanged(e.NewStartingIndex, e.NewItems.Count);
                     }
                 } else {
                     this.NotifyDataSetChanged();
                 }
-            } else if(e.Action == NotifyCollectionChangedAction.Reset) {
+            } else if (e.Action == NotifyCollectionChangedAction.Reset) {
                 this.NotifyDataSetChanged();
             }
         }
@@ -143,14 +133,14 @@ namespace Twichirp.Android.Views {
         public override void OnViewRecycled(Java.Lang.Object holder) {
             base.OnViewRecycled(holder);
 
-            if(holder is IRecyclable) {
+            if (holder is IRecyclable) {
                 (holder as IRecyclable).OnRecycled();
             }
         }
     }
 
     public interface IBindable<T> {
-        void OnBind(T item,int position);
+        void OnBind(T item, int position);
     }
 
     public interface IRecyclable {
@@ -161,16 +151,16 @@ namespace Twichirp.Android.Views {
 
         public static ReactiveCollectionAdapter<T> ToAdapter<T>(
             this ReadOnlyReactiveCollection<T> collection,
-            Func<T,int,int> viewTypeSelector,
-            Func<ViewGroup,int,RecyclerView.ViewHolder> viewCreator)
+            Func<T, int, int> viewTypeSelector,
+            Func<ViewGroup, int, RecyclerView.ViewHolder> viewCreator)
             where T : class
-            => new ReactiveCollectionAdapter<T>(collection,viewTypeSelector,viewCreator);
+            => new ReactiveCollectionAdapter<T>(collection, viewTypeSelector, viewCreator);
 
         public static ReactiveCollectionAdapter<T> ToAdapter<T>(
            this ReactiveCollection<T> collection,
-           Func<T,int,int> viewTypeSelector,
-           Func<ViewGroup,int,RecyclerView.ViewHolder> viewCreator)
+           Func<T, int, int> viewTypeSelector,
+           Func<ViewGroup, int, RecyclerView.ViewHolder> viewCreator)
             where T : class
-           => new ReactiveCollectionAdapter<T>(collection,viewTypeSelector,viewCreator);
+           => new ReactiveCollectionAdapter<T>(collection, viewTypeSelector, viewCreator);
     }
 }

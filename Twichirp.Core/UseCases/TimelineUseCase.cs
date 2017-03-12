@@ -14,10 +14,7 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.Repositories;
@@ -30,14 +27,14 @@ namespace Twichirp.Core.UseCases {
         private ITwitterEventService twitterEventService;
         private ITimelineRepository defaultRepository;
 
-        public TimelineUseCase(ITwitterEventService twitterEventService,ITimelineRepository defaultRepository) {
+        public TimelineUseCase(ITwitterEventService twitterEventService, ITimelineRepository defaultRepository) {
             this.twitterEventService = twitterEventService;
             this.defaultRepository = defaultRepository;
         }
 
-        public async Task<IEnumerable<CoreTweet.Status>> Load(ImmutableAccount account,int count,long? sinceId = null,long? maxId = null,ITimelineRepository repository=null) {
+        public async Task<IEnumerable<CoreTweet.Status>> Load(ImmutableAccount account, int count, long? sinceId = null, long? maxId = null, ITimelineRepository repository = null) {
             repository = repository ?? defaultRepository;
-            return await repository.Load(account,count,sinceId,maxId);
+            return await repository.Load(account, count, sinceId, maxId);
         }
     }
 }

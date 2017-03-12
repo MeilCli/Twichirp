@@ -14,16 +14,11 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Twichirp.Core.DataObjects;
 
 namespace Twichirp.Core.DataRepositories {
 
-    public interface IAccountRepository : IDataRepository<long,Account,ImmutableAccount> {
+    public interface IAccountRepository : IDataRepository<long, Account, ImmutableAccount> {
 
         ImmutableAccount this[long id] { get; }
 

@@ -15,10 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Realms;
 using CList = CoreTweet.List;
@@ -50,7 +47,7 @@ namespace Twichirp.Core.DataObjects {
         [JsonIgnore]
         public CList CoreTweetList {
             get {
-                if(_coreTweetList == null) {
+                if (_coreTweetList == null) {
                     _coreTweetList = JsonConvert.DeserializeObject<CList>(Json);
                     _coreTweetList.User = User.CoreTweetUser;
                 }
@@ -115,7 +112,7 @@ namespace Twichirp.Core.DataObjects {
         [JsonIgnore]
         public CList CoreTweetList {
             get {
-                if(_coreTweetList == null) {
+                if (_coreTweetList == null) {
                     _coreTweetList = JsonConvert.DeserializeObject<CList>(Json);
                     _coreTweetList.User = User.CoreTweetUser;
                 }

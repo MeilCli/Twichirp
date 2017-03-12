@@ -14,13 +14,11 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using CoreTweet;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CoreTweet;
+using Newtonsoft.Json;
 
 namespace Twichirp.Core.Models {
 
@@ -71,35 +69,35 @@ namespace Twichirp.Core.Models {
         public void SetUser(User user) {
             this.user = user;
 
-            SetProperty(this,x => x.Id,user.Id.Value);
-            SetProperty(this,x => x.ScreenName,user.ScreenName);
-            SetProperty(this,x => x.Name,user.Name ?? string.Empty);
+            SetProperty(this, x => x.Id, user.Id.Value);
+            SetProperty(this, x => x.ScreenName, user.ScreenName);
+            SetProperty(this, x => x.Name, user.Name ?? string.Empty);
 
             {
-                var _description = user.Description == null ? Enumerable.Empty<TextPart>() : CoreTweetSupplement.EnumerateTextParts(user.Description,user.Entities?.Description);
-                SetProperty(this,x => x.Description,_description);
+                var _description = user.Description == null ? Enumerable.Empty<TextPart>() : CoreTweetSupplement.EnumerateTextParts(user.Description, user.Entities?.Description);
+                SetProperty(this, x => x.Description, _description);
             }
 
-            SetProperty(this,x => x.Location,user.Location ?? string.Empty);
+            SetProperty(this, x => x.Location, user.Location ?? string.Empty);
 
             {
-                var _url = user.Url == null ? Enumerable.Empty<TextPart>() : CoreTweetSupplement.EnumerateTextParts(user.Url,user.Entities?.Url);
-                SetProperty(this,x => x.Url,_url);
+                var _url = user.Url == null ? Enumerable.Empty<TextPart>() : CoreTweetSupplement.EnumerateTextParts(user.Url, user.Entities?.Url);
+                SetProperty(this, x => x.Url, _url);
             }
 
-            SetProperty(this,x => x.CreatedAt,user.CreatedAt);
-            SetProperty(this,x => x.FavouritesCount,user.FavouritesCount);
-            SetProperty(this,x => x.FollowersCount,user.FollowersCount);
-            SetProperty(this,x => x.FriendsCount,user.FriendsCount);
-            SetProperty(this,x => x.ListedCount,user.ListedCount ?? 0);
-            SetProperty(this,x => x.ProfileBannerUrl,user.ProfileBannerUrl);
-            SetProperty(this,x => x.ProfileImageUrl,user.ProfileImageUrl);
-            SetProperty(this,x => x.ProfileLinkColor,user.ProfileLinkColor);
-            SetProperty(this,x => x.IsProtected,user.IsProtected);
-            SetProperty(this,x => x.StatusesCount,user.StatusesCount);
-            SetProperty(this,x => x.IsVerified,user.IsVerified);
+            SetProperty(this, x => x.CreatedAt, user.CreatedAt);
+            SetProperty(this, x => x.FavouritesCount, user.FavouritesCount);
+            SetProperty(this, x => x.FollowersCount, user.FollowersCount);
+            SetProperty(this, x => x.FriendsCount, user.FriendsCount);
+            SetProperty(this, x => x.ListedCount, user.ListedCount ?? 0);
+            SetProperty(this, x => x.ProfileBannerUrl, user.ProfileBannerUrl);
+            SetProperty(this, x => x.ProfileImageUrl, user.ProfileImageUrl);
+            SetProperty(this, x => x.ProfileLinkColor, user.ProfileLinkColor);
+            SetProperty(this, x => x.IsProtected, user.IsProtected);
+            SetProperty(this, x => x.StatusesCount, user.StatusesCount);
+            SetProperty(this, x => x.IsVerified, user.IsVerified);
 
-            UserChanged?.Invoke(this,new EventArgs());
+            UserChanged?.Invoke(this, new EventArgs());
         }
 
         public string ExportJson() => JsonConvert.SerializeObject(user);

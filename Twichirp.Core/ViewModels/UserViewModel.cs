@@ -16,10 +16,7 @@
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CoreTweet;
 using Plugin.CrossFormattedText;
 using Plugin.CrossFormattedText.Abstractions;
@@ -46,20 +43,20 @@ namespace Twichirp.Core.ViewModels {
         public ReactiveProperty<string> Location { get; } = new ReactiveProperty<string>();
         public ReactiveProperty<ISpannableString> Url { get; } = new ReactiveProperty<ISpannableString>();
 
-        public UserViewModel(CUser user,ImmutableAccount account) : this(new UserModel(user),account) { }
+        public UserViewModel(CUser user, ImmutableAccount account) : this(new UserModel(user), account) { }
 
-        public UserViewModel(UserModel userModel,ImmutableAccount account) {
+        public UserViewModel(UserModel userModel, ImmutableAccount account) {
             Account = account;
             this.userModel = userModel;
 
             initStaticValue();
-            Observable.FromEventPattern<EventArgs>(x => userModel.UserChanged += x,x => userModel.UserChanged -= x)
+            Observable.FromEventPattern<EventArgs>(x => userModel.UserChanged += x, x => userModel.UserChanged -= x)
                 .Subscribe(x => initStaticValue())
                 .AddTo(Disposable);
         }
 
         private void initStaticValue() {
-            IconUrl.Value = userModel.ProfileImageUrl.Replace("_normal","_bigger");
+            IconUrl.Value = userModel.ProfileImageUrl.Replace("_normal", "_bigger");
             Name.Value = userModel.Name;
             ScreenName.Value = $"@{userModel.ScreenName}";
             IsProtected.Value = userModel.IsProtected;
@@ -71,26 +68,26 @@ namespace Twichirp.Core.ViewModels {
 
         private ISpannableString toSpannable(IEnumerable<TextPart> text) {
             var spans = new List<Span>();
-            foreach(var textPart in text) {
-                switch(textPart.Type) {
+            foreach (var textPart in text) {
+                switch (textPart.Type) {
                     case TextPartType.Plain: {
                             spans.Add(new Span { Text = textPart.Text });
                             break;
                         }
                     case TextPartType.Hashtag: {
-                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
+                            spans.Add(new Span { Text = textPart.Text, ForegroundColor = SpanConstant.BlueColor });
                             break;
                         }
                     case TextPartType.Cashtag: {
-                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
+                            spans.Add(new Span { Text = textPart.Text, ForegroundColor = SpanConstant.BlueColor });
                             break;
                         }
                     case TextPartType.Url: {
-                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
+                            spans.Add(new Span { Text = textPart.Text, ForegroundColor = SpanConstant.BlueColor });
                             break;
                         }
                     case TextPartType.UserMention: {
-                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
+                            spans.Add(new Span { Text = textPart.Text, ForegroundColor = SpanConstant.BlueColor });
                             break;
                         }
                 }

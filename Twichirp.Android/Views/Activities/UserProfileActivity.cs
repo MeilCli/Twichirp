@@ -15,34 +15,26 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.V7.Widget;
+using Android.Support.Design.Widget;
 using Android.Views;
 using Android.Widget;
 using FFImageLoading.Views;
-using SToolbar = Android.Support.V7.Widget.Toolbar;
-using AActivity = Android.App.Activity;
-using AView = Android.Views.View;
-using CoreTweet;
-using Twichirp.Android.Extensions;
 using Newtonsoft.Json;
-using Android.Support.Design.Widget;
-using Twichirp.Core.DataObjects;
-using Microsoft.Practices.Unity;
-using CUser = CoreTweet.User;
-using Twichirp.Core.DataRepositories;
 using Twichirp.Android.Events;
-using Twichirp.Core.Settings;
-using Twichirp.Core.ViewModels;
+using Twichirp.Android.Extensions;
 using Twichirp.Android.ViewControllers;
 using Twichirp.Android.Views.Interfaces;
+using Twichirp.Core.DataObjects;
+using Twichirp.Core.DataRepositories;
+using Twichirp.Core.Settings;
+using Twichirp.Core.ViewModels;
+using AActivity = Android.App.Activity;
+using AView = Android.Views.View;
+using CUser = CoreTweet.User;
+using SToolbar = Android.Support.V7.Widget.Toolbar;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414
@@ -56,20 +48,20 @@ namespace Twichirp.Android.Views.Activities {
         private const string extraUserId = "extra_user_id";
         private const string extraAccount = "extra_account";
 
-        public static void Start(AActivity activity,long userId,string userJson = null,ImmutableAccount account = null,ImageView icon = null) {
-            var intent = new Intent(activity,typeof(UserProfileActivity));
-            intent.PutExtra(extraUserId,userId);
-            if(userJson != null) {
-                intent.PutExtra(extraUser,userJson);
+        public static void Start(AActivity activity, long userId, string userJson = null, ImmutableAccount account = null, ImageView icon = null) {
+            var intent = new Intent(activity, typeof(UserProfileActivity));
+            intent.PutExtra(extraUserId, userId);
+            if (userJson != null) {
+                intent.PutExtra(extraUser, userJson);
             }
-            if(account != null) {
-                intent.PutExtra(extraAccount,account.Id);
+            if (account != null) {
+                intent.PutExtra(extraAccount, account.Id);
             }
-            Tuple<AView,string> iconTransition = null;
-            if(icon != null) {
-                iconTransition = Tuple.Create(icon as AView,UserProfileViewModel.TransitionIconName);
+            Tuple<AView, string> iconTransition = null;
+            if (icon != null) {
+                iconTransition = Tuple.Create(icon as AView, UserProfileViewModel.TransitionIconName);
             }
-            activity.StartActivityCompat(intent,iconTransition);
+            activity.StartActivityCompat(intent, iconTransition);
         }
 
         public event EventHandler<ExpandedTitleMarginEventArgs> ExpandedTitleMarginMeasuring;
@@ -109,17 +101,17 @@ namespace Twichirp.Android.Views.Activities {
             var accountRepository = TwichirpApplication.Resolve<IAccountRepository>();
             var settingManager = TwichirpApplication.Resolve<SettingManager>();
 
-            long userId = Intent.GetLongExtra(extraUserId,0);
+            long userId = Intent.GetLongExtra(extraUserId, 0);
             string userJson = Intent.GetStringExtra(extraUser);
             CUser user = userJson != null ? JsonConvert.DeserializeObject<CUser>(userJson) : null;
-            long accountId = Intent.GetLongExtra(extraAccount,-1);
-            if(accountId == -1) {
+            long accountId = Intent.GetLongExtra(extraAccount, -1);
+            if (accountId == -1) {
                 accountId = settingManager.Accounts.DefaultAccountId;
             }
             var account = accountRepository[accountId];
 
-            var viewModel = UserProfileViewModel.Resolve(TwichirpApplication.UnityContainer,account,userId,user);
-            userProfileViewController = new UserProfileViewController(this,viewModel);
+            var viewModel = UserProfileViewModel.Resolve(TwichirpApplication.UnityContainer, account, userId, user);
+            userProfileViewController = new UserProfileViewController(this, viewModel);
 
             SetContentView(Resource.Layout.UserProfileActivity);
 
@@ -146,29 +138,29 @@ namespace Twichirp.Android.Views.Activities {
         }
 
         public void OnGlobalLayout() {
-            var expandedTitleMarginEventArgs = new ExpandedTitleMarginEventArgs(collapsingToolbarLayout.Width,collapsingToolbarLayout.Height);
-            ExpandedTitleMarginMeasuring?.Invoke(this,expandedTitleMarginEventArgs);
-            if(expandedTitleMarginEventArgs.MarginBottom != null) {
+            var expandedTitleMarginEventArgs = new ExpandedTitleMarginEventArgs(collapsingToolbarLayout.Width, collapsingToolbarLayout.Height);
+            ExpandedTitleMarginMeasuring?.Invoke(this, expandedTitleMarginEventArgs);
+            if (expandedTitleMarginEventArgs.MarginBottom != null) {
                 collapsingToolbarLayout.ExpandedTitleMarginBottom = expandedTitleMarginEventArgs.MarginBottom.Value;
             }
-            if(expandedTitleMarginEventArgs.MarginStart != null) {
+            if (expandedTitleMarginEventArgs.MarginStart != null) {
                 collapsingToolbarLayout.ExpandedTitleMarginStart = expandedTitleMarginEventArgs.MarginStart.Value;
             }
-            if(Build.VERSION.SdkInt >= BuildVersionCodes.JellyBean) {
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.JellyBean) {
                 collapsingToolbarLayout.ViewTreeObserver.RemoveOnGlobalLayoutListener(this);
             } else {
                 collapsingToolbarLayout.ViewTreeObserver.RemoveGlobalOnLayoutListener(this);
             }
         }
 
-        private void offsetChanged(object sender,AppBarLayout.OffsetChangedEventArgs args) {
-            var eventArgs = new AppBarOffsetChangedEventArgs(args.AppBarLayout,args.VerticalOffset);
-            AppBarOffsetChanged?.Invoke(this,eventArgs);
-            if(SupportFragmentManager.Fragments == null) {
+        private void offsetChanged(object sender, AppBarLayout.OffsetChangedEventArgs args) {
+            var eventArgs = new AppBarOffsetChangedEventArgs(args.AppBarLayout, args.VerticalOffset);
+            AppBarOffsetChanged?.Invoke(this, eventArgs);
+            if (SupportFragmentManager.Fragments == null) {
                 return;
             }
-            foreach(var fragment in SupportFragmentManager.Fragments) {
-                if(fragment is IAppBarViewContainer) {
+            foreach (var fragment in SupportFragmentManager.Fragments) {
+                if (fragment is IAppBarViewContainer) {
                     (fragment as IAppBarViewContainer).RaiseAppBarOffsetChanged(eventArgs);
                 }
             }

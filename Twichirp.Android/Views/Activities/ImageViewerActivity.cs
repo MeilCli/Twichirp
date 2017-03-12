@@ -15,28 +15,23 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using AndroidPageLayout;
 using AndroidSlideLayout;
 using Newtonsoft.Json;
 using Twichirp.Android.Extensions;
+using Twichirp.Android.ViewControllers;
+using Twichirp.Android.ViewModels;
+using Twichirp.Android.Views.Interfaces;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
+using Twichirp.Core.Settings;
 using AActivity = Android.App.Activity;
 using AView = Android.Views.View;
 using CStatus = CoreTweet.Status;
-using Twichirp.Core.Settings;
-using Twichirp.Android.ViewModels;
-using Twichirp.Android.ViewControllers;
-using Twichirp.Android.Views.Interfaces;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414
@@ -50,12 +45,12 @@ namespace Twichirp.Android.Views.Activities {
         private const string extraStatus = "extra_status";
         private const string extraAccount = "extra_account";
 
-        public static void Start(AActivity activity,ImmutableAccount account,string statusJson,ImageView imageView,int defaultPage) {
-            var intent = new Intent(activity,typeof(ImageViewerActivity));
-            intent.PutExtra(extraDefaultPage,defaultPage);
-            intent.PutExtra(extraStatus,statusJson);
-            intent.PutExtra(extraAccount,account.Id);
-            activity.StartActivityCompat(intent,Tuple.Create<AView,string>(imageView,ImageViewerViewModel.TransitionName));
+        public static void Start(AActivity activity, ImmutableAccount account, string statusJson, ImageView imageView, int defaultPage) {
+            var intent = new Intent(activity, typeof(ImageViewerActivity));
+            intent.PutExtra(extraDefaultPage, defaultPage);
+            intent.PutExtra(extraStatus, statusJson);
+            intent.PutExtra(extraAccount, account.Id);
+            activity.StartActivityCompat(intent, Tuple.Create<AView, string>(imageView, ImageViewerViewModel.TransitionName));
         }
 
         private ImageViewerViewModel imageViewerViewModel;
@@ -68,16 +63,16 @@ namespace Twichirp.Android.Views.Activities {
         protected override void OnViewCreate(Bundle savedInstanceState) {
             var accountRepository = TwichirpApplication.Resolve<IAccountRepository>();
             var settingManager = TwichirpApplication.Resolve<SettingManager>();
-            ImmutableAccount account = accountRepository[Intent.GetLongExtra(extraAccount,settingManager.Accounts.DefaultAccountId)];
+            ImmutableAccount account = accountRepository[Intent.GetLongExtra(extraAccount, settingManager.Accounts.DefaultAccountId)];
             var status = JsonConvert.DeserializeObject<CStatus>(Intent.GetStringExtra(extraStatus));
-            int defaultPage = Intent.GetIntExtra(extraDefaultPage,0);
-            imageViewerViewModel = ImageViewerViewModel.Resolve(TwichirpApplication.UnityContainer,status,account,defaultPage);
-            imageViewerViewControll = new ImageViewerViewController(this,imageViewerViewModel);
+            int defaultPage = Intent.GetIntExtra(extraDefaultPage, 0);
+            imageViewerViewModel = ImageViewerViewModel.Resolve(TwichirpApplication.UnityContainer, status, account, defaultPage);
+            imageViewerViewControll = new ImageViewerViewController(this, imageViewerViewModel);
 
             SetContentView(Resource.Layout.ImageViewerActivity);
 
             PageLayout = FindViewById<PageLayout>(Resource.Id.PageLayout);
-            SlideLayout=FindViewById<SlideLayout>(Resource.Id.SlideLayout);
+            SlideLayout = FindViewById<SlideLayout>(Resource.Id.SlideLayout);
         }
 
         protected override void OnDestroy() {

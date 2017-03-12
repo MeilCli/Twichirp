@@ -15,19 +15,10 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.Graphics.Drawables;
-using Android.OS;
-using Android.Runtime;
 using Android.Support.V7.Widget;
-using Android.Views;
-using Android.Widget;
 using AView = Android.Views.View;
 
 namespace Twichirp.Android.Views {
@@ -45,7 +36,7 @@ namespace Twichirp.Android.Views {
                 return _orientation;
             }
             set {
-                if(value != Vertical && value != Horizontal) {
+                if (value != Vertical && value != Horizontal) {
                     throw new ArgumentException("not support orientation type");
                 }
                 _orientation = value;
@@ -56,53 +47,53 @@ namespace Twichirp.Android.Views {
 
         private Drawable divider;
 
-        public DividerItemDecoration(Context context,int orientation = Vertical) {
+        public DividerItemDecoration(Context context, int orientation = Vertical) {
             var array = context.ObtainStyledAttributes(attributes);
             divider = array.GetDrawable(0);
             array.Recycle();
             Orientation = orientation;
         }
 
-        public override void OnDraw(Canvas cValue,RecyclerView parent,RecyclerView.State state) {
-            if(Orientation == Vertical) {
-                drawVertical(cValue,parent);
+        public override void OnDraw(Canvas cValue, RecyclerView parent, RecyclerView.State state) {
+            if (Orientation == Vertical) {
+                drawVertical(cValue, parent);
             } else {
-                drawHorizontal(cValue,parent);
+                drawHorizontal(cValue, parent);
             }
         }
 
-        private void drawVertical(Canvas c,RecyclerView parent) {
+        private void drawVertical(Canvas c, RecyclerView parent) {
             int left = parent.PaddingLeft;
             int right = parent.Width - parent.PaddingRight;
             int childCount = parent.ChildCount;
             //最初の要素は表示しなくていい
-            for(int i = 1;i < childCount;i++) {
+            for (int i = 1; i < childCount; i++) {
                 var child = parent.GetChildAt(i);
                 var parameter = child.LayoutParameters as RecyclerView.LayoutParams;
                 int top = child.Top + parameter.TopMargin;
                 int bottom = top + (Size ?? divider.IntrinsicHeight);
-                divider.SetBounds(left,top,right,bottom);
+                divider.SetBounds(left, top, right, bottom);
                 divider.Draw(c);
             }
         }
 
-        private void drawHorizontal(Canvas c,RecyclerView parent) {
+        private void drawHorizontal(Canvas c, RecyclerView parent) {
             int top = parent.PaddingTop;
             int bottom = parent.Height - parent.PaddingBottom;
             int childCount = parent.ChildCount;
             //最初の要素は表示しなくていい
-            for(int i = 1;i < childCount;i++) {
+            for (int i = 1; i < childCount; i++) {
                 var child = parent.GetChildAt(i);
                 var parameter = child.LayoutParameters as RecyclerView.LayoutParams;
                 int left = child.Left + parameter.LeftMargin;
                 int right = left + (Size ?? divider.IntrinsicWidth);
-                divider.SetBounds(left,top,right,bottom);
+                divider.SetBounds(left, top, right, bottom);
                 divider.Draw(c);
             }
         }
 
-        public override void GetItemOffsets(Rect outRect,AView view,RecyclerView parent,RecyclerView.State state) {
-            if(Orientation == Vertical) {
+        public override void GetItemOffsets(Rect outRect, AView view, RecyclerView parent, RecyclerView.State state) {
+            if (Orientation == Vertical) {
                 outRect.Top = Size ?? divider.IntrinsicHeight;
             } else {
                 outRect.Left = Size ?? divider.IntrinsicWidth;

@@ -17,14 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Twichirp.Android.Objects;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
@@ -54,7 +47,7 @@ namespace Twichirp.Android.Models {
                 return _navigationMenus;
             }
             private set {
-                SetValue(ref _navigationMenus,value,nameof(NavigationMenus));
+                SetValue(ref _navigationMenus, value, nameof(NavigationMenus));
             }
         }
 
@@ -64,7 +57,7 @@ namespace Twichirp.Android.Models {
                 return _navigationTabs;
             }
             private set {
-                SetValue(ref _navigationTabs,value,nameof(NavigationTabs));
+                SetValue(ref _navigationTabs, value, nameof(NavigationTabs));
             }
         }
 
@@ -74,7 +67,7 @@ namespace Twichirp.Android.Models {
                 return _isHiding;
             }
             private set {
-                SetValue(ref _isHiding,value,nameof(IsHiding));
+                SetValue(ref _isHiding, value, nameof(IsHiding));
                 makeNavigationMenu();
             }
         }
@@ -85,7 +78,7 @@ namespace Twichirp.Android.Models {
                 return _user;
             }
             private set {
-                SetValue(ref _user,value,nameof(User));
+                SetValue(ref _user, value, nameof(User));
             }
         }
 
@@ -95,7 +88,7 @@ namespace Twichirp.Android.Models {
                 return _firstSubUser;
             }
             private set {
-                SetValue(ref _firstSubUser,value,nameof(FirstSubUser));
+                SetValue(ref _firstSubUser, value, nameof(FirstSubUser));
             }
         }
 
@@ -105,12 +98,12 @@ namespace Twichirp.Android.Models {
                 return _secondSubUser;
             }
             private set {
-                SetValue(ref _secondSubUser,value,nameof(SecondSubUser));
+                SetValue(ref _secondSubUser, value, nameof(SecondSubUser));
             }
         }
 
 
-        public MainModel(IAccountRepository accountRepository,SettingManager settingManager) {
+        public MainModel(IAccountRepository accountRepository, SettingManager settingManager) {
             this.accountRepository = accountRepository;
             this.settingManager = settingManager;
             makeNavigationMenu();
@@ -122,18 +115,18 @@ namespace Twichirp.Android.Models {
             IsHiding = IsHiding == false;
         }
 
-        public void NotifyUserUpdate(ImmutableAccount account,CUser user) {
+        public void NotifyUserUpdate(ImmutableAccount account, CUser user) {
             // account情報は無視する
             // UserModel内のプロパティ変更イベントを(設計上)捕捉できないのでこちら側のプロパティ変更イベントを発生させる
-            if(User.Id == user.Id) {
+            if (User.Id == user.Id) {
                 User.SetUser(user);
                 RaisePropertyChanged(nameof(User));
             }
-            if(FirstSubUser?.Id == user.Id) {
+            if (FirstSubUser?.Id == user.Id) {
                 FirstSubUser.SetUser(user);
                 RaisePropertyChanged(nameof(FirstSubUser));
             }
-            if(SecondSubUser?.Id == user.Id) {
+            if (SecondSubUser?.Id == user.Id) {
                 SecondSubUser.SetUser(user);
                 RaisePropertyChanged(nameof(SecondSubUser));
             }
@@ -141,14 +134,14 @@ namespace Twichirp.Android.Models {
 
         public void UpdateDefaultAccountIfChanged() {
             long defaultAccountId = settingManager.Accounts.DefaultAccountId;
-            if(User.Id != defaultAccountId) {
+            if (User.Id != defaultAccountId) {
                 SetDefaultUser(defaultAccountId);
             }
         }
 
         public void SetDefaultUser(string screenName) {
             var account = accountRepository[screenName];
-            if(account == null) {
+            if (account == null) {
                 return;
             }
             SetDefaultUser(account);
@@ -156,7 +149,7 @@ namespace Twichirp.Android.Models {
 
         public void SetDefaultUser(long userId) {
             var account = accountRepository[userId];
-            if(account == null) {
+            if (account == null) {
                 return;
             }
             SetDefaultUser(account);
@@ -165,10 +158,10 @@ namespace Twichirp.Android.Models {
         public void SetDefaultUser(ImmutableAccount account) {
             settingManager.Accounts.DefaultAccountId = account.Id;
             var orderdUserList = settingManager.Accounts.AccountUsedOrder;
-            if(orderdUserList.Contains(account.Id)) {
+            if (orderdUserList.Contains(account.Id)) {
                 orderdUserList.Remove(account.Id);
             }
-            orderdUserList.Insert(0,account.Id);
+            orderdUserList.Insert(0, account.Id);
 
             IsHiding = false;
             makeNavigationMenu();
@@ -179,12 +172,12 @@ namespace Twichirp.Android.Models {
         private async void setUsers() {
             var list = getOrderdAccount();
             User = await toUserModel(list[0]);
-            if(list.Count >= 2) {
+            if (list.Count >= 2) {
                 FirstSubUser = await toUserModel(list[1]);
             } else {
                 FirstSubUser = null;
             }
-            if(list.Count >= 3) {
+            if (list.Count >= 3) {
                 SecondSubUser = await toUserModel(list[2]);
             } else {
                 SecondSubUser = null;
@@ -192,12 +185,12 @@ namespace Twichirp.Android.Models {
         }
 
         private async Task<UserModel> toUserModel(ImmutableAccount account) {
-            if(account.User == null) {
+            if (account.User == null) {
                 try {
                     var coreTweetUser = await account.CoreTweetToken.Users.ShowAsync(account.Id);
-                    var mutableAccount = new Account(new User(coreTweetUser),new Token(account.Token));
+                    var mutableAccount = new Account(new User(coreTweetUser), new Token(account.Token));
                     await Task.Run(() => accountRepository.AddOrUpdate(mutableAccount));
-                } catch(Exception) {
+                } catch (Exception) {
                     return null;
                 }
                 account = await Task.Run(() => accountRepository.Find(account.Id));
@@ -209,25 +202,25 @@ namespace Twichirp.Android.Models {
             var nowAccount = accountRepository[settingManager.Accounts.DefaultAccountId];
 
             var list = new List<NavigationMenu>();
-            if(IsHiding) {
-                foreach(var account in getOrderdAccount()) {
+            if (IsHiding) {
+                foreach (var account in getOrderdAccount()) {
                     string title = account.ScreenName;
-                    var menu = new NavigationMenu(NavigationMenuHidingFirstGroup,title.GetHashCode(),title,Resource.Drawable.IconPersonGrey48dp);
-                    if(account.Id == nowAccount.Id) {
+                    var menu = new NavigationMenu(NavigationMenuHidingFirstGroup, title.GetHashCode(), title, Resource.Drawable.IconPersonGrey48dp);
+                    if (account.Id == nowAccount.Id) {
                         menu.IsChecked = true;
                     }
                     list.Add(menu);
                 }
                 {
-                    list.Add(new NavigationMenu(NavigationMenuHidingSecondGroup,NavigationMenuAddAccount,Resource.String.MainAddAccount,Resource.Drawable.IconPersonAddGrey48dp));
+                    list.Add(new NavigationMenu(NavigationMenuHidingSecondGroup, NavigationMenuAddAccount, Resource.String.MainAddAccount, Resource.Drawable.IconPersonAddGrey48dp));
                 }
             } else {
                 {
                     int id = 0;
-                    list.Add(new NavigationMenu(NavigationMenuStandardFirstGroup,id++,$"@{nowAccount.ScreenName}",Resource.Drawable.IconPersonOutlineGrey48dp));
+                    list.Add(new NavigationMenu(NavigationMenuStandardFirstGroup, id++, $"@{nowAccount.ScreenName}", Resource.Drawable.IconPersonOutlineGrey48dp));
                 }
                 {
-                    list.Add(new NavigationMenu(NavigationMenuStandardSecondGroup,NavigationMenuSetting,Resource.String.Setting,Resource.Drawable.IconSettingsApplicationsGrey48dp));
+                    list.Add(new NavigationMenu(NavigationMenuStandardSecondGroup, NavigationMenuSetting, Resource.String.Setting, Resource.Drawable.IconSettingsApplicationsGrey48dp));
                 }
             }
             NavigationMenus = list;
@@ -236,10 +229,10 @@ namespace Twichirp.Android.Models {
         private void makeNavigationTab() {
             var list = new List<NavigationTab>();
             {
-                list.Add(new NavigationTab(Resource.Id.TabHome,StringResources.TabHome,Resource.Drawable.IconHomeGrey24dp));
-                list.Add(new NavigationTab(Resource.Id.TabMention,StringResources.TabMention,Resource.Drawable.IconNotificationsGrey24dp));
-                list.Add(new NavigationTab(Resource.Id.TabDM,StringResources.TabDM,Resource.Drawable.IconMailGrey24dp));
-                list.Add(new NavigationTab(Resource.Id.TabUser,StringResources.TabUser,Resource.Drawable.IconPersonGrey24dp));
+                list.Add(new NavigationTab(Resource.Id.TabHome, StringResources.TabHome, Resource.Drawable.IconHomeGrey24dp));
+                list.Add(new NavigationTab(Resource.Id.TabMention, StringResources.TabMention, Resource.Drawable.IconNotificationsGrey24dp));
+                list.Add(new NavigationTab(Resource.Id.TabDM, StringResources.TabDM, Resource.Drawable.IconMailGrey24dp));
+                list.Add(new NavigationTab(Resource.Id.TabUser, StringResources.TabUser, Resource.Drawable.IconPersonGrey24dp));
             }
             NavigationTabs = list;
         }
@@ -247,7 +240,7 @@ namespace Twichirp.Android.Models {
         private List<ImmutableAccount> getOrderdAccount() {
             var result = new List<ImmutableAccount>();
             Action<ImmutableAccount> addAccount = x => {
-                if(result.All(y => y.Id != x.Id)) {
+                if (result.All(y => y.Id != x.Id)) {
                     result.Add(x);
                 }
             };
@@ -255,19 +248,19 @@ namespace Twichirp.Android.Models {
             addAccount(accountRepository[settingManager.Accounts.DefaultAccountId]);
             {
                 var notContainUserId = new List<long>();
-                foreach(var orderdUserId in settingManager.Accounts.AccountUsedOrder) {
+                foreach (var orderdUserId in settingManager.Accounts.AccountUsedOrder) {
                     var account = accountRepository[orderdUserId];
-                    if(account == null) {
+                    if (account == null) {
                         notContainUserId.Add(orderdUserId);
                         continue;
                     }
                     addAccount(account);
                 }
-                foreach(var userId in notContainUserId) {
+                foreach (var userId in notContainUserId) {
                     settingManager.Accounts.AccountUsedOrder.Remove(userId);
                 }
             }
-            foreach(var a in accountRepository.Get()) {
+            foreach (var a in accountRepository.Get()) {
                 addAccount(a);
             }
             return result;

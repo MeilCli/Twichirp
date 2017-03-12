@@ -15,16 +15,13 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using CoreTweet;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
-using CoreTweet;
-using DUser = Twichirp.Core.DataObjects.User;
 using Twichirp.Core.Events;
 using Twichirp.Core.Settings;
+using DUser = Twichirp.Core.DataObjects.User;
 
 namespace Twichirp.Core.Models {
 
@@ -45,11 +42,11 @@ namespace Twichirp.Core.Models {
                 return _isLoding;
             }
             private set {
-                SetValue(ref _isLoding,value,nameof(IsLoading));
+                SetValue(ref _isLoding, value, nameof(IsLoading));
             }
         }
 
-        public LoginModel(IAccountRepository accountRepository,SettingManager settingManager) {
+        public LoginModel(IAccountRepository accountRepository, SettingManager settingManager) {
             this.accountRepository = accountRepository;
             this.settingManager = settingManager;
         }
@@ -57,35 +54,35 @@ namespace Twichirp.Core.Models {
         public async Task AuthorizeAsync(ImmutableClientKey clientKey) {
             this.clientKey = clientKey;
             try {
-                oAuthSession = await OAuth.AuthorizeAsync(clientKey.ConsumerKey,clientKey.ConsumerSecret);
-                AuthorizeUriCreated?.Invoke(this,new EventArgs<string>(oAuthSession.AuthorizeUri.AbsoluteUri));
-            } catch(Exception e) {
-                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
+                oAuthSession = await OAuth.AuthorizeAsync(clientKey.ConsumerKey, clientKey.ConsumerSecret);
+                AuthorizeUriCreated?.Invoke(this, new EventArgs<string>(oAuthSession.AuthorizeUri.AbsoluteUri));
+            } catch (Exception e) {
+                ErrorMessageCreated?.Invoke(this, new EventArgs<string>(e.Message));
             }
         }
 
         public async Task LoginAsync(string pin) {
-            if(clientKey == null) {
+            if (clientKey == null) {
                 return;
             }
-            if(oAuthSession == null) {
+            if (oAuthSession == null) {
                 return;
             }
-            if(pin == null) {
+            if (pin == null) {
                 return;
             }
             IsLoading = true;
             try {
                 var coreTweetToken = await oAuthSession.GetTokensAsync(pin);
-                var token = new Token(new ClientKey(clientKey),coreTweetToken.AccessToken,coreTweetToken.AccessTokenSecret);
-                var coreTweetUser = await coreTweetToken.Account.VerifyCredentialsAsync(skip_status: true,include_entities: true);
+                var token = new Token(new ClientKey(clientKey), coreTweetToken.AccessToken, coreTweetToken.AccessTokenSecret);
+                var coreTweetUser = await coreTweetToken.Account.VerifyCredentialsAsync(skip_status: true, include_entities: true);
                 var user = new DUser(coreTweetUser);
-                var account = new Account(user,token);
+                var account = new Account(user, token);
                 await Task.Run(() => accountRepository.AddOrUpdate(account));
                 settingManager.Accounts.DefaultAccountId = coreTweetToken.UserId;
-                LoginSucceeded?.Invoke(this,new EventArgs());
-            } catch(Exception e) {
-                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
+                LoginSucceeded?.Invoke(this, new EventArgs());
+            } catch (Exception e) {
+                ErrorMessageCreated?.Invoke(this, new EventArgs<string>(e.Message));
             }
             IsLoading = false;
         }

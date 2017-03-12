@@ -14,18 +14,9 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using CoreTweet;
 using Newtonsoft.Json;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.Repositories;
@@ -41,10 +32,10 @@ namespace Twichirp.Android.Repositories {
             this.jsonList = jsonList;
         }
 
-        public async Task<IEnumerable<CStatus>> Load(ImmutableAccount account,int count,long? sinceId = null,long? maxId = null) {
+        public async Task<IEnumerable<CStatus>> Load(ImmutableAccount account, int count, long? sinceId = null, long? maxId = null) {
             return await Task.Run(() => {
                 var temp = new List<CStatus>();
-                foreach(var s in jsonList.Take(count)) {
+                foreach (var s in jsonList.Take(count)) {
                     temp.Add(JsonConvert.DeserializeObject<CStatus>(s));
                 }
                 // maxId以下かつsinceIdより上のを取ってくる

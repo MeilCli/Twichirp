@@ -17,8 +17,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Realms;
 
 namespace Twichirp.Core.DataRepositories {
@@ -33,18 +31,18 @@ namespace Twichirp.Core.DataRepositories {
 
         void RemoveAll(IEnumerable<TData> items);
 
-        void RemoveRange(Func<IQueryable<TData>,IQueryable<TData>> querySelecter);
+        void RemoveRange(Func<IQueryable<TData>, IQueryable<TData>> querySelecter);
 
         void Clear();
 
         TImmutableData Find(TPrimaryKey key);
 
-        IEnumerable<TImmutableData> Get(Func<IQueryable<TData>,IQueryable<TData>> querySelecter = null,Func<IEnumerable<TData>,IEnumerable<TData>> enumerableSelecter = null);
+        IEnumerable<TImmutableData> Get(Func<IQueryable<TData>, IQueryable<TData>> querySelecter = null, Func<IEnumerable<TData>, IEnumerable<TData>> enumerableSelecter = null);
 
         TImmutableData FirstOrDefault();
 
         TImmutableData LastOrDefault();
 
-        int Count(Func<IQueryable<TData>,IQueryable<TData>> querySelecter = null);
+        int Count(Func<IQueryable<TData>, IQueryable<TData>> querySelecter = null);
     }
 }

@@ -14,10 +14,6 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Twichirp.Core.Constants;
 using Twichirp.Core.Objects;
 
@@ -25,13 +21,13 @@ namespace Twichirp.Android.Constants {
 
     public class AndroidLibraryConstant {
 
-        public static readonly Library AndroidPageLayout = new Library("AndroidPageLayout","Copyright (c) 2017 meil",LicenseConstant.MITLicense);
-        public static readonly Library AndroidSlideLayout = new Library("AndroidSlideLayout","Copyright (c) 2017 meil",LicenseConstant.MITLicense);
-        public static readonly Library SupportLibrary = new Library("Xamarin Android Support Library","Copyright (c) .NET Foundation Contributors",LicenseConstant.MITLicense);
-        public static readonly Library FFImageLoading = new Library("FFImageLoading","Copyright (c) 2015 Fabien Molinet",LicenseConstant.MITLicense);
-        public static readonly Library MaterialDesignIcon = new Library("Material design icons","Copyright (c) Google",LicenseConstant.ApacheLicenseV2);
-        public static readonly Library BottomBar = new Library("BottomBarSharp","Copyright (c) 2016 meil",LicenseConstant.MITLicense);
+        public static readonly Library AndroidPageLayout = new Library("AndroidPageLayout", "Copyright (c) 2017 meil", LicenseConstant.MITLicense);
+        public static readonly Library AndroidSlideLayout = new Library("AndroidSlideLayout", "Copyright (c) 2017 meil", LicenseConstant.MITLicense);
+        public static readonly Library SupportLibrary = new Library("Xamarin Android Support Library", "Copyright (c) .NET Foundation Contributors", LicenseConstant.MITLicense);
+        public static readonly Library FFImageLoading = new Library("FFImageLoading", "Copyright (c) 2015 Fabien Molinet", LicenseConstant.MITLicense);
+        public static readonly Library MaterialDesignIcon = new Library("Material design icons", "Copyright (c) Google", LicenseConstant.ApacheLicenseV2);
+        public static readonly Library BottomBar = new Library("BottomBarSharp", "Copyright (c) 2016 meil", LicenseConstant.MITLicense);
 
-        public static readonly Library[] Libraries = { AndroidPageLayout,AndroidSlideLayout,SupportLibrary,FFImageLoading,MaterialDesignIcon,BottomBar };
+        public static readonly Library[] Libraries = { AndroidPageLayout, AndroidSlideLayout, SupportLibrary, FFImageLoading, MaterialDesignIcon, BottomBar };
     }
 }

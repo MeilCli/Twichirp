@@ -14,22 +14,17 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 using Android.App;
-using Android.Content;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
-using SToolbar = Android.Support.V7.Widget.Toolbar;
 using Android.Support.Design.Widget;
 using Android.Support.V4.Widget;
-using Twichirp.Android.Extensions;
-using FFImageLoading.Views;
+using Android.Widget;
 using BottomBarSharp;
-using Twichirp.Android.ViewModels;
+using FFImageLoading.Views;
 using Twichirp.Android.ViewControllers;
+using Twichirp.Android.ViewModels;
 using Twichirp.Android.Views.Interfaces;
+using SToolbar = Android.Support.V7.Widget.Toolbar;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414
@@ -75,7 +70,7 @@ namespace Twichirp.Android.Views.Activities {
 
         protected override void OnViewCreate(Bundle savedInstanceState) {
 
-            mainViewController = new MainViewController(this,TwichirpApplication.Resolve<MainViewModel>());
+            mainViewController = new MainViewController(this, TwichirpApplication.Resolve<MainViewModel>());
             base.SetContentView(Resource.Layout.MainActivity);
             Toolbar = FindViewById<SToolbar>(Resource.Id.Toolbar);
             SetSupportActionBar(Toolbar);

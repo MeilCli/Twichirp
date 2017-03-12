@@ -14,11 +14,7 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CoreTweet;
 using Newtonsoft.Json;
 using Realms;
@@ -27,7 +23,7 @@ namespace Twichirp.Core.DataObjects {
 
     public class Token : RealmObject, Interfaces.IToken<ClientKey> {
 
-        public static string MakePrimaryKey(ClientKey clientKey,string accessToken) {
+        public static string MakePrimaryKey(ClientKey clientKey, string accessToken) {
             return $"{clientKey.ConsumerKey} - {accessToken}";
         }
 
@@ -63,8 +59,8 @@ namespace Twichirp.Core.DataObjects {
         [JsonIgnore]
         public Tokens CoreTweetToken {
             get {
-                if(_coreTweetToken == null) {
-                    _coreTweetToken = Tokens.Create(ClientKey.ConsumerKey,ClientKey.ConsumerSecret,AccessToken,AccessTokenSecret);
+                if (_coreTweetToken == null) {
+                    _coreTweetToken = Tokens.Create(ClientKey.ConsumerKey, ClientKey.ConsumerSecret, AccessToken, AccessTokenSecret);
                 }
                 return _coreTweetToken;
             }
@@ -79,11 +75,11 @@ namespace Twichirp.Core.DataObjects {
 
         public Token() { }
 
-        public Token(ClientKey clientKey,string accessToken,string accessTokenSecret) {
+        public Token(ClientKey clientKey, string accessToken, string accessTokenSecret) {
             ClientKey = clientKey;
             AccessToken = accessToken;
             AccessTokenSecret = accessTokenSecret;
-            Key = MakePrimaryKey(clientKey,accessToken);
+            Key = MakePrimaryKey(clientKey, accessToken);
         }
 
         public Token(ImmutableToken item) {
@@ -110,8 +106,8 @@ namespace Twichirp.Core.DataObjects {
         [JsonIgnore]
         public Tokens CoreTweetToken {
             get {
-                if(_coreTweetToken == null) {
-                    _coreTweetToken = Tokens.Create(ClientKey.ConsumerKey,ClientKey.ConsumerSecret,AccessToken,AccessTokenSecret);
+                if (_coreTweetToken == null) {
+                    _coreTweetToken = Tokens.Create(ClientKey.ConsumerKey, ClientKey.ConsumerSecret, AccessToken, AccessTokenSecret);
                 }
                 return _coreTweetToken;
             }

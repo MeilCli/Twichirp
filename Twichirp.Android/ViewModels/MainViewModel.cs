@@ -18,15 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Microsoft.Practices.Unity;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.Models;
@@ -54,7 +45,7 @@ namespace Twichirp.Android.ViewModels {
         public ReadOnlyReactiveProperty<List<NavigationTab>> NavigationTabs { get; }
         public ReadOnlyReactiveProperty<bool> IsNavigationHidingGroup { get; }
         public ReactiveCommand NavigationMenuGroupReverseCommand { get; } = new ReactiveCommand();
-        public ReactiveCommand<Tuple<int,int>> NavigationMenuSelectedCommand { get; } = new ReactiveCommand<Tuple<int,int>>();
+        public ReactiveCommand<Tuple<int, int>> NavigationMenuSelectedCommand { get; } = new ReactiveCommand<Tuple<int, int>>();
 
         public ReactiveProperty<long> UserId { get; } = new ReactiveProperty<long>();
         public ReactiveProperty<string> UserIcon { get; } = new ReactiveProperty<string>();
@@ -72,28 +63,28 @@ namespace Twichirp.Android.ViewModels {
         public ReactiveCommand StartLoginActivityCommand { get; } = new ReactiveCommand();
         public ReactiveCommand StartUserProfileActivityCommand { get; } = new ReactiveCommand();
 
-        public MainViewModel(ITwitterEventService twitterEventService,IAccountRepository accountRepository,SettingManager settingManager) {
-            mainModel = new MainModel(accountRepository,settingManager);
+        public MainViewModel(ITwitterEventService twitterEventService, IAccountRepository accountRepository, SettingManager settingManager) {
+            mainModel = new MainModel(accountRepository, settingManager);
 
             NavigationMenus = mainModel.ObserveProperty(x => x.NavigationMenus).ToReadOnlyReactiveProperty().AddTo(Disposable);
             NavigationTabs = mainModel.ObserveProperty(x => x.NavigationTabs).ToReadOnlyReactiveProperty().AddTo(Disposable);
             IsNavigationHidingGroup = mainModel.ObserveProperty(x => x.IsHiding).ToReadOnlyReactiveProperty().AddTo(Disposable);
             NavigationMenuGroupReverseCommand.Subscribe(x => mainModel.NavigationMenuGroupReverse()).AddTo(Disposable);
-            NavigationMenuSelectedCommand.Subscribe(x => navigationMenuSelected(x.Item1,x.Item2)).AddTo(Disposable);
+            NavigationMenuSelectedCommand.Subscribe(x => navigationMenuSelected(x.Item1, x.Item2)).AddTo(Disposable);
 
             mainModel.ObserveProperty(x => x.User).Subscribe(x => setUserValues(x)).AddTo(Disposable);
             mainModel.ObserveProperty(x => x.FirstSubUser).Subscribe(x => setFirstSubUserValue(x)).AddTo(Disposable);
             mainModel.ObserveProperty(x => x.SecondSubUser).Subscribe(x => setSecondSubUserValue(x)).AddTo(Disposable);
             FirstSubUserIconClickedCommand
                 .Subscribe(x => {
-                    if(mainModel.FirstSubUser != null) {
+                    if (mainModel.FirstSubUser != null) {
                         mainModel.SetDefaultUser(mainModel.FirstSubUser.ScreenName);
                     }
                 })
                 .AddTo(Disposable);
             SecondSubUserIconClickedCommand
                 .Subscribe(x => {
-                    if(mainModel.SecondSubUser != null) {
+                    if (mainModel.SecondSubUser != null) {
                         mainModel.SetDefaultUser(mainModel.SecondSubUser.ScreenName);
                     }
                 })
@@ -101,20 +92,20 @@ namespace Twichirp.Android.ViewModels {
 
             UpdateDefaultAccountIfChangedCommand.Subscribe(x => mainModel.UpdateDefaultAccountIfChanged()).AddTo(Disposable);
 
-            Observable.FromEventPattern<UserEventArgs>(x => twitterEventService.UserUpdated += x,x => twitterEventService.UserUpdated -= x)
-                .Subscribe(x => mainModel.NotifyUserUpdate(x.EventArgs.Account,x.EventArgs.User))
+            Observable.FromEventPattern<UserEventArgs>(x => twitterEventService.UserUpdated += x, x => twitterEventService.UserUpdated -= x)
+                .Subscribe(x => mainModel.NotifyUserUpdate(x.EventArgs.Account, x.EventArgs.User))
                 .AddTo(Disposable);
         }
 
-        private void navigationMenuSelected(int group,int id) {
-            if(group == MainModel.NavigationMenuHidingFirstGroup) {
+        private void navigationMenuSelected(int group, int id) {
+            if (group == MainModel.NavigationMenuHidingFirstGroup) {
                 var screenName = NavigationMenus.Value.FirstOrDefault(x => x.GroupId == group && x.Id == id)?.Text;
-                if(screenName != null) {
+                if (screenName != null) {
                     mainModel.SetDefaultUser(screenName);
                 }
                 return;
             }
-            switch(id) {
+            switch (id) {
                 case MainModel.NavigationMenuSetting: {
                         StartSettingActivityCommand.Execute();
                         break;
@@ -128,7 +119,7 @@ namespace Twichirp.Android.ViewModels {
 
         private void setUserValues(UserModel user) {
             UserId.Value = user.Id;
-            UserIcon.Value = user.ProfileImageUrl.Replace("_normal","_bigger");
+            UserIcon.Value = user.ProfileImageUrl.Replace("_normal", "_bigger");
             UserBanner.Value = user.ProfileBannerUrl;
             UserLinkColor.Value = user.ProfileLinkColor;
             UserName.Value = user.Name;

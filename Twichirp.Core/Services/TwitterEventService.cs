@@ -15,11 +15,10 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using CoreTweet;
-using CStatus = CoreTweet.Status;
-using CUser = CoreTweet.User;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.Events;
+using CStatus = CoreTweet.Status;
+using CUser = CoreTweet.User;
 
 namespace Twichirp.Core.Services {
 
@@ -36,32 +35,32 @@ namespace Twichirp.Core.Services {
         public TwitterEventService() {
         }
 
-        public void UpdateStatus(ImmutableAccount account,CStatus status) {
-            StatusUpdated?.Invoke(this,new StatusEventArgs(account,status));
+        public void UpdateStatus(ImmutableAccount account, CStatus status) {
+            StatusUpdated?.Invoke(this, new StatusEventArgs(account, status));
         }
 
-        public void UpdateUser(ImmutableAccount account,CUser user) {
-            UserUpdated?.Invoke(this,new UserEventArgs(account,user));
+        public void UpdateUser(ImmutableAccount account, CUser user) {
+            UserUpdated?.Invoke(this, new UserEventArgs(account, user));
         }
 
-        public void CreateFollowingUser(ImmutableAccount account,CUser user) {
-            FollowingUserCreated?.Invoke(this,new UserEventArgs(account,user));
+        public void CreateFollowingUser(ImmutableAccount account, CUser user) {
+            FollowingUserCreated?.Invoke(this, new UserEventArgs(account, user));
         }
 
-        public void DestroyFollowingUser(ImmutableAccount account,CUser user) {
-            FollowingUserDestroyed?.Invoke(this,new UserEventArgs(account,user));
+        public void DestroyFollowingUser(ImmutableAccount account, CUser user) {
+            FollowingUserDestroyed?.Invoke(this, new UserEventArgs(account, user));
         }
 
-        public void CreateBlockingUser(ImmutableAccount account,CUser user) {
-            BlockingUserCreated?.Invoke(this,new UserEventArgs(account,user));
+        public void CreateBlockingUser(ImmutableAccount account, CUser user) {
+            BlockingUserCreated?.Invoke(this, new UserEventArgs(account, user));
         }
 
-        public void DestroyBlockingUser(ImmutableAccount account,CUser user) {
-            BlockingUserDestroyed?.Invoke(this,new UserEventArgs(account,user));
+        public void DestroyBlockingUser(ImmutableAccount account, CUser user) {
+            BlockingUserDestroyed?.Invoke(this, new UserEventArgs(account, user));
         }
 
-        public void MarkSpamUser(ImmutableAccount account,CUser user) {
-            SpamUserMarked?.Invoke(this,new UserEventArgs(account,user));
+        public void MarkSpamUser(ImmutableAccount account, CUser user) {
+            SpamUserMarked?.Invoke(this, new UserEventArgs(account, user));
         }
 
     }

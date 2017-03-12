@@ -14,11 +14,8 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Realms;
 
 namespace Twichirp.Core.DataObjects {
@@ -35,18 +32,18 @@ namespace Twichirp.Core.DataObjects {
 
         // Immutableなので等値比較系の実装をしておく
         public override bool Equals(object obj) {
-            if(obj == null) {
+            if (obj == null) {
                 return false;
             }
             var type = obj as ListCollectionCacheType;
-            if((object)type == null) {
+            if ((object)type == null) {
                 return false;
             }
             return Tag == type.Tag;
         }
 
         public bool Equals(ListCollectionCacheType type) {
-            if((object)type == null) {
+            if ((object)type == null) {
                 return false;
             }
             return Tag == type.Tag;
@@ -56,17 +53,17 @@ namespace Twichirp.Core.DataObjects {
             return Tag.GetHashCode();
         }
 
-        public static bool operator ==(ListCollectionCacheType a,ListCollectionCacheType b) {
-            if(ReferenceEquals(a,b)) {
+        public static bool operator ==(ListCollectionCacheType a, ListCollectionCacheType b) {
+            if (ReferenceEquals(a, b)) {
                 return true;
             }
-            if(((object)a == null) || ((object)b == null)) {
+            if (((object)a == null) || ((object)b == null)) {
                 return false;
             }
             return a.Tag == b.Tag;
         }
 
-        public static bool operator !=(ListCollectionCacheType a,ListCollectionCacheType b) {
+        public static bool operator !=(ListCollectionCacheType a, ListCollectionCacheType b) {
             return (a == b) == false;
         }
     }
@@ -74,9 +71,9 @@ namespace Twichirp.Core.DataObjects {
     /// <summary>
     /// Not support converting to JSON
     /// </summary>
-    public class ListCollectionCache : RealmObject, Interfaces.IListCollectionCache<User,List> {
+    public class ListCollectionCache : RealmObject, Interfaces.IListCollectionCache<User, List> {
 
-        public static string MakePrimaryKey(long ownerUserId,ListCollectionCacheType type) {
+        public static string MakePrimaryKey(long ownerUserId, ListCollectionCacheType type) {
             return $"{ownerUserId} - {type.Tag}";
         }
 
@@ -102,20 +99,20 @@ namespace Twichirp.Core.DataObjects {
 
         public ListCollectionCache() { }
 
-        public ListCollectionCache(User ownerUser,IEnumerable<List> lists,ListCollectionCacheType type) {
+        public ListCollectionCache(User ownerUser, IEnumerable<List> lists, ListCollectionCacheType type) {
             OwnerUser = ownerUser;
             OwnerUserId = ownerUser.Id;
-            foreach(var list in lists) {
+            foreach (var list in lists) {
                 Lists.Add(list);
             }
             Type = type;
-            Key = MakePrimaryKey(OwnerUserId,Type);
+            Key = MakePrimaryKey(OwnerUserId, Type);
         }
 
         public ListCollectionCache(ImmutableListCollectionCache item) {
             OwnerUser = new User(item.OwnerUser);
             OwnerUserId = item.OwnerUserId;
-            foreach(var list in item.Lists) {
+            foreach (var list in item.Lists) {
                 Lists.Add(new List(list));
             }
             Type = item.Type;
@@ -127,7 +124,7 @@ namespace Twichirp.Core.DataObjects {
     /// <summary>
     /// Not support converting to JSON
     /// </summary>
-    public class ImmutableListCollectionCache : Interfaces.IListCollectionCache<ImmutableUser,ImmutableList> {
+    public class ImmutableListCollectionCache : Interfaces.IListCollectionCache<ImmutableUser, ImmutableList> {
 
         public string Key { get; }
 

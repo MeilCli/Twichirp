@@ -15,7 +15,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using CoreTweet;
 using Twichirp.Core.DataObjects;
 using CStatus = CoreTweet.Status;
 using CUser = CoreTweet.User;
@@ -35,7 +34,7 @@ namespace Twichirp.Core.Events {
 
         public CStatus Status { get; }
 
-        public StatusEventArgs(ImmutableAccount account,CStatus status) : base(account) {
+        public StatusEventArgs(ImmutableAccount account, CStatus status) : base(account) {
             Status = status;
         }
     }
@@ -44,7 +43,7 @@ namespace Twichirp.Core.Events {
 
         public CUser User { get; }
 
-        public UserEventArgs(ImmutableAccount account,CUser user) : base(account) {
+        public UserEventArgs(ImmutableAccount account, CUser user) : base(account) {
             User = user;
         }
 

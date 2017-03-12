@@ -15,10 +15,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
@@ -40,7 +36,7 @@ namespace Twichirp.Core.Models {
                 return _isRunning;
             }
             private set {
-                SetValue(ref _isRunning,value,nameof(IsRunning));
+                SetValue(ref _isRunning, value, nameof(IsRunning));
             }
         }
 
@@ -50,7 +46,7 @@ namespace Twichirp.Core.Models {
                 return _isAccountExist;
             }
             private set {
-                SetValue(ref _isAccountExist,value,nameof(IsAccountExist));
+                SetValue(ref _isAccountExist, value, nameof(IsAccountExist));
             }
         }
 
@@ -60,11 +56,11 @@ namespace Twichirp.Core.Models {
                 return _message;
             }
             private set {
-                SetValue(ref _message,value,nameof(Message));
+                SetValue(ref _message, value, nameof(Message));
             }
         }
 
-        public SplashModel(IAccountRepository accountRepository,SettingManager settingManager) {
+        public SplashModel(IAccountRepository accountRepository, SettingManager settingManager) {
             this.accountRepository = accountRepository;
             this.settingManager = settingManager;
         }
@@ -74,24 +70,24 @@ namespace Twichirp.Core.Models {
             Message = StringResources.SplashAccountDownLoading;
             try {
                 await accountInitAsync();
-            } catch(Exception) { }
-            if(accountRepository[settingManager.Accounts.DefaultAccountId] == null) {
+            } catch (Exception) { }
+            if (accountRepository[settingManager.Accounts.DefaultAccountId] == null) {
                 settingManager.Accounts.DefaultAccountId = accountRepository.FirstOrDefault()?.Id ?? -1;
             }
             Message = string.Empty;
             IsAccountExist = accountRepository.Count() > 0;
             IsRunning = false;
-            ApplicationInitialized?.Invoke(this,new EventArgs());
+            ApplicationInitialized?.Invoke(this, new EventArgs());
         }
 
         private async Task accountInitAsync() {
             var accounts = await Task.Run(() => accountRepository.Get());
-            foreach(var account in accounts) {
-                if(account.User != null && settingManager.Applications.IsCleanLaunch == false) {
+            foreach (var account in accounts) {
+                if (account.User != null && settingManager.Applications.IsCleanLaunch == false) {
                     continue;
                 }
                 var coreTweetUser = await account.CoreTweetToken.Users.ShowAsync(account.Id);
-                var mutableAccount = new Account(new User(coreTweetUser),new Token(account.Token));
+                var mutableAccount = new Account(new User(coreTweetUser), new Token(account.Token));
                 await Task.Run(() => accountRepository.AddOrUpdate(mutableAccount));
             }
         }

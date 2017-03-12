@@ -14,13 +14,8 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Twichirp.Core.Settings {
 
@@ -29,10 +24,10 @@ namespace Twichirp.Core.Settings {
         [JsonProperty]
         public int Count {
             get {
-                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(Count)),50);
+                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(Count)), 50);
             }
             set {
-                SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(Count)),value);
+                SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(Count)), value);
                 RaisePropertyChanged(nameof(Count));
             }
         }
@@ -40,15 +35,15 @@ namespace Twichirp.Core.Settings {
         [JsonProperty]
         public int OwnedNumber {
             get {
-                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(OwnedNumber)),600);
+                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(OwnedNumber)), 600);
             }
             set {
-                SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(OwnedNumber)),value);
+                SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(OwnedNumber)), value);
                 RaisePropertyChanged(nameof(OwnedNumber));
             }
         }
 
-        public TimelineSetting(SettingManager settingManager) : base(settingManager,nameof(TimelineSetting)) {
+        public TimelineSetting(SettingManager settingManager) : base(settingManager, nameof(TimelineSetting)) {
         }
 
         public override void ImportJson(JObject jObject) {

@@ -14,26 +14,23 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using CoreTweet;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+using CoreTweet;
 using Twichirp.Core.Aclog.Api;
 
 namespace Twichirp.Core.Aclog {
-    public class AclogClient :IDisposable{
+    public class AclogClient : IDisposable {
 
         internal Tokens Token { get; set; }
         public string HostUrl { get; set; } = "https://aclog.rhe.jp";
 
-        private static Dictionary<string,HttpClientHandler> clientHandlerMap = new Dictionary<string,HttpClientHandler>();
+        private static Dictionary<string, HttpClientHandler> clientHandlerMap = new Dictionary<string, HttpClientHandler>();
         internal HttpClientHandler HttpClientHandler {
             get {
                 var key = Token.ToString();
-                if(clientHandlerMap.ContainsKey(key)) {
+                if (clientHandlerMap.ContainsKey(key)) {
                     return clientHandlerMap[key];
                 }
                 var clientHandler = new HttpClientHandler { UseCookies = true };
@@ -42,11 +39,11 @@ namespace Twichirp.Core.Aclog {
             }
         }
 
-        private static Dictionary<string,HttpClient> clientMap = new Dictionary<string,HttpClient>();
+        private static Dictionary<string, HttpClient> clientMap = new Dictionary<string, HttpClient>();
         internal HttpClient HttpClient {
             get {
                 var key = Token.ToString();
-                if(clientMap.ContainsKey(key)) {
+                if (clientMap.ContainsKey(key)) {
                     return clientMap[key];
                 }
                 var client = new HttpClient(HttpClientHandler);
@@ -65,10 +62,10 @@ namespace Twichirp.Core.Aclog {
         }
 
         public void Dispose() {
-            foreach(var c in clientMap) {
+            foreach (var c in clientMap) {
                 c.Value.Dispose();
             }
-            foreach(var c in clientHandlerMap) {
+            foreach (var c in clientHandlerMap) {
                 c.Value.Dispose();
             }
         }

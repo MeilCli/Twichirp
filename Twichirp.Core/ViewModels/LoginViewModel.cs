@@ -14,19 +14,15 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
+using System;
+using System.Reactive.Linq;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Twichirp.Core.DataRepositories;
 using Twichirp.Core.DataObjects;
+using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Events;
-using Twichirp.Core.Settings;
 using Twichirp.Core.Models;
+using Twichirp.Core.Settings;
 
 namespace Twichirp.Core.ViewModels {
 
@@ -42,19 +38,19 @@ namespace Twichirp.Core.ViewModels {
         public ReactiveCommand StartNextPageCommand { get; } = new ReactiveCommand();
         public ReactiveCommand<string> ShowMessageCommand { get; } = new ReactiveCommand<string>();
 
-        public LoginViewModel(IAccountRepository accountRepository,SettingManager settingManager,ImmutableClientKey clientKey) {
-            loginModel = new LoginModel(accountRepository,settingManager);
+        public LoginViewModel(IAccountRepository accountRepository, SettingManager settingManager, ImmutableClientKey clientKey) {
+            loginModel = new LoginModel(accountRepository, settingManager);
             IsLoading = loginModel.ObserveProperty(x => x.IsLoading).ObserveOnUIDispatcher().ToReadOnlyReactiveProperty().AddTo(Disposable);
 
-            Observable.FromEventPattern<EventArgs<string>>(x => loginModel.AuthorizeUriCreated += x,x => loginModel.AuthorizeUriCreated -= x)
+            Observable.FromEventPattern<EventArgs<string>>(x => loginModel.AuthorizeUriCreated += x, x => loginModel.AuthorizeUriCreated -= x)
                 .ObserveOnUIDispatcher()
                 .Subscribe(x => StartLoginWebPageCommand.Execute(x.EventArgs.EventData))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<EventArgs>(x => loginModel.LoginSucceeded += x,x => loginModel.LoginSucceeded -= x)
+            Observable.FromEventPattern<EventArgs>(x => loginModel.LoginSucceeded += x, x => loginModel.LoginSucceeded -= x)
                 .ObserveOnUIDispatcher()
                 .Subscribe(x => StartNextPageCommand.Execute())
                 .AddTo(Disposable);
-            Observable.FromEventPattern<EventArgs<string>>(x => loginModel.ErrorMessageCreated += x,x => loginModel.ErrorMessageCreated -= x)
+            Observable.FromEventPattern<EventArgs<string>>(x => loginModel.ErrorMessageCreated += x, x => loginModel.ErrorMessageCreated -= x)
                 .ObserveOnUIDispatcher()
                 .Subscribe(x => ShowMessageCommand.Execute(x.EventArgs.EventData))
                 .AddTo(Disposable);

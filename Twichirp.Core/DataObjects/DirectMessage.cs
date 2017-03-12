@@ -15,10 +15,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Realms;
 using CDirectMessage = CoreTweet.DirectMessage;
@@ -61,7 +57,7 @@ namespace Twichirp.Core.DataObjects {
         [JsonIgnore]
         public CDirectMessage CoreTweetDirectMessage {
             get {
-                if(_coreTweetDirectMessage == null) {
+                if (_coreTweetDirectMessage == null) {
                     _coreTweetDirectMessage = JsonConvert.DeserializeObject<CDirectMessage>(Json);
                     _coreTweetDirectMessage.Recipient = Recipient.CoreTweetUser;
                     _coreTweetDirectMessage.Sender = Sender.CoreTweetUser;
@@ -136,7 +132,7 @@ namespace Twichirp.Core.DataObjects {
         [JsonIgnore]
         public CDirectMessage CoreTweetDirectMessage {
             get {
-                if(_coreTweetDirectMessage == null) {
+                if (_coreTweetDirectMessage == null) {
                     _coreTweetDirectMessage = JsonConvert.DeserializeObject<CDirectMessage>(Json);
                     _coreTweetDirectMessage.Recipient = Recipient.CoreTweetUser;
                     _coreTweetDirectMessage.Sender = Sender.CoreTweetUser;

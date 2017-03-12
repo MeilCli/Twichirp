@@ -14,47 +14,44 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using CoreTweet;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CoreTweet;
 
 namespace Twichirp.Core.Extensions {
     public static class StatusExtensions {
 
         public static bool IsValid(this Status status) {
-            if(status.User == null) {
+            if (status.User == null) {
                 return false;
             }
-            if(status.User.IsValid() == false) {
+            if (status.User.IsValid() == false) {
                 return false;
             }
-            if(status.RetweetedStatus != null && status.RetweetedStatus.IsValid() == false) {
+            if (status.RetweetedStatus != null && status.RetweetedStatus.IsValid() == false) {
                 return false;
             }
-            if(status.QuotedStatus != null && status.QuotedStatus.IsValid() == false) {
+            if (status.QuotedStatus != null && status.QuotedStatus.IsValid() == false) {
                 return false;
             }
             return true;
         }
 
         public static void CheckValid(this Status status) {
-            if(status.IsValid() == false) {
+            if (status.IsValid() == false) {
                 throw new Exception("invalid status");
             }
         }
 
         public static IEnumerable<Status> DeploymentStatus(this Status status) {
             yield return status;
-            if(status.RetweetedStatus != null) {
+            if (status.RetweetedStatus != null) {
                 yield return status.RetweetedStatus;
             }
-            if(status.RetweetedStatus?.QuotedStatus != null) {
+            if (status.RetweetedStatus?.QuotedStatus != null) {
                 yield return status.RetweetedStatus.QuotedStatus;
             }
-            if(status.QuotedStatus != null) {
+            if (status.QuotedStatus != null) {
                 yield return status.QuotedStatus;
             }
         }

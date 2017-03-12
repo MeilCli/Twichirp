@@ -15,32 +15,22 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Reactive.Bindings;
-using Twichirp.Android.Extensions;
-using Reactive.Bindings.Extensions;
 using System.Reactive.Linq;
+using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 using Twichirp.Android.Events;
-using Twichirp.Core.ViewModels;
-using Twichirp.Android.Views.Interfaces;
+using Twichirp.Android.Extensions;
 using Twichirp.Android.Views.Activities;
+using Twichirp.Android.Views.Interfaces;
+using Twichirp.Core.ViewModels;
 
 namespace Twichirp.Android.ViewControllers {
 
-    public class SplashViewController : BaseViewController<ISplashView,SplashViewModel> {
+    public class SplashViewController : BaseViewController<ISplashView, SplashViewModel> {
 
-        public SplashViewController(ISplashView view,SplashViewModel viewModel) : base(view,viewModel) {
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x,x => view.Created -= x)
-                .Subscribe(x => onCreate(x.Sender,x.EventArgs))
+        public SplashViewController(ISplashView view, SplashViewModel viewModel) : base(view, viewModel) {
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x, x => view.Created -= x)
+                .Subscribe(x => onCreate(x.Sender, x.EventArgs))
                 .AddTo(Disposable);
             viewModel.StartMainPageCommand.Subscribe(x => {
                 View.Activity.StartActivityCompat(typeof(MainActivity));
@@ -52,8 +42,8 @@ namespace Twichirp.Android.ViewControllers {
             }).AddTo(Disposable);
         }
 
-        private void onCreate(object sender,LifeCycleEventArgs e) {
-            View.Message.SetBinding(x => x.Text,ViewModel.Message).AddTo(Disposable);
+        private void onCreate(object sender, LifeCycleEventArgs e) {
+            View.Message.SetBinding(x => x.Text, ViewModel.Message).AddTo(Disposable);
             ViewModel.ApplicationInitCommand.Execute();
         }
     }

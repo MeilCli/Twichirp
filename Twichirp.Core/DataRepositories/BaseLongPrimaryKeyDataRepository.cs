@@ -14,23 +14,18 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Realms;
 using Twichirp.Core.Services;
 
 namespace Twichirp.Core.DataRepositories {
 
-    public abstract class BaseLongPrimaryKeyDataRepository<TData, TImmutableData> : BaseDataRepository<long,TData,TImmutableData> where TData : RealmObject {
+    public abstract class BaseLongPrimaryKeyDataRepository<TData, TImmutableData> : BaseDataRepository<long, TData, TImmutableData> where TData : RealmObject {
 
         public BaseLongPrimaryKeyDataRepository(IRealmService realmService) : base(realmService) {
         }
 
         public override TImmutableData Find(long key) {
-            using(var realm = RealmService.GetRealm()) {
+            using (var realm = RealmService.GetRealm()) {
                 var result = realm.Find<TData>(key);
                 return result != null ? ToImmutable(result) : default(TImmutableData);
             }

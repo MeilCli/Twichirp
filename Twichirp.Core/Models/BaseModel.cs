@@ -15,13 +15,9 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Twichirp.Core.Models {
 
@@ -32,34 +28,34 @@ namespace Twichirp.Core.Models {
         public BaseModel() { }
 
         protected void RaisePropertyChanged(string name) {
-            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        protected bool SetValue<T>(ref T backingField,T value,string propertyName = null) {
-            if(Equals(backingField,value)) {
+        protected bool SetValue<T>(ref T backingField, T value, string propertyName = null) {
+            if (Equals(backingField, value)) {
                 return false;
             }
             backingField = value;
-            if(propertyName != null) {
+            if (propertyName != null) {
                 RaisePropertyChanged(propertyName);
             }
             return true;
         }
 
         // とても遅い
-        protected bool SetProperty<TTarget, TValue>(TTarget target,Expression<Func<TTarget,TValue>> outExpression,TValue value) {
-            if(outExpression.Body is MemberExpression == false) {
+        protected bool SetProperty<TTarget, TValue>(TTarget target, Expression<Func<TTarget, TValue>> outExpression, TValue value) {
+            if (outExpression.Body is MemberExpression == false) {
                 return false;
             }
             var expression = outExpression.Body as MemberExpression;
-            if(expression.Member is PropertyInfo == false) {
+            if (expression.Member is PropertyInfo == false) {
                 return false;
             }
             var property = expression.Member as PropertyInfo;
-            if(Equals(property.GetValue(target),value)) {
+            if (Equals(property.GetValue(target), value)) {
                 return false;
             }
-            property.SetValue(target,value);
+            property.SetValue(target, value);
             RaisePropertyChanged(property.Name);
             return true;
         }

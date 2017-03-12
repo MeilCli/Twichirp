@@ -14,22 +14,13 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using SToolbar = Android.Support.V7.Widget.Toolbar;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Android.Support.V4.Widget;
 using Android.Support.Design.Widget;
-using FFImageLoading.Views;
+using Android.Support.V4.Widget;
+using Android.Widget;
 using BottomBarSharp;
+using FFImageLoading.Views;
+using SToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Twichirp.Android.Views.Interfaces {
 

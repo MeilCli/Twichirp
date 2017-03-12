@@ -14,19 +14,8 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Android.App;
-using Android.Content;
-using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
-using Android.Views;
 using Android.Widget;
 using AView = Android.Views.View;
 
@@ -34,8 +23,8 @@ namespace Twichirp.Android.Extensions {
 
     public static class ViewExtensions {
 
-        public static void SetTransitionNameCompat(this AView view,string name) {
-            if(Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop) {
+        public static void SetTransitionNameCompat(this AView view, string name) {
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop) {
                 view.TransitionName = name;
             }
         }
@@ -44,7 +33,7 @@ namespace Twichirp.Android.Extensions {
             var drawable = imageView.Drawable;
             imageView.SetImageDrawable(null);
             imageView.Tag = null;
-            if(drawable is BitmapDrawable) {
+            if (drawable is BitmapDrawable) {
                 //(drawable as BitmapDrawable)?.Bitmap?.Recycle();
             }
         }

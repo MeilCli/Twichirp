@@ -15,27 +15,18 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Reactive.Bindings;
 
 namespace Twichirp.Android.Extensions {
 
     public static class ReactivePropertyExtension {
 
-        public static IDisposable SetCommand<T>(this IObservable<T> self,AsyncReactiveCommand command) =>
+        public static IDisposable SetCommand<T>(this IObservable<T> self, AsyncReactiveCommand command) =>
             self.Where(x => command.CanExecute()).Subscribe(x => command.Execute());
 
-        public static IDisposable SetCommand<T>(this IObservable<T> self,AsyncReactiveCommand<T> command) =>
+        public static IDisposable SetCommand<T>(this IObservable<T> self, AsyncReactiveCommand<T> command) =>
             self.Where(x => command.CanExecute()).Subscribe(x => command.Execute(x));
     }
 }

@@ -14,12 +14,7 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Twichirp.Core.TweetCount {
     public static class CounterExtensions {
@@ -28,13 +23,13 @@ namespace Twichirp.Core.TweetCount {
         private const int httpsUrlSize = 23;
 
         public static int TweetCount(this string text) {
-            if(text.Contains(".") == false) {
+            if (text.Contains(".") == false) {
                 return text.Length;
             }
             var regex = Regex.ValidUrl;
             var match = regex.Matches(text);
             int count = text.Length;
-            foreach(Match m in match) {
+            foreach (Match m in match) {
                 count -= m.Groups[3].Length;
                 count += m.Groups[3].Value.StartsWith("https") ? httpsUrlSize : httpUrlSize;
             }

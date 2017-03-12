@@ -14,18 +14,13 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CoreTweet;
 using Newtonsoft.Json;
 using Realms;
 
 namespace Twichirp.Core.DataObjects {
 
-    public class Account : RealmObject, Interfaces.IAccount<Token,User> {
+    public class Account : RealmObject, Interfaces.IAccount<Token, User> {
 
         [PrimaryKey]
         [JsonRequired]
@@ -65,7 +60,7 @@ namespace Twichirp.Core.DataObjects {
 
         public Account() { }
 
-        public Account(User user,Token token) {
+        public Account(User user, Token token) {
             Id = user.Id;
             User = user;
             Token = token;
@@ -79,7 +74,7 @@ namespace Twichirp.Core.DataObjects {
 
     }
 
-    public class ImmutableAccount : Interfaces.IAccount<ImmutableToken,ImmutableUser> {
+    public class ImmutableAccount : Interfaces.IAccount<ImmutableToken, ImmutableUser> {
 
         public long Id { get; }
 

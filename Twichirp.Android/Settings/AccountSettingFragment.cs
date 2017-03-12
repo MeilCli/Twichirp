@@ -14,18 +14,9 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
-using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
-using Android.Views;
-using Android.Widget;
 using Android.Support.V7.Preferences;
 using Twichirp.Android.Extensions;
 using Twichirp.Core.DataRepositories;
@@ -35,7 +26,7 @@ namespace Twichirp.Android.Settings {
 
     public class AccountsSettingFragment : PreferenceFragmentCompat {
 
-        public override void OnCreatePreferences(Bundle savedInstanceState,string rootKey) {
+        public override void OnCreatePreferences(Bundle savedInstanceState, string rootKey) {
             var screen = PreferenceManager.CreatePreferenceScreen(PreferenceManager.Context);
             var application = Context.ToTwichirpApplication();
             var settingManager = application.Resolve<SettingManager>();
@@ -49,14 +40,14 @@ namespace Twichirp.Android.Settings {
                 x.SetEntries(accounts.Select(y => y.ScreenName).ToArray());
                 x.SetEntryValues(accounts.Select(y => y.ScreenName).ToArray());
                 x.SetValueIndex(accounts.ToList().FindIndex(y => y.Id == settingManager.Accounts.DefaultAccountId));
-                x.PreferenceChange += (s,e) => settingManager.Accounts.DefaultAccountId = accounts.First(y => y.ScreenName == (string)e.NewValue).Id;
+                x.PreferenceChange += (s, e) => settingManager.Accounts.DefaultAccountId = accounts.First(y => y.ScreenName == (string)e.NewValue).Id;
             });
-            foreach(var account in accounts) {
+            foreach (var account in accounts) {
                 new Preference(screen.Context).Apply(x => {
                     screen.AddPreference(x);
                     x.Title = account.ScreenName;
                     x.SetIcon(Resource.Drawable.IconPersonGrey36dp);
-                    if(account.User != null) {
+                    if (account.User != null) {
                         x.Summary = account.User.Name;
                     }
                 });

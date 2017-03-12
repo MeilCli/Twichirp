@@ -15,13 +15,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Reactive.Bindings;
-using Reactive.Bindings.Extensions;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.Events;
 using CStatus = CoreTweet.Status;
@@ -39,19 +32,19 @@ namespace Twichirp.Core.Services {
         event EventHandler<UserEventArgs> BlockingUserDestroyed;
         event EventHandler<UserEventArgs> SpamUserMarked;
 
-        void UpdateStatus(ImmutableAccount account,CStatus status);
+        void UpdateStatus(ImmutableAccount account, CStatus status);
 
-        void UpdateUser(ImmutableAccount account,CUser user);
+        void UpdateUser(ImmutableAccount account, CUser user);
 
-        void CreateFollowingUser(ImmutableAccount account,CUser user);
+        void CreateFollowingUser(ImmutableAccount account, CUser user);
 
-        void DestroyFollowingUser(ImmutableAccount account,CUser user);
+        void DestroyFollowingUser(ImmutableAccount account, CUser user);
 
-        void CreateBlockingUser(ImmutableAccount account,CUser user);
+        void CreateBlockingUser(ImmutableAccount account, CUser user);
 
-        void DestroyBlockingUser(ImmutableAccount account,CUser user);
+        void DestroyBlockingUser(ImmutableAccount account, CUser user);
 
-        void MarkSpamUser(ImmutableAccount account,CUser user);
+        void MarkSpamUser(ImmutableAccount account, CUser user);
 
     }
 }

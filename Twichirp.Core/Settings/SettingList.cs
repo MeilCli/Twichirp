@@ -14,14 +14,9 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Twichirp.Core.Settings {
 
@@ -44,11 +39,11 @@ namespace Twichirp.Core.Settings {
             }
         }
 
-        public SettingList(SettingManager settingManager,string key) {
+        public SettingList(SettingManager settingManager, string key) {
             this.settingManager = settingManager;
             this.key = key;
 
-            list = JsonConvert.DeserializeObject<List<T>>(settingManager.AppSettings.GetValueOrDefault(key,"[]"));
+            list = JsonConvert.DeserializeObject<List<T>>(settingManager.AppSettings.GetValueOrDefault(key, "[]"));
         }
 
         public void Add(T value) {
@@ -56,8 +51,8 @@ namespace Twichirp.Core.Settings {
             SaveValues();
         }
 
-        public void Insert(int index,T value) {
-            list.Insert(index,value);
+        public void Insert(int index, T value) {
+            list.Insert(index, value);
             SaveValues();
         }
 
@@ -74,11 +69,11 @@ namespace Twichirp.Core.Settings {
         public bool Contains(T value) => list.Contains(value);
 
         public void SaveValues() {
-            settingManager.AppSettings.AddOrUpdateValue(key,JsonConvert.SerializeObject(list));
+            settingManager.AppSettings.AddOrUpdateValue(key, JsonConvert.SerializeObject(list));
         }
 
         public IEnumerator<T> GetEnumerator() {
-            foreach(var v in list) {
+            foreach (var v in list) {
                 yield return v;
             }
         }

@@ -18,60 +18,53 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Support.V4.App;
 using Android.Support.V4.View;
-using Android.Views;
 using Android.Widget;
 using AndroidSlideLayout;
 using CoreTweet;
 using FFImageLoading;
 using FFImageLoading.Views;
 using Reactive.Bindings.Extensions;
-using Twichirp.Android.Extensions;
 using Twichirp.Android.Events;
+using Twichirp.Android.Extensions;
 using Twichirp.Android.ViewModels;
 using Twichirp.Android.Views.Interfaces;
 
 namespace Twichirp.Android.ViewControllers {
 
-    public class ImageViewerViewController : BaseViewController<IImageViewerView,ImageViewerViewModel> {
+    public class ImageViewerViewController : BaseViewController<IImageViewerView, ImageViewerViewModel> {
 
-        public ImageViewerViewController(IImageViewerView view,ImageViewerViewModel viewModel) : base(view,viewModel) {
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x,x => view.Created -= x)
-                .Subscribe(x => onCreate(x.Sender,x.EventArgs))
+        public ImageViewerViewController(IImageViewerView view, ImageViewerViewModel viewModel) : base(view, viewModel) {
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x, x => view.Created -= x)
+                .Subscribe(x => onCreate(x.Sender, x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Destroyed += x,x => view.Destroyed -= x)
-                .Subscribe(x => onDestroy(x.Sender,x.EventArgs))
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Destroyed += x, x => view.Destroyed -= x)
+                .Subscribe(x => onDestroy(x.Sender, x.EventArgs))
                 .AddTo(Disposable);
         }
 
-        private void onCreate(object sender,LifeCycleEventArgs args) {
-            Observable.FromEventPattern<ViewReleasedEventArgs>(x => View.SlideLayout.ViewReleased += x,x => View.SlideLayout.ViewReleased -= x)
-                .Subscribe(x => viewReleased(x.Sender,x.EventArgs))
+        private void onCreate(object sender, LifeCycleEventArgs args) {
+            Observable.FromEventPattern<ViewReleasedEventArgs>(x => View.SlideLayout.ViewReleased += x, x => View.SlideLayout.ViewReleased -= x)
+                .Subscribe(x => viewReleased(x.Sender, x.EventArgs))
                 .AddTo(Disposable);
             ViewModel.Media.Subscribe(x => setMedia(x)).AddTo(Disposable);
         }
 
-        private void onDestroy(object sender,LifeCycleEventArgs args) {
+        private void onDestroy(object sender, LifeCycleEventArgs args) {
             releaseImages();
         }
 
         private void setMedia(IEnumerable<MediaEntity> medias) {
-            if(View.PageLayout.PageCount > 0) {
+            if (View.PageLayout.PageCount > 0) {
                 releaseImages();
                 View.PageLayout.ClearPage();
             }
-            for(int i = 0;i < medias.Count();i++) {
+            for (int i = 0; i < medias.Count(); i++) {
                 var imageViewAsync = new ImageViewAsync(View.PageLayout.Context);
                 var asyncImage = ImageService.Instance.LoadUrl(medias.ElementAt(i).MediaUrl).Retry(2);
-                if(i == ViewModel.DefaultPage) {
-                    ViewCompat.SetTransitionName(imageViewAsync,ImageViewerViewModel.TransitionName);
+                if (i == ViewModel.DefaultPage) {
+                    ViewCompat.SetTransitionName(imageViewAsync, ImageViewerViewModel.TransitionName);
                     View.Activity.SupportPostponeEnterTransition();
                     asyncImage.Success(() => View.Activity.SupportStartPostponedEnterTransition());
                 }
@@ -82,21 +75,21 @@ namespace Twichirp.Android.ViewControllers {
         }
 
         private void releaseImages() {
-            for(int i = 0;i < View.PageLayout.PageCount;i++) {
+            for (int i = 0; i < View.PageLayout.PageCount; i++) {
                 var page = View.PageLayout.GetPage(i);
-                if(page is ImageView) {
+                if (page is ImageView) {
                     (page as ImageView).ReleaseImage();
                 }
             }
         }
 
-        private void viewReleased(object sender,ViewReleasedEventArgs args) {
+        private void viewReleased(object sender, ViewReleasedEventArgs args) {
             var slideLayout = sender as SlideLayout;
             int distance = Math.Abs(slideLayout.CurrentDragChildViewLayoutedTop - slideLayout.CurrentDragChildViewDraggedTop);
             int finishDistance = View.ApplicationContext.ConvertDensityIndependentPixelToPixel(150);
-            if(distance > finishDistance) {
+            if (distance > finishDistance) {
                 args.Handled = true;
-                if(View.PageLayout.CurrentFirstVisiblePage == ViewModel.DefaultPage) {
+                if (View.PageLayout.CurrentFirstVisiblePage == ViewModel.DefaultPage) {
                     ActivityCompat.FinishAfterTransition(View.Activity);
                 } else {
                     View.Activity.Finish();

@@ -14,29 +14,22 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using AndroidSlideLayout;
 using Newtonsoft.Json;
 using Twichirp.Android.Extensions;
+using Twichirp.Android.ViewControllers;
+using Twichirp.Android.Views.Interfaces;
 using Twichirp.Core.DataObjects;
-using Microsoft.Practices.Unity;
-using AActivity = Android.App.Activity;
-using CStatus = CoreTweet.Status;
 using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Settings;
 using Twichirp.Core.ViewModels;
-using Twichirp.Android.ViewControllers;
-using Twichirp.Android.Views.Interfaces;
+using AActivity = Android.App.Activity;
+using CStatus = CoreTweet.Status;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414
@@ -49,10 +42,10 @@ namespace Twichirp.Android.Views.Activities {
         private const string extraStatus = "extra_status";
         private const string extraAccount = "extra_account";
 
-        public static void Start(AActivity activity,ImmutableAccount account,string statusJson) {
-            var intent = new Intent(activity,typeof(VideoViewerActivity));
-            intent.PutExtra(extraStatus,statusJson);
-            intent.PutExtra(extraAccount,account.Id);
+        public static void Start(AActivity activity, ImmutableAccount account, string statusJson) {
+            var intent = new Intent(activity, typeof(VideoViewerActivity));
+            intent.PutExtra(extraStatus, statusJson);
+            intent.PutExtra(extraAccount, account.Id);
             activity.StartActivityCompat(intent);
         }
 
@@ -67,10 +60,10 @@ namespace Twichirp.Android.Views.Activities {
             var accountRepository = TwichirpApplication.Resolve<IAccountRepository>();
             var settingManager = TwichirpApplication.Resolve<SettingManager>();
 
-            ImmutableAccount account = accountRepository[Intent.GetLongExtra(extraAccount,settingManager.Accounts.DefaultAccountId)];
+            ImmutableAccount account = accountRepository[Intent.GetLongExtra(extraAccount, settingManager.Accounts.DefaultAccountId)];
             var status = JsonConvert.DeserializeObject<CStatus>(Intent.GetStringExtra(extraStatus));
-            statusViewModel = StatusViewModel.Resolve(TwichirpApplication.UnityContainer,status,account);
-            videoViewerViewController = new VideoViewerViewController(this,statusViewModel);
+            statusViewModel = StatusViewModel.Resolve(TwichirpApplication.UnityContainer, status, account);
+            videoViewerViewController = new VideoViewerViewController(this, statusViewModel);
 
             SetContentView(Resource.Layout.VideoViewerActivity);
             SlideLayout = FindViewById<SlideLayout>(Resource.Id.SlideLayout);

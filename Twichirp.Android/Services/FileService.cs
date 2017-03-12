@@ -14,18 +14,8 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Twichirp.Core.Services;
 
 namespace Twichirp.Android.Services {
@@ -34,9 +24,9 @@ namespace Twichirp.Android.Services {
 
         public string GetPersonalFolderPath() => System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
-        public string ReadFile(string fileName) => File.ReadAllText(fileName,Encoding.UTF8);
+        public string ReadFile(string fileName) => File.ReadAllText(fileName, Encoding.UTF8);
 
-        public void WriteFile(string fileName,string text) => File.WriteAllText(fileName,text,Encoding.UTF8);
+        public void WriteFile(string fileName, string text) => File.WriteAllText(fileName, text, Encoding.UTF8);
 
         public string[] GetDirectories(string path) => Directory.GetDirectories(path);
 

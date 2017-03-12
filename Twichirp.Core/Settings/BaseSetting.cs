@@ -14,13 +14,8 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace Twichirp.Core.Settings {
 
@@ -31,7 +26,7 @@ namespace Twichirp.Core.Settings {
         private string prefix;
         protected SettingManager SettingManager { get; }
 
-        public BaseSetting(SettingManager settingManager,string prefix) {
+        public BaseSetting(SettingManager settingManager, string prefix) {
             SettingManager = settingManager;
             this.prefix = prefix;
         }
@@ -39,7 +34,7 @@ namespace Twichirp.Core.Settings {
         public abstract void ImportJson(JObject jObject);
 
         protected void RaisePropertyChanged(string name) {
-            PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         protected string MakeSettingName(string name) {

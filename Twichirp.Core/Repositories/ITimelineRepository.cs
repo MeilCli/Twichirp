@@ -14,10 +14,7 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Twichirp.Core.DataObjects;
 using CStatus = CoreTweet.Status;
@@ -26,6 +23,6 @@ namespace Twichirp.Core.Repositories {
 
     public interface ITimelineRepository {
 
-        Task<IEnumerable<CStatus>> Load(ImmutableAccount account,int count,long? sinceId = null,long? maxId = null);
+        Task<IEnumerable<CStatus>> Load(ImmutableAccount account, int count, long? sinceId = null, long? maxId = null);
     }
 }

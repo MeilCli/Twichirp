@@ -14,11 +14,7 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Realms;
 
@@ -55,7 +51,7 @@ namespace Twichirp.Core.DataObjects {
 
         public ClientKey() { }
 
-        public ClientKey(string consumerKey,string consumerSecret,string clientName) {
+        public ClientKey(string consumerKey, string consumerSecret, string clientName) {
             ConsumerKey = consumerKey;
             ConsumerSecret = consumerSecret;
             ClientName = clientName;
@@ -82,7 +78,7 @@ namespace Twichirp.Core.DataObjects {
             ConsumerSecret = item.ConsumerSecret;
         }
 
-        public ImmutableClientKey(string consumerKey,string consumerSecret,string clientName) {
+        public ImmutableClientKey(string consumerKey, string consumerSecret, string clientName) {
             ClientName = clientName;
             ConsumerKey = consumerKey;
             ConsumerSecret = ConsumerSecret;

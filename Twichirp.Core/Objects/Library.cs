@@ -14,11 +14,6 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Twichirp.Core.Objects {
 
@@ -28,7 +23,7 @@ namespace Twichirp.Core.Objects {
         public string Copyright { get; private set; }
         public License LibraryLicense { get; private set; }
 
-        public Library(string libraryName,string copyright,License libraryLicense) {
+        public Library(string libraryName, string copyright, License libraryLicense) {
             LibraryName = libraryName;
             Copyright = copyright;
             LibraryLicense = libraryLicense;

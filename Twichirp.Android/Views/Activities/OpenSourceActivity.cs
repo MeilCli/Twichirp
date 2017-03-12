@@ -14,21 +14,14 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
+using System.IO;
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.Support.V7.App;
+using Android.Views;
 using Android.Webkit;
 using SToolbar = Android.Support.V7.Widget.Toolbar;
-using System.IO;
 
 namespace Twichirp.Android.Views.Activities {
 
@@ -46,19 +39,19 @@ namespace Twichirp.Android.Views.Activities {
 
             web = FindViewById<WebView>(Resource.Id.Web);
 
-            using(var stream = Assets.Open("LICENSE.txt"))
-            using(var reader = new StreamReader(stream)) {
+            using (var stream = Assets.Open("LICENSE.txt"))
+            using (var reader = new StreamReader(stream)) {
                 string text = $"<pre>{reader.ReadToEnd()}</pre>";
                 string htmlStart = "<html><head><style> body { font - family: sans - serif;}pre { background - color: #eeeeee; padding: 1em; white-space: pre-wrap; } </style></head><body>";
                 string htmlEnd = "</body></html>";
-                string html = $"{htmlStart}{text}{htmlEnd}".Replace("\n","<br/>");
-                web.LoadData(html,"text/html","");
+                string html = $"{htmlStart}{text}{htmlEnd}".Replace("\n", "<br/>");
+                web.LoadData(html, "text/html", "");
             }
-                
+
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item) {
-            if(item.ItemId == global::Android.Resource.Id.Home) {
+            if (item.ItemId == global::Android.Resource.Id.Home) {
                 Finish();
             }
             return base.OnOptionsItemSelected(item);
@@ -90,19 +83,19 @@ namespace Twichirp.Android.Views.Activities {
 
             web = FindViewById<WebView>(Resource.Id.Web);
 
-            using(var stream = Assets.Open("COPYING.txt"))
-            using(var reader = new StreamReader(stream)) {
+            using (var stream = Assets.Open("COPYING.txt"))
+            using (var reader = new StreamReader(stream)) {
                 string text = $"<pre>{reader.ReadToEnd()}</pre>";
                 string htmlStart = "<html><head><style> body { font - family: sans - serif;}pre { background - color: #eeeeee; padding: 1em; white-space: pre-wrap; } </style></head><body>";
                 string htmlEnd = "</body></html>";
-                string html = $"{htmlStart}{text}{htmlEnd}".Replace("\n","<br/>");
-                web.LoadData(html,"text/html","");
+                string html = $"{htmlStart}{text}{htmlEnd}".Replace("\n", "<br/>");
+                web.LoadData(html, "text/html", "");
             }
 
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item) {
-            if(item.ItemId == global::Android.Resource.Id.Home) {
+            if (item.ItemId == global::Android.Resource.Id.Home) {
                 Finish();
             }
             return base.OnOptionsItemSelected(item);
@@ -134,19 +127,19 @@ namespace Twichirp.Android.Views.Activities {
 
             web = FindViewById<WebView>(Resource.Id.Web);
 
-            using(var stream = Assets.Open("COPYING.LESSER.txt"))
-            using(var reader = new StreamReader(stream)) {
+            using (var stream = Assets.Open("COPYING.LESSER.txt"))
+            using (var reader = new StreamReader(stream)) {
                 string text = $"<pre>{reader.ReadToEnd()}</pre>";
                 string htmlStart = "<html><head><style> body { font - family: sans - serif;}pre { background - color: #eeeeee; padding: 1em; white-space: pre-wrap; } </style></head><body>";
                 string htmlEnd = "</body></html>";
-                string html = $"{htmlStart}{text}{htmlEnd}".Replace("\n","<br/>");
-                web.LoadData(html,"text/html","");
+                string html = $"{htmlStart}{text}{htmlEnd}".Replace("\n", "<br/>");
+                web.LoadData(html, "text/html", "");
             }
 
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item) {
-            if(item.ItemId == global::Android.Resource.Id.Home) {
+            if (item.ItemId == global::Android.Resource.Id.Home) {
                 Finish();
             }
             return base.OnOptionsItemSelected(item);

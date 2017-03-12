@@ -14,13 +14,8 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Twichirp.Core.Settings {
 
@@ -29,15 +24,15 @@ namespace Twichirp.Core.Settings {
         [JsonProperty]
         public bool IsCleanLaunch {
             get {
-                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(IsCleanLaunch)),true);
+                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(IsCleanLaunch)), true);
             }
             set {
-                SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(IsCleanLaunch)),value);
+                SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(IsCleanLaunch)), value);
                 RaisePropertyChanged(nameof(IsCleanLaunch));
             }
         }
 
-        public ApplicationSetting(SettingManager settingManager) : base(settingManager,nameof(ApplicationSetting)) {
+        public ApplicationSetting(SettingManager settingManager) : base(settingManager, nameof(ApplicationSetting)) {
         }
 
         public override void ImportJson(JObject jObject) {

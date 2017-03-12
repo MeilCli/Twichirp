@@ -14,18 +14,9 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
-using Android.Views;
-using Android.Widget;
 using Android.Support.V7.Preferences;
 using Twichirp.Android.Extensions;
 using Twichirp.Core.Settings;
@@ -34,14 +25,14 @@ namespace Twichirp.Android.Settings {
 
     public class ApplicationSettingFragment : PreferenceFragmentCompat {
 
-        public override void OnCreatePreferences(Bundle savedInstanceState,string rootKey) {
+        public override void OnCreatePreferences(Bundle savedInstanceState, string rootKey) {
             var screen = PreferenceManager.CreatePreferenceScreen(PreferenceManager.Context);
             var application = Context.ToTwichirpApplication();
             var settingManager = application.Resolve<SettingManager>();
             new CheckBoxPreference(screen.Context).Apply(x => {
                 screen.AddPreference(x);
                 x.Checked = settingManager.Applications.IsCleanLaunch;
-                x.PreferenceChange += (s,e) => settingManager.Applications.IsCleanLaunch = (bool)e.NewValue;
+                x.PreferenceChange += (s, e) => settingManager.Applications.IsCleanLaunch = (bool)e.NewValue;
                 x.SetTitle(Resource.String.SettingCleanUp);
                 x.SetSummary(Resource.String.SettingCleanUpSummary);
             });

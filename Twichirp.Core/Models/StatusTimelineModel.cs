@@ -14,24 +14,22 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using CoreTweet;
-using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Twichirp.Core.Extensions;
 using Newtonsoft.Json;
+using Reactive.Bindings;
 using Twichirp.Core.DataObjects;
-using CStatus = CoreTweet.Status;
-using CUser = CoreTweet.User;
-using Twichirp.Core.UseCases;
+using Twichirp.Core.Events;
+using Twichirp.Core.Extensions;
 using Twichirp.Core.Repositories;
 using Twichirp.Core.Services;
-using Twichirp.Core.Events;
 using Twichirp.Core.Settings;
+using Twichirp.Core.UseCases;
+using CStatus = CoreTweet.Status;
+using CUser = CoreTweet.User;
 
 namespace Twichirp.Core.Models {
 
@@ -39,7 +37,7 @@ namespace Twichirp.Core.Models {
 
         public event EventHandler<EventArgs<string>> ErrorMessageCreated;
 
-        private SemaphoreSlim slim = new SemaphoreSlim(1,1);
+        private SemaphoreSlim slim = new SemaphoreSlim(1, 1);
         public ReactiveCollection<BaseModel> Timeline { get; } = new ReactiveCollection<BaseModel>();
         private List<StatusModel> statusTimeline { get; } = new List<StatusModel>();
         private TimelineUseCase timelineUseCase;
@@ -53,7 +51,7 @@ namespace Twichirp.Core.Models {
                 return _isLoading;
             }
             private set {
-                SetValue(ref _isLoading,value,nameof(IsLoading));
+                SetValue(ref _isLoading, value, nameof(IsLoading));
             }
         }
 
@@ -67,9 +65,9 @@ namespace Twichirp.Core.Models {
             }
         }
 
-        public StatusTimelineModel(ITwitterEventService twitterEventService,SettingManager settingManager,ImmutableAccount account,ITimelineRepository defaultRepository) {
+        public StatusTimelineModel(ITwitterEventService twitterEventService, SettingManager settingManager, ImmutableAccount account, ITimelineRepository defaultRepository) {
             this.twitterEventService = twitterEventService;
-            this.timelineUseCase = new TimelineUseCase(twitterEventService,defaultRepository);
+            this.timelineUseCase = new TimelineUseCase(twitterEventService, defaultRepository);
             this.settingManager = settingManager;
             this.account = account;
         }
@@ -80,8 +78,8 @@ namespace Twichirp.Core.Models {
         /// <returns>Array of string</returns>
         public string ExportJson() {
             var list = new List<string>();
-            foreach(var viewModel in Timeline) {
-                if(viewModel is StatusModel == false) {
+            foreach (var viewModel in Timeline) {
+                if (viewModel is StatusModel == false) {
                     break;
                 }
                 list.Add((viewModel as StatusModel).ExportJson());
@@ -90,47 +88,47 @@ namespace Twichirp.Core.Models {
         }
 
         public async Task LoadAsync(ITimelineRepository timelineRepository = null) {
-            if(IsLoading) {
+            if (IsLoading) {
                 return;
             }
             await slim.WaitAsync();
             IsLoading = true;
             try {
                 int count = settingManager.Timeline.Count;
-                if(statusTimeline.Count >= 1) {
-                    IEnumerable<CStatus> response = await timelineUseCase.Load(account,count,sinceId: statusTimeline[0].Id);
-                    if(response.Count() == count || response.Count() == count - 1) {
+                if (statusTimeline.Count >= 1) {
+                    IEnumerable<CStatus> response = await timelineUseCase.Load(account, count, sinceId: statusTimeline[0].Id);
+                    if (response.Count() == count || response.Count() == count - 1) {
                         // 間にツイートがある場合でも(count-1)個しかないことがある
                         var loadingModel = new LoadingModel();
-                        Timeline.InsertOnScheduler(0,loadingModel);
+                        Timeline.InsertOnScheduler(0, loadingModel);
                     }
                     int index = 0;
-                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(twitterEventService,x))) {
-                        statusTimeline.Insert(index,s);
-                        Timeline.InsertOnScheduler(index,s);
+                    foreach (var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(twitterEventService, x))) {
+                        statusTimeline.Insert(index, s);
+                        Timeline.InsertOnScheduler(index, s);
                         index++;
                     }
-                    if(response.Any()) {
+                    if (response.Any()) {
                         canLoadMore = true;
                     }
                 } else {
-                    foreach(var s in (await timelineUseCase.Load(account,count)).Where(x => x.IsValid()).Select(x => new StatusModel(twitterEventService,x))) {
+                    foreach (var s in (await timelineUseCase.Load(account, count)).Where(x => x.IsValid()).Select(x => new StatusModel(twitterEventService, x))) {
                         statusTimeline.Add(s);
                         Timeline.AddOnScheduler(s);
                     }
-                    if(statusTimeline.Count > 0) {
+                    if (statusTimeline.Count > 0) {
                         canLoadMore = true;
                     } else {
                         canLoadMore = false;
                     }
                 }
 
-                if(statusTimeline.Count > settingManager.Timeline.OwnedNumber) {
+                if (statusTimeline.Count > settingManager.Timeline.OwnedNumber) {
                     int removeCount = statusTimeline.Count - settingManager.Timeline.OwnedNumber;
                     removeLast(removeCount);
                 }
-            } catch(Exception e) {
-                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
+            } catch (Exception e) {
+                ErrorMessageCreated?.Invoke(this, new EventArgs<string>(e.Message));
             } finally {
                 slim.Release();
             }
@@ -140,11 +138,11 @@ namespace Twichirp.Core.Models {
             IsLoading = false;
         }
 
-        public async Task LoadAsync(LoadingModel target,ITimelineRepository timelineRepository = null) {
-            if(IsLoading) {
+        public async Task LoadAsync(LoadingModel target, ITimelineRepository timelineRepository = null) {
+            if (IsLoading) {
                 return;
             }
-            if(target.IsLoading) {
+            if (target.IsLoading) {
                 return;
             }
             await slim.WaitAsync();
@@ -156,47 +154,47 @@ namespace Twichirp.Core.Models {
                 StatusModel previousStatus = null;
                 StatusModel nextStatus = null;
 
-                if(targetIndex != -1 && Timeline.Count >= 3 && 0 < targetIndex && targetIndex < Timeline.Count - 1) {
+                if (targetIndex != -1 && Timeline.Count >= 3 && 0 < targetIndex && targetIndex < Timeline.Count - 1) {
                     previousStatus = Timeline[targetIndex - 1] as StatusModel;
                     nextStatus = Timeline[targetIndex + 1] as StatusModel;
-                } else if(targetIndex == 0 && Timeline.Count >= 2) {
+                } else if (targetIndex == 0 && Timeline.Count >= 2) {
                     nextStatus = Timeline[targetIndex + 1] as StatusModel;
-                } else if(targetIndex == Timeline.Count - 1 && Timeline.Count >= 2) {
+                } else if (targetIndex == Timeline.Count - 1 && Timeline.Count >= 2) {
                     previousStatus = Timeline[targetIndex - 1] as StatusModel;
                 } else {
                 }
-                if(previousStatus != null && nextStatus != null) {
-                    IEnumerable<CStatus> response = await timelineUseCase.Load(account,count,sinceId: nextStatus.Id,maxId: previousStatus.Id - 1);
-                    if(response.Count() < count) {
+                if (previousStatus != null && nextStatus != null) {
+                    IEnumerable<CStatus> response = await timelineUseCase.Load(account, count, sinceId: nextStatus.Id, maxId: previousStatus.Id - 1);
+                    if (response.Count() < count) {
                         Timeline.RemoveOnScheduler(target);
                     }
                     int statusIndex = statusTimeline.IndexOf(previousStatus) + 1;
                     int index = Timeline.IndexOf(previousStatus) + 1;
-                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(twitterEventService,x))) {
-                        statusTimeline.Insert(statusIndex,s);
-                        Timeline.InsertOnScheduler(index,s);
+                    foreach (var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(twitterEventService, x))) {
+                        statusTimeline.Insert(statusIndex, s);
+                        Timeline.InsertOnScheduler(index, s);
                         statusIndex++;
                         index++;
                     }
-                } else if(previousStatus != null) {
-                    IEnumerable<CStatus> response = await timelineUseCase.Load(account,count,maxId: previousStatus.Id - 1);
+                } else if (previousStatus != null) {
+                    IEnumerable<CStatus> response = await timelineUseCase.Load(account, count, maxId: previousStatus.Id - 1);
                     Timeline.RemoveOnScheduler(target);
-                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(twitterEventService,x))) {
+                    foreach (var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(twitterEventService, x))) {
                         statusTimeline.Add(s);
                         Timeline.AddOnScheduler(s);
                     }
-                } else if(nextStatus != null) {
-                    IEnumerable<CStatus> response = await timelineUseCase.Load(account,count,sinceId: nextStatus.Id);
+                } else if (nextStatus != null) {
+                    IEnumerable<CStatus> response = await timelineUseCase.Load(account, count, sinceId: nextStatus.Id);
                     Timeline.RemoveOnScheduler(target);
                     int index = 0;
-                    foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(twitterEventService,x))) {
-                        statusTimeline.Insert(index,s);
-                        Timeline.InsertOnScheduler(index,s);
+                    foreach (var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(twitterEventService, x))) {
+                        statusTimeline.Insert(index, s);
+                        Timeline.InsertOnScheduler(index, s);
                         index++;
                     }
                 }
-            } catch(Exception e) {
-                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
+            } catch (Exception e) {
+                ErrorMessageCreated?.Invoke(this, new EventArgs<string>(e.Message));
             } finally {
                 slim.Release();
             }
@@ -205,28 +203,28 @@ namespace Twichirp.Core.Models {
         }
 
         public async Task LoadMoreAsync(ITimelineRepository timelineRepository = null) {
-            if(IsLoading) {
+            if (IsLoading) {
                 return;
             }
-            if(canLoadMore == false) {
+            if (canLoadMore == false) {
                 return;
             }
             await slim.WaitAsync();
             IsLoading = true;
             try {
                 int count = settingManager.Timeline.Count;
-                IEnumerable<CStatus> response = await timelineUseCase.Load(account,count,maxId: statusTimeline[statusTimeline.Count - 1].Id - 1);
-                foreach(var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(twitterEventService,x))) {
+                IEnumerable<CStatus> response = await timelineUseCase.Load(account, count, maxId: statusTimeline[statusTimeline.Count - 1].Id - 1);
+                foreach (var s in response.Where(x => x.IsValid()).Select(x => new StatusModel(twitterEventService, x))) {
                     statusTimeline.Add(s);
                     Timeline.AddOnScheduler(s);
                 }
-                if(response.Any()) {
+                if (response.Any()) {
                     canLoadMore = true;
                 } else {
                     canLoadMore = false;
                 }
-            } catch(Exception e) {
-                ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
+            } catch (Exception e) {
+                ErrorMessageCreated?.Invoke(this, new EventArgs<string>(e.Message));
             } finally {
                 slim.Release();
             }
@@ -235,16 +233,16 @@ namespace Twichirp.Core.Models {
 
         private void removeLast(int count) {
             var removes = Timeline.Reverse().Take(count).ToList();
-            foreach(var r in removes) {
+            foreach (var r in removes) {
                 Timeline.RemoveOnScheduler(r);
-                if(r is StatusModel) {
+                if (r is StatusModel) {
                     statusTimeline.Remove(r as StatusModel);
                 }
             }
         }
 
-        public async Task NotifyStatusUpdatedAsync(ImmutableAccount account,CStatus status) {
-            if(this.account.Id != account.Id) {
+        public async Task NotifyStatusUpdatedAsync(ImmutableAccount account, CStatus status) {
+            if (this.account.Id != account.Id) {
                 return;
             }
             await slim.WaitAsync();
@@ -254,8 +252,8 @@ namespace Twichirp.Core.Models {
                     .Where(x => x.DeploymentStatus().Any(y => y.Id == status.Id))
                     .ToList();
                 });
-                foreach(var s in changeStatus) {
-                    foreach(var m in s.DeploymentStatus().Where(x => x.Id == status.Id)) {
+                foreach (var s in changeStatus) {
+                    foreach (var m in s.DeploymentStatus().Where(x => x.Id == status.Id)) {
                         m.SetStatus(status);
                     }
                 }
@@ -264,7 +262,7 @@ namespace Twichirp.Core.Models {
             }
         }
 
-        public async Task NotifyUserUpdatedAsync(ImmutableAccount account,CUser user) {
+        public async Task NotifyUserUpdatedAsync(ImmutableAccount account, CUser user) {
             await slim.WaitAsync();
             try {
                 IEnumerable<UserModel> changeUser = await Task.Run(() => {
@@ -274,7 +272,7 @@ namespace Twichirp.Core.Models {
                     .Where(x => x.Id == user.Id)
                     .ToList();
                 });
-                foreach(var u in changeUser) {
+                foreach (var u in changeUser) {
                     u.SetUser(user);
                 }
             } finally {

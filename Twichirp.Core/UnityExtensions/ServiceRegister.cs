@@ -15,10 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Twichirp.Core.Services;
 
@@ -37,11 +34,11 @@ namespace Twichirp.Core.UnityExtensions {
         public ServiceRegister() { }
 
         protected override void Initialize() {
-            if(ExcludeTypes?.All(x => x != typeof(IRealmService)) ?? true) {
-                Container.RegisterType<IRealmService,RealmService>(new ContainerControlledLifetimeManager());
+            if (ExcludeTypes?.All(x => x != typeof(IRealmService)) ?? true) {
+                Container.RegisterType<IRealmService, RealmService>(new ContainerControlledLifetimeManager());
             }
-            if(ExcludeTypes?.All(x => x != typeof(ITwitterEventService)) ?? true) {
-                Container.RegisterType<ITwitterEventService,TwitterEventService>(new ContainerControlledLifetimeManager());
+            if (ExcludeTypes?.All(x => x != typeof(ITwitterEventService)) ?? true) {
+                Container.RegisterType<ITwitterEventService, TwitterEventService>(new ContainerControlledLifetimeManager());
             }
         }
     }

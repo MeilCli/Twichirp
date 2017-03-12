@@ -15,10 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Settings;
@@ -40,7 +37,7 @@ namespace Twichirp.Core.UnityExtensions {
         public SettingRegister() { }
 
         protected override void Initialize() {
-            if(ExcludeTypes?.All(x => x != typeof(SettingManager)) ?? true) {
+            if (ExcludeTypes?.All(x => x != typeof(SettingManager)) ?? true) {
                 Container.RegisterType<SettingManager>(new ContainerControlledLifetimeManager());
             }
         }

@@ -14,13 +14,10 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Twichirp.Core.DataRepositories;
 
 namespace Twichirp.Core.Settings {
@@ -31,30 +28,30 @@ namespace Twichirp.Core.Settings {
         private IAccountRepository accountRepository;
 
         [JsonProperty]
-        public Dictionary<long,AccountSetting> Accounts { get; set; } = new Dictionary<long,AccountSetting>();
+        public Dictionary<long, AccountSetting> Accounts { get; set; } = new Dictionary<long, AccountSetting>();
 
         [JsonProperty]
         public long DefaultAccountId {
             get {
-                long result = SettingManager.AppSettings.GetValueOrDefault<long>(MakeSettingName(nameof(DefaultAccountId)),-1);
-                if(result == -1) {
+                long result = SettingManager.AppSettings.GetValueOrDefault<long>(MakeSettingName(nameof(DefaultAccountId)), -1);
+                if (result == -1) {
                     result = accountRepository.Get(x => x.Take(1)).First().Id;
                     DefaultAccountId = result;
                 }
                 return result;
             }
             set {
-                SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(DefaultAccountId)),value);
+                SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(DefaultAccountId)), value);
                 RaisePropertyChanged(nameof(DefaultAccountId));
             }
         }
 
         public AccountSetting this[long id] {
             get {
-                if(Accounts.ContainsKey(id)) {
+                if (Accounts.ContainsKey(id)) {
                     return Accounts[id];
                 }
-                var account = new AccountSetting(SettingManager,MakeSettingName(id.ToString()));
+                var account = new AccountSetting(SettingManager, MakeSettingName(id.ToString()));
                 Accounts[id] = account;
                 return account;
             }
@@ -63,16 +60,16 @@ namespace Twichirp.Core.Settings {
         [JsonIgnore]
         public SettingList<long> AccountUsedOrder { get; private set; }
 
-        public AccountsSetting(SettingManager settingManager,IAccountRepository accountRepository) : base(settingManager,nameof(AccountSetting)) {
+        public AccountsSetting(SettingManager settingManager, IAccountRepository accountRepository) : base(settingManager, nameof(AccountSetting)) {
             this.accountRepository = accountRepository;
-            AccountUsedOrder = new SettingList<long>(settingManager,MakeSettingName(nameof(AccountUsedOrder)));
+            AccountUsedOrder = new SettingList<long>(settingManager, MakeSettingName(nameof(AccountUsedOrder)));
         }
 
         public override void ImportJson(JObject jObject) {
             JObject accounts = (JObject)jObject[nameof(Accounts)];
-            foreach(var token in accounts.Properties()) {
+            foreach (var token in accounts.Properties()) {
                 long id = long.Parse(token.Name);
-                var account = new AccountSetting(SettingManager,MakeSettingName(id.ToString()));
+                var account = new AccountSetting(SettingManager, MakeSettingName(id.ToString()));
                 account.ImportJson((JObject)token.Value);
                 Accounts[id] = account;
             }
@@ -82,7 +79,7 @@ namespace Twichirp.Core.Settings {
     public class AccountSetting : BaseSetting {
 
 
-        public AccountSetting(SettingManager settingManager,string prefix) : base(settingManager,prefix) {
+        public AccountSetting(SettingManager settingManager, string prefix) : base(settingManager, prefix) {
         }
 
         public override void ImportJson(JObject jObject) {

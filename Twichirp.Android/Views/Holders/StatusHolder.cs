@@ -14,16 +14,7 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using FFImageLoading.Views;
 using Twichirp.Android.ViewControllers;
@@ -35,7 +26,7 @@ using AView = Android.Views.View;
 #pragma warning disable 0414
 
 namespace Twichirp.Android.Views.Holders {
-    
+
     public class StatusHolder : BaseHolder<BaseViewModel>, IStatusView {
 
         public static StatusHolder Make(IView view) {
@@ -117,8 +108,8 @@ namespace Twichirp.Android.Views.Holders {
 
         public ImageViewAsync QuotingMedia4 { get; protected set; }
 
-        protected StatusHolder(AView itemView,IView view,int statusType = StatusViewModel.NormalTweet)
-            : base(itemView,view) {
+        protected StatusHolder(AView itemView, IView view, int statusType = StatusViewModel.NormalTweet)
+            : base(itemView, view) {
             StatusType = statusType;
         }
 
@@ -179,22 +170,22 @@ namespace Twichirp.Android.Views.Holders {
             FavoriteCount = ItemView.FindViewById<TextView>(Resource.Id.FavoriteCount);
         }
 
-        public override void OnPreBind(BaseViewModel item,int position) {
-            this.statusViewController = new StatusViewController(this,item as StatusViewModel);
+        public override void OnPreBind(BaseViewModel item, int position) {
+            this.statusViewController = new StatusViewController(this, item as StatusViewModel);
         }
     }
 
     public class StatusMediaHolder : StatusHolder {
 
         public new static StatusMediaHolder Make(IView view) {
-            var itemView = InflateView(view,Resource.Layout.StatusMediaHolder);
+            var itemView = InflateView(view, Resource.Layout.StatusMediaHolder);
             var holder = new StatusMediaHolder(itemView, view);
             holder.OnCreatedView();
             return holder;
         }
 
-        protected StatusMediaHolder(AView itemView,IView view) 
-            : base(itemView,view,StatusViewModel.MediaTweet) {
+        protected StatusMediaHolder(AView itemView, IView view)
+            : base(itemView, view, StatusViewModel.MediaTweet) {
         }
 
         public override void OnCreatedView() {
@@ -220,8 +211,8 @@ namespace Twichirp.Android.Views.Holders {
             return holder;
         }
 
-        protected StatusQuotingHolder(AView itemView,IView view)
-            : base(itemView,view,StatusViewModel.QuotedTweet) {
+        protected StatusQuotingHolder(AView itemView, IView view)
+            : base(itemView, view, StatusViewModel.QuotedTweet) {
         }
 
         public override void OnCreatedView() {
@@ -241,8 +232,8 @@ namespace Twichirp.Android.Views.Holders {
             return holder;
         }
 
-        protected StatusQuotingInnerMediaHolder(AView itemView,IView view)
-            : base(itemView,view,StatusViewModel.QuotedInnerMediaTweet) {
+        protected StatusQuotingInnerMediaHolder(AView itemView, IView view)
+            : base(itemView, view, StatusViewModel.QuotedInnerMediaTweet) {
         }
 
         public override void OnCreatedView() {
@@ -268,8 +259,8 @@ namespace Twichirp.Android.Views.Holders {
             return holder;
         }
 
-        protected StatusQuotingOuterMediaHolder(AView itemView,IView view)
-            : base(itemView,view,StatusViewModel.QuotedOuterMediaTweet) {
+        protected StatusQuotingOuterMediaHolder(AView itemView, IView view)
+            : base(itemView, view, StatusViewModel.QuotedOuterMediaTweet) {
         }
 
         public override void OnCreatedView() {
@@ -299,8 +290,8 @@ namespace Twichirp.Android.Views.Holders {
             return holder;
         }
 
-        public StatusQuotingInnerAndOuterMediaHolder(AView itemView,IView view)
-            : base(itemView,view,StatusViewModel.QuotedInnerAndOuterMediaTweet) {
+        public StatusQuotingInnerAndOuterMediaHolder(AView itemView, IView view)
+            : base(itemView, view, StatusViewModel.QuotedInnerAndOuterMediaTweet) {
         }
 
         public override void OnCreatedView() {

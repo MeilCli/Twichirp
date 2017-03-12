@@ -14,17 +14,12 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.Services;
 
 namespace Twichirp.Core.DataRepositories {
 
-    public class StatusRepository : BaseStringPrimaryKeyDataRepository<Status,ImmutableStatus>, IStatusRepository {
+    public class StatusRepository : BaseStringPrimaryKeyDataRepository<Status, ImmutableStatus>, IStatusRepository {
 
         public StatusRepository(IRealmService realmService) : base(realmService) {
         }

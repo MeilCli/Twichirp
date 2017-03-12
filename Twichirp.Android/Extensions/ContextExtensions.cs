@@ -14,16 +14,8 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 
 namespace Twichirp.Android.Extensions {
@@ -32,11 +24,11 @@ namespace Twichirp.Android.Extensions {
 
         public static TwichirpApplication ToTwichirpApplication(this Context context) => ((TwichirpApplication)context.ApplicationContext);
 
-        public static void ShowToast(this Context context,int resource) => Toast.MakeText(context.ApplicationContext,resource,ToastLength.Short).Show();
+        public static void ShowToast(this Context context, int resource) => Toast.MakeText(context.ApplicationContext, resource, ToastLength.Short).Show();
 
-        public static void ShowToast(this Context context,string text) => Toast.MakeText(context.ApplicationContext,text,ToastLength.Short).Show();
+        public static void ShowToast(this Context context, string text) => Toast.MakeText(context.ApplicationContext, text, ToastLength.Short).Show();
 
-        public static int ConvertDensityIndependentPixelToPixel(this Context context,float dp) {
+        public static int ConvertDensityIndependentPixelToPixel(this Context context, float dp) {
             var metrics = context.Resources.DisplayMetrics;
             return (int)(dp * ((int)metrics.DensityDpi / 160f));
         }

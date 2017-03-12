@@ -15,16 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Microsoft.Practices.Unity;
 using Twichirp.Android.ViewModels;
 using Twichirp.Core.DataRepositories;
@@ -47,10 +38,10 @@ namespace Twichirp.Android.UnityExtensions {
         };
 
         protected override void Initialize() {
-            if(ExcludeTypes?.All(x => x != typeof(ImageViewerViewModel)) ?? true) {
+            if (ExcludeTypes?.All(x => x != typeof(ImageViewerViewModel)) ?? true) {
                 Container.RegisterType<ImageViewerViewModel>();
             }
-            if(ExcludeTypes?.All(x => x != typeof(MainViewModel)) ?? true) {
+            if (ExcludeTypes?.All(x => x != typeof(MainViewModel)) ?? true) {
                 Container.RegisterType<MainViewModel>();
             }
         }

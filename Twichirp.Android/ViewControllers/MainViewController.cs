@@ -16,49 +16,35 @@
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
+using System.Reactive.Linq;
+using Android.Animation;
+using Android.Graphics;
+using Android.Graphics.Drawables;
+using Android.Support.V4.Graphics.Drawable;
 using Android.Views;
 using Android.Widget;
-using static Android.Support.Design.Widget.NavigationView;
-using Android.Graphics;
-using System.Threading.Tasks;
-using Android.Graphics.Drawables;
-using Twichirp.Android.Extensions;
-using Android.Support.V7.Graphics;
-using Android.Support.V4.Graphics.Drawable;
-using Android.Support.V4.Content;
-using CoreTweet;
-using Android.Util;
+using BottomBarSharp;
 using FFImageLoading;
 using FFImageLoading.Transformations;
-using Reactive.Bindings.Extensions;
-using Twichirp.Android.Objects;
-using System.Reactive.Linq;
-using Reactive.Bindings;
 using FFImageLoading.Views;
-using Android.Animation;
-using SFragment = Android.Support.V4.App.Fragment;
-using BottomBarSharp;
-using Twichirp.Core.DataObjects;
-using Twichirp.Core.DataRepositories;
-using Microsoft.Practices.Unity;
+using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
 using Twichirp.Android.Events;
-using Twichirp.Core.Settings;
+using Twichirp.Android.Extensions;
+using Twichirp.Android.Objects;
 using Twichirp.Android.Settings;
 using Twichirp.Android.ViewModels;
-using Twichirp.Android.Views.Interfaces;
 using Twichirp.Android.Views.Activities;
 using Twichirp.Android.Views.Fragments;
+using Twichirp.Android.Views.Interfaces;
+using Twichirp.Core.DataObjects;
+using Twichirp.Core.DataRepositories;
+using Twichirp.Core.Settings;
+using SFragment = Android.Support.V4.App.Fragment;
 
 namespace Twichirp.Android.ViewControllers {
 
-    public class MainViewController : BaseViewController<IMainView,MainViewModel> {
+    public class MainViewController : BaseViewController<IMainView, MainViewModel> {
 
         private static string getFragmentTag(int position) {
             return $"fragment_{position}";
@@ -66,18 +52,18 @@ namespace Twichirp.Android.ViewControllers {
 
         private bool isTabInited;
 
-        public MainViewController(IMainView view,MainViewModel viewModel) : base(view,viewModel) {
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x,x => view.Created -= x)
-                .Subscribe(x => onCreate(x.Sender,x.EventArgs))
+        public MainViewController(IMainView view, MainViewModel viewModel) : base(view, viewModel) {
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x, x => view.Created -= x)
+                .Subscribe(x => onCreate(x.Sender, x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Resumed += x,x => view.Resumed -= x)
-                .Subscribe(x => onResume(x.Sender,x.EventArgs))
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Resumed += x, x => view.Resumed -= x)
+                .Subscribe(x => onResume(x.Sender, x.EventArgs))
                 .AddTo(Disposable);
         }
 
-        private void onCreate(object sender,LifeCycleEventArgs args) {
-            View.Navigation.NavigationItemSelected += (s,e) => {
-                ViewModel.NavigationMenuSelectedCommand.Execute(Tuple.Create(e.MenuItem.GroupId,e.MenuItem.ItemId));
+        private void onCreate(object sender, LifeCycleEventArgs args) {
+            View.Navigation.NavigationItemSelected += (s, e) => {
+                ViewModel.NavigationMenuSelectedCommand.Execute(Tuple.Create(e.MenuItem.GroupId, e.MenuItem.ItemId));
             };
             View.Subtitle.ClickAsObservable().Subscribe(x => ViewModel.NavigationMenuGroupReverseCommand.Execute()).AddTo(Disposable);
             ViewModel.NavigationMenus.Subscribe(x => setNavigationMenus(x)).AddTo(Disposable);
@@ -91,11 +77,11 @@ namespace Twichirp.Android.ViewControllers {
 
             ViewModel.UserIcon.Subscribe(x => setIcon(x)).AddTo(Disposable);
             View.IconClickable.ClickAsObservable().SetCommand(ViewModel.StartUserProfileActivityCommand).AddTo(Disposable);
-            ViewModel.UserBanner.CombineLatest(ViewModel.UserLinkColor,(x,y) => Tuple.Create(x,y)).Subscribe(x => setUserBanner(x.Item1,x.Item2)).AddTo(Disposable);
-            View.Name.SetBinding(x => x.Text,ViewModel.UserName).AddTo(Disposable);
-            View.ScreenName.SetBinding(x => x.Text,ViewModel.UserScreenName).AddTo(Disposable);
-            ViewModel.FirsrSubUserIcon.Subscribe(x => setSubIcon(View.FirstSubIconClickable,View.FirstSubIcon,x)).AddTo(Disposable);
-            ViewModel.SecondSubUserIcon.Subscribe(x => setSubIcon(View.SecondSubIconClickable,View.SecondSubIcon,x)).AddTo(Disposable);
+            ViewModel.UserBanner.CombineLatest(ViewModel.UserLinkColor, (x, y) => Tuple.Create(x, y)).Subscribe(x => setUserBanner(x.Item1, x.Item2)).AddTo(Disposable);
+            View.Name.SetBinding(x => x.Text, ViewModel.UserName).AddTo(Disposable);
+            View.ScreenName.SetBinding(x => x.Text, ViewModel.UserScreenName).AddTo(Disposable);
+            ViewModel.FirsrSubUserIcon.Subscribe(x => setSubIcon(View.FirstSubIconClickable, View.FirstSubIcon, x)).AddTo(Disposable);
+            ViewModel.SecondSubUserIcon.Subscribe(x => setSubIcon(View.SecondSubIconClickable, View.SecondSubIcon, x)).AddTo(Disposable);
             View.FirstSubIconClickable.ClickAsObservable().SetCommand(ViewModel.FirstSubUserIconClickedCommand).AddTo(Disposable);
             View.SecondSubIconClickable.ClickAsObservable().SetCommand(ViewModel.SecondSubUserIconClickedCommand).AddTo(Disposable);
 
@@ -113,39 +99,39 @@ namespace Twichirp.Android.ViewControllers {
                 .AddTo(Disposable);
             ViewModel.StartUserProfileActivityCommand
                 .Subscribe(x => {
-                    UserProfileActivity.Start(View.Activity,ViewModel.UserId.Value,ViewModel.UserJson,null,View.Icon);
+                    UserProfileActivity.Start(View.Activity, ViewModel.UserId.Value, ViewModel.UserJson, null, View.Icon);
                 })
                 .AddTo(Disposable);
         }
 
-        private void onResume(object sender,LifeCycleEventArgs args) {
+        private void onResume(object sender, LifeCycleEventArgs args) {
             ViewModel.UpdateDefaultAccountIfChangedCommand.Execute();
         }
 
         private void setNavigationMenus(List<NavigationMenu> menus) {
             IMenu menu = View.Navigation.Menu;
             menu.Clear();
-            foreach(var m in menus) {
+            foreach (var m in menus) {
                 IMenuItem item;
-                if(m.TextId != null) {
-                    item = menu.Add(m.GroupId,m.Id,Menu.None,View.ApplicationContext.GetString(m.TextId.Value));
+                if (m.TextId != null) {
+                    item = menu.Add(m.GroupId, m.Id, Menu.None, View.ApplicationContext.GetString(m.TextId.Value));
                 } else {
-                    item = menu.Add(m.GroupId,m.Id,Menu.None,m.Text);
+                    item = menu.Add(m.GroupId, m.Id, Menu.None, m.Text);
                 }
                 item.SetIcon(m.Icon);
-                if(m.IsChecked) {
+                if (m.IsChecked) {
                     item.SetChecked(true);
                 }
             }
         }
 
-        private void setUserBanner(string banner,string linkColor) {
-            if(banner != null) {
+        private void setUserBanner(string banner, string linkColor) {
+            if (banner != null) {
                 ImageService.Instance.LoadUrl($"{banner}/mobile_retina").IntoAsync(View.Background);
-            } else if(banner != null) {
+            } else if (banner != null) {
                 try {
                     View.Background.SetImageDrawable(new ColorDrawable((Color.ParseColor($"#{linkColor}"))));
-                } catch(Exception) {
+                } catch (Exception) {
                     View.Background.SetImageDrawable(new ColorDrawable((Color.Green)));
                 }
             } else {
@@ -154,32 +140,32 @@ namespace Twichirp.Android.ViewControllers {
         }
 
         private void setDrop(bool isHiding) {
-            if(isHiding) {
+            if (isHiding) {
                 View.Drop.SetImageResource(Resource.Drawable.IconArrowDropUpGrey24dp);
             } else {
                 View.Drop.SetImageResource(Resource.Drawable.IconArrowDropDownGrey24dp);
             }
             Drawable d = DrawableCompat.Wrap(View.Drop.Drawable);
-            DrawableCompat.SetTint(d,Color.White);
+            DrawableCompat.SetTint(d, Color.White);
             View.Drop.SetImageDrawable(d);
         }
 
         private async void setIcon(string url) {
             ImageService.Instance.LoadUrl(url).Transform(new CircleTransformation()).Into(View.Icon);
-            var drawable = await ImageService.Instance.LoadUrl(url).DownSampleInDip(24,24).Transform(new CircleTransformation()).AsBitmapDrawableAsync();
+            var drawable = await ImageService.Instance.LoadUrl(url).DownSampleInDip(24, 24).Transform(new CircleTransformation()).AsBitmapDrawableAsync();
             View.Toolbar.Logo = drawable;
             View.Toolbar.TitleMarginStart = 100;
         }
 
-        private void setSubIcon(FrameLayout container,ImageViewAsync imageview,string url) {
-            setSubIconVisible(container,url != null);
-            if(url != null) {
+        private void setSubIcon(FrameLayout container, ImageViewAsync imageview, string url) {
+            setSubIconVisible(container, url != null);
+            if (url != null) {
                 ImageService.Instance.LoadUrl(url).Transform(new CircleTransformation()).Into(imageview);
             }
         }
 
-        private void setSubIconVisible(FrameLayout container,bool isVisible) {
-            if(isVisible) {
+        private void setSubIconVisible(FrameLayout container, bool isVisible) {
+            if (isVisible) {
                 container.Visibility = ViewStates.Visible;
             } else {
                 container.Visibility = ViewStates.Gone;
@@ -188,38 +174,38 @@ namespace Twichirp.Android.ViewControllers {
 
         private void setSubIconsVisible(bool isHiding) {
             Action<FrameLayout> hideAnimation = container => {
-                var animation = ValueAnimator.OfFloat(1f,0f);
+                var animation = ValueAnimator.OfFloat(1f, 0f);
                 animation.SetDuration(500);
-                animation.Update += (s,e) => {
+                animation.Update += (s, e) => {
                     container.Alpha = (float)e.Animation.AnimatedValue;
                 };
-                animation.AnimationEnd += (s,e) => {
+                animation.AnimationEnd += (s, e) => {
                     container.Visibility = ViewStates.Invisible;
                 };
                 animation.Start();
             };
-            if(isHiding == true && View.FirstSubIconClickable.Visibility == ViewStates.Visible) {
+            if (isHiding == true && View.FirstSubIconClickable.Visibility == ViewStates.Visible) {
                 hideAnimation(View.FirstSubIconClickable);
             }
-            if(isHiding == true && View.SecondSubIconClickable.Visibility == ViewStates.Visible) {
+            if (isHiding == true && View.SecondSubIconClickable.Visibility == ViewStates.Visible) {
                 hideAnimation(View.SecondSubIconClickable);
             }
 
             Action<FrameLayout> showAnimation = container => {
-                var animation = ValueAnimator.OfFloat(0f,1f);
+                var animation = ValueAnimator.OfFloat(0f, 1f);
                 animation.SetDuration(500);
-                animation.AnimationStart += (s,e) => {
+                animation.AnimationStart += (s, e) => {
                     container.Visibility = ViewStates.Visible;
                 };
-                animation.Update += (s,e) => {
+                animation.Update += (s, e) => {
                     container.Alpha = (float)e.Animation.AnimatedValue;
                 };
                 animation.Start();
             };
-            if(isHiding == false && View.FirstSubIconClickable.Visibility == ViewStates.Invisible) {
+            if (isHiding == false && View.FirstSubIconClickable.Visibility == ViewStates.Invisible) {
                 showAnimation(View.FirstSubIconClickable);
             }
-            if(isHiding == false && View.SecondSubIconClickable.Visibility == ViewStates.Invisible) {
+            if (isHiding == false && View.SecondSubIconClickable.Visibility == ViewStates.Invisible) {
                 showAnimation(View.SecondSubIconClickable);
             }
         }
@@ -233,60 +219,60 @@ namespace Twichirp.Android.ViewControllers {
 
             bool changed = false;
             SFragment firstFragment = null;
-            for(int i = 0;i < 5 && i < tabs.Count;i++) {
+            for (int i = 0; i < 5 && i < tabs.Count; i++) {
                 var tab = tabs[i];
 
-                tabList.Add(View.BottomBar.NewTab(getTabId(i),tab.Icon,tab.Text));
+                tabList.Add(View.BottomBar.NewTab(getTabId(i), tab.Icon, tab.Text));
 
                 SFragment fragment = View.Activity.SupportFragmentManager.FindFragmentByTag(getFragmentTag(i));
-                if(fragment != null && wasAddedFragment(fragment,tab,account)) {
+                if (fragment != null && wasAddedFragment(fragment, tab, account)) {
                     continue;
-                } else if(fragment != null) {
+                } else if (fragment != null) {
                     trasaction.Remove(fragment);
                 }
 
                 changed = true;
-                fragment = createFragment(tab,account);
-                if(fragment == null) {
+                fragment = createFragment(tab, account);
+                if (fragment == null) {
                     continue;
                 }
-                trasaction.Add(Resource.Id.Content,fragment,getFragmentTag(i));
+                trasaction.Add(Resource.Id.Content, fragment, getFragmentTag(i));
 
-                if(i == 0) {
+                if (i == 0) {
                     firstFragment = fragment;
                 }
 
-                if(isTabInited == false && i == 0) {
+                if (isTabInited == false && i == 0) {
                     isTabInited = true;
                 } else {
                     trasaction.Hide(fragment);
                 }
             }
-            if(changed && firstFragment != null) {
+            if (changed && firstFragment != null) {
                 // Fragment追加時、BottomBarのイベントで表示しようとしてもタイミングが合わない
                 trasaction.Show(firstFragment);
             }
             trasaction.Commit();
 
             View.BottomBar.SetItems(tabList);
-            if(changed) {
+            if (changed) {
                 View.BottomBar.SelectTabAtPosition(0);
             }
 
         }
 
-        private bool wasAddedFragment(SFragment fragment,NavigationTab tab,ImmutableAccount account) {
-            switch(tab.Id) {
+        private bool wasAddedFragment(SFragment fragment, NavigationTab tab, ImmutableAccount account) {
+            switch (tab.Id) {
                 case Resource.Id.TabHome:
-                    return (fragment as StatusTimelineFragment)?.Equals(StatusTimelineFragmentType.Home,account) ?? false;
+                    return (fragment as StatusTimelineFragment)?.Equals(StatusTimelineFragmentType.Home, account) ?? false;
                 case Resource.Id.TabMention:
-                    return (fragment as StatusTimelineFragment)?.Equals(StatusTimelineFragmentType.Mention,account) ?? false;
+                    return (fragment as StatusTimelineFragment)?.Equals(StatusTimelineFragmentType.Mention, account) ?? false;
             }
             return false;
         }
 
-        private SFragment createFragment(NavigationTab tab,ImmutableAccount account) {
-            switch(tab.Id) {
+        private SFragment createFragment(NavigationTab tab, ImmutableAccount account) {
+            switch (tab.Id) {
                 case Resource.Id.TabHome:
                     return StatusTimelineFragment.Make(new StatusTimelineFragment.HomeParameter(account));
                 case Resource.Id.TabMention:
@@ -295,18 +281,18 @@ namespace Twichirp.Android.ViewControllers {
             return null;
         }
 
-        private void tabSelect(object sender,TabEventArgs args) {
+        private void tabSelect(object sender, TabEventArgs args) {
             showOrHideTab(View.BottomBar.FindPositionForTabWithId(args.TabId));
         }
 
         private void showOrHideTab(int showPosition) {
             var trasaction = View.Activity.SupportFragmentManager.BeginTransaction();
-            for(int i = 0;i < 5;i++) {
+            for (int i = 0; i < 5; i++) {
                 SFragment fragment = View.Activity.SupportFragmentManager.FindFragmentByTag(getFragmentTag(i));
-                if(fragment == null) {
+                if (fragment == null) {
                     continue;
                 }
-                if(i == showPosition) {
+                if (i == showPosition) {
                     trasaction.Show(fragment);
                 } else {
                     trasaction.Hide(fragment);
@@ -316,7 +302,7 @@ namespace Twichirp.Android.ViewControllers {
         }
 
         private int getTabId(int position) {
-            switch(position) {
+            switch (position) {
                 default:
                 case 0:
                     return Resource.Id.Tab1;

@@ -15,19 +15,16 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Realms;
 using CStatus = CoreTweet.Status;
 
 namespace Twichirp.Core.DataObjects {
 
-    public class Status : RealmObject, Interfaces.IStatus<Status,User> {
+    public class Status : RealmObject, Interfaces.IStatus<Status, User> {
 
-        public static string MakePrimaryKey(long ownerUserId,long id) {
+        public static string MakePrimaryKey(long ownerUserId, long id) {
             return $"{ownerUserId} - {id}";
         }
 
@@ -85,7 +82,7 @@ namespace Twichirp.Core.DataObjects {
         [JsonIgnore]
         public CStatus CoreTweetStatus {
             get {
-                if(_coreTweetStatus == null) {
+                if (_coreTweetStatus == null) {
                     _coreTweetStatus = JsonConvert.DeserializeObject<CStatus>(Json);
                     _coreTweetStatus.User = User.CoreTweetUser;
                     _coreTweetStatus.RetweetedStatus = RetweetedStatus?.CoreTweetStatus;
@@ -126,17 +123,17 @@ namespace Twichirp.Core.DataObjects {
 
         public Status() { }
 
-        public Status(User ownerUser,CStatus status) {
+        public Status(User ownerUser, CStatus status) {
             OwnerUserId = ownerUser.Id;
             OwnerUser = ownerUser;
             Id = status.Id;
             UserId = status.User.Id ?? -1;
             User = new User(status.User);
-            if(status.RetweetedStatus != null) {
-                RetweetedStatus = new Status(OwnerUser,status.RetweetedStatus);
+            if (status.RetweetedStatus != null) {
+                RetweetedStatus = new Status(OwnerUser, status.RetweetedStatus);
             }
-            if(status.QuotedStatus != null) {
-                QuotedStatus = new Status(OwnerUser,status.QuotedStatus);
+            if (status.QuotedStatus != null) {
+                QuotedStatus = new Status(OwnerUser, status.QuotedStatus);
             }
             UpdatedAt = DateTimeOffset.Now;
             CreatedAt = status.CreatedAt;
@@ -153,7 +150,7 @@ namespace Twichirp.Core.DataObjects {
                 status.RetweetedStatus = tempRetweetedStatus;
                 status.QuotedStatus = tempQuotedStatus;
             }
-            Key = MakePrimaryKey(OwnerUserId,Id);
+            Key = MakePrimaryKey(OwnerUserId, Id);
         }
 
         public Status(ImmutableStatus item) {
@@ -161,10 +158,10 @@ namespace Twichirp.Core.DataObjects {
             Id = item.Id;
             UserId = item.UserId;
             User = new User(item.User);
-            if(item.RetweetedStatus != null) {
+            if (item.RetweetedStatus != null) {
                 RetweetedStatus = new Status(item.RetweetedStatus);
             }
-            if(item.QuotedStatus != null) {
+            if (item.QuotedStatus != null) {
                 QuotedStatus = new Status(item.QuotedStatus);
             }
             UpdatedAt = item.UpdatedAt;
@@ -175,7 +172,7 @@ namespace Twichirp.Core.DataObjects {
 
     }
 
-    public class ImmutableStatus : Interfaces.IStatus<ImmutableStatus,ImmutableUser> {
+    public class ImmutableStatus : Interfaces.IStatus<ImmutableStatus, ImmutableUser> {
 
         public DateTimeOffset CreatedAt { get; }
 
@@ -202,7 +199,7 @@ namespace Twichirp.Core.DataObjects {
         [JsonIgnore]
         public CStatus CoreTweetStatus {
             get {
-                if(_coreTweetStatus == null) {
+                if (_coreTweetStatus == null) {
                     _coreTweetStatus = JsonConvert.DeserializeObject<CStatus>(Json);
                     _coreTweetStatus.User = User.CoreTweetUser;
                     _coreTweetStatus.RetweetedStatus = RetweetedStatus?.CoreTweetStatus;
@@ -218,10 +215,10 @@ namespace Twichirp.Core.DataObjects {
             Json = item.Json;
             Key = item.Key;
             OwnerUser = new ImmutableUser(item.OwnerUser);
-            if(item.QuotedStatus != null) {
+            if (item.QuotedStatus != null) {
                 QuotedStatus = new ImmutableStatus(item.QuotedStatus);
             }
-            if(item.RetweetedStatus != null) {
+            if (item.RetweetedStatus != null) {
                 RetweetedStatus = new ImmutableStatus(item.RetweetedStatus);
             }
             UpdatedAt = item.UpdatedAt;

@@ -15,17 +15,9 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.Events;
@@ -34,27 +26,27 @@ using Twichirp.Core.ViewModels;
 
 namespace Twichirp.Android.ViewControllers {
 
-    public class LoadingViewController : BaseViewController<ILoadingView,LoadingViewModel> {
+    public class LoadingViewController : BaseViewController<ILoadingView, LoadingViewModel> {
 
-        public LoadingViewController(ILoadingView view,LoadingViewModel viewModel) : base(view,viewModel) {
+        public LoadingViewController(ILoadingView view, LoadingViewModel viewModel) : base(view, viewModel) {
             AutoDisposeViewModel = false;
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x,x => view.Created -= x)
-                .Subscribe(x => onCreate(x.Sender,x.EventArgs))
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => view.Created += x, x => view.Created -= x)
+                .Subscribe(x => onCreate(x.Sender, x.EventArgs))
                 .AddTo(Disposable);
         }
 
-        private void onCreate(object sender,LifeCycleEventArgs e) {
+        private void onCreate(object sender, LifeCycleEventArgs e) {
             var loadingText = ViewModel.IsLoading
                 .Select(x => x == true ? Resource.String.Loading : Resource.String.LoadingLoad)
                 .Select(x => View.ApplicationContext.GetString(x))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
-            View.LoadingText.SetBinding(x => x.Text,loadingText).AddTo(Disposable);
+            View.LoadingText.SetBinding(x => x.Text, loadingText).AddTo(Disposable);
             var progressBarVisible = ViewModel.IsLoading
                 .Select(x => x == true ? ViewStates.Visible : ViewStates.Invisible)
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
-            View.ProgressBar.SetBinding(x => x.Visibility,progressBarVisible).AddTo(Disposable);
+            View.ProgressBar.SetBinding(x => x.Visibility, progressBarVisible).AddTo(Disposable);
             View.ClickableView.ClickAsObservable().SetCommand(ViewModel.LoadCommand).AddTo(Disposable);
         }
     }

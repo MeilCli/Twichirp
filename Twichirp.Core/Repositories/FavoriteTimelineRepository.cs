@@ -14,10 +14,7 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using CoreTweet;
 using Twichirp.Core.DataObjects;
@@ -32,7 +29,7 @@ namespace Twichirp.Core.Repositories {
             this.userId = userId;
         }
 
-        public async Task<IEnumerable<CoreTweet.Status>> Load(ImmutableAccount account,int count,long? sinceId = null,long? maxId = null) {
+        public async Task<IEnumerable<CoreTweet.Status>> Load(ImmutableAccount account, int count, long? sinceId = null, long? maxId = null) {
             return await account.CoreTweetToken.Favorites.ListAsync(
                     count: count,
                     since_id: sinceId,

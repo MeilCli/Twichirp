@@ -14,18 +14,7 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using CoreTweet;
 using Microsoft.Practices.Unity;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.Services;
@@ -46,16 +35,16 @@ namespace Twichirp.Android.ViewModels {
 
         public static ImageViewerViewModel Resolve(UnityContainer unityContainer, CStatus status, ImmutableAccount account, int defaultPage) {
             return unityContainer.Resolve<ImageViewerViewModel>(
-                new ParameterOverride(constructorStatus,status),
-                new ParameterOverride(constructorAccount,account),
-                new ParameterOverride(constructorDefaultPage,defaultPage)
+                new ParameterOverride(constructorStatus, status),
+                new ParameterOverride(constructorAccount, account),
+                new ParameterOverride(constructorDefaultPage, defaultPage)
             );
         }
 
         public int DefaultPage { get; }
 
-        public ImageViewerViewModel(ITwitterEventService twitterEventService,CStatus status,ImmutableAccount account,int defaultPage) 
-            : base(twitterEventService,status,account) {
+        public ImageViewerViewModel(ITwitterEventService twitterEventService, CStatus status, ImmutableAccount account, int defaultPage)
+            : base(twitterEventService, status, account) {
             DefaultPage = defaultPage;
         }
     }

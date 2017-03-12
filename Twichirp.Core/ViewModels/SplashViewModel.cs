@@ -14,17 +14,13 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
+using System;
+using System.Reactive.Linq;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Twichirp.Core.DataRepositories;
-using Twichirp.Core.Settings;
 using Twichirp.Core.Models;
+using Twichirp.Core.Settings;
 
 namespace Twichirp.Core.ViewModels {
 
@@ -38,13 +34,13 @@ namespace Twichirp.Core.ViewModels {
         public ReactiveCommand StartMainPageCommand { get; } = new ReactiveCommand();
         public ReactiveCommand ApplicationInitCommand { get; } = new ReactiveCommand();
 
-        public SplashViewModel(IAccountRepository accountRepository,SettingManager settingManager) {
-            this.splashModel = new SplashModel(accountRepository,settingManager);
+        public SplashViewModel(IAccountRepository accountRepository, SettingManager settingManager) {
+            this.splashModel = new SplashModel(accountRepository, settingManager);
             IsRunning = splashModel.ObserveProperty(x => x.IsRunning).ToReadOnlyReactiveProperty().AddTo(Disposable);
             IsAccountExist = splashModel.ObserveProperty(x => x.IsAccountExist).ToReadOnlyReactiveProperty().AddTo(Disposable);
             Message = splashModel.ObserveProperty(x => x.Message).ToReadOnlyReactiveProperty().AddTo(Disposable);
 
-            Observable.FromEventPattern<EventArgs>(x => splashModel.ApplicationInitialized += x,x => splashModel.ApplicationInitialized -= x)
+            Observable.FromEventPattern<EventArgs>(x => splashModel.ApplicationInitialized += x, x => splashModel.ApplicationInitialized -= x)
                 .ObserveOnUIDispatcher()
                 .Subscribe(x => startNextPage())
                 .AddTo(Disposable);
@@ -52,7 +48,7 @@ namespace Twichirp.Core.ViewModels {
         }
 
         private void startNextPage() {
-            if(IsAccountExist.Value) {
+            if (IsAccountExist.Value) {
                 StartMainPageCommand.Execute();
             } else {
                 StartLoginPageCommand.Execute();

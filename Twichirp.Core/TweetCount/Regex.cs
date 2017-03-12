@@ -14,11 +14,6 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SRegex = System.Text.RegularExpressions.Regex;
 
 namespace Twichirp.Core.TweetCount {
@@ -45,8 +40,8 @@ namespace Twichirp.Core.TweetCount {
         private static readonly string UrlVaildProtocol = "https?://";
         private static readonly string UrlValidSubdomain = $"(?>(?:[{UrlValidChars}][{UrlValidChars}\\-_]*)?[{UrlValidChars}]\\.)";
         private static readonly string UrlValidDomainName = $"(?:(?:[{UrlValidChars}][{UrlValidChars}\\-]*)?[{UrlValidChars}]\\.)";
-        private static readonly string UrlValidGtld = $"(?:(?:{string.Join("|",TldLists.Gtldls)})(?=[^a-zA-Z0-9@]|$))";
-        private static readonly string UrlValidCctld = $"(?:(?:{string.Join("|",TldLists.Ctlds)})(?=[^a-zA-Z0-9@]|$))";
+        private static readonly string UrlValidGtld = $"(?:(?:{string.Join("|", TldLists.Gtldls)})(?=[^a-zA-Z0-9@]|$))";
+        private static readonly string UrlValidCctld = $"(?:(?:{string.Join("|", TldLists.Ctlds)})(?=[^a-zA-Z0-9@]|$))";
         private static readonly string UrlValidDomain =
             $"(?:{UrlValidSubdomain}+{UrlValidDomainName}(?:{UrlValidGtld}|{UrlValidCctld}|{UrlPunycode}))" +
             $"|(?:{UrlValidDomainName}(?:{UrlValidGtld}|{UrlPunycode}|{SpecialUrlValidCctld}))" +
@@ -55,10 +50,10 @@ namespace Twichirp.Core.TweetCount {
         private static readonly string UrlValidPortNumber = "[0-9]+";
         private static readonly string UrlValidPath = $"(?:(?:{UrlValidGeneralPathChars}*(?:{UrlBalancedParens}{UrlValidGeneralPathChars}*)*{UrlValidPathEndingChars})|(?:@{UrlValidGeneralPathChars}+/))";
 
-        private static readonly string ValidUrlPattern = $"(({UrlValidPreceedingChars})(({UrlVaildProtocol})?({UrlValidDomain})(?::({UrlValidPortNumber}))?"+
+        private static readonly string ValidUrlPattern = $"(({UrlValidPreceedingChars})(({UrlVaildProtocol})?({UrlValidDomain})(?::({UrlValidPortNumber}))?" +
             $"(/{UrlValidPath}*)?(\\?{UrlValidUrlQueryChars}*{UrlValidUrlQueryEndingChars})?))";
 
-        public static SRegex ValidUrl { get; } = new SRegex(ValidUrlPattern,System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+        public static SRegex ValidUrl { get; } = new SRegex(ValidUrlPattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
     }
 
     internal class TldLists {

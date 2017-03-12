@@ -14,17 +14,12 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Plugin.CrossFormattedText.Abstractions;
 
 namespace Twichirp.Core.Constants {
 
     public static class SpanConstant {
 
-        public static readonly SpanColor BlueColor = new SpanColor(60,90,170);
+        public static readonly SpanColor BlueColor = new SpanColor(60, 90, 170);
     }
 }

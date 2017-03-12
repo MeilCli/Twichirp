@@ -15,29 +15,18 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
-using Android.Util;
 using Android.Views;
-using Android.Widget;
-using Twichirp.Core.DataObjects;
-using Twichirp.Core.DataRepositories;
-using Microsoft.Practices.Unity;
-using AView = Android.Views.View;
-using SFragment = Android.Support.V4.App.Fragment;
-using Twichirp.Core.Repositories;
 using Twichirp.Android.Events;
-using Twichirp.Core.ViewModels;
 using Twichirp.Android.ViewControllers;
 using Twichirp.Android.Views.Interfaces;
+using Twichirp.Core.DataObjects;
+using Twichirp.Core.DataRepositories;
+using Twichirp.Core.Repositories;
+using Twichirp.Core.ViewModels;
+using AView = Android.Views.View;
 
 // 未使用フィールドの警告非表示
 #pragma warning disable 0414
@@ -62,38 +51,38 @@ namespace Twichirp.Android.Views.Fragments {
             public StatusTimelineFragmentType Type { get; }
             public ImmutableAccount Account { get; }
 
-            public Parameter(StatusTimelineFragmentType type,ImmutableAccount account) {
+            public Parameter(StatusTimelineFragmentType type, ImmutableAccount account) {
                 Type = type;
                 Account = account;
             }
 
             public virtual void Put(Bundle bundle) {
-                bundle.PutLong(argumentAccount,Account.Id);
-                bundle.PutInt(argumentType,(int)Type);
+                bundle.PutLong(argumentAccount, Account.Id);
+                bundle.PutInt(argumentType, (int)Type);
             }
         }
 
         public class HomeParameter : Parameter {
 
-            public HomeParameter(ImmutableAccount account) : base(StatusTimelineFragmentType.Home,account) { }
+            public HomeParameter(ImmutableAccount account) : base(StatusTimelineFragmentType.Home, account) { }
         }
 
         public class MentionParameter : Parameter {
 
-            public MentionParameter(ImmutableAccount account) : base(StatusTimelineFragmentType.Mention,account) { }
+            public MentionParameter(ImmutableAccount account) : base(StatusTimelineFragmentType.Mention, account) { }
         }
 
         public class UserParameter : Parameter {
 
             public long UserId { get; }
 
-            public UserParameter(ImmutableAccount account,long userId) : base(StatusTimelineFragmentType.User,account) {
+            public UserParameter(ImmutableAccount account, long userId) : base(StatusTimelineFragmentType.User, account) {
                 UserId = userId;
             }
 
             public override void Put(Bundle bundle) {
                 base.Put(bundle);
-                bundle.PutLong(argumentUser,UserId);
+                bundle.PutLong(argumentUser, UserId);
             }
         }
 
@@ -101,13 +90,13 @@ namespace Twichirp.Android.Views.Fragments {
 
             public long UserId { get; }
 
-            public FavoriteParameter(ImmutableAccount account,long userId) : base(StatusTimelineFragmentType.Favorite,account) {
+            public FavoriteParameter(ImmutableAccount account, long userId) : base(StatusTimelineFragmentType.Favorite, account) {
                 UserId = userId;
             }
 
             public override void Put(Bundle bundle) {
                 base.Put(bundle);
-                bundle.PutLong(argumentUser,UserId);
+                bundle.PutLong(argumentUser, UserId);
             }
         }
 
@@ -134,11 +123,11 @@ namespace Twichirp.Android.Views.Fragments {
             long accountId = Arguments.GetLong(argumentAccount);
             IAccountRepository accountRepository = TwichirpApplication.Resolve<IAccountRepository>();
             var account = accountRepository[accountId];
-            var type = (StatusTimelineFragmentType)Enum.ToObject(typeof(StatusTimelineFragmentType),Arguments.GetInt(argumentType));
-            long userId = Arguments.GetLong(argumentUser,-1);
+            var type = (StatusTimelineFragmentType)Enum.ToObject(typeof(StatusTimelineFragmentType), Arguments.GetInt(argumentType));
+            long userId = Arguments.GetLong(argumentUser, -1);
 
             ITimelineRepository timelineRepository;
-            switch(type) {
+            switch (type) {
                 default:
                 case StatusTimelineFragmentType.Home:
                     timelineRepository = new HomeTimelineRepository();
@@ -153,12 +142,12 @@ namespace Twichirp.Android.Views.Fragments {
                     timelineRepository = new FavoriteTimelineRepository(userId);
                     break;
             }
-            statusTimelineViewModel = StatusTimelineViewModel.Resolve(TwichirpApplication.UnityContainer,timelineRepository,account);
-            statusTimelineViewController = new StatusTimelineViewController(this,statusTimelineViewModel);
+            statusTimelineViewModel = StatusTimelineViewModel.Resolve(TwichirpApplication.UnityContainer, timelineRepository, account);
+            statusTimelineViewController = new StatusTimelineViewController(this, statusTimelineViewModel);
         }
 
-        public override AView OnCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-            AView view = inflater.Inflate(Resource.Layout.StatusTimelineFragment,container,false);
+        public override AView OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            AView view = inflater.Inflate(Resource.Layout.StatusTimelineFragment, container, false);
             RecyclerView = view.FindViewById<RecyclerView>(Resource.Id.RecyclerView);
             SwipeRefrech = view.FindViewById<SwipeRefreshLayout>(Resource.Id.SwipeRefresh);
             return view;
@@ -170,24 +159,24 @@ namespace Twichirp.Android.Views.Fragments {
             SwipeRefrech?.Dispose();
         }
 
-        public bool Equals(StatusTimelineFragmentType type,ImmutableAccount account) {
+        public bool Equals(StatusTimelineFragmentType type, ImmutableAccount account) {
             var arg = Arguments;
-            if(arg == null) {
+            if (arg == null) {
                 return false;
             }
-            long id = arg.GetLong(argumentAccount,-1);
-            if(id == -1 || id != account.Id) {
+            long id = arg.GetLong(argumentAccount, -1);
+            if (id == -1 || id != account.Id) {
                 return false;
             }
-            int t = arg.GetInt(argumentType,-1);
-            if(t != (int)type) {
+            int t = arg.GetInt(argumentType, -1);
+            if (t != (int)type) {
                 return false;
             }
             return true;
         }
 
         public void RaiseAppBarOffsetChanged(AppBarOffsetChangedEventArgs args) {
-            AppBarOffsetChanged?.Invoke(this,args);
+            AppBarOffsetChanged?.Invoke(this, args);
         }
     }
 }

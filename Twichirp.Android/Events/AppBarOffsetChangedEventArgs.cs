@@ -15,17 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Support.Design.Widget;
-using Android.Views;
-using Android.Widget;
 
 namespace Twichirp.Android.Events {
 
@@ -35,7 +25,7 @@ namespace Twichirp.Android.Events {
 
         public int Offset { get; }
 
-        public AppBarOffsetChangedEventArgs(AppBarLayout appBar,int offset) {
+        public AppBarOffsetChangedEventArgs(AppBarLayout appBar, int offset) {
             AppBar = appBar;
             Offset = offset;
         }

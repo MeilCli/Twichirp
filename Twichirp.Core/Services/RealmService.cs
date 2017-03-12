@@ -14,11 +14,7 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Realms;
 using Twichirp.Core.Constants;
 
@@ -32,8 +28,8 @@ namespace Twichirp.Core.Services {
             var migrations = RealmMigrationConstant.Migrations.OrderBy(x => x.MigrationOldSchemaVersion).ToList();
             configuration = new RealmConfiguration() {
                 SchemaVersion = RealmMigrationConstant.SchemaVersion,
-                MigrationCallback = (migration,oldSchemaVersion) => {
-                    foreach(var m in migrations.TakeWhile(x => x.MigrationOldSchemaVersion <= oldSchemaVersion)) {
+                MigrationCallback = (migration, oldSchemaVersion) => {
+                    foreach (var m in migrations.TakeWhile(x => x.MigrationOldSchemaVersion <= oldSchemaVersion)) {
                         m.Migrate(migration);
                     }
                 }

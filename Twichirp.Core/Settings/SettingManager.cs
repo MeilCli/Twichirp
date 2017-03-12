@@ -14,12 +14,12 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
+using System.ComponentModel;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System.ComponentModel;
 using Twichirp.Core.DataRepositories;
 
 namespace Twichirp.Core.Settings {
@@ -40,11 +40,11 @@ namespace Twichirp.Core.Settings {
         [JsonProperty]
         public int SettingVersion {
             get {
-                return AppSettings.GetValueOrDefault(nameof(SettingVersion),CurrentVersion);
+                return AppSettings.GetValueOrDefault(nameof(SettingVersion), CurrentVersion);
             }
             set {
-                AppSettings.AddOrUpdateValue(nameof(SettingVersion),value);
-                PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(nameof(SettingVersion)));
+                AppSettings.AddOrUpdateValue(nameof(SettingVersion), value);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SettingVersion)));
             }
         }
 
@@ -61,13 +61,13 @@ namespace Twichirp.Core.Settings {
         public bool NeedMigrate => SettingVersion < CurrentVersion;
 
         public SettingManager(IAccountRepository accountRepository) {
-            Accounts = new AccountsSetting(this,accountRepository);
+            Accounts = new AccountsSetting(this, accountRepository);
             Applications = new ApplicationSetting(this);
             Timeline = new TimelineSetting(this);
         }
 
         public void Migrate() {
-            foreach(var m in Migrations.OrderBy(x => x.MigrateVersion).Where(x => x.MigrateVersion >= SettingVersion)) {
+            foreach (var m in Migrations.OrderBy(x => x.MigrateVersion).Where(x => x.MigrateVersion >= SettingVersion)) {
                 m.Migrate(this);
             }
             SettingVersion = CurrentVersion;

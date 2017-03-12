@@ -15,32 +15,23 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
-using Android.OS;
 using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Twichirp.Core.Constants;
 using Microsoft.Practices.Unity;
-using Twichirp.Core.UnityExtensions;
-using Twichirp.Core.DataObjects;
 using Twichirp.Android.UnityExtensions;
-using Twichirp.Core.Settings;
 using Twichirp.Core;
+using Twichirp.Core.Constants;
+using Twichirp.Core.Settings;
+using Twichirp.Core.UnityExtensions;
 
 namespace Twichirp.Android {
 
-    [Application(Icon = "@drawable/icon",Label = "Twichirp",Theme = "@style/AppTheme",LargeHeap = true)]
+    [Application(Icon = "@drawable/icon", Label = "Twichirp", Theme = "@style/AppTheme", LargeHeap = true)]
     public class TwichirpApplication : Application, ITwichirpApplication {
 
         public UnityContainer UnityContainer { get; private set; }
 
-        public TwichirpApplication(IntPtr javaReference,JniHandleOwnership transfer) : base(javaReference,transfer) {
+        public TwichirpApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer) {
         }
 
         public override void OnCreate() {

@@ -14,25 +14,22 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using CoreTweet;
-using Reactive.Bindings;
-using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reactive.Linq;
-using Twichirp.Core.Extensions;
-using Plugin.CrossFormattedText.Abstractions;
-using Plugin.CrossFormattedText;
-using Twichirp.Core.Constants;
-using Twichirp.Core.Resources;
+using CoreTweet;
 using Microsoft.Practices.Unity;
-using CStatus = CoreTweet.Status;
+using Plugin.CrossFormattedText;
+using Plugin.CrossFormattedText.Abstractions;
+using Reactive.Bindings;
+using Reactive.Bindings.Extensions;
+using Twichirp.Core.Constants;
 using Twichirp.Core.DataObjects;
-using Twichirp.Core.Services;
 using Twichirp.Core.Models;
+using Twichirp.Core.Resources;
+using Twichirp.Core.Services;
+using CStatus = CoreTweet.Status;
 
 namespace Twichirp.Core.ViewModels {
 
@@ -50,10 +47,10 @@ namespace Twichirp.Core.ViewModels {
         private const string constructorStatus = "status";
         private const string constructorAccount = "account";
 
-        public static StatusViewModel Resolve(UnityContainer unityContainer,CStatus status,ImmutableAccount account) {
+        public static StatusViewModel Resolve(UnityContainer unityContainer, CStatus status, ImmutableAccount account) {
             return unityContainer.Resolve<StatusViewModel>(
-                new ParameterOverride(constructorStatus,status),
-                new ParameterOverride(constructorAccount,account)
+                new ParameterOverride(constructorStatus, status),
+                new ParameterOverride(constructorAccount, account)
             );
         }
 
@@ -111,45 +108,45 @@ namespace Twichirp.Core.ViewModels {
         public ReactiveCommand<long> StartUserProfilePageCommand { get; } = new ReactiveCommand<long>();
 
         [InjectionConstructor]
-        public StatusViewModel(ITwitterEventService twitterEventService,CStatus status,ImmutableAccount account)
-            : this(new StatusModel(twitterEventService,status),account) { }
+        public StatusViewModel(ITwitterEventService twitterEventService, CStatus status, ImmutableAccount account)
+            : this(new StatusModel(twitterEventService, status), account) { }
 
-        internal StatusViewModel(StatusModel status,ImmutableAccount account) {
+        internal StatusViewModel(StatusModel status, ImmutableAccount account) {
             Account = account;
             StatusModel = status;
 
             DateTime = StatusModel.ToContentStatus().ObserveProperty(x => x.CreatedAt)
-                .CombineLatest(UpdateDateTimeCommand,(x,y) => relativeDateTime(x))
+                .CombineLatest(UpdateDateTimeCommand, (x, y) => relativeDateTime(x))
                 .ToReadOnlyReactiveProperty()
                 .AddTo(Disposable);
 
             initStaticValue();
-            Observable.FromEventPattern<EventArgs>(x => StatusModel.StatusChanged += x,x => StatusModel.StatusChanged -= x)
+            Observable.FromEventPattern<EventArgs>(x => StatusModel.StatusChanged += x, x => StatusModel.StatusChanged -= x)
                 .Subscribe(x => initStaticValue())
                 .AddTo(Disposable);
-            Observable.FromEventPattern<EventArgs>(x => StatusModel.User.UserChanged += x,x => StatusModel.User.UserChanged -= x)
+            Observable.FromEventPattern<EventArgs>(x => StatusModel.User.UserChanged += x, x => StatusModel.User.UserChanged -= x)
                 .Subscribe(x => initStaticValue())
                 .AddTo(Disposable);
-            if(StatusModel.RetweetedStatus != null) {
-                Observable.FromEventPattern<EventArgs>(x => StatusModel.RetweetedStatus.StatusChanged += x,x => StatusModel.RetweetedStatus.StatusChanged -= x)
+            if (StatusModel.RetweetedStatus != null) {
+                Observable.FromEventPattern<EventArgs>(x => StatusModel.RetweetedStatus.StatusChanged += x, x => StatusModel.RetweetedStatus.StatusChanged -= x)
                     .Subscribe(x => initStaticValue())
                     .AddTo(Disposable);
-                Observable.FromEventPattern<EventArgs>(x => StatusModel.RetweetedStatus.User.UserChanged += x,x => StatusModel.RetweetedStatus.User.UserChanged -= x)
+                Observable.FromEventPattern<EventArgs>(x => StatusModel.RetweetedStatus.User.UserChanged += x, x => StatusModel.RetweetedStatus.User.UserChanged -= x)
                     .Subscribe(x => initStaticValue())
                     .AddTo(Disposable);
             }
-            if(StatusModel.QuotedStatus != null) {
-                Observable.FromEventPattern<EventArgs>(x => StatusModel.QuotedStatus.StatusChanged += x,x => StatusModel.QuotedStatus.StatusChanged -= x)
+            if (StatusModel.QuotedStatus != null) {
+                Observable.FromEventPattern<EventArgs>(x => StatusModel.QuotedStatus.StatusChanged += x, x => StatusModel.QuotedStatus.StatusChanged -= x)
                     .Subscribe(x => initStaticValue())
                     .AddTo(Disposable);
-                Observable.FromEventPattern<EventArgs>(x => StatusModel.QuotedStatus.User.UserChanged += x,x => StatusModel.QuotedStatus.User.UserChanged -= x)
+                Observable.FromEventPattern<EventArgs>(x => StatusModel.QuotedStatus.User.UserChanged += x, x => StatusModel.QuotedStatus.User.UserChanged -= x)
                     .Subscribe(x => initStaticValue())
                     .AddTo(Disposable);
             }
 
             RetweetCommand
                 .Subscribe(async x => {
-                    if(IsRetweeted.Value) {
+                    if (IsRetweeted.Value) {
                         await StatusModel.ToContentStatus().UnRetweetAsync(account);
                     } else {
                         await StatusModel.ToContentStatus().RetweetAsync(account);
@@ -158,7 +155,7 @@ namespace Twichirp.Core.ViewModels {
                 .AddTo(Disposable);
             FavoriteCommand
                 .Subscribe(async x => {
-                    if(IsFavorited.Value) {
+                    if (IsFavorited.Value) {
                         await StatusModel.ToContentStatus().UnFavoriteAsync(account);
                     } else {
                         await StatusModel.ToContentStatus().FavoriteAsync(account);
@@ -182,62 +179,62 @@ namespace Twichirp.Core.ViewModels {
             FavoriteCount.Value = contentStatus.FavoriteCount;
             IsRetweeted.Value = contentStatus.IsRetweeted;
             IsFavorited.Value = contentStatus.IsFavorited;
-            if(contentStatus.InReplyToScreenName != null) {
-                ReplyToUser.Value = string.Format(StringResources.StatusReplyToUser,$"@{contentStatus.InReplyToScreenName}");
+            if (contentStatus.InReplyToScreenName != null) {
+                ReplyToUser.Value = string.Format(StringResources.StatusReplyToUser, $"@{contentStatus.InReplyToScreenName}");
             }
             Media.Value = contentStatus.Media;
 
             IconUrl.Value = contentStatus.User.ProfileImageUrl;
-            SpannableName.Value = spannableName(contentStatus.User.Name,contentStatus.User.ScreenName);
+            SpannableName.Value = spannableName(contentStatus.User.Name, contentStatus.User.ScreenName);
             IsProtected.Value = contentStatus.User.IsProtected;
             IsVerified.Value = contentStatus.User.IsVerified;
 
-            if(StatusModel.RetweetedStatus != null) {
-                RetweetingUser.Value = string.Format(StringResources.StatusRetweetingUser,$"@{StatusModel.User.ScreenName}");
+            if (StatusModel.RetweetedStatus != null) {
+                RetweetingUser.Value = string.Format(StringResources.StatusRetweetingUser, $"@{StatusModel.User.ScreenName}");
             }
 
-            if(contentStatus.QuotedStatus != null) {
+            if (contentStatus.QuotedStatus != null) {
                 var quotedStatus = contentStatus.QuotedStatus;
 
                 IsQuoting = true;
-                QuotedSpannableName.Value = spannableName(quotedStatus.User.Name,quotedStatus.User.ScreenName);
-                QuotedSpannableText.Value = spannableText(quotedStatus.Text,quotedStatus.HiddenPrefix,quotedStatus.HiddenSuffix,quotedStatus.Media.Count() == 0);
+                QuotedSpannableName.Value = spannableName(quotedStatus.User.Name, quotedStatus.User.ScreenName);
+                QuotedSpannableText.Value = spannableText(quotedStatus.Text, quotedStatus.HiddenPrefix, quotedStatus.HiddenSuffix, quotedStatus.Media.Count() == 0);
                 QuotedMedia.Value = quotedStatus.Media;
             }
         }
 
         private string relativeDateTime(DateTimeOffset dateTimeOffset) {
             TimeSpan span = DateTimeOffset.Now - dateTimeOffset;
-            if(span.TotalMinutes < 1) {
-                if(span.Seconds == 1) {
-                    return string.Format(StringResources.TimeSecoundAgo,span.Seconds);
+            if (span.TotalMinutes < 1) {
+                if (span.Seconds == 1) {
+                    return string.Format(StringResources.TimeSecoundAgo, span.Seconds);
                 }
-                return string.Format(StringResources.TimeSecoundsAgo,span.Seconds);
+                return string.Format(StringResources.TimeSecoundsAgo, span.Seconds);
             }
-            if(span.TotalHours < 1) {
-                if(span.Minutes == 1) {
-                    return string.Format(StringResources.TimeMinuteAgo,span.Minutes);
+            if (span.TotalHours < 1) {
+                if (span.Minutes == 1) {
+                    return string.Format(StringResources.TimeMinuteAgo, span.Minutes);
                 }
-                return string.Format(StringResources.TimeMinutesAgo,span.Minutes);
+                return string.Format(StringResources.TimeMinutesAgo, span.Minutes);
             }
-            if(span.TotalDays < 1) {
-                if(span.Hours == 1) {
-                    return string.Format(StringResources.TimeHourAgo,span.Hours);
+            if (span.TotalDays < 1) {
+                if (span.Hours == 1) {
+                    return string.Format(StringResources.TimeHourAgo, span.Hours);
                 }
-                return string.Format(StringResources.TimeHoursAgo,span.Hours);
+                return string.Format(StringResources.TimeHoursAgo, span.Hours);
             }
-            if(span.TotalDays < 31) {
-                if(span.Days == 1) {
-                    return string.Format(StringResources.TimeDayAgo,span.Days);
+            if (span.TotalDays < 31) {
+                if (span.Days == 1) {
+                    return string.Format(StringResources.TimeDayAgo, span.Days);
                 }
-                return string.Format(StringResources.TimeDaysAgo,span.Days);
+                return string.Format(StringResources.TimeDaysAgo, span.Days);
             }
             return dateTimeOffset.ToLocalTime().ToString("G");
         }
 
-        private ISpannableString spannableText(IEnumerable<TextPart> text,IEnumerable<UserMentionEntity> hiddenPrefix,IEnumerable<UrlEntity> hiddenSuffix,bool containsSuffix) {
+        private ISpannableString spannableText(IEnumerable<TextPart> text, IEnumerable<UserMentionEntity> hiddenPrefix, IEnumerable<UrlEntity> hiddenSuffix, bool containsSuffix) {
             var spans = new List<Span>();
-            foreach(var mention in hiddenPrefix) {
+            foreach (var mention in hiddenPrefix) {
                 spans.Add(
                     new Span() {
                         Text = $"@{mention.ScreenName}",
@@ -248,18 +245,18 @@ namespace Twichirp.Core.ViewModels {
                 );
                 spans.Add(new Span() { Text = " " });
             }
-            foreach(var textPart in text) {
-                switch(textPart.Type) {
+            foreach (var textPart in text) {
+                switch (textPart.Type) {
                     case TextPartType.Plain: {
                             spans.Add(new Span { Text = textPart.Text });
                             break;
                         }
                     case TextPartType.Hashtag: {
-                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
+                            spans.Add(new Span { Text = textPart.Text, ForegroundColor = SpanConstant.BlueColor });
                             break;
                         }
                     case TextPartType.Cashtag: {
-                            spans.Add(new Span { Text = textPart.Text,ForegroundColor = SpanConstant.BlueColor });
+                            spans.Add(new Span { Text = textPart.Text, ForegroundColor = SpanConstant.BlueColor });
                             break;
                         }
                     case TextPartType.Url: {
@@ -284,37 +281,37 @@ namespace Twichirp.Core.ViewModels {
                         }
                 }
             }
-            if(containsSuffix) {
-                foreach(var url in hiddenSuffix) {
-                    spans.Add(new Span { Text = $" {url.DisplayUrl}",ForegroundColor = SpanConstant.BlueColor });
+            if (containsSuffix) {
+                foreach (var url in hiddenSuffix) {
+                    spans.Add(new Span { Text = $" {url.DisplayUrl}", ForegroundColor = SpanConstant.BlueColor });
                 }
             }
             return CrossCrossFormattedText.Current.Format(new FormattedString() { Spans = spans });
         }
 
-        private ISpannableString spannableName(string name,string screenName) {
+        private ISpannableString spannableName(string name, string screenName) {
             var spans = new List<Span>();
 
             spans.Add(new Span() { Text = name });
-            spans.Add(new Span() { Text = $" @{screenName}",FontSize = FontSize.Small });
+            spans.Add(new Span() { Text = $" @{screenName}", FontSize = FontSize.Small });
 
             return CrossCrossFormattedText.Current.Format(new FormattedString() { Spans = spans });
         }
 
         public int ToStatusType() {
-            if(IsQuoting && QuotedMedia.Value.Count() > 0 && Media.Value.Count() > 0) {
+            if (IsQuoting && QuotedMedia.Value.Count() > 0 && Media.Value.Count() > 0) {
                 return QuotedInnerAndOuterMediaTweet;
             }
-            if(IsQuoting && QuotedMedia.Value.Count() > 0) {
+            if (IsQuoting && QuotedMedia.Value.Count() > 0) {
                 return QuotedInnerMediaTweet;
             }
-            if(IsQuoting && Media.Value.Count() > 0) {
+            if (IsQuoting && Media.Value.Count() > 0) {
                 return QuotedOuterMediaTweet;
             }
-            if(IsQuoting) {
+            if (IsQuoting) {
                 return QuotedTweet;
             }
-            if(Media.Value.Count() > 0) {
+            if (Media.Value.Count() > 0) {
                 return MediaTweet;
             }
             return NormalTweet;

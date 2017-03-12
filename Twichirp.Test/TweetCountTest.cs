@@ -14,7 +14,6 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Twichirp.Core.TweetCount;
 
@@ -24,19 +23,19 @@ namespace Twichirp.Test {
         [TestMethod]
         public void TestMethod1() {
             int count = "dshghigshkia".TweetCount();
-            Assert.AreEqual(count,12);
+            Assert.AreEqual(count, 12);
         }
 
         [TestMethod]
         public void TestMethod2() {
             int count = "afhyio google.com afhu http://google.com st".TweetCount();
-            Assert.AreEqual(count,62);
+            Assert.AreEqual(count, 62);
         }
 
         [TestMethod]
         public void TestMethod3() {
             int count = "afhyio google.com afhu https://google.com st".TweetCount();
-            Assert.AreEqual(count,62);
+            Assert.AreEqual(count, 62);
         }
     }
 }

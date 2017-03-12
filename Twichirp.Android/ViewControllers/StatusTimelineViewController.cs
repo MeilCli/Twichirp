@@ -16,18 +16,9 @@
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Support.V4.Widget;
 using Android.Support.V7.Widget;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
@@ -38,14 +29,12 @@ using Twichirp.Android.Repositories;
 using Twichirp.Android.Views;
 using Twichirp.Android.Views.Holders;
 using Twichirp.Android.Views.Interfaces;
-using Twichirp.Core.DataObjects;
 using Twichirp.Core.ViewModels;
 using static Android.Support.V7.Widget.RecyclerView;
-using CStatus = CoreTweet.Status;
 
 namespace Twichirp.Android.ViewControllers {
 
-    public class StatusTimelineViewController : BaseViewController<IStatusTimelineView,StatusTimelineViewModel> {
+    public class StatusTimelineViewController : BaseViewController<IStatusTimelineView, StatusTimelineViewModel> {
 
         private const string stateTimeline = "state_timeline";
         private const int loadingType = 1;
@@ -54,41 +43,41 @@ namespace Twichirp.Android.ViewControllers {
         private ReactiveCollectionAdapter<BaseViewModel> adapter;
         private CompositeDisposable onDestroyViewDisposable;
 
-        public StatusTimelineViewController(IStatusTimelineView view,StatusTimelineViewModel viewModel) : base(view,viewModel) {
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.Created += x,x => View.Created -= x)
-                .Subscribe(x => onCreate(x.Sender,x.EventArgs))
+        public StatusTimelineViewController(IStatusTimelineView view, StatusTimelineViewModel viewModel) : base(view, viewModel) {
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.Created += x, x => View.Created -= x)
+                .Subscribe(x => onCreate(x.Sender, x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.Destroyed += x,x => View.Destroyed -= x)
-                .Subscribe(x => onDestroy(x.Sender,x.EventArgs))
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.Destroyed += x, x => View.Destroyed -= x)
+                .Subscribe(x => onDestroy(x.Sender, x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.ViewDestroyed += x,x => View.ViewDestroyed -= x)
-                .Subscribe(x => onDestroyView(x.Sender,x.EventArgs))
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.ViewDestroyed += x, x => View.ViewDestroyed -= x)
+                .Subscribe(x => onDestroyView(x.Sender, x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.InstanceStateSaved += x,x => View.InstanceStateSaved -= x)
-                .Subscribe(x => onSaveInstanceState(x.Sender,x.EventArgs))
+            Observable.FromEventPattern<LifeCycleEventArgs>(x => View.InstanceStateSaved += x, x => View.InstanceStateSaved -= x)
+                .Subscribe(x => onSaveInstanceState(x.Sender, x.EventArgs))
                 .AddTo(Disposable);
-            Observable.FromEventPattern<AppBarOffsetChangedEventArgs>(x => View.AppBarOffsetChanged += x,x => View.AppBarOffsetChanged -= x)
-                .Subscribe(x => appBarOffsetChanged(x.Sender,x.EventArgs))
+            Observable.FromEventPattern<AppBarOffsetChangedEventArgs>(x => View.AppBarOffsetChanged += x, x => View.AppBarOffsetChanged -= x)
+                .Subscribe(x => appBarOffsetChanged(x.Sender, x.EventArgs))
                 .AddTo(Disposable);
 
-            adapter = ViewModel.Timeline.ToAdapter(adapterViewSelect,adapterViewCreate);
-            Observable.FromEventPattern<EventArgs>(x => adapter.LastItemShowed += x,x => adapter.LastItemShowed -= x)
+            adapter = ViewModel.Timeline.ToAdapter(adapterViewSelect, adapterViewCreate);
+            Observable.FromEventPattern<EventArgs>(x => adapter.LastItemShowed += x, x => adapter.LastItemShowed -= x)
                 .Subscribe(x => ViewModel.LoadMoreComannd.Execute())
                 .AddTo(Disposable);
-            ViewModel.ShowMessageCommand.Subscribe(x => Toast.MakeText(View.ApplicationContext,x,ToastLength.Short).Show()).AddTo(Disposable);
+            ViewModel.ShowMessageCommand.Subscribe(x => Toast.MakeText(View.ApplicationContext, x, ToastLength.Short).Show()).AddTo(Disposable);
         }
 
-        private void onCreate(object sender,LifeCycleEventArgs e) {
+        private void onCreate(object sender, LifeCycleEventArgs e) {
             onDestroyViewDisposable = new CompositeDisposable();
 
             View.RecyclerView.SetLayoutManager(new LinearLayoutManager(View.RecyclerView.Context));
             View.RecyclerView.SetAdapter(adapter);
             View.RecyclerView.AddItemDecoration(new DividerItemDecoration(View.RecyclerView.Context) { Size = 2 });
             View.RecyclerView.SetItemViewCacheSize(0);
-            View.SwipeRefrech.SetBinding(x => x.Refreshing,ViewModel.IsLoading).AddTo(onDestroyViewDisposable);
+            View.SwipeRefrech.SetBinding(x => x.Refreshing, ViewModel.IsLoading).AddTo(onDestroyViewDisposable);
             View.SwipeRefrech.Refresh += onRefresh;
-            if(adapter.ItemCount == 0) {
-                if(e.State != null) {
+            if (adapter.ItemCount == 0) {
+                if (e.State != null) {
                     // ソース書いたはいいもののFragmentの設定上ここは呼ばれることない気がする
                     var statuses = JsonConvert.DeserializeObject<List<string>>(e.State.GetString(stateTimeline));
                     var timeline = new JsonConvertedTimelineRepository(statuses);
@@ -99,24 +88,24 @@ namespace Twichirp.Android.ViewControllers {
             }
         }
 
-        private void onSaveInstanceState(object sender,LifeCycleEventArgs args) {
-            args.State.PutString(stateTimeline,ViewModel.Json);
+        private void onSaveInstanceState(object sender, LifeCycleEventArgs args) {
+            args.State.PutString(stateTimeline, ViewModel.Json);
         }
 
-        private void onDestroy(object sender,LifeCycleEventArgs e) {
+        private void onDestroy(object sender, LifeCycleEventArgs e) {
             adapter.Dispose();
         }
 
-        private void onDestroyView(object sender,LifeCycleEventArgs e) {
+        private void onDestroyView(object sender, LifeCycleEventArgs e) {
             onDestroyViewDisposable.Dispose();
         }
 
-        private void appBarOffsetChanged(object sender,AppBarOffsetChangedEventArgs args) {
+        private void appBarOffsetChanged(object sender, AppBarOffsetChangedEventArgs args) {
             View.SwipeRefrech.Enabled = args.Offset == 0;
         }
 
-        private ViewHolder adapterViewCreate(ViewGroup parent,int itemType) {
-            switch(itemType) {
+        private ViewHolder adapterViewCreate(ViewGroup parent, int itemType) {
+            switch (itemType) {
                 case loadingType:
                     return LoadingHolder.Make(View);
                 case preStatusTypeParam + StatusViewModel.NormalTweet:
@@ -135,18 +124,18 @@ namespace Twichirp.Android.ViewControllers {
             return null;
         }
 
-        private int adapterViewSelect(BaseViewModel viewModel,int position) {
-            if(viewModel is LoadingViewModel) {
+        private int adapterViewSelect(BaseViewModel viewModel, int position) {
+            if (viewModel is LoadingViewModel) {
                 return loadingType;
             }
-            if(viewModel is StatusViewModel) {
+            if (viewModel is StatusViewModel) {
                 return preStatusTypeParam + (viewModel as StatusViewModel).ToStatusType();
             }
             return 0;
         }
 
-        public void onRefresh(object sender,EventArgs args) {
-            if(ViewModel.LoadCommand.CanExecute()) {
+        public void onRefresh(object sender, EventArgs args) {
+            if (ViewModel.LoadCommand.CanExecute()) {
                 ViewModel.LoadCommand.Execute(null);
             }
         }

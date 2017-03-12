@@ -15,18 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Disposables;
-using System.Text;
-
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Util;
-using Android.Views;
-using Android.Widget;
 using Twichirp.Android.Views;
 using Twichirp.Core;
 
@@ -40,13 +29,13 @@ namespace Twichirp.Android.ViewControllers {
         protected bool AutoDisposeViewModel { get; set; } = true;
         internal CompositeDisposable Disposable { get; } = new CompositeDisposable();
 
-        public BaseViewController(TView view,TViewModel viewModel) {
+        public BaseViewController(TView view, TViewModel viewModel) {
             View = view;
             ViewModel = viewModel;
-            if(viewModel is IDisposable) {
-                view.Destroyed += (x,y) => { if(AutoDisposeViewModel) (viewModel as IDisposable).Dispose(); };
+            if (viewModel is IDisposable) {
+                view.Destroyed += (x, y) => { if (AutoDisposeViewModel) (viewModel as IDisposable).Dispose(); };
             }
-            view.Destroyed += (x,y) => { if(Disposable.IsDisposed == false) Disposable.Dispose(); };
+            view.Destroyed += (x, y) => { if (Disposable.IsDisposed == false) Disposable.Dispose(); };
         }
 
         public void Dispose() {
@@ -62,7 +51,7 @@ namespace Twichirp.Android.ViewControllers {
 
         public BaseViewController(TView view) {
             View = view;
-            view.Destroyed += (x,y) => { if(Disposable.IsDisposed == false) Disposable.Dispose(); };
+            view.Destroyed += (x, y) => { if (Disposable.IsDisposed == false) Disposable.Dispose(); };
         }
 
         public void Dispose() {

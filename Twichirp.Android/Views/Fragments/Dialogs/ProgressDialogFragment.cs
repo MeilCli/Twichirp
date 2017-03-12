@@ -14,18 +14,9 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
-using Android.Views;
-using Android.Widget;
 using SDialogFragment = Android.Support.V4.App.DialogFragment;
 
 namespace Twichirp.Android.Views.Fragments.Dialogs {
@@ -37,19 +28,19 @@ namespace Twichirp.Android.Views.Fragments.Dialogs {
 
         public const string FragmentTag = "ProgressDialogFragment";
 
-        public static ProgressDialogFragment NewInstance(string title,string message) {
+        public static ProgressDialogFragment NewInstance(string title, string message) {
             var fragment = new ProgressDialogFragment();
             var bundle = new Bundle();
-            bundle.PutString("title",title);
-            bundle.PutString("message",message);
+            bundle.PutString("title", title);
+            bundle.PutString("message", message);
             fragment.Arguments = bundle;
             return fragment;
         }
 
         public override global::Android.App.Dialog OnCreateDialog(Bundle savedInstanceState) {
             var progressDialog = new ProgressDialog(Activity);
-            string title = Arguments.GetString("title",string.Empty);
-            string message = Arguments.GetString("message",string.Empty);
+            string title = Arguments.GetString("title", string.Empty);
+            string message = Arguments.GetString("message", string.Empty);
             progressDialog.SetTitle(title);
             progressDialog.SetMessage(message);
             progressDialog.SetCancelable(false);

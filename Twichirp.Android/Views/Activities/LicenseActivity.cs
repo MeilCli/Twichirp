@@ -14,22 +14,15 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.Support.V7.App;
-using SToolbar = Android.Support.V7.Widget.Toolbar;
+using Android.Views;
 using Android.Webkit;
-using Twichirp.Core.Constants;
 using Twichirp.Android.Constants;
+using Twichirp.Core.Constants;
+using SToolbar = Android.Support.V7.Widget.Toolbar;
 
 namespace Twichirp.Android.Views.Activities {
 
@@ -46,17 +39,17 @@ namespace Twichirp.Android.Views.Activities {
             SupportActionBar.SetDisplayShowHomeEnabled(true);
 
             web = FindViewById<WebView>(Resource.Id.Web);
-            
+
             var license = LibraryConstant.Libraries.Concat(AndroidLibraryConstant.Libraries).OrderBy(x => x.LibraryName).ToList();
             var liceseText = license.Select(x => $"<ul><li>{x.LibraryName}</li></ul><pre>{x.ToNoticeText()}</pre>");
             string htmlStart = "<html><head><style> body { font - family: sans - serif;}pre { background - color: #eeeeee; padding: 1em; white-space: pre-wrap; } </style></head><body><h3> Notices for files:</h3>";
             string htmlEnd = "</body></html>";
-            string html = $"{htmlStart}{string.Join("",liceseText)}{htmlEnd}";
-            web.LoadData(html.Replace("\n","<br/>"),"text/html","");
+            string html = $"{htmlStart}{string.Join("", liceseText)}{htmlEnd}";
+            web.LoadData(html.Replace("\n", "<br/>"), "text/html", "");
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item) {
-            if(item.ItemId == global::Android.Resource.Id.Home) {
+            if (item.ItemId == global::Android.Resource.Id.Home) {
                 Finish();
             }
             return base.OnOptionsItemSelected(item);

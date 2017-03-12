@@ -15,29 +15,19 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Support.V7.App;
-using Android.Views;
-using Android.Widget;
 using Android.Support.V7.Widget;
-using Android.Util;
-using Android.Support.V4.View;
-using AView = Android.Views.View;
+using Android.Views;
 using Twichirp.Android.Events;
 using Twichirp.Core;
+using AView = Android.Views.View;
 
 // 未使用イベントの警告非表示
 #pragma warning disable 0067
 
 namespace Twichirp.Android.Views.Holders {
-    
+
     public abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView, ILifeCycleView, IBindable<T>, IRecyclable {
 
         protected static AView InflateView(IView view, int layoutResource) {
@@ -67,7 +57,7 @@ namespace Twichirp.Android.Views.Holders {
         /// </summary>
         /// <param name="itemView">Item view.</param>
         /// <param name="view">View.</param>
-        protected BaseHolder(AView itemView,IView view)
+        protected BaseHolder(AView itemView, IView view)
             : base(itemView) {
             this.IsRecyclable = false;
             this.view = view;
@@ -76,17 +66,17 @@ namespace Twichirp.Android.Views.Holders {
 
         public abstract void OnCreatedView();
 
-        public void OnBind(T item,int position) {
-            OnPreBind(item,position);
-            Created?.Invoke(this,new LifeCycleEventArgs(nameof(OnBind)));
+        public void OnBind(T item, int position) {
+            OnPreBind(item, position);
+            Created?.Invoke(this, new LifeCycleEventArgs(nameof(OnBind)));
         }
 
-        public abstract void OnPreBind(T item,int position);
+        public abstract void OnPreBind(T item, int position);
 
-        private void onDetatchViewFromWindow(object sender,EventArgs e) {
+        private void onDetatchViewFromWindow(object sender, EventArgs e) {
             ItemView.ViewDetachedFromWindow -= onDetatchViewFromWindow;
-            ViewDestroyed?.Invoke(this,new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
-            Destroyed?.Invoke(this,new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
+            ViewDestroyed?.Invoke(this, new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
+            Destroyed?.Invoke(this, new LifeCycleEventArgs(nameof(onDetatchViewFromWindow)));
             OnDestroyView();
         }
 

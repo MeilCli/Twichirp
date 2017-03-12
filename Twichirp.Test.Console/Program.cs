@@ -14,28 +14,21 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using CoreTweet;
 using Twichirp.Core.Constants;
-using Twichirp.Core.TweetCount;
 using static System.Console;
 
 namespace Twichirp.Test.Console {
     class Program {
 
         static readonly string t1 = $"asa";
-        static readonly string t2 = $"sffs"+t1;
+        static readonly string t2 = $"sffs" + t1;
 
         static void Main(string[] args) {
-            var session = OAuth.Authorize(ClientKeyConstant.Twichirp.ConsumerKey,ClientKeyConstant.Twichirp.ConsumerSecret);
+            var session = OAuth.Authorize(ClientKeyConstant.Twichirp.ConsumerKey, ClientKeyConstant.Twichirp.ConsumerSecret);
             WriteLine(session.AuthorizeUri);
-            var tokens = OAuth.GetTokens(session,ReadLine());
-            
+            var tokens = OAuth.GetTokens(session, ReadLine());
+
         }
     }
 }

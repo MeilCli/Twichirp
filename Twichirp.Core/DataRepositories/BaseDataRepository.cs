@@ -17,14 +17,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Realms;
 using Twichirp.Core.Services;
 
 namespace Twichirp.Core.DataRepositories {
 
-    public abstract class BaseDataRepository<TPrimaryKey, TData, TImmutableData> : IDataRepository<TPrimaryKey,TData,TImmutableData> where TData : RealmObject {
+    public abstract class BaseDataRepository<TPrimaryKey, TData, TImmutableData> : IDataRepository<TPrimaryKey, TData, TImmutableData> where TData : RealmObject {
 
         protected IRealmService RealmService { get; }
 
@@ -35,21 +33,21 @@ namespace Twichirp.Core.DataRepositories {
         protected abstract TImmutableData ToImmutable(TData item);
 
         public TImmutableData AddOrUpdate(TData item) {
-            using(var realm = RealmService.GetRealm()) {
+            using (var realm = RealmService.GetRealm()) {
                 TData result = null;
                 realm.Write(() => {
-                    result = realm.Add(item,update: true);
+                    result = realm.Add(item, update: true);
                 });
                 return ToImmutable(result);
             }
         }
 
         public IEnumerable<TImmutableData> AddOrUpdateAll(IEnumerable<TData> items) {
-            using(var realm = RealmService.GetRealm()) {
+            using (var realm = RealmService.GetRealm()) {
                 var result = new List<TData>();
                 realm.Write(() => {
-                    foreach(var item in items) {
-                        result.Add(realm.Add(item,update: true));
+                    foreach (var item in items) {
+                        result.Add(realm.Add(item, update: true));
                     }
                 });
                 return result.Select(x => ToImmutable(x)).ToList();
@@ -57,21 +55,21 @@ namespace Twichirp.Core.DataRepositories {
         }
 
         public void Clear() {
-            using(var realm = RealmService.GetRealm()) {
+            using (var realm = RealmService.GetRealm()) {
                 realm.Write(() => realm.RemoveAll<TData>());
             }
         }
 
-        public int Count(Func<IQueryable<TData>,IQueryable<TData>> querySelecter = null) {
-            using(var realm = RealmService.GetRealm()) {
+        public int Count(Func<IQueryable<TData>, IQueryable<TData>> querySelecter = null) {
+            using (var realm = RealmService.GetRealm()) {
                 var query = realm.All<TData>();
                 query = querySelecter?.Invoke(query) ?? query;
                 return query.Count();
             }
         }
 
-        public IEnumerable<TImmutableData> Get(Func<IQueryable<TData>,IQueryable<TData>> querySelecter = null,Func<IEnumerable<TData>,IEnumerable<TData>> enumerableSelecter=null) {
-            using(var realm = RealmService.GetRealm()) {
+        public IEnumerable<TImmutableData> Get(Func<IQueryable<TData>, IQueryable<TData>> querySelecter = null, Func<IEnumerable<TData>, IEnumerable<TData>> enumerableSelecter = null) {
+            using (var realm = RealmService.GetRealm()) {
                 var query = realm.All<TData>();
                 query = querySelecter?.Invoke(query) ?? query;
                 IEnumerable<TData> enumerable = query.ToList();
@@ -81,37 +79,37 @@ namespace Twichirp.Core.DataRepositories {
         }
 
         public TImmutableData FirstOrDefault() {
-            using(var realm = RealmService.GetRealm()) {
+            using (var realm = RealmService.GetRealm()) {
                 var result = realm.All<TData>().ToList().FirstOrDefault();
                 return result != null ? ToImmutable(result) : default(TImmutableData);
             }
         }
 
         public TImmutableData LastOrDefault() {
-            using(var realm = RealmService.GetRealm()) {
+            using (var realm = RealmService.GetRealm()) {
                 var result = realm.All<TData>().ToList().LastOrDefault();
                 return result != null ? ToImmutable(result) : default(TImmutableData);
             }
         }
 
         public void Remove(TData item) {
-            using(var realm = RealmService.GetRealm()) {
+            using (var realm = RealmService.GetRealm()) {
                 realm.Write(() => realm.Remove(item));
             }
         }
 
         public void RemoveAll(IEnumerable<TData> items) {
-            using(var realm = RealmService.GetRealm()) {
+            using (var realm = RealmService.GetRealm()) {
                 realm.Write(() => {
-                    foreach(var item in items) {
+                    foreach (var item in items) {
                         realm.Remove(item);
                     }
                 });
             }
         }
 
-        public void RemoveRange(Func<IQueryable<TData>,IQueryable<TData>> querySelecter) {
-            using(var realm = RealmService.GetRealm()) {
+        public void RemoveRange(Func<IQueryable<TData>, IQueryable<TData>> querySelecter) {
+            using (var realm = RealmService.GetRealm()) {
                 realm.Write(() => {
                     var query = querySelecter(realm.All<TData>());
                     realm.RemoveRange(query);

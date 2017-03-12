@@ -15,10 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
@@ -43,19 +40,19 @@ namespace Twichirp.Core.UnityExtensions {
         public ViewModelRegister() { }
 
         protected override void Initialize() {
-            if(ExcludeTypes?.All(x => x != typeof(LoginViewModel)) ?? true) {
+            if (ExcludeTypes?.All(x => x != typeof(LoginViewModel)) ?? true) {
                 Container.RegisterType<LoginViewModel>();
             }
-            if(ExcludeTypes?.All(x => x != typeof(SplashViewModel)) ?? true) {
+            if (ExcludeTypes?.All(x => x != typeof(SplashViewModel)) ?? true) {
                 Container.RegisterType<SplashViewModel>();
             }
-            if(ExcludeTypes?.All(x => x != typeof(StatusTimelineViewModel)) ?? true) {
+            if (ExcludeTypes?.All(x => x != typeof(StatusTimelineViewModel)) ?? true) {
                 Container.RegisterType<StatusTimelineViewModel>();
             }
-            if(ExcludeTypes?.All(x => x != typeof(StatusViewModel)) ?? true) {
+            if (ExcludeTypes?.All(x => x != typeof(StatusViewModel)) ?? true) {
                 Container.RegisterType<StatusViewModel>();
             }
-            if(ExcludeTypes?.All(x => x != typeof(UserProfileViewModel)) ?? true) {
+            if (ExcludeTypes?.All(x => x != typeof(UserProfileViewModel)) ?? true) {
                 Container.RegisterType<UserProfileViewModel>();
             }
         }

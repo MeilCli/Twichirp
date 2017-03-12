@@ -14,31 +14,27 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using CoreTweet;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CoreTweet;
 
 namespace Twichirp.Core.Extensions {
     public static class UserExtensions {
 
         public static bool IsValid(this User user) {
-            if(user.Id == null) {
+            if (user.Id == null) {
                 return false;
             }
-            if(user.ScreenName == null) {
+            if (user.ScreenName == null) {
                 return false;
             }
-            if(user.ProfileImageUrl == null) {
+            if (user.ProfileImageUrl == null) {
                 return false;
             }
             return true;
         }
 
         public static void CheckValid(this User user) {
-            if(user.IsValid() == false) {
+            if (user.IsValid() == false) {
                 throw new Exception("invalid user");
             }
         }

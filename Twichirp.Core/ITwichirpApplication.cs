@@ -14,15 +14,10 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 
 namespace Twichirp.Core {
-    
+
     public interface ITwichirpApplication {
 
         /// <summary>

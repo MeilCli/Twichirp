@@ -15,10 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Twichirp.Core.Aclog.Api {
@@ -33,11 +30,11 @@ namespace Twichirp.Core.Aclog.Api {
         }
 
         protected async Task<string> GetContent(HttpRequestMessage message) {
-            string authorizationHeader = aclogClient.Token.CreateAuthorizationHeader(CoreTweet.MethodType.Get,new Uri(verifyUrl),null);
-            message.Headers.Add("X-Verify-Credentials-Authorization",authorizationHeader);
-            message.Headers.Add("X-Auth-Service-Provider",verifyUrl);
+            string authorizationHeader = aclogClient.Token.CreateAuthorizationHeader(CoreTweet.MethodType.Get, new Uri(verifyUrl), null);
+            message.Headers.Add("X-Verify-Credentials-Authorization", authorizationHeader);
+            message.Headers.Add("X-Auth-Service-Provider", verifyUrl);
             var response = await aclogClient.HttpClient.SendAsync(message);
-            if(response.IsSuccessStatusCode == false) {
+            if (response.IsSuccessStatusCode == false) {
                 throw new Exception(await response.Content.ReadAsStringAsync());
             }
             return await response.Content.ReadAsStringAsync();

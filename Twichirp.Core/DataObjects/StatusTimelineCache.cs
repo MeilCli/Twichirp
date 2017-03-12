@@ -14,12 +14,8 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Realms;
 
 namespace Twichirp.Core.DataObjects {
@@ -37,38 +33,38 @@ namespace Twichirp.Core.DataObjects {
 
         // Immutableなので等値比較系の実装をしておく
         public override bool Equals(object obj) {
-            if(obj == null) {
+            if (obj == null) {
                 return false;
             }
             var type = obj as StatusTimelineCacheType;
-            if((object)type == null) {
+            if ((object)type == null) {
                 return false;
             }
             return Tag == type.Tag;
         }
 
         public bool Equals(StatusTimelineCacheType type) {
-            if((object)type == null) {
+            if ((object)type == null) {
                 return false;
             }
             return Tag == type.Tag;
         }
-        
+
         public override int GetHashCode() {
             return Tag.GetHashCode();
         }
 
-        public static bool operator ==(StatusTimelineCacheType a,StatusTimelineCacheType b) {
-            if(ReferenceEquals(a,b)) {
+        public static bool operator ==(StatusTimelineCacheType a, StatusTimelineCacheType b) {
+            if (ReferenceEquals(a, b)) {
                 return true;
             }
-            if(((object)a == null) || ((object)b == null)) {
+            if (((object)a == null) || ((object)b == null)) {
                 return false;
             }
             return a.Tag == b.Tag;
         }
 
-        public static bool operator !=(StatusTimelineCacheType a,StatusTimelineCacheType b) {
+        public static bool operator !=(StatusTimelineCacheType a, StatusTimelineCacheType b) {
             return (a == b) == false;
         }
     }
@@ -76,9 +72,9 @@ namespace Twichirp.Core.DataObjects {
     /// <summary>
     /// Not support converting to JSON
     /// </summary>
-    public class StatusTimelineCache : RealmObject, Interfaces.IStatusTimelineCache<Status,User> {
+    public class StatusTimelineCache : RealmObject, Interfaces.IStatusTimelineCache<Status, User> {
 
-        public static string MakePrimaryKey(long ownerUserId,StatusTimelineCacheType type) {
+        public static string MakePrimaryKey(long ownerUserId, StatusTimelineCacheType type) {
             return $"{ownerUserId} - {type.Tag}";
         }
 
@@ -111,20 +107,20 @@ namespace Twichirp.Core.DataObjects {
 
         public StatusTimelineCache() { }
 
-        public StatusTimelineCache(User ownerUser,IEnumerable<Status> statuses,StatusTimelineCacheType type) {
+        public StatusTimelineCache(User ownerUser, IEnumerable<Status> statuses, StatusTimelineCacheType type) {
             OwnerUserId = ownerUser.Id;
             OwnerUser = ownerUser;
-            foreach(var status in statuses) {
+            foreach (var status in statuses) {
                 Statuses.Add(status);
             }
             Type = type;
-            Key = MakePrimaryKey(OwnerUserId,Type);
+            Key = MakePrimaryKey(OwnerUserId, Type);
         }
 
         public StatusTimelineCache(ImmutableStatusTimelineCache item) {
             OwnerUserId = item.OwnerUserId;
             OwnerUser = new User(item.OwnerUser);
-            foreach(var status in item.Statuses) {
+            foreach (var status in item.Statuses) {
                 Statuses.Add(new Status(status));
             }
             Type = item.Type;
@@ -136,7 +132,7 @@ namespace Twichirp.Core.DataObjects {
     /// <summary>
     /// Not support converting to JSON
     /// </summary>
-    public class ImmutableStatusTimelineCache : Interfaces.IStatusTimelineCache<ImmutableStatus,ImmutableUser> {
+    public class ImmutableStatusTimelineCache : Interfaces.IStatusTimelineCache<ImmutableStatus, ImmutableUser> {
 
         public string Key { get; }
 
