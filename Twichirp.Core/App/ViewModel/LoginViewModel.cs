@@ -43,7 +43,7 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveCommand<string> ShowMessageCommand { get; } = new ReactiveCommand<string>();
 
         public LoginViewModel(ITwichirpApplication application,IAccountRepository accountRepository,SettingManager settingManager,ImmutableClientKey clientKey) : base(application) {
-            loginModel = new LoginModel(application,accountRepository,settingManager);
+            loginModel = new LoginModel(accountRepository,settingManager);
             IsLoading = loginModel.ObserveProperty(x => x.IsLoading).ObserveOnUIDispatcher().ToReadOnlyReactiveProperty().AddTo(Disposable);
 
             Observable.FromEventPattern<EventArgs<string>>(x => loginModel.AuthorizeUriCreated += x,x => loginModel.AuthorizeUriCreated -= x)

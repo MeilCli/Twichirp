@@ -78,7 +78,7 @@ namespace Twichirp.Android.App.ViewModel {
         public ReactiveCommand StartUserProfileActivityCommand { get; } = new ReactiveCommand();
 
         public MainViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,IAccountRepository accountRepository,SettingManager settingManager) : base(application) {
-            mainModel = new MainModel(application,accountRepository,settingManager);
+            mainModel = new MainModel(accountRepository,settingManager);
 
             NavigationMenus = mainModel.ObserveProperty(x => x.NavigationMenus).ToReadOnlyReactiveProperty().AddTo(Disposable);
             NavigationTabs = mainModel.ObserveProperty(x => x.NavigationTabs).ToReadOnlyReactiveProperty().AddTo(Disposable);

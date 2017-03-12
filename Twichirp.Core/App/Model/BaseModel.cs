@@ -24,15 +24,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Twichirp.Core.App.Model {
+
     public class BaseModel : INotifyPropertyChanged {
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected ITwichirpApplication Application { get; }
-
-        public BaseModel(ITwichirpApplication application) {
-            Application = application;
-        }
+        public BaseModel() { }
 
         protected void RaisePropertyChanged(string name) {
             PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(name));

@@ -183,7 +183,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public UserProfileModel(ITwichirpApplication application,ITwitterEventService twitterEventService,ImmutableAccount account,long userId,CUser user = null) : base(application) {
+        public UserProfileModel(ITwitterEventService twitterEventService,ImmutableAccount account,long userId,CUser user = null) {
             this.twitterEventService = twitterEventService;
             this.account = account;
             this.userId = userId;
@@ -192,7 +192,7 @@ namespace Twichirp.Core.App.Model {
 
         private async void init(CUser user) {
             if(user != null) {
-                UserModel = new UserModel(Application,user);
+                UserModel = new UserModel(user);
             } else {
                 await LoadUserAsync();
             }
@@ -207,7 +207,7 @@ namespace Twichirp.Core.App.Model {
             try {
                 var user = await account.CoreTweetToken.Users.ShowAsync(user_id: userId,include_entities: true);
                 user.CheckValid();
-                UserModel = new UserModel(Application,user);
+                UserModel = new UserModel(user);
             } catch(Exception e) {
                 ErrorMessageCreated?.Invoke(this,new EventArgs<string>(e.Message));
             } finally {

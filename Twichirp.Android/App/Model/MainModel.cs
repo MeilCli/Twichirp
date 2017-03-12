@@ -111,7 +111,7 @@ namespace Twichirp.Android.App.Model {
         }
 
 
-        public MainModel(ITwichirpApplication application,IAccountRepository accountRepository,SettingManager settingManager) : base(application) {
+        public MainModel(IAccountRepository accountRepository,SettingManager settingManager) {
             this.accountRepository = accountRepository;
             this.settingManager = settingManager;
             makeNavigationMenu();
@@ -203,7 +203,7 @@ namespace Twichirp.Android.App.Model {
                 }
                 account = await Task.Run(() => accountRepository.Find(account.Id));
             }
-            return new UserModel(Application,account.User.CoreTweetUser);
+            return new UserModel(account.User.CoreTweetUser);
         }
 
         private void makeNavigationMenu() {

@@ -68,7 +68,7 @@ namespace Twichirp.Core.App.ViewModel {
         public StatusTimelineViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,SettingManager settingManager,ImmutableAccount account,ITimelineRepository timelineRepository) 
             : base(application) {
             this.account = account;
-            StatusTimelineModel = new StatusTimelineModel(application,twitterEventService,settingManager,account,timelineRepository);
+            StatusTimelineModel = new StatusTimelineModel(twitterEventService,settingManager,account,timelineRepository);
             Timeline = StatusTimelineModel.Timeline.ToReadOnlyReactiveCollection(toViewModel).AddTo(Disposable);
             Timeline.CollectionChangedAsObservable().Subscribe(x => collectionChanged(x)).AddTo(Disposable);
             IsLoading = StatusTimelineModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);

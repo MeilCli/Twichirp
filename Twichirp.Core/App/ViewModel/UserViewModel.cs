@@ -46,7 +46,7 @@ namespace Twichirp.Core.App.ViewModel {
         public ReactiveProperty<string> Location { get; } = new ReactiveProperty<string>();
         public ReactiveProperty<ISpannableString> Url { get; } = new ReactiveProperty<ISpannableString>();
 
-        public UserViewModel(ITwichirpApplication application,CUser user,ImmutableAccount account) : this(application,new UserModel(application,user),account) { }
+        public UserViewModel(ITwichirpApplication application,CUser user,ImmutableAccount account) : this(application,new UserModel(user),account) { }
 
         public UserViewModel(ITwichirpApplication application,UserModel userModel,ImmutableAccount account) : base(application) {
             Account = account;

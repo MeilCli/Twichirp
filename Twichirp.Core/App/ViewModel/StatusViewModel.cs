@@ -116,7 +116,7 @@ namespace Twichirp.Core.App.ViewModel {
 
         [InjectionConstructor]
         public StatusViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,CStatus status,ImmutableAccount account)
-            : this(application,new StatusModel(application,twitterEventService,status),account) { }
+            : this(application,new StatusModel(twitterEventService,status),account) { }
 
         internal StatusViewModel(ITwichirpApplication application,StatusModel status,ImmutableAccount account) : base(application) {
             Account = account;

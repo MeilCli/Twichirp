@@ -64,7 +64,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public SplashModel(ITwichirpApplication application,IAccountRepository accountRepository,SettingManager settingManager) : base(application) {
+        public SplashModel(IAccountRepository accountRepository,SettingManager settingManager) {
             this.accountRepository = accountRepository;
             this.settingManager = settingManager;
         }

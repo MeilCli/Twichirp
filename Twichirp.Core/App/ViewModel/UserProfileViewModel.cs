@@ -88,7 +88,7 @@ namespace Twichirp.Core.App.ViewModel {
         public UserProfileViewModel(ITwichirpApplication application,ITwitterEventService twitterEventService,ImmutableAccount account,long userId,CUser user = null) : base(application) {
             Account = account;
             UserId = userId;
-            userProfileModel = new UserProfileModel(application,twitterEventService,account,userId,user);
+            userProfileModel = new UserProfileModel(twitterEventService,account,userId,user);
 
             IsLoading = userProfileModel.ObserveProperty(x => x.IsLoading).ToReadOnlyReactiveProperty().AddTo(Disposable);
 

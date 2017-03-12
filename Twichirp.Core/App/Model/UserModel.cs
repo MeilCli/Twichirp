@@ -64,7 +64,7 @@ namespace Twichirp.Core.App.Model {
 
         public bool IsVerified { get; private set; }
 
-        public UserModel(ITwichirpApplication application,User user) : base(application) {
+        public UserModel(User user) {
             SetUser(user);
         }
 

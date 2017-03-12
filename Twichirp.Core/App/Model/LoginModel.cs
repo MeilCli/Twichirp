@@ -49,7 +49,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public LoginModel(ITwichirpApplication application,IAccountRepository accountRepository,SettingManager settingManager) : base(application) {
+        public LoginModel(IAccountRepository accountRepository,SettingManager settingManager) {
             this.accountRepository = accountRepository;
             this.settingManager = settingManager;
         }

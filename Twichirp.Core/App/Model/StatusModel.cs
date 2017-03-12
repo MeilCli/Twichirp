@@ -83,7 +83,7 @@ namespace Twichirp.Core.App.Model {
 
         public StatusModel RetweetedStatus { get; private set; }
 
-        public StatusModel(ITwichirpApplication application,ITwitterEventService twitterEventService,CStatus status) : base(application) {
+        public StatusModel(ITwitterEventService twitterEventService,CStatus status) {
             this.twitterEventService = twitterEventService;
             SetStatus(status);
         }
@@ -92,7 +92,7 @@ namespace Twichirp.Core.App.Model {
             this.status = status;
 
             if(User == null) {
-                User = new UserModel(Application,status.User);
+                User = new UserModel(status.User);
             } else {
                 User.SetUser(status.User);
             }
@@ -121,7 +121,7 @@ namespace Twichirp.Core.App.Model {
             SetProperty(this,x => x.InReplyToUserId,status.InReplyToUserId);
 
             if(status.QuotedStatus != null && QuotedStatus == null) {
-                QuotedStatus = new StatusModel(Application,twitterEventService,status.QuotedStatus);
+                QuotedStatus = new StatusModel(twitterEventService,status.QuotedStatus);
             } else if(status.QuotedStatus != null) {
                 QuotedStatus.SetStatus(status.QuotedStatus);
             } else {
@@ -133,7 +133,7 @@ namespace Twichirp.Core.App.Model {
             SetProperty(this,x => x.IsRetweeted,status.IsRetweeted ?? false);
 
             if(status.RetweetedStatus != null && RetweetedStatus == null) {
-                RetweetedStatus = new StatusModel(Application,twitterEventService,status.RetweetedStatus);
+                RetweetedStatus = new StatusModel(twitterEventService,status.RetweetedStatus);
             } else if(status.RetweetedStatus != null) {
                 RetweetedStatus.SetStatus(status.RetweetedStatus);
             } else {

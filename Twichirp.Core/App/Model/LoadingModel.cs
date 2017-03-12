@@ -34,7 +34,7 @@ namespace Twichirp.Core.App.Model {
             }
         }
 
-        public LoadingModel(ITwichirpApplication application) : base(application) {
+        public LoadingModel() {
         }
 
         public void StartLoading() {
