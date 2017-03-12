@@ -22,11 +22,11 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Twichirp.Core.App.Model;
 using Twichirp.Core.DataRepositories;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.Events;
 using Twichirp.Core.Settings;
+using Twichirp.Core.Models;
 
 namespace Twichirp.Core.App.ViewModel {
 

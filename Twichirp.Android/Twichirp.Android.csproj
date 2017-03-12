@@ -232,7 +232,7 @@
     <Compile Include="Extensions\ContextExtensions.cs" />
     <Compile Include="Extensions\UtilExtensions.cs" />
     <Compile Include="Extensions\ViewExtensions.cs" />
-    <Compile Include="App\Model\MainModel.cs" />
+    <Compile Include="Models\MainModel.cs" />
     <Compile Include="Settings\AccountSettingFragment.cs" />
     <Compile Include="Settings\ApplicationSettingFragment.cs" />
     <Compile Include="Settings\MainSettingFragment.cs" />

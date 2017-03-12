@@ -25,7 +25,7 @@ using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Resources;
 using Twichirp.Core.Settings;
 
-namespace Twichirp.Core.App.Model {
+namespace Twichirp.Core.Models {
 
     class SplashModel : BaseModel {
 

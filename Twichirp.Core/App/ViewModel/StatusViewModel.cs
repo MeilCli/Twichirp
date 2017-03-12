@@ -22,7 +22,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Twichirp.Core.App.Model;
 using System.Reactive.Linq;
 using Twichirp.Core.Extensions;
 using Plugin.CrossFormattedText.Abstractions;
@@ -33,6 +32,7 @@ using Microsoft.Practices.Unity;
 using CStatus = CoreTweet.Status;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.Services;
+using Twichirp.Core.Models;
 
 namespace Twichirp.Core.App.ViewModel {
 

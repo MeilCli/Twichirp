@@ -25,9 +25,9 @@ using Plugin.CrossFormattedText;
 using Plugin.CrossFormattedText.Abstractions;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using Twichirp.Core.App.Model;
 using Twichirp.Core.Constants;
 using Twichirp.Core.DataObjects;
+using Twichirp.Core.Models;
 using CUser = CoreTweet.User;
 
 namespace Twichirp.Core.App.ViewModel {

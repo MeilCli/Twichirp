@@ -27,7 +27,7 @@ using Twichirp.Core.Extensions;
 using Twichirp.Core.Services;
 using CUser = CoreTweet.User;
 
-namespace Twichirp.Core.App.Model {
+namespace Twichirp.Core.Models {
 
     public class UserProfileModel : BaseModel {
 

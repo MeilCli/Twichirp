@@ -28,7 +28,7 @@ using CStatus = CoreTweet.Status;
 using Twichirp.Core.Services;
 using Twichirp.Core.Events;
 
-namespace Twichirp.Core.App.Model {
+namespace Twichirp.Core.Models {
 
     class StatusModel : BaseModel {
 

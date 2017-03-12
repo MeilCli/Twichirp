@@ -26,7 +26,7 @@ using DUser = Twichirp.Core.DataObjects.User;
 using Twichirp.Core.Events;
 using Twichirp.Core.Settings;
 
-namespace Twichirp.Core.App.Model {
+namespace Twichirp.Core.Models {
 
     class LoginModel : BaseModel {
 

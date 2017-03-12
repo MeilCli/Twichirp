@@ -29,13 +29,13 @@ using Android.Widget;
 using Microsoft.Practices.Unity;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using Twichirp.Android.App.Model;
+using Twichirp.Android.Models;
 using Twichirp.Android.Objects;
 using Twichirp.Core.App;
-using Twichirp.Core.App.Model;
 using Twichirp.Core.App.ViewModel;
 using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Events;
+using Twichirp.Core.Models;
 using Twichirp.Core.Services;
 using Twichirp.Core.Settings;
 

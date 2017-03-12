@@ -22,7 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Twichirp.Core.App.Model {
+namespace Twichirp.Core.Models {
 
     public class UserModel : BaseModel {
 

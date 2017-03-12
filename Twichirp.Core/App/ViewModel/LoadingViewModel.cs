@@ -20,10 +20,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Twichirp.Core.App.Model;
 using Reactive.Bindings.Extensions;
+using Twichirp.Core.Models;
 
 namespace Twichirp.Core.App.ViewModel {
+
     public class LoadingViewModel : BaseViewModel {
 
         public ReadOnlyReactiveProperty<bool> IsLoading { get; }
