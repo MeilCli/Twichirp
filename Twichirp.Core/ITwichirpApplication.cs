@@ -21,7 +21,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 
-namespace Twichirp.Core.App {
+namespace Twichirp.Core {
     
     public interface ITwichirpApplication {
 

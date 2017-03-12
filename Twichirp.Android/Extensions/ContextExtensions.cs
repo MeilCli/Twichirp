@@ -25,7 +25,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Twichirp.Android.App;
 
 namespace Twichirp.Android.Extensions {
 

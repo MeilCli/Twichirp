@@ -27,7 +27,6 @@ using Android.Views;
 using Android.Widget;
 using CoreTweet;
 using Microsoft.Practices.Unity;
-using Twichirp.Core.App;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.Services;
 using Twichirp.Core.ViewModels;

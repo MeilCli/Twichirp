@@ -25,15 +25,15 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Twichirp.Core.App;
 using Twichirp.Core.Constants;
 using Microsoft.Practices.Unity;
 using Twichirp.Core.UnityExtensions;
 using Twichirp.Core.DataObjects;
 using Twichirp.Android.UnityExtensions;
 using Twichirp.Core.Settings;
+using Twichirp.Core;
 
-namespace Twichirp.Android.App {
+namespace Twichirp.Android {
 
     [Application(Icon = "@drawable/icon",Label = "Twichirp",Theme = "@style/AppTheme",LargeHeap = true)]
     public class TwichirpApplication : Application, ITwichirpApplication {

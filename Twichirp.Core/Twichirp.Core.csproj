@@ -45,7 +45,7 @@
     <Compile Include="Aclog\Data\User.cs" />
     <Compile Include="Aclog\TokenExtension.cs" />
     <Compile Include="Events\EventArgs.cs" />
-    <Compile Include="App\ITwichirpApplication.cs" />
+    <Compile Include="ITwichirpApplication.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\LoadingModel.cs" />
     <Compile Include="Models\LoginModel.cs" />

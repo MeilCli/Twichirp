@@ -26,7 +26,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Twichirp.Android.Objects;
-using Twichirp.Core.App;
 using Twichirp.Core.DataObjects;
 using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Models;

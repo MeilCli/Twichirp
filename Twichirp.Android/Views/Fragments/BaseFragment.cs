@@ -27,10 +27,9 @@ using Android.Support.V7.App;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using Twichirp.Android.App;
 using Twichirp.Android.Events;
 using Twichirp.Android.Views;
-using Twichirp.Core.App;
+using Twichirp.Core;
 using SFragment = Android.Support.V4.App.Fragment;
 
 namespace Twichirp.Android.Views.Fragments {

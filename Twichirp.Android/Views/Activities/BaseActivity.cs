@@ -26,10 +26,10 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.App;
-using Twichirp.Core.App;
 using SFragment = Android.Support.V4.App.Fragment;
 using Twichirp.Android.Events;
 using Twichirp.Android.Views.Fragments;
+using Twichirp.Core;
 
 namespace Twichirp.Android.Views.Activities {
 

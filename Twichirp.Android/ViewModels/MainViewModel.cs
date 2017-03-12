@@ -31,7 +31,6 @@ using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using Twichirp.Android.Models;
 using Twichirp.Android.Objects;
-using Twichirp.Core.App;
 using Twichirp.Core.DataRepositories;
 using Twichirp.Core.Events;
 using Twichirp.Core.Models;

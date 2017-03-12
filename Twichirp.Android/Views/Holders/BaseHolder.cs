@@ -26,12 +26,12 @@ using Android.Runtime;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
-using Twichirp.Core.App;
 using Android.Support.V7.Widget;
 using Android.Util;
 using Android.Support.V4.View;
 using AView = Android.Views.View;
 using Twichirp.Android.Events;
+using Twichirp.Core;
 
 // 未使用イベントの警告非表示
 #pragma warning disable 0067

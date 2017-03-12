@@ -26,7 +26,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Support.V7.App;
-using Twichirp.Core.App;
+using Twichirp.Core;
 
 namespace Twichirp.Android.Views {
 

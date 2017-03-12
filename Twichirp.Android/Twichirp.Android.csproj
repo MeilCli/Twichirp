@@ -279,7 +279,7 @@
     <Compile Include="Views\Interfaces\IUserView.cs" />
     <Compile Include="Views\Interfaces\IVideoViewerView.cs" />
     <Compile Include="Views\IView.cs" />
-    <Compile Include="App\TwichirpApplication.cs" />
+    <Compile Include="TwichirpApplication.cs" />
     <Compile Include="Views\Activities\BaseActivity.cs" />
     <Compile Include="Views\Fragments\BaseFragment.cs" />
     <Compile Include="Views\ILifeCycleView.cs" />
