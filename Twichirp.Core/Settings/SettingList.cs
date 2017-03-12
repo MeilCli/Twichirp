@@ -30,9 +30,7 @@ namespace Twichirp.Core.Settings {
         public int Count => list.Count;
 
         public T this[int index] {
-            get {
-                return list[index];
-            }
+            get => list[index];
             set {
                 list[index] = value;
                 SaveValues();

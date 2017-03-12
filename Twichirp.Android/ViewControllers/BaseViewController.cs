@@ -32,8 +32,8 @@ namespace Twichirp.Android.ViewControllers {
         public BaseViewController(TView view, TViewModel viewModel) {
             View = view;
             ViewModel = viewModel;
-            if (viewModel is IDisposable) {
-                view.Destroyed += (x, y) => { if (AutoDisposeViewModel) (viewModel as IDisposable).Dispose(); };
+            if (viewModel is IDisposable disposable) {
+                view.Destroyed += (x, y) => { if (AutoDisposeViewModel) disposable.Dispose(); };
             }
             view.Destroyed += (x, y) => { if (Disposable.IsDisposed == false) Disposable.Dispose(); };
         }

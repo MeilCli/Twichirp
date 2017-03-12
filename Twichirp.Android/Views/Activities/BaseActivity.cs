@@ -79,8 +79,8 @@ namespace Twichirp.Android.Views.Activities {
                 return;
             }
             foreach (SFragment fragment in SupportFragmentManager.Fragments) {
-                if (fragment is BaseFragment) {
-                    (fragment as BaseFragment).OnNewIntent(intent);
+                if (fragment is BaseFragment baseFragment) {
+                    baseFragment.OnNewIntent(intent);
                 }
             }
         }

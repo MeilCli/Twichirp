@@ -58,16 +58,8 @@ namespace Twichirp.Core.ViewModels {
 
         internal StatusModel StatusModel { get; }
         public long Id { get; private set; }
-        public string Json {
-            get {
-                return StatusModel.ExportJson();
-            }
-        }
-        public string QuotedJson {
-            get {
-                return StatusModel.QuotedStatus?.ExportJson();
-            }
-        }
+        public string Json => StatusModel.ExportJson();
+        public string QuotedJson => StatusModel.QuotedStatus?.ExportJson();
 
         public ReactiveProperty<ISpannableString> SpannableText { get; private set; } = new ReactiveProperty<ISpannableString>();
         public ReactiveProperty<string> Source { get; private set; } = new ReactiveProperty<string>();

@@ -35,11 +35,7 @@ namespace Twichirp.Android.ViewModels {
 
         private MainModel mainModel;
 
-        public string UserJson {
-            get {
-                return mainModel.User.ExportJson();
-            }
-        }
+        public string UserJson => mainModel.User.ExportJson();
 
         public ReadOnlyReactiveProperty<List<NavigationMenu>> NavigationMenus { get; }
         public ReadOnlyReactiveProperty<List<NavigationTab>> NavigationTabs { get; }

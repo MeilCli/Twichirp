@@ -38,19 +38,13 @@ namespace Twichirp.Core.Models {
 
         private bool _isLoading;
         public bool IsLoading {
-            get {
-                return _isLoading;
-            }
-            private set {
-                SetValue(ref _isLoading, value, nameof(IsLoading));
-            }
+            get => _isLoading;
+            private set => SetValue(ref _isLoading, value, nameof(IsLoading));
         }
 
         private UserModel _userModel;
         public UserModel UserModel {
-            get {
-                return _userModel;
-            }
+            get => _userModel;
             private set {
                 if (_userModel != null) {
                     return;
@@ -68,102 +62,62 @@ namespace Twichirp.Core.Models {
 
         private string _profileBannerUrl;
         public string ProfileBannerUrl {
-            get {
-                return _profileBannerUrl;
-            }
-            private set {
-                SetValue(ref _profileBannerUrl, value, nameof(ProfileBannerUrl));
-            }
+            get => _profileBannerUrl;
+            private set => SetValue(ref _profileBannerUrl, value, nameof(ProfileBannerUrl));
         }
 
         private string _profileLinkColor;
         public string ProfileLinkColor {
-            get {
-                return _profileLinkColor;
-            }
-            private set {
-                SetValue(ref _profileLinkColor, value, nameof(ProfileLinkColor));
-            }
+            get => _profileLinkColor;
+            private set => SetValue(ref _profileLinkColor, value, nameof(ProfileLinkColor));
         }
 
         private bool _isFollowing;
         public bool IsFollowing {
-            get {
-                return _isFollowing;
-            }
-            private set {
-                SetValue(ref _isFollowing, value, nameof(IsFollowing));
-            }
+            get => _isFollowing;
+            private set => SetValue(ref _isFollowing, value, nameof(IsFollowing));
         }
 
         private bool _isFollowingRequested;
         public bool IsFollowingRequested {
-            get {
-                return _isFollowingRequested;
-            }
-            private set {
-                SetValue(ref _isFollowingRequested, value, nameof(IsFollowingRequested));
-            }
+            get => _isFollowingRequested;
+            private set => SetValue(ref _isFollowingRequested, value, nameof(IsFollowingRequested));
         }
 
         private bool _isFollowedBy;
         public bool IsFollowedBy {
-            get {
-                return _isFollowedBy;
-            }
-            private set {
-                SetValue(ref _isFollowedBy, value, nameof(IsFollowedBy));
-            }
+            get => _isFollowedBy;
+            private set => SetValue(ref _isFollowedBy, value, nameof(IsFollowedBy));
         }
 
         private bool _isFollowingReceived;
         public bool IsFollowingReceived {
-            get {
-                return _isFollowingReceived;
-            }
-            private set {
-                SetValue(ref _isFollowingReceived, value, nameof(IsFollowingReceived));
-            }
+            get => _isFollowingReceived;
+            private set => SetValue(ref _isFollowingReceived, value, nameof(IsFollowingReceived));
         }
 
         private bool _isMuting;
         public bool IsMuting {
-            get {
-                return _isMuting;
-            }
-            private set {
-                SetValue(ref _isMuting, value, nameof(IsMuting));
-            }
+            get => _isMuting;
+            private set => SetValue(ref _isMuting, value, nameof(IsMuting));
         }
 
         private bool _isBlocking;
         public bool IsBlocking {
-            get {
-                return _isBlocking;
-            }
-            private set {
-                SetValue(ref _isBlocking, value, nameof(IsBlocking));
-            }
+            get => _isBlocking;
+            private set => SetValue(ref _isBlocking, value, nameof(IsBlocking));
         }
 
         private bool _isBlockedBy;
         public bool IsBlockedBy {
-            get {
-                return _isBlockedBy;
-            }
-            private set {
-                SetValue(ref _isBlockedBy, value, nameof(IsBlockedBy));
-            }
+            get => _isBlockedBy;
+            private set => SetValue(ref _isBlockedBy, value, nameof(IsBlockedBy));
         }
 
         private bool _isMarkedSpam;
         public bool IsMarkedSpam {
-            get {
-                return _isMarkedSpam;
-            }
-            private set {
-                SetValue(ref _isMarkedSpam, value, nameof(IsMarkedSpam));
-            }
+            get => _isMarkedSpam;
+            private set => SetValue(ref _isMarkedSpam, value, nameof(IsMarkedSpam));
         }
 
         // https://dev.twitter.com/rest/reference/post/direct_messages/new
@@ -171,12 +125,8 @@ namespace Twichirp.Core.Models {
         // こんなこと書かれてるけど確認した限り判別できてるような…
         private bool _canDM;
         public bool CanDM {
-            get {
-                return _canDM;
-            }
-            private set {
-                SetValue(ref _canDM, value, nameof(CanDM));
-            }
+            get => _canDM;
+            private set => SetValue(ref _canDM, value, nameof(CanDM));
         }
 
         public UserProfileModel(ITwitterEventService twitterEventService, ImmutableAccount account, long userId, CUser user = null) {

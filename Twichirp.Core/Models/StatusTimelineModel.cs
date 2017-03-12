@@ -47,22 +47,14 @@ namespace Twichirp.Core.Models {
 
         private bool _isLoading;
         public bool IsLoading {
-            get {
-                return _isLoading;
-            }
-            private set {
-                SetValue(ref _isLoading, value, nameof(IsLoading));
-            }
+            get => _isLoading;
+            private set => SetValue(ref _isLoading, value, nameof(IsLoading));
         }
 
         private bool _canLoadMore = true;
         private bool canLoadMore {
-            get {
-                return _canLoadMore;
-            }
-            set {
-                _canLoadMore = value;
-            }
+            get => _canLoadMore;
+            set => _canLoadMore = value;
         }
 
         public StatusTimelineModel(ITwitterEventService twitterEventService, SettingManager settingManager, ImmutableAccount account, ITimelineRepository defaultRepository) {
@@ -235,8 +227,8 @@ namespace Twichirp.Core.Models {
             var removes = Timeline.Reverse().Take(count).ToList();
             foreach (var r in removes) {
                 Timeline.RemoveOnScheduler(r);
-                if (r is StatusModel) {
-                    statusTimeline.Remove(r as StatusModel);
+                if (r is StatusModel statusModel) {
+                    statusTimeline.Remove(statusModel);
                 }
             }
         }

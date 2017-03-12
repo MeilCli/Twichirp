@@ -21,12 +21,8 @@ namespace Twichirp.Core.Models {
 
         private bool _isLoading;
         public bool IsLoading {
-            get {
-                return _isLoading;
-            }
-            private set {
-                SetValue(ref _isLoading, value, nameof(IsLoading));
-            }
+            get => _isLoading;
+            private set => SetValue(ref _isLoading, value, nameof(IsLoading));
         }
 
         public LoadingModel() {

@@ -43,29 +43,19 @@ namespace Twichirp.Android.Models {
 
         private List<NavigationMenu> _navigationMenus;
         public List<NavigationMenu> NavigationMenus {
-            get {
-                return _navigationMenus;
-            }
-            private set {
-                SetValue(ref _navigationMenus, value, nameof(NavigationMenus));
-            }
+            get => _navigationMenus;
+            private set => SetValue(ref _navigationMenus, value, nameof(NavigationMenus));
         }
 
         private List<NavigationTab> _navigationTabs;
         public List<NavigationTab> NavigationTabs {
-            get {
-                return _navigationTabs;
-            }
-            private set {
-                SetValue(ref _navigationTabs, value, nameof(NavigationTabs));
-            }
+            get => _navigationTabs;
+            private set => SetValue(ref _navigationTabs, value, nameof(NavigationTabs));
         }
 
         private bool _isHiding;
         public bool IsHiding {
-            get {
-                return _isHiding;
-            }
+            get => _isHiding;
             private set {
                 SetValue(ref _isHiding, value, nameof(IsHiding));
                 makeNavigationMenu();
@@ -74,32 +64,20 @@ namespace Twichirp.Android.Models {
 
         private UserModel _user;
         public UserModel User {
-            get {
-                return _user;
-            }
-            private set {
-                SetValue(ref _user, value, nameof(User));
-            }
+            get => _user;
+            private set => SetValue(ref _user, value, nameof(User));
         }
 
         private UserModel _firstSubUser;
         public UserModel FirstSubUser {
-            get {
-                return _firstSubUser;
-            }
-            private set {
-                SetValue(ref _firstSubUser, value, nameof(FirstSubUser));
-            }
+            get => _firstSubUser;
+            private set => SetValue(ref _firstSubUser, value, nameof(FirstSubUser));
         }
 
         private UserModel _secondSubUser;
         public UserModel SecondSubUser {
-            get {
-                return _secondSubUser;
-            }
-            private set {
-                SetValue(ref _secondSubUser, value, nameof(SecondSubUser));
-            }
+            get => _secondSubUser;
+            private set => SetValue(ref _secondSubUser, value, nameof(SecondSubUser));
         }
 
 
@@ -184,17 +162,18 @@ namespace Twichirp.Android.Models {
             }
         }
 
-        private async Task<UserModel> toUserModel(ImmutableAccount account) {
-            if (account.User == null) {
-                try {
-                    var coreTweetUser = await account.CoreTweetToken.Users.ShowAsync(account.Id);
-                    var mutableAccount = new Account(new User(coreTweetUser), new Token(account.Token));
-                    await Task.Run(() => accountRepository.AddOrUpdate(mutableAccount));
-                } catch (Exception) {
-                    return null;
-                }
-                account = await Task.Run(() => accountRepository.Find(account.Id));
+        private async ValueTask<UserModel> toUserModel(ImmutableAccount account) {
+            if (account.User != null) {
+                return new UserModel(account.User.CoreTweetUser);
             }
+            try {
+                var coreTweetUser = await account.CoreTweetToken.Users.ShowAsync(account.Id);
+                var mutableAccount = new Account(new User(coreTweetUser), new Token(account.Token));
+                await Task.Run(() => accountRepository.AddOrUpdate(mutableAccount));
+            } catch (Exception) {
+                return null;
+            }
+            account = await Task.Run(() => accountRepository.Find(account.Id));
             return new UserModel(account.User.CoreTweetUser);
         }
 

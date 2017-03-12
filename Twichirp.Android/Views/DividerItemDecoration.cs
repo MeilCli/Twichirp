@@ -32,9 +32,7 @@ namespace Twichirp.Android.Views {
 
         private int _orientation;
         public int Orientation {
-            get {
-                return _orientation;
-            }
+            get => _orientation;
             set {
                 if (value != Vertical && value != Horizontal) {
                     throw new ArgumentException("not support orientation type");

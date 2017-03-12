@@ -23,9 +23,7 @@ namespace Twichirp.Core.Settings {
 
         [JsonProperty]
         public int Count {
-            get {
-                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(Count)), 50);
-            }
+            get => SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(Count)), 50);
             set {
                 SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(Count)), value);
                 RaisePropertyChanged(nameof(Count));
@@ -34,9 +32,7 @@ namespace Twichirp.Core.Settings {
 
         [JsonProperty]
         public int OwnedNumber {
-            get {
-                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(OwnedNumber)), 600);
-            }
+            get => SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(OwnedNumber)), 600);
             set {
                 SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(OwnedNumber)), value);
                 RaisePropertyChanged(nameof(OwnedNumber));

@@ -37,17 +37,13 @@ namespace Twichirp.Android.Views {
             INotifyCollectionChanged list,
             Func<T, int, int> viewTypeSelector,
             Func<ViewGroup, int, RecyclerView.ViewHolder> viewCreator) : base() {
-            if (list == null)
-                throw new ArgumentNullException(nameof(list));
-            if (list is IList<T> == false)
+            this.list = list as IList<T> ?? throw new ArgumentNullException(nameof(list));
+            if (this.list == null) {
                 throw new ArgumentException(nameof(list));
-            if (viewTypeSelector == null)
-                throw new ArgumentNullException(nameof(viewTypeSelector));
-            if (viewCreator == null)
-                throw new ArgumentNullException(nameof(viewCreator));
+            }
             this.notify = list;
             list.CollectionChanged += collectionChanged;
-            this.list = list as IList<T>;
+
             this.viewTypeSelector = viewTypeSelector;
             this.viewCreator = viewCreator;
         }
@@ -55,8 +51,8 @@ namespace Twichirp.Android.Views {
         public override int ItemCount => list.Count;
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            if (holder is IBindable<T>) {
-                (holder as IBindable<T>).OnBind(list[position], position);
+            if (holder is IBindable<T> bindable) {
+                bindable.OnBind(list[position], position);
             }
             if (position == list.Count - 1) {
                 LastItemShowed?.Invoke(this, new EventArgs());
@@ -133,8 +129,8 @@ namespace Twichirp.Android.Views {
         public override void OnViewRecycled(Java.Lang.Object holder) {
             base.OnViewRecycled(holder);
 
-            if (holder is IRecyclable) {
-                (holder as IRecyclable).OnRecycled();
+            if (holder is IRecyclable recyclable) {
+                recyclable.OnRecycled();
             }
         }
     }

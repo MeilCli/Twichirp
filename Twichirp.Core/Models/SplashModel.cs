@@ -32,32 +32,20 @@ namespace Twichirp.Core.Models {
 
         private bool _isRunning;
         public bool IsRunning {
-            get {
-                return _isRunning;
-            }
-            private set {
-                SetValue(ref _isRunning, value, nameof(IsRunning));
-            }
+            get => _isRunning;
+            private set => SetValue(ref _isRunning, value, nameof(IsRunning));
         }
 
         private bool _isAccountExist;
         public bool IsAccountExist {
-            get {
-                return _isAccountExist;
-            }
-            private set {
-                SetValue(ref _isAccountExist, value, nameof(IsAccountExist));
-            }
+            get => _isAccountExist;
+            private set => SetValue(ref _isAccountExist, value, nameof(IsAccountExist));
         }
 
         private string _message = string.Empty;
         public string Message {
-            get {
-                return _message;
-            }
-            private set {
-                SetValue(ref _message, value, nameof(Message));
-            }
+            get => _message;
+            private set => SetValue(ref _message, value, nameof(Message));
         }
 
         public SplashModel(IAccountRepository accountRepository, SettingManager settingManager) {

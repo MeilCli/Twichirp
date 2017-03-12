@@ -23,9 +23,7 @@ namespace Twichirp.Core.Settings {
 
         [JsonProperty]
         public bool IsCleanLaunch {
-            get {
-                return SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(IsCleanLaunch)), true);
-            }
+            get => SettingManager.AppSettings.GetValueOrDefault(MakeSettingName(nameof(IsCleanLaunch)), true);
             set {
                 SettingManager.AppSettings.AddOrUpdateValue(MakeSettingName(nameof(IsCleanLaunch)), value);
                 RaisePropertyChanged(nameof(IsCleanLaunch));

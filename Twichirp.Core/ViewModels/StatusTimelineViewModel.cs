@@ -47,11 +47,7 @@ namespace Twichirp.Core.ViewModels {
         private ImmutableAccount account;
         protected StatusTimelineModel StatusTimelineModel;
 
-        public string Json {
-            get {
-                return StatusTimelineModel.ExportJson();
-            }
-        }
+        public string Json => StatusTimelineModel.ExportJson();
 
         public ReadOnlyReactiveCollection<BaseViewModel> Timeline { get; }
         public ReadOnlyReactiveProperty<bool> IsLoading { get; }
@@ -84,11 +80,11 @@ namespace Twichirp.Core.ViewModels {
         }
 
         private BaseViewModel toViewModel(BaseModel model) {
-            if (model is StatusModel) {
-                return new StatusViewModel(model as StatusModel, account);
+            if (model is StatusModel statusModel) {
+                return new StatusViewModel(statusModel, account);
             }
-            if (model is LoadingModel) {
-                return new LoadingViewModel(model as LoadingModel);
+            if (model is LoadingModel loadingModel) {
+                return new LoadingViewModel(loadingModel);
             }
             return null;
         }
@@ -96,15 +92,13 @@ namespace Twichirp.Core.ViewModels {
         private void collectionChanged(NotifyCollectionChangedEventArgs e) {
             if (e.Action == NotifyCollectionChangedAction.Add) {
                 foreach (var s in e.NewItems) {
-                    if (s is LoadingViewModel) {
-                        LoadingViewModel loadingViewModel = s as LoadingViewModel;
+                    if (s is LoadingViewModel loadingViewModel) {
                         loadingViewModel.LoadCommand.Subscribe(async x => await StatusTimelineModel.LoadAsync(loadingViewModel.LoadingModel)).AddTo(Disposable);
                     }
                 }
             } else if (e.Action == NotifyCollectionChangedAction.Replace) {
                 foreach (var s in e.NewItems) {
-                    if (s is LoadingViewModel) {
-                        LoadingViewModel loadingViewModel = s as LoadingViewModel;
+                    if (s is LoadingViewModel loadingViewModel) {
                         loadingViewModel.LoadCommand.Subscribe(async x => await StatusTimelineModel.LoadAsync(loadingViewModel.LoadingModel)).AddTo(Disposable);
                     }
                 }

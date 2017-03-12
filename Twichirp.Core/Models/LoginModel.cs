@@ -38,12 +38,8 @@ namespace Twichirp.Core.Models {
 
         private bool _isLoding;
         public bool IsLoading {
-            get {
-                return _isLoding;
-            }
-            private set {
-                SetValue(ref _isLoding, value, nameof(IsLoading));
-            }
+            get => _isLoding;
+            private set => SetValue(ref _isLoding, value, nameof(IsLoading));
         }
 
         public LoginModel(IAccountRepository accountRepository, SettingManager settingManager) {

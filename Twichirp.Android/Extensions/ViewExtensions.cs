@@ -14,7 +14,6 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
-using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Widget;
 using AView = Android.Views.View;
@@ -33,9 +32,6 @@ namespace Twichirp.Android.Extensions {
             var drawable = imageView.Drawable;
             imageView.SetImageDrawable(null);
             imageView.Tag = null;
-            if (drawable is BitmapDrawable) {
-                //(drawable as BitmapDrawable)?.Bitmap?.Recycle();
-            }
         }
     }
 }

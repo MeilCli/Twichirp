@@ -39,9 +39,7 @@ namespace Twichirp.Core.Settings {
 
         [JsonProperty]
         public int SettingVersion {
-            get {
-                return AppSettings.GetValueOrDefault(nameof(SettingVersion), CurrentVersion);
-            }
+            get => AppSettings.GetValueOrDefault(nameof(SettingVersion), CurrentVersion);
             set {
                 AppSettings.AddOrUpdateValue(nameof(SettingVersion), value);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SettingVersion)));

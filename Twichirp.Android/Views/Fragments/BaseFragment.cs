@@ -39,10 +39,11 @@ namespace Twichirp.Android.Views.Fragments {
 
         AppCompatActivity IView.Activity {
             get {
-                if (base.Activity is AppCompatActivity == false) {
+                var appCompatActivity = base.Activity as AppCompatActivity;
+                if (appCompatActivity == null) {
                     throw new InvalidProgramException();
                 }
-                return base.Activity as AppCompatActivity;
+                return appCompatActivity;
             }
         }
 

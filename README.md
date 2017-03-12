@@ -4,6 +4,9 @@
 Now target is Android(API15 over)  
 Next target will be UWP(Windows10) 
 
+## Build Require
+Visual Studio 2017 or C# 7.0 Compiler
+
 ## ToDo
 [タスク](https://github.com/MeilCli/Twichirp/projects/1)
 

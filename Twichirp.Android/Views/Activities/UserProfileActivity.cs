@@ -160,8 +160,8 @@ namespace Twichirp.Android.Views.Activities {
                 return;
             }
             foreach (var fragment in SupportFragmentManager.Fragments) {
-                if (fragment is IAppBarViewContainer) {
-                    (fragment as IAppBarViewContainer).RaiseAppBarOffsetChanged(eventArgs);
+                if (fragment is IAppBarViewContainer appBarViewContainer) {
+                    appBarViewContainer.RaiseAppBarOffsetChanged(eventArgs);
                 }
             }
         }
