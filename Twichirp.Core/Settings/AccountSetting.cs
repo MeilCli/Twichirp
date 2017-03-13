@@ -15,7 +15,6 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Twichirp.Core.DataRepositories;
@@ -35,7 +34,7 @@ namespace Twichirp.Core.Settings {
             get {
                 long result = SettingManager.AppSettings.GetValueOrDefault<long>(MakeSettingName(nameof(DefaultAccountId)), -1);
                 if (result == -1) {
-                    result = accountRepository.Get(x => x.Take(1)).First().Id;
+                    result = accountRepository.FirstOrDefault()?.Id ?? -1;
                     DefaultAccountId = result;
                 }
                 return result;
