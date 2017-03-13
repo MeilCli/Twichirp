@@ -81,7 +81,7 @@ namespace Twichirp.Core.DataObjects {
         public ImmutableClientKey(string consumerKey, string consumerSecret, string clientName) {
             ClientName = clientName;
             ConsumerKey = consumerKey;
-            ConsumerSecret = ConsumerSecret;
+            ConsumerSecret = consumerSecret;
         }
     }
 }
