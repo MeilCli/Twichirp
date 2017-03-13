@@ -41,15 +41,15 @@ namespace Twichirp.Android.Views.Interfaces {
 
         TextView DateTime { get; }
 
-        LinearLayout MediaParent2 { get; }
+        int MediaContainerId { get; }
 
-        FrameLayout MediaFrame1 { get; }
+        AView MediaFrame1 { get; }
 
-        FrameLayout MediaFrame2 { get; }
+        AView MediaFrame2 { get; }
 
-        FrameLayout MediaFrame3 { get; }
+        AView MediaFrame3 { get; }
 
-        FrameLayout MediaFrame4 { get; }
+        AView MediaFrame4 { get; }
 
         ImageViewAsync Media1 { get; }
 
@@ -59,17 +59,17 @@ namespace Twichirp.Android.Views.Interfaces {
 
         ImageViewAsync Media4 { get; }
 
-        FrameLayout ReplyIconClickable { get; }
+        AView ReplyIconClickable { get; }
 
         ImageView ReplyIcon { get; }
 
-        FrameLayout RetweetIconClickable { get; }
+        AView RetweetIconClickable { get; }
 
         ImageView RetweetIcon { get; }
 
         TextView RetweetCount { get; }
 
-        FrameLayout FavoriteIconClickable { get; }
+        AView FavoriteIconClickable { get; }
 
         ImageView FavoriteIcon { get; }
 
@@ -83,7 +83,7 @@ namespace Twichirp.Android.Views.Interfaces {
 
         TextView QuotingText { get; }
 
-        LinearLayout QuotingMediaParent2 { get; }
+        int QuotingMediaContainerId { get; }
 
         ImageViewAsync QuotingMedia1 { get; }
 

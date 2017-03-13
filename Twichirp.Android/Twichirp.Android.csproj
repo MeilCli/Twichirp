@@ -344,46 +344,7 @@
     <AndroidResource Include="Resources\layout\LoadingHolder.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\StatusHolder.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\StatusTimelineFragment.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\IncludeStatusRetweeting.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\IncludeStatusReplyToUser.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\IncludeStatusMain.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\IncludeStatusMedia.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\IncludeStatusAction.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\StatusMediaHolder.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\IncludeStatusQuoting.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\StatusQuotingHolder.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\StatusQuotingOuterMediaHolder.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\IncludeStatusQuotingInnerMedia.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\StatusQuotingInnerMediaHolder.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\StatusQuotingInnerAndOuterMediaHolder.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ImageViewerActivity.axml">
@@ -786,6 +747,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
+    <AndroidResource Include="Resources\layout\constraint_status_holder.xml" />
+    <AndroidResource Include="Resources\layout\constraint_status_media_holder.xml" />
+    <AndroidResource Include="Resources\layout\constraint_status_quoting_holder.xml" />
+    <AndroidResource Include="Resources\layout\constraint_status_quoting_inner_media_holder.xml" />
+    <AndroidResource Include="Resources\layout\constraint_status_quoting_inner_and_outer_media_holder.xml" />
+    <AndroidResource Include="Resources\layout\constraint_status_quoting_outer_media_holder.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

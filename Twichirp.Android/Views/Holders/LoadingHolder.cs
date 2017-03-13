@@ -15,6 +15,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with Twichirp.  If not, see <http://www.gnu.org/licenses/>.
 
+using Android.Views;
 using Android.Widget;
 using Twichirp.Android.ViewControllers;
 using Twichirp.Android.Views.Interfaces;
@@ -28,8 +29,8 @@ namespace Twichirp.Android.Views.Holders {
 
     public class LoadingHolder : BaseHolder<BaseViewModel>, ILoadingView {
 
-        public static LoadingHolder Make(IView view) {
-            var itemView = InflateView(view, Resource.Layout.LoadingHolder);
+        public static LoadingHolder Make(IView view, ViewGroup parent) {
+            var itemView = InflateView(view, Resource.Layout.LoadingHolder, parent);
             var holder = new LoadingHolder(itemView, view);
             holder.OnCreatedView();
             return holder;

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#673AB7</color>
+    <color name="Snow">#F2F2F2</color>
+    <color name="Grey300">#e0e0e0</color>
+    <color name="Grey600">#757575</color>
+    <color name="TransparentGrey">#B2E0E0E0</color>
+    <color name="Transparent">@android:color/transparent</color>
+
+    <color name="Retweet">#00c853</color>
+    <color name="Favorite">#ffd600</color>
+</resources>

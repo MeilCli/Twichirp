@@ -30,8 +30,8 @@ namespace Twichirp.Android.Views.Holders {
 
     public abstract class BaseHolder<T> : RecyclerView.ViewHolder, IView, ILifeCycleView, IBindable<T>, IRecyclable {
 
-        protected static AView InflateView(IView view, int layoutResource) {
-            return LayoutInflater.From(view.Activity).Inflate(layoutResource, null);
+        protected static AView InflateView(IView view, int layoutResource, ViewGroup parent) {
+            return LayoutInflater.From(view.Activity).Inflate(layoutResource, parent, false);
         }
 
         public event EventHandler<LifeCycleEventArgs> Created;

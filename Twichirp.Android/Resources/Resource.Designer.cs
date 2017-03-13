@@ -4308,137 +4308,143 @@ namespace Twichirp.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0600cf
-			public const int AppBar = 2131099855;
-			
-			// aapt resource value: 0x7f0600d6
-			public const int Background = 2131099862;
-			
-			// aapt resource value: 0x7f0600ba
-			public const int Banner = 2131099834;
-			
-			// aapt resource value: 0x7f0600c1
-			public const int BioLinear = 2131099841;
-			
-			// aapt resource value: 0x7f0600d4
-			public const int BottomBar = 2131099860;
-			
-			// aapt resource value: 0x7f0600be
-			public const int ButtonLinear = 2131099838;
-			
-			// aapt resource value: 0x7f0600f2
-			public const int CollapsingToolbar = 2131099890;
-			
-			// aapt resource value: 0x7f0600d3
-			public const int Content = 2131099859;
-			
-			// aapt resource value: 0x7f0600d2
-			public const int ContentRoot = 2131099858;
-			
-			// aapt resource value: 0x7f0600ce
-			public const int Coordinator = 2131099854;
-			
-			// aapt resource value: 0x7f06009c
-			public const int DateTime = 2131099804;
-			
-			// aapt resource value: 0x7f0600c2
-			public const int Description = 2131099842;
-			
-			// aapt resource value: 0x7f0600c5
-			public const int DrawerLayout = 2131099845;
-			
-			// aapt resource value: 0x7f0600dd
-			public const int Drop = 2131099869;
-			
-			// aapt resource value: 0x7f0600bf
-			public const int Extraship = 2131099839;
-			
-			// aapt resource value: 0x7f06009b
-			public const int FavoriteCount = 2131099803;
-			
-			// aapt resource value: 0x7f06009a
-			public const int FavoriteIcon = 2131099802;
-			
-			// aapt resource value: 0x7f060099
-			public const int FavoriteIconClickable = 2131099801;
-			
-			// aapt resource value: 0x7f0600d9
-			public const int FirstSubIcon = 2131099865;
+			// aapt resource value: 0x7f0600d1
+			public const int AppBar = 2131099857;
 			
 			// aapt resource value: 0x7f0600d8
-			public const int FirstSubIconClickable = 2131099864;
-			
-			// aapt resource value: 0x7f0600c0
-			public const int Friendship = 2131099840;
-			
-			// aapt resource value: 0x7f0600ca
-			public const int GoToWeb = 2131099850;
-			
-			// aapt resource value: 0x7f0600a2
-			public const int Icon = 2131099810;
-			
-			// aapt resource value: 0x7f0600d7
-			public const int IconClickable = 2131099863;
-			
-			// aapt resource value: 0x7f0600c9
-			public const int LoadingText = 2131099849;
-			
-			// aapt resource value: 0x7f0600c3
-			public const int Location = 2131099843;
-			
-			// aapt resource value: 0x7f06009e
-			public const int LockIcon = 2131099806;
-			
-			// aapt resource value: 0x7f0600cb
-			public const int Login = 2131099851;
-			
-			// aapt resource value: 0x7f0600a6
-			public const int Media1 = 2131099814;
-			
-			// aapt resource value: 0x7f0600ab
-			public const int Media2 = 2131099819;
-			
-			// aapt resource value: 0x7f0600a8
-			public const int Media3 = 2131099816;
-			
-			// aapt resource value: 0x7f0600ad
-			public const int Media4 = 2131099821;
-			
-			// aapt resource value: 0x7f0600a5
-			public const int MediaFrame1 = 2131099813;
-			
-			// aapt resource value: 0x7f0600aa
-			public const int MediaFrame2 = 2131099818;
-			
-			// aapt resource value: 0x7f0600a7
-			public const int MediaFrame3 = 2131099815;
-			
-			// aapt resource value: 0x7f0600ac
-			public const int MediaFrame4 = 2131099820;
-			
-			// aapt resource value: 0x7f0600a3
-			public const int MediaGrid = 2131099811;
-			
-			// aapt resource value: 0x7f0600a4
-			public const int MediaParent1 = 2131099812;
-			
-			// aapt resource value: 0x7f0600a9
-			public const int MediaParent2 = 2131099817;
-			
-			// aapt resource value: 0x7f0600ef
-			public const int Message = 2131099887;
-			
-			// aapt resource value: 0x7f0600a0
-			public const int Name = 2131099808;
-			
-			// aapt resource value: 0x7f06009d
-			public const int NameLinear = 2131099805;
+			public const int Background = 2131099864;
 			
 			// aapt resource value: 0x7f0600bb
-			public const int NameSpace = 2131099835;
+			public const int Banner = 2131099835;
+			
+			// aapt resource value: 0x7f0600c3
+			public const int BioLinear = 2131099843;
+			
+			// aapt resource value: 0x7f0600d6
+			public const int BottomBar = 2131099862;
+			
+			// aapt resource value: 0x7f0600c0
+			public const int ButtonLinear = 2131099840;
+			
+			// aapt resource value: 0x7f0600f4
+			public const int CollapsingToolbar = 2131099892;
 			
 			// aapt resource value: 0x7f0600d5
-			public const int Navigation = 2131099861;
+			public const int Content = 2131099861;
+			
+			// aapt resource value: 0x7f0600d4
+			public const int ContentRoot = 2131099860;
+			
+			// aapt resource value: 0x7f0600d0
+			public const int Coordinator = 2131099856;
+			
+			// aapt resource value: 0x7f06008d
+			public const int DateTime = 2131099789;
+			
+			// aapt resource value: 0x7f0600c4
+			public const int Description = 2131099844;
+			
+			// aapt resource value: 0x7f0600c7
+			public const int DrawerLayout = 2131099847;
+			
+			// aapt resource value: 0x7f0600df
+			public const int Drop = 2131099871;
+			
+			// aapt resource value: 0x7f0600c1
+			public const int Extraship = 2131099841;
+			
+			// aapt resource value: 0x7f06009a
+			public const int FavoriteCount = 2131099802;
+			
+			// aapt resource value: 0x7f060095
+			public const int FavoriteIcon = 2131099797;
+			
+			// aapt resource value: 0x7f060098
+			public const int FavoriteIconClickable = 2131099800;
+			
+			// aapt resource value: 0x7f0600db
+			public const int FirstSubIcon = 2131099867;
+			
+			// aapt resource value: 0x7f0600da
+			public const int FirstSubIconClickable = 2131099866;
+			
+			// aapt resource value: 0x7f06009b
+			public const int FooterMargin = 2131099803;
+			
+			// aapt resource value: 0x7f0600c2
+			public const int Friendship = 2131099842;
+			
+			// aapt resource value: 0x7f0600cc
+			public const int GoToWeb = 2131099852;
+			
+			// aapt resource value: 0x7f060088
+			public const int HeadMargin = 2131099784;
+			
+			// aapt resource value: 0x7f060092
+			public const int Icon = 2131099794;
+			
+			// aapt resource value: 0x7f0600d9
+			public const int IconClickable = 2131099865;
+			
+			// aapt resource value: 0x7f060089
+			public const int IconMargin = 2131099785;
+			
+			// aapt resource value: 0x7f06008a
+			public const int IconMargined = 2131099786;
+			
+			// aapt resource value: 0x7f0600cb
+			public const int LoadingText = 2131099851;
+			
+			// aapt resource value: 0x7f0600c5
+			public const int Location = 2131099845;
+			
+			// aapt resource value: 0x7f060090
+			public const int LockIcon = 2131099792;
+			
+			// aapt resource value: 0x7f0600cd
+			public const int Login = 2131099853;
+			
+			// aapt resource value: 0x7f06009d
+			public const int Media1 = 2131099805;
+			
+			// aapt resource value: 0x7f06009f
+			public const int Media2 = 2131099807;
+			
+			// aapt resource value: 0x7f06009e
+			public const int Media3 = 2131099806;
+			
+			// aapt resource value: 0x7f0600a0
+			public const int Media4 = 2131099808;
+			
+			// aapt resource value: 0x7f06009c
+			public const int MediaContainer = 2131099804;
+			
+			// aapt resource value: 0x7f0600a1
+			public const int MediaFrame1 = 2131099809;
+			
+			// aapt resource value: 0x7f0600a2
+			public const int MediaFrame2 = 2131099810;
+			
+			// aapt resource value: 0x7f0600a3
+			public const int MediaFrame3 = 2131099811;
+			
+			// aapt resource value: 0x7f0600a4
+			public const int MediaFrame4 = 2131099812;
+			
+			// aapt resource value: 0x7f0600f1
+			public const int Message = 2131099889;
+			
+			// aapt resource value: 0x7f06008f
+			public const int Name = 2131099791;
+			
+			// aapt resource value: 0x7f0600bd
+			public const int NameLinear = 2131099837;
+			
+			// aapt resource value: 0x7f0600bc
+			public const int NameSpace = 2131099836;
+			
+			// aapt resource value: 0x7f0600d7
+			public const int Navigation = 2131099863;
 			
 			// aapt resource value: 0x7f06000b
 			public const int NavigationMenuAddAccount = 2131099659;
@@ -4446,92 +4452,92 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06000c
 			public const int NavigationMenuSetting = 2131099660;
 			
-			// aapt resource value: 0x7f060093
-			public const int PageLayout = 2131099795;
+			// aapt resource value: 0x7f0600ba
+			public const int PageLayout = 2131099834;
 			
-			// aapt resource value: 0x7f0600cd
-			public const int Pin = 2131099853;
+			// aapt resource value: 0x7f0600cf
+			public const int Pin = 2131099855;
 			
-			// aapt resource value: 0x7f0600c8
-			public const int ProgressBar = 2131099848;
+			// aapt resource value: 0x7f0600ca
+			public const int ProgressBar = 2131099850;
+			
+			// aapt resource value: 0x7f0600a8
+			public const int QuotingClickable = 2131099816;
+			
+			// aapt resource value: 0x7f0600a5
+			public const int QuotingContainer = 2131099813;
+			
+			// aapt resource value: 0x7f0600a9
+			public const int QuotingFooterMargin = 2131099817;
+			
+			// aapt resource value: 0x7f0600ab
+			public const int QuotingMedia1 = 2131099819;
+			
+			// aapt resource value: 0x7f0600ad
+			public const int QuotingMedia2 = 2131099821;
+			
+			// aapt resource value: 0x7f0600ac
+			public const int QuotingMedia3 = 2131099820;
 			
 			// aapt resource value: 0x7f0600ae
-			public const int QuotingClickable = 2131099822;
+			public const int QuotingMedia4 = 2131099822;
 			
-			// aapt resource value: 0x7f0600b3
-			public const int QuotingMedia1 = 2131099827;
+			// aapt resource value: 0x7f0600aa
+			public const int QuotingMediaContainer = 2131099818;
 			
-			// aapt resource value: 0x7f0600b6
-			public const int QuotingMedia2 = 2131099830;
+			// aapt resource value: 0x7f0600a7
+			public const int QuotingName = 2131099815;
 			
-			// aapt resource value: 0x7f0600b4
-			public const int QuotingMedia3 = 2131099828;
+			// aapt resource value: 0x7f0600a6
+			public const int QuotingText = 2131099814;
 			
-			// aapt resource value: 0x7f0600b7
-			public const int QuotingMedia4 = 2131099831;
+			// aapt resource value: 0x7f0600f3
+			public const int RecyclerView = 2131099891;
 			
-			// aapt resource value: 0x7f0600b1
-			public const int QuotingMediaGrid = 2131099825;
+			// aapt resource value: 0x7f0600bf
+			public const int Relationship = 2131099839;
 			
-			// aapt resource value: 0x7f0600b2
-			public const int QuotingMediaParent1 = 2131099826;
-			
-			// aapt resource value: 0x7f0600b5
-			public const int QuotingMediaParent2 = 2131099829;
-			
-			// aapt resource value: 0x7f0600af
-			public const int QuotingName = 2131099823;
-			
-			// aapt resource value: 0x7f0600b0
-			public const int QuotingText = 2131099824;
-			
-			// aapt resource value: 0x7f0600f1
-			public const int RecyclerView = 2131099889;
-			
-			// aapt resource value: 0x7f0600bd
-			public const int Relationship = 2131099837;
-			
-			// aapt resource value: 0x7f060095
-			public const int ReplyIcon = 2131099797;
-			
-			// aapt resource value: 0x7f060094
-			public const int ReplyIconClickable = 2131099796;
-			
-			// aapt resource value: 0x7f0600b8
-			public const int ReplyToUser = 2131099832;
-			
-			// aapt resource value: 0x7f0600b9
-			public const int RetweeingUser = 2131099833;
-			
-			// aapt resource value: 0x7f060098
-			public const int RetweetCount = 2131099800;
-			
-			// aapt resource value: 0x7f060097
-			public const int RetweetIcon = 2131099799;
+			// aapt resource value: 0x7f060093
+			public const int ReplyIcon = 2131099795;
 			
 			// aapt resource value: 0x7f060096
-			public const int RetweetIconClickable = 2131099798;
+			public const int ReplyIconClickable = 2131099798;
 			
-			// aapt resource value: 0x7f0600bc
-			public const int ScreenName = 2131099836;
+			// aapt resource value: 0x7f06008c
+			public const int ReplyToUser = 2131099788;
 			
-			// aapt resource value: 0x7f0600db
-			public const int SecondSubIcon = 2131099867;
+			// aapt resource value: 0x7f06008b
+			public const int RetweeingUser = 2131099787;
 			
-			// aapt resource value: 0x7f0600da
-			public const int SecondSubIconClickable = 2131099866;
+			// aapt resource value: 0x7f060099
+			public const int RetweetCount = 2131099801;
 			
-			// aapt resource value: 0x7f060092
-			public const int SlideLayout = 2131099794;
+			// aapt resource value: 0x7f060094
+			public const int RetweetIcon = 2131099796;
 			
-			// aapt resource value: 0x7f0600d0
-			public const int StatusBarSpace = 2131099856;
+			// aapt resource value: 0x7f060097
+			public const int RetweetIconClickable = 2131099799;
+			
+			// aapt resource value: 0x7f0600be
+			public const int ScreenName = 2131099838;
+			
+			// aapt resource value: 0x7f0600dd
+			public const int SecondSubIcon = 2131099869;
 			
 			// aapt resource value: 0x7f0600dc
-			public const int Subtitle = 2131099868;
+			public const int SecondSubIconClickable = 2131099868;
 			
-			// aapt resource value: 0x7f0600f0
-			public const int SwipeRefresh = 2131099888;
+			// aapt resource value: 0x7f0600b9
+			public const int SlideLayout = 2131099833;
+			
+			// aapt resource value: 0x7f0600d2
+			public const int StatusBarSpace = 2131099858;
+			
+			// aapt resource value: 0x7f0600de
+			public const int Subtitle = 2131099870;
+			
+			// aapt resource value: 0x7f0600f2
+			public const int SwipeRefresh = 2131099890;
 			
 			// aapt resource value: 0x7f06000d
 			public const int Tab1 = 2131099661;
@@ -4572,26 +4578,26 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060015
 			public const int TabUser = 2131099669;
 			
-			// aapt resource value: 0x7f0600a1
-			public const int Text = 2131099809;
+			// aapt resource value: 0x7f060091
+			public const int Text = 2131099793;
 			
-			// aapt resource value: 0x7f0600d1
-			public const int Toolbar = 2131099857;
-			
-			// aapt resource value: 0x7f0600c4
-			public const int Url = 2131099844;
-			
-			// aapt resource value: 0x7f06009f
-			public const int VerifyIcon = 2131099807;
-			
-			// aapt resource value: 0x7f0600f3
-			public const int VideoView = 2131099891;
+			// aapt resource value: 0x7f0600d3
+			public const int Toolbar = 2131099859;
 			
 			// aapt resource value: 0x7f0600c6
-			public const int Web = 2131099846;
+			public const int Url = 2131099846;
 			
-			// aapt resource value: 0x7f0600de
-			public const int action0 = 2131099870;
+			// aapt resource value: 0x7f06008e
+			public const int VerifyIcon = 2131099790;
+			
+			// aapt resource value: 0x7f0600f5
+			public const int VideoView = 2131099893;
+			
+			// aapt resource value: 0x7f0600c8
+			public const int Web = 2131099848;
+			
+			// aapt resource value: 0x7f0600e0
+			public const int action0 = 2131099872;
 			
 			// aapt resource value: 0x7f060073
 			public const int action_bar = 2131099763;
@@ -4617,8 +4623,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060074
 			public const int action_context_bar = 2131099764;
 			
-			// aapt resource value: 0x7f0600e2
-			public const int action_divider = 2131099874;
+			// aapt resource value: 0x7f0600e4
+			public const int action_divider = 2131099876;
 			
 			// aapt resource value: 0x7f060003
 			public const int action_menu_divider = 2131099651;
@@ -4680,8 +4686,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06005c
 			public const int buttonPanel = 2131099740;
 			
-			// aapt resource value: 0x7f0600df
-			public const int cancel_action = 2131099871;
+			// aapt resource value: 0x7f0600e1
+			public const int cancel_action = 2131099873;
 			
 			// aapt resource value: 0x7f06003b
 			public const int center = 2131099707;
@@ -4695,8 +4701,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06006a
 			public const int checkbox = 2131099754;
 			
-			// aapt resource value: 0x7f0600e5
-			public const int chronometer = 2131099877;
+			// aapt resource value: 0x7f0600e7
+			public const int chronometer = 2131099879;
 			
 			// aapt resource value: 0x7f060044
 			public const int clip_horizontal = 2131099716;
@@ -4722,20 +4728,20 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060058
 			public const int default_activity_button = 2131099736;
 			
-			// aapt resource value: 0x7f060089
-			public const int design_bottom_sheet = 2131099785;
+			// aapt resource value: 0x7f0600b0
+			public const int design_bottom_sheet = 2131099824;
 			
-			// aapt resource value: 0x7f060090
-			public const int design_menu_item_action_area = 2131099792;
+			// aapt resource value: 0x7f0600b7
+			public const int design_menu_item_action_area = 2131099831;
 			
-			// aapt resource value: 0x7f06008f
-			public const int design_menu_item_action_area_stub = 2131099791;
+			// aapt resource value: 0x7f0600b6
+			public const int design_menu_item_action_area_stub = 2131099830;
 			
-			// aapt resource value: 0x7f06008e
-			public const int design_menu_item_text = 2131099790;
+			// aapt resource value: 0x7f0600b5
+			public const int design_menu_item_text = 2131099829;
 			
-			// aapt resource value: 0x7f06008d
-			public const int design_navigation_view = 2131099789;
+			// aapt resource value: 0x7f0600b4
+			public const int design_navigation_view = 2131099828;
 			
 			// aapt resource value: 0x7f06001d
 			public const int disableHome = 2131099677;
@@ -4746,8 +4752,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06002c
 			public const int end = 2131099692;
 			
-			// aapt resource value: 0x7f0600ea
-			public const int end_padder = 2131099882;
+			// aapt resource value: 0x7f0600ec
+			public const int end_padder = 2131099884;
 			
 			// aapt resource value: 0x7f060035
 			public const int enterAlways = 2131099701;
@@ -4788,8 +4794,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06005a
 			public const int icon = 2131099738;
 			
-			// aapt resource value: 0x7f0600eb
-			public const int icon_frame = 2131099883;
+			// aapt resource value: 0x7f0600ed
+			public const int icon_frame = 2131099885;
 			
 			// aapt resource value: 0x7f060030
 			public const int ifRoom = 2131099696;
@@ -4797,8 +4803,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060057
 			public const int image = 2131099735;
 			
-			// aapt resource value: 0x7f0600e9
-			public const int info = 2131099881;
+			// aapt resource value: 0x7f0600eb
+			public const int info = 2131099883;
 			
 			// aapt resource value: 0x7f060000
 			public const int item_touch_helper_previous_elevation = 2131099648;
@@ -4806,17 +4812,17 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06003f
 			public const int left = 2131099711;
 			
-			// aapt resource value: 0x7f0600e3
-			public const int line1 = 2131099875;
+			// aapt resource value: 0x7f0600e5
+			public const int line1 = 2131099877;
 			
-			// aapt resource value: 0x7f0600e7
-			public const int line3 = 2131099879;
+			// aapt resource value: 0x7f0600e9
+			public const int line3 = 2131099881;
 			
-			// aapt resource value: 0x7f0600c7
-			public const int linear_stack_layout = 2131099847;
+			// aapt resource value: 0x7f0600c9
+			public const int linear_stack_layout = 2131099849;
 			
-			// aapt resource value: 0x7f0600ed
-			public const int list = 2131099885;
+			// aapt resource value: 0x7f0600ef
+			public const int list = 2131099887;
 			
 			// aapt resource value: 0x7f06001a
 			public const int listMode = 2131099674;
@@ -4824,8 +4830,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060059
 			public const int list_item = 2131099737;
 			
-			// aapt resource value: 0x7f0600e1
-			public const int media_actions = 2131099873;
+			// aapt resource value: 0x7f0600e3
+			public const int media_actions = 2131099875;
 			
 			// aapt resource value: 0x7f06002d
 			public const int middle = 2131099693;
@@ -4836,8 +4842,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060025
 			public const int multiply = 2131099685;
 			
-			// aapt resource value: 0x7f06008c
-			public const int navigation_header_container = 2131099788;
+			// aapt resource value: 0x7f0600b3
+			public const int navigation_header_container = 2131099827;
 			
 			// aapt resource value: 0x7f060031
 			public const int never = 2131099697;
@@ -4941,11 +4947,11 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06004e
 			public const int shy = 2131099726;
 			
-			// aapt resource value: 0x7f06008b
-			public const int snackbar_action = 2131099787;
+			// aapt resource value: 0x7f0600b2
+			public const int snackbar_action = 2131099826;
 			
-			// aapt resource value: 0x7f06008a
-			public const int snackbar_text = 2131099786;
+			// aapt resource value: 0x7f0600b1
+			public const int snackbar_text = 2131099825;
 			
 			// aapt resource value: 0x7f060039
 			public const int snap = 2131099705;
@@ -4953,8 +4959,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06005d
 			public const int spacer = 2131099741;
 			
-			// aapt resource value: 0x7f0600ec
-			public const int spinner = 2131099884;
+			// aapt resource value: 0x7f0600ee
+			public const int spinner = 2131099886;
 			
 			// aapt resource value: 0x7f060008
 			public const int split_action_bar = 2131099656;
@@ -4971,8 +4977,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f060041
 			public const int start = 2131099713;
 			
-			// aapt resource value: 0x7f0600e0
-			public const int status_bar_latest_event_content = 2131099872;
+			// aapt resource value: 0x7f0600e2
+			public const int status_bar_latest_event_content = 2131099874;
 			
 			// aapt resource value: 0x7f06006d
 			public const int submenuarrow = 2131099757;
@@ -4980,29 +4986,29 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06007e
 			public const int submit_area = 2131099774;
 			
-			// aapt resource value: 0x7f0600ee
-			public const int switchWidget = 2131099886;
+			// aapt resource value: 0x7f0600f0
+			public const int switchWidget = 2131099888;
 			
 			// aapt resource value: 0x7f06001c
 			public const int tabMode = 2131099676;
 			
+			// aapt resource value: 0x7f0600ea
+			public const int text = 2131099882;
+			
+			// aapt resource value: 0x7f0600ce
+			public const int text1 = 2131099854;
+			
 			// aapt resource value: 0x7f0600e8
-			public const int text = 2131099880;
-			
-			// aapt resource value: 0x7f0600cc
-			public const int text1 = 2131099852;
-			
-			// aapt resource value: 0x7f0600e6
-			public const int text2 = 2131099878;
+			public const int text2 = 2131099880;
 			
 			// aapt resource value: 0x7f060065
 			public const int textSpacerNoButtons = 2131099749;
 			
-			// aapt resource value: 0x7f060091
-			public const int text_input_password_toggle = 2131099793;
+			// aapt resource value: 0x7f0600b8
+			public const int text_input_password_toggle = 2131099832;
 			
-			// aapt resource value: 0x7f0600e4
-			public const int time = 2131099876;
+			// aapt resource value: 0x7f0600e6
+			public const int time = 2131099878;
 			
 			// aapt resource value: 0x7f06005b
 			public const int title = 2131099739;
@@ -5016,8 +5022,8 @@ namespace Twichirp.Android
 			// aapt resource value: 0x7f06005f
 			public const int topPanel = 2131099743;
 			
-			// aapt resource value: 0x7f060088
-			public const int touch_outside = 2131099784;
+			// aapt resource value: 0x7f0600af
+			public const int touch_outside = 2131099823;
 			
 			// aapt resource value: 0x7f06004f
 			public const int underNavbar = 2131099727;
@@ -5181,205 +5187,184 @@ namespace Twichirp.Android
 			public const int bb_bottom_bar_item_shifting = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int design_bottom_sheet_dialog = 2130903071;
+			public const int constraint_status_holder = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int design_layout_snackbar = 2130903072;
+			public const int constraint_status_media_holder = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int design_layout_snackbar_include = 2130903073;
+			public const int constraint_status_quoting_holder = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int design_layout_tab_icon = 2130903074;
+			public const int constraint_status_quoting_inner_and_outer_media_holder = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public const int design_layout_tab_text = 2130903075;
+			public const int constraint_status_quoting_inner_media_holder = 2130903075;
 			
 			// aapt resource value: 0x7f030024
-			public const int design_menu_item_action_area = 2130903076;
+			public const int constraint_status_quoting_outer_media_holder = 2130903076;
 			
 			// aapt resource value: 0x7f030025
-			public const int design_navigation_item = 2130903077;
+			public const int design_bottom_sheet_dialog = 2130903077;
 			
 			// aapt resource value: 0x7f030026
-			public const int design_navigation_item_header = 2130903078;
+			public const int design_layout_snackbar = 2130903078;
 			
 			// aapt resource value: 0x7f030027
-			public const int design_navigation_item_separator = 2130903079;
+			public const int design_layout_snackbar_include = 2130903079;
 			
 			// aapt resource value: 0x7f030028
-			public const int design_navigation_item_subheader = 2130903080;
+			public const int design_layout_tab_icon = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int design_navigation_menu = 2130903081;
+			public const int design_layout_tab_text = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int design_navigation_menu_item = 2130903082;
+			public const int design_menu_item_action_area = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int design_text_input_password_icon = 2130903083;
+			public const int design_navigation_item = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int ImageViewerActivity = 2130903084;
+			public const int design_navigation_item_header = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int IncludeStatusAction = 2130903085;
+			public const int design_navigation_item_separator = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int IncludeStatusMain = 2130903086;
+			public const int design_navigation_item_subheader = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int IncludeStatusMedia = 2130903087;
+			public const int design_navigation_menu = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int IncludeStatusQuoting = 2130903088;
+			public const int design_navigation_menu_item = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int IncludeStatusQuotingInnerMedia = 2130903089;
+			public const int design_text_input_password_icon = 2130903089;
 			
 			// aapt resource value: 0x7f030032
-			public const int IncludeStatusReplyToUser = 2130903090;
+			public const int ImageViewerActivity = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int IncludeStatusRetweeting = 2130903091;
+			public const int IncludeUserProfile = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int IncludeUserProfile = 2130903092;
+			public const int LicenseActivity = 2130903092;
 			
 			// aapt resource value: 0x7f030035
-			public const int LicenseActivity = 2130903093;
+			public const int LinearStackLayout = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int LinearStackLayout = 2130903094;
+			public const int LoadingHolder = 2130903094;
 			
 			// aapt resource value: 0x7f030037
-			public const int LoadingHolder = 2130903095;
+			public const int LoginActivity = 2130903095;
 			
 			// aapt resource value: 0x7f030038
-			public const int LoginActivity = 2130903096;
+			public const int MainActivity = 2130903096;
 			
 			// aapt resource value: 0x7f030039
-			public const int MainActivity = 2130903097;
+			public const int NavigationHeader = 2130903097;
 			
 			// aapt resource value: 0x7f03003a
-			public const int NavigationHeader = 2130903098;
+			public const int notification_media_action = 2130903098;
 			
 			// aapt resource value: 0x7f03003b
-			public const int notification_media_action = 2130903099;
+			public const int notification_media_cancel_action = 2130903099;
 			
 			// aapt resource value: 0x7f03003c
-			public const int notification_media_cancel_action = 2130903100;
+			public const int notification_template_big_media = 2130903100;
 			
 			// aapt resource value: 0x7f03003d
-			public const int notification_template_big_media = 2130903101;
+			public const int notification_template_big_media_narrow = 2130903101;
 			
 			// aapt resource value: 0x7f03003e
-			public const int notification_template_big_media_narrow = 2130903102;
+			public const int notification_template_lines = 2130903102;
 			
 			// aapt resource value: 0x7f03003f
-			public const int notification_template_lines = 2130903103;
+			public const int notification_template_media = 2130903103;
 			
 			// aapt resource value: 0x7f030040
-			public const int notification_template_media = 2130903104;
+			public const int notification_template_part_chronometer = 2130903104;
 			
 			// aapt resource value: 0x7f030041
-			public const int notification_template_part_chronometer = 2130903105;
+			public const int notification_template_part_time = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int notification_template_part_time = 2130903106;
+			public const int OpenSourceActivity = 2130903106;
 			
 			// aapt resource value: 0x7f030043
-			public const int OpenSourceActivity = 2130903107;
+			public const int preference = 2130903107;
 			
 			// aapt resource value: 0x7f030044
-			public const int preference = 2130903108;
+			public const int preference_category = 2130903108;
 			
 			// aapt resource value: 0x7f030045
-			public const int preference_category = 2130903109;
+			public const int preference_category_material = 2130903109;
 			
 			// aapt resource value: 0x7f030046
-			public const int preference_category_material = 2130903110;
+			public const int preference_dialog_edittext = 2130903110;
 			
 			// aapt resource value: 0x7f030047
-			public const int preference_dialog_edittext = 2130903111;
+			public const int preference_dropdown = 2130903111;
 			
 			// aapt resource value: 0x7f030048
-			public const int preference_dropdown = 2130903112;
+			public const int preference_dropdown_material = 2130903112;
 			
 			// aapt resource value: 0x7f030049
-			public const int preference_dropdown_material = 2130903113;
+			public const int preference_information = 2130903113;
 			
 			// aapt resource value: 0x7f03004a
-			public const int preference_information = 2130903114;
+			public const int preference_information_material = 2130903114;
 			
 			// aapt resource value: 0x7f03004b
-			public const int preference_information_material = 2130903115;
+			public const int preference_list_fragment = 2130903115;
 			
 			// aapt resource value: 0x7f03004c
-			public const int preference_list_fragment = 2130903116;
+			public const int preference_material = 2130903116;
 			
 			// aapt resource value: 0x7f03004d
-			public const int preference_material = 2130903117;
+			public const int preference_recyclerview = 2130903117;
 			
 			// aapt resource value: 0x7f03004e
-			public const int preference_recyclerview = 2130903118;
+			public const int preference_widget_checkbox = 2130903118;
 			
 			// aapt resource value: 0x7f03004f
-			public const int preference_widget_checkbox = 2130903119;
+			public const int preference_widget_switch = 2130903119;
 			
 			// aapt resource value: 0x7f030050
-			public const int preference_widget_switch = 2130903120;
+			public const int preference_widget_switch_compat = 2130903120;
 			
 			// aapt resource value: 0x7f030051
-			public const int preference_widget_switch_compat = 2130903121;
+			public const int select_dialog_item_material = 2130903121;
 			
 			// aapt resource value: 0x7f030052
-			public const int select_dialog_item_material = 2130903122;
+			public const int select_dialog_multichoice_material = 2130903122;
 			
 			// aapt resource value: 0x7f030053
-			public const int select_dialog_multichoice_material = 2130903123;
+			public const int select_dialog_singlechoice_material = 2130903123;
 			
 			// aapt resource value: 0x7f030054
-			public const int select_dialog_singlechoice_material = 2130903124;
+			public const int SettingActivity = 2130903124;
 			
 			// aapt resource value: 0x7f030055
-			public const int SettingActivity = 2130903125;
+			public const int SplashActivity = 2130903125;
 			
 			// aapt resource value: 0x7f030056
-			public const int SplashActivity = 2130903126;
+			public const int StatusTimelineFragment = 2130903126;
 			
 			// aapt resource value: 0x7f030057
-			public const int StatusHolder = 2130903127;
+			public const int support_simple_spinner_dropdown_item = 2130903127;
 			
 			// aapt resource value: 0x7f030058
-			public const int StatusMediaHolder = 2130903128;
+			public const int Toolbar = 2130903128;
 			
 			// aapt resource value: 0x7f030059
-			public const int StatusQuotingHolder = 2130903129;
+			public const int UserProfileActivity = 2130903129;
 			
 			// aapt resource value: 0x7f03005a
-			public const int StatusQuotingInnerAndOuterMediaHolder = 2130903130;
-			
-			// aapt resource value: 0x7f03005b
-			public const int StatusQuotingInnerMediaHolder = 2130903131;
-			
-			// aapt resource value: 0x7f03005c
-			public const int StatusQuotingOuterMediaHolder = 2130903132;
-			
-			// aapt resource value: 0x7f03005d
-			public const int StatusTimelineFragment = 2130903133;
-			
-			// aapt resource value: 0x7f03005e
-			public const int support_simple_spinner_dropdown_item = 2130903134;
-			
-			// aapt resource value: 0x7f03005f
-			public const int Toolbar = 2130903135;
-			
-			// aapt resource value: 0x7f030060
-			public const int UserProfileActivity = 2130903136;
-			
-			// aapt resource value: 0x7f030061
-			public const int VideoViewerActivity = 2130903137;
+			public const int VideoViewerActivity = 2130903130;
 			
 			static Layout()
 			{

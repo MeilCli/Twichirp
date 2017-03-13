@@ -107,19 +107,19 @@ namespace Twichirp.Android.ViewControllers {
         private ViewHolder adapterViewCreate(ViewGroup parent, int itemType) {
             switch (itemType) {
                 case loadingType:
-                    return LoadingHolder.Make(View);
+                    return LoadingHolder.Make(View, parent);
                 case preStatusTypeParam + StatusViewModel.NormalTweet:
-                    return StatusHolder.Make(View);
+                    return StatusHolder.Make(View, parent);
                 case preStatusTypeParam + StatusViewModel.MediaTweet:
-                    return StatusMediaHolder.Make(View);
+                    return StatusMediaHolder.Make(View, parent);
                 case preStatusTypeParam + StatusViewModel.QuotedTweet:
-                    return StatusQuotingHolder.Make(View);
+                    return StatusQuotingHolder.Make(View, parent);
                 case preStatusTypeParam + StatusViewModel.QuotedInnerMediaTweet:
-                    return StatusQuotingInnerMediaHolder.Make(View);
+                    return StatusQuotingInnerMediaHolder.Make(View, parent);
                 case preStatusTypeParam + StatusViewModel.QuotedOuterMediaTweet:
-                    return StatusQuotingOuterMediaHolder.Make(View);
+                    return StatusQuotingOuterMediaHolder.Make(View, parent);
                 case preStatusTypeParam + StatusViewModel.QuotedInnerAndOuterMediaTweet:
-                    return StatusQuotingInnerAndOuterMediaHolder.Make(View);
+                    return StatusQuotingInnerAndOuterMediaHolder.Make(View, parent);
             }
             return null;
         }

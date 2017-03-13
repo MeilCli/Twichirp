@@ -38,3 +38,7 @@ This application license is LGPL v3.0
 - [FFImageLoading](https://github.com/luberda-molinet/FFImageLoading)
 - [Material design icons](https://github.com/google/material-design-icons)
 - [BottomBarSharp](https://github.com/MeilCli/BottomBarSharp)
+
+#### Android.Layout
+
+- [Material design icons](https://github.com/google/material-design-icons)

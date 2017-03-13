@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using Android.Support.Constraints;
 using Android.Support.V4.Content.Res;
 using Android.Support.V4.Graphics.Drawable;
 using Android.Views;
@@ -156,10 +157,37 @@ namespace Twichirp.Android.ViewControllers {
 
         private void setMedia(IEnumerable<MediaEntity> media) {
             int count = media.Count();
-            View.MediaParent2.Visibility = count >= 2 ? ViewStates.Visible : ViewStates.Gone;
             View.MediaFrame2.Visibility = count >= 2 ? ViewStates.Visible : ViewStates.Gone;
             View.MediaFrame3.Visibility = count >= 3 ? ViewStates.Visible : ViewStates.Gone;
             View.MediaFrame4.Visibility = count >= 4 ? ViewStates.Visible : ViewStates.Gone;
+            View.Media2.Visibility = count >= 2 ? ViewStates.Visible : ViewStates.Gone;
+            View.Media3.Visibility = count >= 3 ? ViewStates.Visible : ViewStates.Gone;
+            View.Media4.Visibility = count >= 4 ? ViewStates.Visible : ViewStates.Gone;
+
+            // ConstraintLayout 1.0.0 alpha-9‚ÌƒoƒO‚ÅGone‚ª”½‰f‚³‚ê‚È‚¢
+            // Issue‚É‚æ‚é‚Æ1.0.0 beta-2‚®‚ç‚¢‚Å’¼‚Á‚½‚ç‚µ‚¢(‰“‚¢–Ú)
+            bool changed = false;
+            if (View.Media1.LayoutParameters is ConstraintLayout.LayoutParams layoutParams1) {
+                if (View.Media2.Visibility == ViewStates.Gone) {
+                    layoutParams1.RightToLeft = ConstraintLayout.LayoutParams.Unset;
+                    layoutParams1.RightToRight = Resource.Id.MediaContainer;
+                    changed = true;
+                }
+                if (View.Media3.Visibility == ViewStates.Gone) {
+                    layoutParams1.BottomToTop = ConstraintLayout.LayoutParams.Unset;
+                    layoutParams1.BottomToBottom = Resource.Id.MediaContainer;
+                    changed = true;
+                }
+            }
+            if (View.Media4.Visibility == ViewStates.Gone && View.Media3.LayoutParameters is ConstraintLayout.LayoutParams layoutParams3) {
+                layoutParams3.RightToLeft = ConstraintLayout.LayoutParams.Unset;
+                layoutParams3.RightToRight = Resource.Id.MediaContainer;
+                changed = true;
+            }
+            if (changed) {
+                View.Media1.Parent.RequestLayout();
+            }
+
             var mediaViews = new[] { View.Media1, View.Media2, View.Media3, View.Media4 };
             for (int i = 0; i < count && i < mediaViews.Length; i++) {
                 var m = media.ElementAt(i);
@@ -195,10 +223,34 @@ namespace Twichirp.Android.ViewControllers {
 
         private void setQuotingMedia(IEnumerable<MediaEntity> media) {
             int count = media.Count();
-            View.QuotingMediaParent2.Visibility = count >= 2 ? ViewStates.Visible : ViewStates.Gone;
             View.QuotingMedia2.Visibility = count >= 2 ? ViewStates.Visible : ViewStates.Gone;
             View.QuotingMedia3.Visibility = count >= 3 ? ViewStates.Visible : ViewStates.Gone;
             View.QuotingMedia4.Visibility = count >= 4 ? ViewStates.Visible : ViewStates.Gone;
+
+            // ConstraintLayout 1.0.0 alpha-9‚ÌƒoƒO‚ÅGone‚ª”½‰f‚³‚ê‚È‚¢
+            // Issue‚É‚æ‚é‚Æ1.0.0 beta-2‚®‚ç‚¢‚Å’¼‚Á‚½‚ç‚µ‚¢(‰“‚¢–Ú)
+            bool changed = false;
+            if (View.QuotingMedia1.LayoutParameters is ConstraintLayout.LayoutParams layoutParams1) {
+                if (View.QuotingMedia2.Visibility == ViewStates.Gone) {
+                    layoutParams1.RightToLeft = ConstraintLayout.LayoutParams.Unset;
+                    layoutParams1.RightToRight = Resource.Id.QuotingMediaContainer;
+                    changed = true;
+                }
+                if (View.QuotingMedia3.Visibility == ViewStates.Gone) {
+                    layoutParams1.BottomToTop = ConstraintLayout.LayoutParams.Unset;
+                    layoutParams1.BottomToBottom = Resource.Id.QuotingMediaContainer;
+                    changed = true;
+                }
+            }
+            if (View.QuotingMedia4.Visibility == ViewStates.Gone && View.QuotingMedia3.LayoutParameters is ConstraintLayout.LayoutParams layoutParams3) {
+                layoutParams3.RightToLeft = ConstraintLayout.LayoutParams.Unset;
+                layoutParams3.RightToRight = Resource.Id.QuotingMediaContainer;
+                changed = true;
+            }
+            if (changed) {
+                View.QuotingMedia1.Parent.RequestLayout();
+            }
+
             var mediaViews = new[] { View.QuotingMedia1, View.QuotingMedia2, View.QuotingMedia3, View.QuotingMedia4 };
             for (int i = 0; i < count && i < mediaViews.Length; i++) {
                 ImageService.Instance.LoadUrl(media.ElementAt(i).MediaUrl + ":small").FadeAnimation(true).Into(mediaViews[i]);
